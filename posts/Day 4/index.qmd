@@ -1,0 +1,374 @@
+---
+title: "Day 4"
+author: "Khushi"
+---
+
+## Introduction
+
+Today, we are looking at quantities.
+
+```{r}
+#| label: setup
+library(tidyverse)
+library(mosaic)
+library(ggformula)
+library(skimr)
+library(crosstable) 
+```
+
+### Look at the diamonds dataset
+
+```{r}
+diamonds
+```
+
+### First 10 rows of the diamonds dataset
+
+```{r}
+diamonds
+ head(10)
+```
+
+### Glimpse - diamonds dataset
+
+```{r}
+glimpse(diamonds)
+```
+
+### Inspect - diamonds dataset
+
+```{r}
+inspect(diamonds)
+```
+
+### Skim - diamonds dataset
+
+```{r}
+skim(diamonds)
+```
+
+### What is the distribution of the target variable price?
+
+```{r}
+gf_histogram(~price, data = diamonds) %>%
+  gf_labs(
+    title = "Plot 1A: Diamond Prices",
+    caption = "ggformula"
+  )
+```
+
+### Plot 1B: Diamond Prices
+
+```{r}
+gf_histogram(~price,
+  data = diamonds,
+  bins = 100
+) %>%
+  gf_labs(
+    title = "Plot 1B: Diamond Prices",
+    caption = "ggformula"
+  )
+# bins- number of classes on the x-axis
+```
+
+### What is the distribution of the predictor variable carat?
+
+```{r}
+diamonds %>%
+  gf_histogram(~carat) %>%
+  gf_labs(
+    title = "Plot 2A: Carats of Diamonds",
+    caption = "ggformula"
+  )
+```
+
+### Plot 2B: Carats of Diamonds
+
+```{r}
+diamonds %>%
+  gf_histogram(~carat,
+    bins = 100
+  ) %>%
+  gf_labs(
+    title = "Plot 2B: Carats of Diamonds",
+    caption = "ggformula"
+  )
+```
+
+### Does a price distribution vary based upon type of cut, clarity, and colour?
+
+```{r}
+gf_histogram(~price, fill = ~cut, data = diamonds) %>%
+  gf_labs(title = "Plot 3A: Diamond Prices", caption = "ggformula")
+```
+
+### Plot 3B: Prices by Cut
+
+```{r}
+diamonds %>%
+  gf_histogram(~price, fill = ~cut, color = "black", alpha = 0.1) %>%
+  gf_labs(
+    title = "Plot 3B: Prices by Cut",
+    caption = "ggformula"
+  )
+#color- colour of outline, alpha- opacity of filled colour
+```
+
+### Plot 3C: Prices by Filled and Facetted by Cut
+
+```{r}
+diamonds %>%
+  gf_histogram(~price, fill = ~cut, color = "black", alpha = 0.5) %>%
+  gf_facet_wrap(~cut) %>%
+  gf_labs(
+    title = "Plot 3C: Prices by Filled and Facetted by Cut",
+    caption = "ggformula"
+  ) %>%
+  gf_theme(theme(
+    axis.text.x = element_text(
+      angle = 45,
+      hjust = 1
+    )
+  ))
+# gf_facet_wrap- divides the one graph into various graphs depending on the numbers of levels, gf_theme- style of text for characters titling the x-axis
+```
+
+### Plot 3D: Prices Filled and Facetted by Cut
+
+```{r}
+diamonds %>%
+  gf_histogram(~price, fill = ~cut, color = "black", alpha = 0.7) %>%
+  gf_facet_wrap(~cut, scales = "free_y", nrow = 2) %>%
+  gf_labs(
+    title = "Plot 3D: Prices Filled and Facetted by Cut",
+    subtitle = "Free y-scale",
+    caption = "ggformula"
+  ) %>%
+  gf_theme(theme(
+    axis.text.x =
+      element_text(
+        angle = 45,
+        hjust = 1
+      )
+  ))
+# free y-scale- each different graph will now follow a different scale along the y-axis according to requirements
+```
+
+### Look at the two datasets- "race_df" and "rank_df"
+
+```{r}
+race_df <- read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-10-26/race.csv")
+rank_df <- read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-10-26/ultra_rankings.csv")
+```
+
+### Dataset - race_df
+
+```{r}
+race_df
+```
+
+### Dataset - rank_df
+
+```{r}
+rank_df
+```
+
+### Glimpse - race_df
+
+```{r}
+glimpse(race_df)
+```
+
+### Glimpse - rank_df
+
+```{r}
+glimpse(rank_df)
+```
+
+### Summary of Statistics - Distance
+
+```{r}
+race_df %>%
+  favstats(~distance, data = .)
+# favstats- summary statistics (such as the minimum, maximum, mean, median, standard deviation, and more) 
+```
+
+### Summary of Statistics - Time in seconds, Gender
+
+```{r}
+rank_df %>%
+  drop_na() %>%
+  favstats(time_in_seconds ~ gender, data = .)
+# drop_na()- removes rows that contain missing values
+```
+
+### Crosstable
+
+```{r}
+crosstable(time_in_seconds + age ~ gender, data = rank_df) %>%
+  crosstable::as_flextable()
+# crosstable- useful for exploring the relationship between two or more categorical variables, and it often includes descriptive statistics for numeric variables.
+```
+
+### Arranging countries in descending order of counts under races
+
+```{r}
+race_df %>%
+  count(country) %>%
+  arrange(desc(n))
+# count(country): This function counts the occurrences of each unique value in the country column.
+# arrange(desc(n)): This function sorts the resulting data frame in descending order (desc) based on the count (n).
+```
+
+### Arranging in descending order of counts under nationality
+
+```{r}
+rank_df %>%
+  count(nationality) %>%
+  arrange(desc(n))
+```
+
+### Filtering according to ranks
+
+```{r}
+rank_df %>%
+  filter(rank %in% c(1, 2, 3)) %>%
+  count(nationality) %>%
+  arrange(desc(n))
+# filter(rank %in% c(1, 2, 3))- This function filters the rows of rank_df where the rank column contains the values 1, 2, or 3.
+```
+
+### Number of participants from different nationalities appearing in the top 10 ranks of the longest races, sorted by the highest count of participants per nationality
+
+```{r}
+longest_races <- race_df %>%
+  slice_max(n = 5, order_by = distance) # Longest distance races
+longest_races
+longest_races %>%
+  left_join(., rank_df, by = "race_year_id") %>% # total participants in longest 4 races
+  filter(rank %in% c(1:10)) %>% # Top 10 ranks
+  count(nationality) %>%
+  arrange(desc(n))
+# slice_max(n = 5, order_by = distance)- This function selects the top 5 rows (races) from race_df, ordering them by the distance column in descending order, meaning it returns the races with the longest distances.
+# left_join(., rank_df, by = "race_year_id")- This joins the longest_races data frame with the rank_df data frame on the race_year_id column. The . represents the data passed from the previous pipe.
+# filter(rank %in% c(1:10))- After joining, this filters the data to include only participants who ranked between 1 and 10. It keeps the top 10 participants for each of the longest races.
+```
+
+### Histogram of Race Times
+
+```{r}
+rank_df %>%
+  gf_histogram(~time_in_seconds, bins = 75) %>%
+  gf_labs(title = "Histogram of Race Times")
+```
+
+### Histogram of Race Distances
+
+```{r}
+race_df %>%
+  gf_histogram(~distance, bins = 50) %>%
+  gf_labs(title = "Histogram of Race Distances")
+```
+
+### Filtering raceswith Distance=0
+
+```{r}
+race_df %>%
+  filter(distance == 0)
+# Could be cancelled events
+```
+
+### Arranging in descending order of counts under Race Start Time
+
+```{r}
+race_times <- race_df %>%
+  count(start_time) %>%
+  arrange(desc(n))
+race_times
+```
+
+### Distribution of race times based on when the race started during the day
+
+```{r}
+race_start_factor <- race_df %>%
+  filter(distance == 0) %>% # Races that actually took place
+  mutate(
+    start_day_time =
+      case_when(
+        start_time > hms("02:00:00") &
+          start_time <= hms("06:00:00") ~ "early_morning",
+        start_time > hms("06:00:01") &
+          start_time <= hms("10:00:00") ~ "late_morning",
+        start_time > hms("10:00:01") &
+          start_time <= hms("14:00:00") ~ "mid_day",
+        start_time > hms("14:00:01") &
+          start_time <= hms("18:00:00") ~ "afternoon",
+        start_time > hms("18:00:01") &
+          start_time <= hms("22:00:00") ~ "evening",
+        start_time > hms("22:00:01") &
+          start_time <= hms("23:59:59") ~ "night",
+        start_time >= hms("00:00:00") &
+          start_time <= hms("02:00:00") ~ "postmidnight",
+        .default = "other"
+      )
+  ) %>%
+  mutate(
+    start_day_time =
+      as_factor(start_day_time) %>%
+        fct_collapse(
+          .f = .,
+          night = c("night", "postmidnight")
+        )
+  )
+##
+# Join with rank_df
+race_start_factor %>%
+  left_join(rank_df, by = "race_year_id") %>%
+  drop_na(time_in_seconds) %>%
+  gf_histogram(
+    ~time_in_seconds,
+    bins = 75,
+    fill = ~start_day_time,
+    color = ~start_day_time,
+    alpha = 0.5
+  ) %>%
+  gf_facet_wrap(vars(start_day_time), ncol = 2, scales = "free_y") %>%
+  gf_labs(title = "Race Times by Start-Time")
+# filter(distance == 0): This filters the dataset to keep only the races that actually took place
+# mutate(start_day_time = case_when(...)): The case_when() function categorizes the start_time into various parts of the day (e.g., "early_morning", "mid_day", etc.).
+# hms(): A function that converts a time string to a time object
+# fct_collapse(): After creating the start_day_time categories, it combines the "night" and "postmidnight" categories into a single "night" factor.
+# left_join(rank_df, by = "race_year_id"): This joins the race_start_factor data frame with the rank_df data frame on the race_year_id column, bringing in additional details about rankings and times.
+# drop_na(time_in_seconds): Removes any rows where the time_in_seconds column contains missing values, ensuring valid race time data for the visualization.
+#  It uses 2 columns (ncol = 2).
+```
+
+### Populations dataset
+
+```{r}
+populations <- read_csv("../../data/populations.csv")
+populations
+```
+
+### Inspect - populations dataset
+
+```{r}
+inspect(populations)
+```
+
+### Long Tailed Histogram and Density
+
+```{r}
+gf_histogram(~value, data = populations, title = "Long Tailed Histogram")
+##
+gf_density(~value, data = populations, title = "Long Tailed Density")
+# gf_density(): This function creates a density plot, which is a smoothed version of the histogram. It estimates the probability density function of the variable. Shows the overall shape of the distribution without the bins.Shows both the discrete and continuous aspects of the distribution.
+```
+
+### Histogram and Density with Log transformed x-variable
+
+```{r}
+gf_histogram(~ log10(value), data = populations, title = "Histogram with Log transformed x-variable")
+##
+gf_density(~ log10(value), data = populations, title = "Density with Log transformed x-variable")
+```

@@ -1,0 +1,73 @@
+---
+title: "Day 1"
+author: "Khushi"
+---
+
+## Introduction
+
+This is my first time making a website.
+
+```{r}
+#| label: setup
+library(tidyverse)
+library(ggformula)
+library(babynames)
+```
+
+```{r}
+babynames
+```
+
+The table displays baby names from 1880-2017, showing how frequently each name was given and its proportion among all births that year.
+
+### Looking up the name "Aditi"
+
+```{r}
+babynames %>% filter(name=="Aditi")
+```
+
+This table displays the usage of the name "Aditi" for baby girls in the United States between 1977 and 2017. The name was initially quite uncommon, with fewer than 10 occurrences annually from 1977 to 1982. Over the years, however, it steadily gained popularity. The peak was in 2008, when 203 baby girls were named Aditi, accounting for 0.0009755 of all female births that year. After 2008, the name’s popularity varied slightly but remained fairly stable, with a gradual decline in the following years. By 2017, 127 baby girls were named Aditi, representing 0.0006774 of female births.
+
+### Plotting a Line graph for the name "Aditi"
+
+```{r}
+babynames %>% filter(name=="Aditi") %>% 
+  gf_line(n~year)
+# gf_line-Line Graphs
+```
+
+The line graph shows the trend in the popularity of the name "Aditi" for baby girls in the United States from 1977 to 2017. The y-axis (n) represents the number of babies given the name each year, while the x-axis (year) tracks the years over time.The graph clearly illustrates a significant rise followed by a gradual decline.
+
+### Looking up my name -"Khushi" and another possible spelling -"Kushi"
+
+```{r}
+babynames %>% filter(name=="Khushi" | name=="Kushi")
+```
+
+The comparison between the spellings "Khushi" and "Kushi" reveals notable trends. Neither name appeared in the U.S. dataset from 1880 to 1999, and both first emerged in 1999 with very low occurrences. However, "Khushi" quickly became more popular, while "Kushi" remained relatively rare. By 2003, 178 baby girls were named "Khushi," compared to just 9 named "Kushi," and this pattern persisted in the following years. Overall, "Khushi" consistently saw higher usage, demonstrating how different spellings of the same name can experience varying levels of adoption over time.
+
+### Plotting a Line graph for my name -"Khushi" and another possible spelling -"Kushi"
+
+```{r}
+babynames %>% filter(name=="Khushi"| name=="Kushi") %>% 
+  gf_line(n~year)
+```
+
+This line graph illustrates the trend in the popularity of the names "Khushi" and "Kushi" for baby girls in the U.S. from 1999 to 2017. The y-axis (n) represents the number of babies named each year, and the x-axis (year) tracks the timeline.
+
+### Looking up my roommate's name -"Anousha"
+
+```{r}
+babynames %>% filter(name=="Anousha")
+```
+
+The name "Anousha" is extremely rare in the "babynames" dataset, which spans from 1880 to 2017. Despite the large timeframe, the name appears only three times: in 2006, 2007, and 2013. In each of these years, the number of baby girls named Anousha was very low, with a maximum of just 9 occurrences in 2007.
+
+### Plotting a Line graph for my roommate's name -"Anousha"
+
+```{r}
+babynames %>% filter(name=="Anousha") %>% 
+ gf_line(n~year)
+```
+
+This line graph shows the trend in the number of baby girls named "Anousha" in the U.S. from 2006 to 2013. The y-axis (n) represents the number of occurrences each year, while the x-axis (year) tracks the time period.

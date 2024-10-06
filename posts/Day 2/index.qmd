@@ -1,0 +1,436 @@
+---
+title: "Day 2"
+author: "Khushi"
+---
+
+## Introduction
+
+I am working with data summaries. First, mpg, then something else.
+
+```{r}
+#| label: setup
+library(tidyverse)
+library(ggformula)
+library(mosaic)
+library(kableExtra)
+library(skimr)
+```
+
+### Look at the mpg dataset
+
+```{r}
+mpg
+```
+
+The table provides information on various car models from 1999 and 2008, highlighting key specifications. The data allows for a detailed comparison of the cars' performance and specifications across different years and models.
+
+### First 10 rows of the mpg dataset
+
+```{r}
+mpg 
+  head(10) 
+```
+
+The table displays the first 10 rows of the mpg dataset, with details on engine size (displacement), number of cylinders, transmission type (automatic or manual), drivetrain (front-wheel or all-wheel drive), and fuel efficiency in city and highway miles per gallon (MPG). The engine displacement ranges from 1.8 to 3.1 liters, and the number of cylinders is either 4 or 6. The city MPG varies from 16 to 21, while highway MPG ranges from 25 to 31.
+
+### Glimpse - mpg dataset
+
+```{r}
+glimpse(mpg)
+```
+
+This summary provides an overview of the specifications and performance characteristics of car models in the dataset.
+
+### Inspect - mpg dataset
+
+```{r}
+inspect(mpg)
+```
+
+The inspection of the mpg dataset reveals two types of variables: categorical and quantitative. Categorical variables include manufacturer, model, transmission, drivetrain, fl (fuel type), and class, with a total of 234 entries and no missing data. Quantitative variables, such as engine displacement, year, number of cylinders, city miles per gallon, and highway miles per gallon, are summarized with key statistics. For example, engine displacement ranges from 1.6 to 7 liters, and city MPG varies from 9 to 35, with an average of 16.86. This overview highlights the structure and details of the dataset, providing both descriptive and numerical insights.
+
+### Skim - mpg dataset
+
+```{r}
+skim(mpg)
+```
+
+All variables have complete data with no missing values.This dataset provides a comprehensive view of car specifications and fuel efficiency, ready for further analysis.
+
+### Data Dictionary
+
+#### Quantitative Data
+
+-   **Engine Displacement (dbl)**: The engine size in liters.
+
+-   **Model Year (int)**: The year of the car's model, ranging from 1999 to 2008.
+
+-   **City Mileage (dbl)**: Miles per gallon (MPG) in city driving conditions.
+
+-   **Highway Mileage (dbl)**: Miles per gallon (MPG) in highway driving conditions.
+
+#### Qualitative Data
+
+-   **Manufacturer (chr)**: The car's manufacturer, e.g., Audi, Toyota.
+
+-   **Model (chr)**: The specific car model, e.g., A4, Corolla.
+
+-   **Transmission (chr)**: The type of transmission, e.g., auto (automatic), manual (m5/m6).
+
+-   **Drivetrain (chr)**: The type of drivetrain, e.g., f (front-wheel drive), 4 (four-wheel drive).
+
+-   **Fuel (chr)**: The type of fuel used, e.g., p (premium), r (regular).
+
+-   **Class of Vehicle (chr)**: The category of the vehicle, e.g., compact, SUV.
+
+-   **Cylinders (int)**: The number of cylinders in the engine (4, 6, etc.).
+
+### Data Munging
+
+```{r}
+mpg_modified <- mpg %>%
+  dplyr::mutate(
+    cyl = as_factor(cyl),
+    fl = as_factor(fl),
+    drv = as_factor(drv),
+    class = as_factor(class),
+    trans = as_factor(trans)
+  )
+glimpse(mpg_modified)
+```
+
+Here, several variables— cyl, fl, drv, class, and trans—have been converted from their original data types to factors. This transformation changes them into categorical variables, making them more suitable for analysis involving groupings or classifications.
+
+### Average Highway MPG grouped by the number of cylinders
+
+```{r}
+mpg_modified %>%
+  group_by(cyl) %>%
+  summarize(average_hwy = mean(hwy), count = n())
+```
+
+The table summarizes the average highway miles per gallon for cars grouped by the number of cylinders. Cars with 4 cylinders have the highest average highway MPG at 28.80, followed closely by 5-cylinder cars with 28.75, though the 5-cylinder group only includes 4 cars. Cars with 6 cylinders average 22.82 MPG, while cars with 8 cylinders have the lowest fuel efficiency, averaging 17.63 MPG. Overall, the data shows that vehicles with fewer cylinders tend to be more fuel-efficient on the highway, with MPG decreasing as the number of cylinders increases.
+
+### Average City MPG grouped by the number of cylinders
+
+```{r}
+mpg_modified %>%
+  group_by(cyl) %>%
+  summarize(average_hwy = mean(cty), count = n())
+```
+
+The table summarizes the average city miles per gallon based on the number of cylinders. Cars with 4 cylinders have the highest average city MPG at 21.01, followed by 5-cylinder cars at 20.50, though the sample size for 5-cylinder cars is small with only 4 cars. Vehicles with 6 cylinders average 16.22 MPG, while those with 8 cylinders have the lowest city MPG at 12.57. This data shows that cars with fewer cylinders tend to have better fuel efficiency in city driving.
+
+### Average Highway MPG grouped by the number of cylinders and fuel type
+
+```{r}
+mpg_modified %>%
+  group_by(cyl, fl) %>%
+  summarize(average_hwy = mean(hwy), count = n())
+```
+
+The table shows the average highway MPG for cars based on cylinders and fuel type. Cars with 4 cylinders are more fuel-efficient, with MPG ranging from 27.82 for premium fuel to 43 for diesel, though alternative fuel samples are small. For 6-cylinder cars, MPG drops to between 25.29 (petrol) and 17 (ethanol). 8-cylinder cars are the least efficient, with 17.51 MPG for regular fuel and 12.71 for ethanol. Overall, cars with fewer cylinders and certain fuels, like diesel, achieve better highway fuel efficiency.
+
+### Average City MPG grouped by the number of cylinders and fuel type
+
+```{r}
+mpg_modified %>%
+  group_by(cyl, fl) %>%
+  summarize(average_hwy = mean(cty), count = n())
+```
+
+The table provides a breakdown of the average city miles per gallon by cylinder count and fuel type (fl). For 4-cylinder cars, average city MPG varies by fuel type, with diesel cars achieving the highest at 32.33 MPG, followed by compressed natural gas (24 MPG) and regular fuel (20.78 MPG). 6-cylinder cars show lower MPG, with ethanol-fueled cars having the lowest efficiency at 11 MPG. For 8-cylinder cars, premium fuel provides an average of 13.77 MPG. (considering the fact that rows 11-13 are not visible for me)
+
+### Average Highway MPG for different car manufacturers
+
+```{r}
+mpg %>% 
+  group_by(manufacturer) %>% 
+  summarize(mean_mileage_manf=mean(hwy))
+```
+
+The table displays the average highway miles per gallon for different car manufacturers. Volkswagen leads with the highest average highway MPG at 29.22, followed closely by Honda (28.56), Hyundai (26.86), and Audi (26.44). Other manufacturers like Subaru, Pontiac, and Nissan also show relatively high fuel efficiency, with averages above 24 MPG. In contrast, manufacturers such as Dodge, Jeep, and Land Rover have the lowest average highway MPG, ranging from 16.5 to 17.9.
+
+### Average City MPG for different car manufacturers
+
+```{r}
+mpg %>% 
+  group_by(manufacturer) %>% 
+  summarize(mean_mileage_manf=mean(cty))
+```
+
+The table displays the average city miles per gallon for different car manufacturers. Volkswagen leads with the highest average city MPG at 20.93, followed by Honda (24.44) and Subaru (19.29). Other manufacturers like Audi (17.61), Nissan (18.08), and Toyota (18.53) show moderate fuel efficiency. In contrast, manufacturers like Dodge, Jeep, and Land Rover have the lowest city MPG, ranging from 11.5 to 13.5.
+
+### Math Anxiety Data
+
+I am working with Math Anxiety Data.
+
+```{r}
+math_anxiety <- read_csv("../../data/MathAnxiety.csv")
+math_anxiety
+```
+
+The Math Anxiety dataset contains 599 rows and focuses on variables such as Age, Gender, Grade, AMAS (Abbreviated Math Anxiety Scale), RCMAS (Revised Children's Manifest Anxiety Scale), and Arithmetic scores. The data is structured in a format where each row represents an individual student with their respective attributes.
+
+### Specifying Delimiter
+
+```{r}
+math_anxiety <- read_delim(file="../../data/MathAnxiety.csv",delim =";")
+```
+
+The dataset is read using a semicolon (;) delimiter.
+
+### First 10 rows of the Math Anxiety dataset
+
+```{r}
+math_anxiety %>% 
+  head(10)
+```
+
+The table displays the first 10 rows of the Math Anxiety dataset, which consists of 6 variables: Age, Gender, Grade, AMAS (Abbreviated Math Anxiety Scale), RCMAS (Revised Children's Manifest Anxiety Scale), and Arithmetic scores. The scores in AMAS, RCMAS, and Arithmetic vary across the students, showcasing different levels of math anxiety and performance. For instance, one student has an AMAS score of 9 and RCMAS score of 20, while another has an AMAS score of 28 and an RCMAS score of 32, indicating variability in anxiety levels among students.
+
+### Glimpse - math_anxiety
+
+```{r}
+glimpse(math_anxiety)
+```
+
+The glimpse provides a quick overview of the structure and types of data within the dataset.
+
+### Inspect - math_anxiety
+
+```{r}
+inspect(math_anxiety)
+```
+
+The summary of the Math Anxiety dataset, based on the inspect() function, reveals both categorical and quantitative variables. The categorical variables are Gender and Grade, with 53.9% of the entries labeled as Boy and 46.1% as Girl. In terms of Grade, 66.9% belong to the Primary level, while 33.1% are from the Secondary level. The quantitative variables include Age, AMAS (Math Anxiety Scale), RCMAS (Revised Children’s Manifest Anxiety Scale), and Arith (Arithmetic ability). The distribution of ages ranges from 37 to 1875, with a mean of 1246.49 and a standard deviation of 223.11. AMAS scores range from 4 to 45, with a mean of 21.98 and a standard deviation of 6.60. For RCMAS, the range is 1 to 41, with a mean of 19.24 and a standard deviation of 7.57. Finally, Arith scores vary from 0 to 8, with a mean of 5.30 and a standard deviation of 2.11.
+
+### Skim - math_anxiety
+
+```{r}
+skim(math_anxiety)
+```
+
+This reveals a well-rounded dataset, complete with both categorical and numerical variables that offer a balanced view of the participants' characteristics and their math-related anxiety scores. The dataset is complete with no missing data.
+
+### Data Dictionary
+
+#### Quantitative Data
+
+-   **Age (dbl)**: The age of the participant, measured in years.
+
+-   **AMAS (dbl)**: American Mathematics Anxiety Scale (AMAS) score, indicating the level of math anxiety.
+
+-   **RCMAS (dbl)**: Revised Children's Manifest Anxiety Scale (RCMAS) score, measuring general anxiety.
+
+-   **Arith (dbl)**: Arithmetic test score, indicating performance in a mathematics test.
+
+#### Qualitative Data
+
+-   **Gender**: The gender of the participant, categories include Boy and Girl.
+
+-   **Grade**: The educational grade level of the participant, such as Secondary.
+
+### Data Munging
+
+```{r}
+math_anxiety_modified <- math_anxiety %>%
+  dplyr::mutate(
+    Age = Age/120,
+    Gender = as_factor(Gender)
+  )
+math_anxiety_modified
+```
+
+In this transformation, the Age column has been scaled down by dividing the values by 120, and the Gender column has been converted into a factor with two levels: "Boy" and "Girl."
+
+### Summary of Average AMAS Scores and Count by Gender
+
+```{r}
+ math_anxiety_modified %>%
+  group_by(Gender) %>%
+  summarize(average_AMAS = mean(AMAS), count = n())
+
+```
+
+The summary of average AMAS scores grouped by gender reveals that girls have a slightly higher average AMAS score (22.93) compared to boys (21.17). The total count of boys in the dataset is 323, while the total count of girls is 276. This suggests that while boys and girls show close levels of math anxiety, girls exhibit a marginally higher average score in the dataset.
+
+### Summary of Average AMAS Scores and Count by Gender and Age Group
+
+```{r}
+math_anxiety_modified %>%
+  group_by(Gender,Age) %>%
+  summarize(average_AMAS = mean(AMAS), count = n())
+```
+
+The analysis of average AMAS scores, grouped by gender and age, provides a detailed look at how math anxiety varies across different age groups for boys and girls. By breaking down the data in this way, it is possible to explore patterns in math anxiety that may correlate with age and gender, allowing for a more nuanced understanding of how these factors influence AMAS scores.
+
+### Summary of Average RCMAS Scores and Count by Gender
+
+```{r}
+math_anxiety_modified %>%
+  group_by(Gender) %>%
+  summarize(average_RCMAS = mean(RCMAS), count = n())
+```
+
+The table shows a summary of average RCMAS (Revised Children's Manifest Anxiety Scale) scores grouped by gender. The average RCMAS score for boys is 18.12, based on 323 participants, while the average RCMAS score for girls is 20.55, based on 276 participants. This suggests that, on average, girls exhibit slightly higher anxiety levels as measured by the RCMAS scale compared to boys.
+
+### Summary of Average RCMAS Scores and Count by Gender and Age Group
+
+```{r}
+math_anxiety_modified %>%
+  group_by(Gender,Age) %>%
+  summarize(average_RCMAS = mean(RCMAS), count = n())
+```
+
+This type of summary allows us to analyze how anxiety levels, as measured by the RCMAS, vary across different age groups within each gender.
+
+### Star Trek Books Data
+
+I am working with Star Trek Books Data.
+
+```{r}
+startrek_data <- read_csv("../../data/star_trek_books.csv")
+startrek_data
+```
+
+The Star Trek Books dataset contains 16,369 entries, each representing a book or publication related to the Star Trek franchise. Key variables include the book title, author, publication date, and publisher. The dataset also includes details such as unique identifiers, the series and subseries the book belongs to, and the number of chapters, words, and characters in each book. Additionally, there is a field for any author dedications.
+
+### Specifying Delimiter
+
+```{r}
+startrek_data <- read_delim(file="../../data/star_trek_books.csv",delim =";")
+```
+
+The dataset is read using a semicolon (;) delimiter.
+
+### Dataset - startrek_data
+
+```{r}
+startrek_data
+```
+
+### First 10 rows of the Star Trek Book dataset
+
+```{r}
+startrek_data %>% 
+ head(10)
+```
+
+The first 10 rows of the Star Trek Books dataset display information about books published by various publishers, such as Simon and Schuster, Simon Spotlight, Gallery Books, and Pocket Books. The dataset shows identifiers and indicates the series the books belong to, like "AV" or "CT." Some entries also belong to subseries, such as "Starfleet Academy." Additionally, the dataset provides details on the number of chapters (nchap) and the total word count (nword) for each book.
+
+### Glimpse - startrek_data
+
+```{r}
+glimpse(startrek_data)
+```
+
+This provides a glimpse into the 783 rows and 11 columns, summarizing various characteristics of Star Trek books.
+
+### Inspect - startrek_data
+
+```{r}
+inspect(startrek_data)
+```
+
+The inspection of the Star Trek book dataset reveals a comprehensive breakdown of variables in categorical, date, and quantitative formats. Among the categorical variables, we have entries such as title, author, publisher, identifier, series, subseries, and dedication. These variables contain character data, with subseries and dedication having the most missing values. For date variables, we have the date variable that records the publication dates of books, ranging from 1967-01-01 to 2017-11-28, spanning a 50-year period. The quantitative variables include nchap (number of chapters), nword (number of words), and nchar (number of characters), all numeric with varying distributions. The average number of chapters per book is approximately 24.59, while the average word count is around 76190 words, and character count averages around 461822 characters.
+
+### Skim - startrek_data
+
+```{r}
+skim(startrek_data)
+```
+
+The categorical variables like title, author, and publisher are mostly complete, although subseries has significant missing values (727 missing entries) and dedication has 411 missing entries. The date column spans from 1967 to 2017 with a median date around December 14, 2001. For numeric variables, nchap (number of chapters) has 23 missing values, with an average of around 25 chapters per book. The nword (number of words) and nchar (number of characters) columns are complete, showing an average of 76,190 words and 461,822 characters per book.
+
+### Data Dictionary
+
+#### Quantitative Data
+
+-   **nword (dbl)**: The number of words in the book.
+
+-   **nchar (dbl)**: The number of characters (including spaces and punctuation) in the book.
+
+-   **date (date)**: The publication date of the book.
+
+#### Qualitative Data
+
+-   **author**: The name of the author who wrote the book.
+
+-   **publisher**: The publishing company responsible for releasing the book.
+
+-   **series**: The main series of the Star Trek universe to which the book belongs (e.g., *The Original Series*, *The Next Generation*).
+
+-   **subseries**: A subcategory or subseries within the main Star Trek series (e.g., *Deep Space Nine*).
+
+-   **dedication**: A text string containing the book's dedication, if applicable
+
+### Summary of Average Number of Characters and Book Count by Author
+
+```{r}
+startrek_data %>% 
+  group_by(author) %>%
+  summarize(average_characters = mean(nchar, na.rm = TRUE), count = n())
+```
+
+This gives insight into the volume of work and average text length produced by different authors in the dataset.
+
+### Summary of Average Number of Words and Book Count by Publisher
+
+```{r}
+startrek_data %>% 
+  group_by(publisher) %>%
+summarize(average_words = mean(nword, na.rm = TRUE), count = n())
+```
+
+The summary of the Star Trek book dataset, grouped by publisher, provides insights into the average number of words and the total book count for each publisher. For example, Abrams Publications has one book with an average of 132,041 words, while Aladdin has 28 books with an average of 23,800 words.
+
+### Summary of Average Word Count and Total Books by Series
+
+```{r}
+startrek_data %>%
+  group_by(series) %>%
+summarize(average_words = mean(nword, na.rm = TRUE), count = n())
+```
+
+The grouping is done by series, and it shows a range of series with their calculated average word counts and the total number of books within each series. For example, the "TOS" series has 210 books with an average word count of 76,522.67, while the "CT" series has only 5 books but a much higher average word count of 157,687.80. There is also a wide variation in word count across different series, such as "YA-DS9" having only 23,298 words on average compared to more substantial works like "MYR" with 145,127 words. This summary helps identify how the different series compare in terms of length and volume, highlighting the diversity of content.
+
+### Summary of Total Books and Average Word Count by Series and Author
+
+```{r}
+startrek_data %>%
+  group_by(series, author) %>%
+summarize(total_books = n(), average_words = mean(nword, na.rm = TRUE))
+```
+
+This allows for an analysis of how different authors contribute to various Star Trek series in terms of the number of books they have written and the average length (in words) of their works.
+
+### Summary of Total Books and Average Character Count by Year and Author
+
+```{r}
+startrek_data %>%
+  group_by(year(date), author) %>%
+summarize(total_books = n(), average_characters = mean(nchar, na.rm = TRUE))
+```
+
+This helps analyze trends over time, showing how many books each author contributed in a particular year and the typical length of those books in terms of characters.
+
+### Summary of Total Books and Average Character Count by Publisher and Series
+
+```{r}
+startrek_data %>%
+  group_by(publisher, series) %>%
+summarize(total_books = n(), average_nchar = mean(nchar, na.rm = TRUE))
+```
+
+This helps in analyzing the contribution of different publishers to various Star Trek series and the typical length of books published within those series. It provides insight into the publishing trends, helping to compare the output volume and book length across different series and publishers.
+
+### Summary of Average Word Count and Total Books by Subseries
+
+```{r}
+startrek_data %>%
+  group_by(subseries) %>%
+summarize(average_words = mean(nword, na.rm = TRUE), count = n())
+```
+
+The summarized data from the Star Trek book dataset provides insights into the average word count and total number of books for each subseries. For example, the "Academy" subseries has 1 book with an average word count of 106,196, while "Day of Honor" spans 6 books with an average of 113,644 words. The "Destiny" subseries consists of 4 books averaging 147,208 words, and the "Typhon Pact" subseries features 9 books with an average of 124,866 words. Some subseries, like "Prey," with 3 books averaging 97,729 words, reflect moderately sized collections. Additionally, there are entries like NA, which account for 727 books with an average word count of 74,780, indicating a group of records that might not fit into a specific subseries.

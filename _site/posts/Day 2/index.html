@@ -1,0 +1,2340 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.555">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Khushi">
+
+<title>My-Blog-For-Peasants - Day 2</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">My-Blog-For-Peasants</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com"> <i class="bi bi-twitter" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Day 2</h1>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Khushi </p>
+            </div>
+    </div>
+      
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>I am working with data summaries. First, mpg, then something else.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+✔ purrr     1.0.2     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggformula)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: scales
+
+Attaching package: 'scales'
+
+The following object is masked from 'package:purrr':
+
+    discard
+
+The following object is masked from 'package:readr':
+
+    col_factor
+
+Loading required package: ggridges
+
+New to ggformula?  Try the tutorials: 
+    learnr::run_tutorial("introduction", package = "ggformula")
+    learnr::run_tutorial("refining", package = "ggformula")</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mosaic)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Registered S3 method overwritten by 'mosaic':
+  method                           from   
+  fortify.SpatialPolygonsDataFrame ggplot2
+
+The 'mosaic' package masks several functions from core packages in order to add 
+additional features.  The original behavior of these functions should not be affected by this.
+
+Attaching package: 'mosaic'
+
+The following object is masked from 'package:Matrix':
+
+    mean
+
+The following object is masked from 'package:scales':
+
+    rescale
+
+The following objects are masked from 'package:dplyr':
+
+    count, do, tally
+
+The following object is masked from 'package:purrr':
+
+    cross
+
+The following object is masked from 'package:ggplot2':
+
+    stat
+
+The following objects are masked from 'package:stats':
+
+    binom.test, cor, cor.test, cov, fivenum, IQR, median, prop.test,
+    quantile, sd, t.test, var
+
+The following objects are masked from 'package:base':
+
+    max, mean, min, prod, range, sample, sum</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'kableExtra'
+
+The following object is masked from 'package:dplyr':
+
+    group_rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'skimr'
+
+The following object is masked from 'package:mosaic':
+
+    n_missing</code></pre>
+</div>
+</div>
+<section id="look-at-the-mpg-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="look-at-the-mpg-dataset">Look at the mpg dataset</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>mpg</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 234 × 11
+   manufacturer model      displ  year   cyl trans drv     cty   hwy fl    class
+   &lt;chr&gt;        &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;
+ 1 audi         a4           1.8  1999     4 auto… f        18    29 p     comp…
+ 2 audi         a4           1.8  1999     4 manu… f        21    29 p     comp…
+ 3 audi         a4           2    2008     4 manu… f        20    31 p     comp…
+ 4 audi         a4           2    2008     4 auto… f        21    30 p     comp…
+ 5 audi         a4           2.8  1999     6 auto… f        16    26 p     comp…
+ 6 audi         a4           2.8  1999     6 manu… f        18    26 p     comp…
+ 7 audi         a4           3.1  2008     6 auto… f        18    27 p     comp…
+ 8 audi         a4 quattro   1.8  1999     4 manu… 4        18    26 p     comp…
+ 9 audi         a4 quattro   1.8  1999     4 auto… 4        16    25 p     comp…
+10 audi         a4 quattro   2    2008     4 manu… 4        20    28 p     comp…
+# ℹ 224 more rows</code></pre>
+</div>
+</div>
+<p>The table provides information on various car models from 1999 and 2008, highlighting key specifications. The data allows for a detailed comparison of the cars’ performance and specifications across different years and models.</p>
+</section>
+<section id="first-10-rows-of-the-mpg-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="first-10-rows-of-the-mpg-dataset">First 10 rows of the mpg dataset</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>mpg </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 234 × 11
+   manufacturer model      displ  year   cyl trans drv     cty   hwy fl    class
+   &lt;chr&gt;        &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;
+ 1 audi         a4           1.8  1999     4 auto… f        18    29 p     comp…
+ 2 audi         a4           1.8  1999     4 manu… f        21    29 p     comp…
+ 3 audi         a4           2    2008     4 manu… f        20    31 p     comp…
+ 4 audi         a4           2    2008     4 auto… f        21    30 p     comp…
+ 5 audi         a4           2.8  1999     6 auto… f        16    26 p     comp…
+ 6 audi         a4           2.8  1999     6 manu… f        18    26 p     comp…
+ 7 audi         a4           3.1  2008     6 auto… f        18    27 p     comp…
+ 8 audi         a4 quattro   1.8  1999     4 manu… 4        18    26 p     comp…
+ 9 audi         a4 quattro   1.8  1999     4 auto… 4        16    25 p     comp…
+10 audi         a4 quattro   2    2008     4 manu… 4        20    28 p     comp…
+# ℹ 224 more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 10</code></pre>
+</div>
+</div>
+<p>The table displays the first 10 rows of the mpg dataset, with details on engine size (displacement), number of cylinders, transmission type (automatic or manual), drivetrain (front-wheel or all-wheel drive), and fuel efficiency in city and highway miles per gallon (MPG). The engine displacement ranges from 1.8 to 3.1 liters, and the number of cylinders is either 4 or 6. The city MPG varies from 16 to 21, while highway MPG ranges from 25 to 31.</p>
+</section>
+<section id="glimpse---mpg-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="glimpse---mpg-dataset">Glimpse - mpg dataset</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(mpg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 234
+Columns: 11
+$ manufacturer &lt;chr&gt; "audi", "audi", "audi", "audi", "audi", "audi", "audi", "…
+$ model        &lt;chr&gt; "a4", "a4", "a4", "a4", "a4", "a4", "a4", "a4 quattro", "…
+$ displ        &lt;dbl&gt; 1.8, 1.8, 2.0, 2.0, 2.8, 2.8, 3.1, 1.8, 1.8, 2.0, 2.0, 2.…
+$ year         &lt;int&gt; 1999, 1999, 2008, 2008, 1999, 1999, 2008, 1999, 1999, 200…
+$ cyl          &lt;int&gt; 4, 4, 4, 4, 6, 6, 6, 4, 4, 4, 4, 6, 6, 6, 6, 6, 6, 8, 8, …
+$ trans        &lt;chr&gt; "auto(l5)", "manual(m5)", "manual(m6)", "auto(av)", "auto…
+$ drv          &lt;chr&gt; "f", "f", "f", "f", "f", "f", "f", "4", "4", "4", "4", "4…
+$ cty          &lt;int&gt; 18, 21, 20, 21, 16, 18, 18, 18, 16, 20, 19, 15, 17, 17, 1…
+$ hwy          &lt;int&gt; 29, 29, 31, 30, 26, 26, 27, 26, 25, 28, 27, 25, 25, 25, 2…
+$ fl           &lt;chr&gt; "p", "p", "p", "p", "p", "p", "p", "p", "p", "p", "p", "p…
+$ class        &lt;chr&gt; "compact", "compact", "compact", "compact", "compact", "c…</code></pre>
+</div>
+</div>
+<p>This summary provides an overview of the specifications and performance characteristics of car models in the dataset.</p>
+</section>
+<section id="inspect---mpg-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="inspect---mpg-dataset">Inspect - mpg dataset</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">inspect</span>(mpg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+categorical variables:  
+          name     class levels   n missing
+1 manufacturer character     15 234       0
+2        model character     38 234       0
+3        trans character     10 234       0
+4          drv character      3 234       0
+5           fl character      5 234       0
+6        class character      7 234       0
+                                   distribution
+1 dodge (15.8%), toyota (14.5%) ...            
+2 caravan 2wd (4.7%) ...                       
+3 auto(l4) (35.5%), manual(m5) (24.8%) ...     
+4 f (45.3%), 4 (44%), r (10.7%)                
+5 r (71.8%), p (22.2%), e (3.4%) ...           
+6 suv (26.5%), compact (20.1%) ...             
+
+quantitative variables:  
+   name   class    min     Q1 median     Q3  max        mean       sd   n
+1 displ numeric    1.6    2.4    3.3    4.6    7    3.471795 1.291959 234
+2  year integer 1999.0 1999.0 2003.5 2008.0 2008 2003.500000 4.509646 234
+3   cyl integer    4.0    4.0    6.0    8.0    8    5.888889 1.611534 234
+4   cty integer    9.0   14.0   17.0   19.0   35   16.858974 4.255946 234
+5   hwy integer   12.0   18.0   24.0   27.0   44   23.440171 5.954643 234
+  missing
+1       0
+2       0
+3       0
+4       0
+5       0</code></pre>
+</div>
+</div>
+<p>The inspection of the mpg dataset reveals two types of variables: categorical and quantitative. Categorical variables include manufacturer, model, transmission, drivetrain, fl (fuel type), and class, with a total of 234 entries and no missing data. Quantitative variables, such as engine displacement, year, number of cylinders, city miles per gallon, and highway miles per gallon, are summarized with key statistics. For example, engine displacement ranges from 1.6 to 7 liters, and city MPG varies from 9 to 35, with an average of 16.86. This overview highlights the structure and details of the dataset, providing both descriptive and numerical insights.</p>
+</section>
+<section id="skim---mpg-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="skim---mpg-dataset">Skim - mpg dataset</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">skim</span>(mpg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Data summary</caption>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Name</td>
+<td style="text-align: left;">mpg</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Number of rows</td>
+<td style="text-align: left;">234</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Number of columns</td>
+<td style="text-align: left;">11</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">_______________________</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Column type frequency:</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">character</td>
+<td style="text-align: left;">6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">numeric</td>
+<td style="text-align: left;">5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">________________________</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Group variables</td>
+<td style="text-align: left;">None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: character</strong></p>
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 19%">
+<col style="width: 13%">
+<col style="width: 19%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 8%">
+<col style="width: 12%">
+<col style="width: 15%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">skim_variable</th>
+<th style="text-align: right;">n_missing</th>
+<th style="text-align: right;">complete_rate</th>
+<th style="text-align: right;">min</th>
+<th style="text-align: right;">max</th>
+<th style="text-align: right;">empty</th>
+<th style="text-align: right;">n_unique</th>
+<th style="text-align: right;">whitespace</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">manufacturer</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">model</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">22</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">trans</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">drv</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">fl</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">class</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: numeric</strong></p>
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 15%">
+<col style="width: 11%">
+<col style="width: 15%">
+<col style="width: 8%">
+<col style="width: 5%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 5%">
+<col style="width: 6%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">skim_variable</th>
+<th style="text-align: right;">n_missing</th>
+<th style="text-align: right;">complete_rate</th>
+<th style="text-align: right;">mean</th>
+<th style="text-align: right;">sd</th>
+<th style="text-align: right;">p0</th>
+<th style="text-align: right;">p25</th>
+<th style="text-align: right;">p50</th>
+<th style="text-align: right;">p75</th>
+<th style="text-align: right;">p100</th>
+<th style="text-align: left;">hist</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">displ</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3.47</td>
+<td style="text-align: right;">1.29</td>
+<td style="text-align: right;">1.6</td>
+<td style="text-align: right;">2.4</td>
+<td style="text-align: right;">3.3</td>
+<td style="text-align: right;">4.6</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: left;">▇▆▆▃▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">year</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2003.50</td>
+<td style="text-align: right;">4.51</td>
+<td style="text-align: right;">1999.0</td>
+<td style="text-align: right;">1999.0</td>
+<td style="text-align: right;">2003.5</td>
+<td style="text-align: right;">2008.0</td>
+<td style="text-align: right;">2008</td>
+<td style="text-align: left;">▇▁▁▁▇</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">cyl</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">5.89</td>
+<td style="text-align: right;">1.61</td>
+<td style="text-align: right;">4.0</td>
+<td style="text-align: right;">4.0</td>
+<td style="text-align: right;">6.0</td>
+<td style="text-align: right;">8.0</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">▇▁▇▁▇</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">cty</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">16.86</td>
+<td style="text-align: right;">4.26</td>
+<td style="text-align: right;">9.0</td>
+<td style="text-align: right;">14.0</td>
+<td style="text-align: right;">17.0</td>
+<td style="text-align: right;">19.0</td>
+<td style="text-align: right;">35</td>
+<td style="text-align: left;">▆▇▃▁▁</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">hwy</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">23.44</td>
+<td style="text-align: right;">5.95</td>
+<td style="text-align: right;">12.0</td>
+<td style="text-align: right;">18.0</td>
+<td style="text-align: right;">24.0</td>
+<td style="text-align: right;">27.0</td>
+<td style="text-align: right;">44</td>
+<td style="text-align: left;">▅▅▇▁▁</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>All variables have complete data with no missing values.This dataset provides a comprehensive view of car specifications and fuel efficiency, ready for further analysis.</p>
+</section>
+<section id="data-dictionary" class="level3">
+<h3 class="anchored" data-anchor-id="data-dictionary">Data Dictionary</h3>
+<section id="quantitative-data" class="level4">
+<h4 class="anchored" data-anchor-id="quantitative-data">Quantitative Data</h4>
+<ul>
+<li><p><strong>Engine Displacement (dbl)</strong>: The engine size in liters.</p></li>
+<li><p><strong>Model Year (int)</strong>: The year of the car’s model, ranging from 1999 to 2008.</p></li>
+<li><p><strong>City Mileage (dbl)</strong>: Miles per gallon (MPG) in city driving conditions.</p></li>
+<li><p><strong>Highway Mileage (dbl)</strong>: Miles per gallon (MPG) in highway driving conditions.</p></li>
+</ul>
+</section>
+<section id="qualitative-data" class="level4">
+<h4 class="anchored" data-anchor-id="qualitative-data">Qualitative Data</h4>
+<ul>
+<li><p><strong>Manufacturer (chr)</strong>: The car’s manufacturer, e.g., Audi, Toyota.</p></li>
+<li><p><strong>Model (chr)</strong>: The specific car model, e.g., A4, Corolla.</p></li>
+<li><p><strong>Transmission (chr)</strong>: The type of transmission, e.g., auto (automatic), manual (m5/m6).</p></li>
+<li><p><strong>Drivetrain (chr)</strong>: The type of drivetrain, e.g., f (front-wheel drive), 4 (four-wheel drive).</p></li>
+<li><p><strong>Fuel (chr)</strong>: The type of fuel used, e.g., p (premium), r (regular).</p></li>
+<li><p><strong>Class of Vehicle (chr)</strong>: The category of the vehicle, e.g., compact, SUV.</p></li>
+<li><p><strong>Cylinders (int)</strong>: The number of cylinders in the engine (4, 6, etc.).</p></li>
+</ul>
+</section>
+</section>
+<section id="data-munging" class="level3">
+<h3 class="anchored" data-anchor-id="data-munging">Data Munging</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>mpg_modified <span class="ot">&lt;-</span> mpg <span class="sc">%&gt;%</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">cyl =</span> <span class="fu">as_factor</span>(cyl),</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">fl =</span> <span class="fu">as_factor</span>(fl),</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">drv =</span> <span class="fu">as_factor</span>(drv),</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">class =</span> <span class="fu">as_factor</span>(class),</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">trans =</span> <span class="fu">as_factor</span>(trans)</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(mpg_modified)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 234
+Columns: 11
+$ manufacturer &lt;chr&gt; "audi", "audi", "audi", "audi", "audi", "audi", "audi", "…
+$ model        &lt;chr&gt; "a4", "a4", "a4", "a4", "a4", "a4", "a4", "a4 quattro", "…
+$ displ        &lt;dbl&gt; 1.8, 1.8, 2.0, 2.0, 2.8, 2.8, 3.1, 1.8, 1.8, 2.0, 2.0, 2.…
+$ year         &lt;int&gt; 1999, 1999, 2008, 2008, 1999, 1999, 2008, 1999, 1999, 200…
+$ cyl          &lt;fct&gt; 4, 4, 4, 4, 6, 6, 6, 4, 4, 4, 4, 6, 6, 6, 6, 6, 6, 8, 8, …
+$ trans        &lt;fct&gt; auto(l5), manual(m5), manual(m6), auto(av), auto(l5), man…
+$ drv          &lt;fct&gt; f, f, f, f, f, f, f, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, r, …
+$ cty          &lt;int&gt; 18, 21, 20, 21, 16, 18, 18, 18, 16, 20, 19, 15, 17, 17, 1…
+$ hwy          &lt;int&gt; 29, 29, 31, 30, 26, 26, 27, 26, 25, 28, 27, 25, 25, 25, 2…
+$ fl           &lt;fct&gt; p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, r, …
+$ class        &lt;fct&gt; compact, compact, compact, compact, compact, compact, com…</code></pre>
+</div>
+</div>
+<p>Here, several variables— cyl, fl, drv, class, and trans—have been converted from their original data types to factors. This transformation changes them into categorical variables, making them more suitable for analysis involving groupings or classifications.</p>
+</section>
+<section id="average-highway-mpg-grouped-by-the-number-of-cylinders" class="level3">
+<h3 class="anchored" data-anchor-id="average-highway-mpg-grouped-by-the-number-of-cylinders">Average Highway MPG grouped by the number of cylinders</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>mpg_modified <span class="sc">%&gt;%</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(cyl) <span class="sc">%&gt;%</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">average_hwy =</span> <span class="fu">mean</span>(hwy), <span class="at">count =</span> <span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 3
+  cyl   average_hwy count
+  &lt;fct&gt;       &lt;dbl&gt; &lt;int&gt;
+1 4            28.8    81
+2 5            28.8     4
+3 6            22.8    79
+4 8            17.6    70</code></pre>
+</div>
+</div>
+<p>The table summarizes the average highway miles per gallon for cars grouped by the number of cylinders. Cars with 4 cylinders have the highest average highway MPG at 28.80, followed closely by 5-cylinder cars with 28.75, though the 5-cylinder group only includes 4 cars. Cars with 6 cylinders average 22.82 MPG, while cars with 8 cylinders have the lowest fuel efficiency, averaging 17.63 MPG. Overall, the data shows that vehicles with fewer cylinders tend to be more fuel-efficient on the highway, with MPG decreasing as the number of cylinders increases.</p>
+</section>
+<section id="average-city-mpg-grouped-by-the-number-of-cylinders" class="level3">
+<h3 class="anchored" data-anchor-id="average-city-mpg-grouped-by-the-number-of-cylinders">Average City MPG grouped by the number of cylinders</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>mpg_modified <span class="sc">%&gt;%</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(cyl) <span class="sc">%&gt;%</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">average_hwy =</span> <span class="fu">mean</span>(cty), <span class="at">count =</span> <span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 3
+  cyl   average_hwy count
+  &lt;fct&gt;       &lt;dbl&gt; &lt;int&gt;
+1 4            21.0    81
+2 5            20.5     4
+3 6            16.2    79
+4 8            12.6    70</code></pre>
+</div>
+</div>
+<p>The table summarizes the average city miles per gallon based on the number of cylinders. Cars with 4 cylinders have the highest average city MPG at 21.01, followed by 5-cylinder cars at 20.50, though the sample size for 5-cylinder cars is small with only 4 cars. Vehicles with 6 cylinders average 16.22 MPG, while those with 8 cylinders have the lowest city MPG at 12.57. This data shows that cars with fewer cylinders tend to have better fuel efficiency in city driving.</p>
+</section>
+<section id="average-highway-mpg-grouped-by-the-number-of-cylinders-and-fuel-type" class="level3">
+<h3 class="anchored" data-anchor-id="average-highway-mpg-grouped-by-the-number-of-cylinders-and-fuel-type">Average Highway MPG grouped by the number of cylinders and fuel type</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>mpg_modified <span class="sc">%&gt;%</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(cyl, fl) <span class="sc">%&gt;%</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">average_hwy =</span> <span class="fu">mean</span>(hwy), <span class="at">count =</span> <span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'cyl'. You can override using the `.groups`
+argument.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 13 × 4
+# Groups:   cyl [4]
+   cyl   fl    average_hwy count
+   &lt;fct&gt; &lt;fct&gt;       &lt;dbl&gt; &lt;int&gt;
+ 1 4     p            27.8    22
+ 2 4     r            28.3    55
+ 3 4     d            43       3
+ 4 4     c            36       1
+ 5 5     r            28.8     4
+ 6 6     p            25.3    17
+ 7 6     r            22.2    60
+ 8 6     e            17       1
+ 9 6     d            22       1
+10 8     p            20.8    13
+11 8     r            17.5    49
+12 8     e            12.7     7
+13 8     d            17       1</code></pre>
+</div>
+</div>
+<p>The table shows the average highway MPG for cars based on cylinders and fuel type. Cars with 4 cylinders are more fuel-efficient, with MPG ranging from 27.82 for premium fuel to 43 for diesel, though alternative fuel samples are small. For 6-cylinder cars, MPG drops to between 25.29 (petrol) and 17 (ethanol). 8-cylinder cars are the least efficient, with 17.51 MPG for regular fuel and 12.71 for ethanol. Overall, cars with fewer cylinders and certain fuels, like diesel, achieve better highway fuel efficiency.</p>
+</section>
+<section id="average-city-mpg-grouped-by-the-number-of-cylinders-and-fuel-type" class="level3">
+<h3 class="anchored" data-anchor-id="average-city-mpg-grouped-by-the-number-of-cylinders-and-fuel-type">Average City MPG grouped by the number of cylinders and fuel type</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>mpg_modified <span class="sc">%&gt;%</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(cyl, fl) <span class="sc">%&gt;%</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">average_hwy =</span> <span class="fu">mean</span>(cty), <span class="at">count =</span> <span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'cyl'. You can override using the `.groups`
+argument.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 13 × 4
+# Groups:   cyl [4]
+   cyl   fl    average_hwy count
+   &lt;fct&gt; &lt;fct&gt;       &lt;dbl&gt; &lt;int&gt;
+ 1 4     p           19.9     22
+ 2 4     r           20.8     55
+ 3 4     d           32.3      3
+ 4 4     c           24        1
+ 5 5     r           20.5      4
+ 6 6     p           16.8     17
+ 7 6     r           16.1     60
+ 8 6     e           11        1
+ 9 6     d           17        1
+10 8     p           13.8     13
+11 8     r           12.7     49
+12 8     e            9.57     7
+13 8     d           14        1</code></pre>
+</div>
+</div>
+<p>The table provides a breakdown of the average city miles per gallon by cylinder count and fuel type (fl). For 4-cylinder cars, average city MPG varies by fuel type, with diesel cars achieving the highest at 32.33 MPG, followed by compressed natural gas (24 MPG) and regular fuel (20.78 MPG). 6-cylinder cars show lower MPG, with ethanol-fueled cars having the lowest efficiency at 11 MPG. For 8-cylinder cars, premium fuel provides an average of 13.77 MPG. (considering the fact that rows 11-13 are not visible for me)</p>
+</section>
+<section id="average-highway-mpg-for-different-car-manufacturers" class="level3">
+<h3 class="anchored" data-anchor-id="average-highway-mpg-for-different-car-manufacturers">Average Highway MPG for different car manufacturers</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>mpg <span class="sc">%&gt;%</span> </span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(manufacturer) <span class="sc">%&gt;%</span> </span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_mileage_manf=</span><span class="fu">mean</span>(hwy))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 15 × 2
+   manufacturer mean_mileage_manf
+   &lt;chr&gt;                    &lt;dbl&gt;
+ 1 audi                      26.4
+ 2 chevrolet                 21.9
+ 3 dodge                     17.9
+ 4 ford                      19.4
+ 5 honda                     32.6
+ 6 hyundai                   26.9
+ 7 jeep                      17.6
+ 8 land rover                16.5
+ 9 lincoln                   17  
+10 mercury                   18  
+11 nissan                    24.6
+12 pontiac                   26.4
+13 subaru                    25.6
+14 toyota                    24.9
+15 volkswagen                29.2</code></pre>
+</div>
+</div>
+<p>The table displays the average highway miles per gallon for different car manufacturers. Volkswagen leads with the highest average highway MPG at 29.22, followed closely by Honda (28.56), Hyundai (26.86), and Audi (26.44). Other manufacturers like Subaru, Pontiac, and Nissan also show relatively high fuel efficiency, with averages above 24 MPG. In contrast, manufacturers such as Dodge, Jeep, and Land Rover have the lowest average highway MPG, ranging from 16.5 to 17.9.</p>
+</section>
+<section id="average-city-mpg-for-different-car-manufacturers" class="level3">
+<h3 class="anchored" data-anchor-id="average-city-mpg-for-different-car-manufacturers">Average City MPG for different car manufacturers</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>mpg <span class="sc">%&gt;%</span> </span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(manufacturer) <span class="sc">%&gt;%</span> </span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_mileage_manf=</span><span class="fu">mean</span>(cty))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 15 × 2
+   manufacturer mean_mileage_manf
+   &lt;chr&gt;                    &lt;dbl&gt;
+ 1 audi                      17.6
+ 2 chevrolet                 15  
+ 3 dodge                     13.1
+ 4 ford                      14  
+ 5 honda                     24.4
+ 6 hyundai                   18.6
+ 7 jeep                      13.5
+ 8 land rover                11.5
+ 9 lincoln                   11.3
+10 mercury                   13.2
+11 nissan                    18.1
+12 pontiac                   17  
+13 subaru                    19.3
+14 toyota                    18.5
+15 volkswagen                20.9</code></pre>
+</div>
+</div>
+<p>The table displays the average city miles per gallon for different car manufacturers. Volkswagen leads with the highest average city MPG at 20.93, followed by Honda (24.44) and Subaru (19.29). Other manufacturers like Audi (17.61), Nissan (18.08), and Toyota (18.53) show moderate fuel efficiency. In contrast, manufacturers like Dodge, Jeep, and Land Rover have the lowest city MPG, ranging from 11.5 to 13.5.</p>
+</section>
+<section id="math-anxiety-data" class="level3">
+<h3 class="anchored" data-anchor-id="math-anxiety-data">Math Anxiety Data</h3>
+<p>I am working with Math Anxiety Data.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>math_anxiety <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"../../data/MathAnxiety.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: One or more parsing issues, call `problems()` on your data frame for details,
+e.g.:
+  dat &lt;- vroom(...)
+  problems(dat)</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 599 Columns: 1
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (1): Age;Gender;Grade;AMAS;RCMAS;Arith
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>math_anxiety</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 599 × 1
+   `Age;Gender;Grade;AMAS;RCMAS;Arith`
+   &lt;chr&gt;                              
+ 1 137,8;Boy;Secondary;9;20;6         
+ 2 140,7;Boy;Secondary;18;8;6         
+ 3 137,9;Girl;Secondary;23;26;5       
+ 4 142,8;Girl;Secondary;19;18;7       
+ 5 135,6;Boy;Secondary;23;20;1        
+ 6 135,0;Girl;Secondary;27;33;1       
+ 7 133,6;Boy;Secondary;22;23;4        
+ 8 139,3;Boy;Secondary;17;11;7        
+ 9 131,7;Girl;Secondary;28;32;2       
+10 134,8;Boy;Secondary;20;30;6        
+# ℹ 589 more rows</code></pre>
+</div>
+</div>
+<p>The Math Anxiety dataset contains 599 rows and focuses on variables such as Age, Gender, Grade, AMAS (Abbreviated Math Anxiety Scale), RCMAS (Revised Children’s Manifest Anxiety Scale), and Arithmetic scores. The data is structured in a format where each row represents an individual student with their respective attributes.</p>
+</section>
+<section id="specifying-delimiter" class="level3">
+<h3 class="anchored" data-anchor-id="specifying-delimiter">Specifying Delimiter</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>math_anxiety <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="at">file=</span><span class="st">"../../data/MathAnxiety.csv"</span>,<span class="at">delim =</span><span class="st">";"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 599 Columns: 6
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ";"
+chr (2): Gender, Grade
+dbl (3): AMAS, RCMAS, Arith
+num (1): Age
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+</div>
+<p>The dataset is read using a semicolon (;) delimiter.</p>
+</section>
+<section id="first-10-rows-of-the-math-anxiety-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="first-10-rows-of-the-math-anxiety-dataset">First 10 rows of the Math Anxiety dataset</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>math_anxiety <span class="sc">%&gt;%</span> </span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 6
+     Age Gender Grade      AMAS RCMAS Arith
+   &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+ 1  1378 Boy    Secondary     9    20     6
+ 2  1407 Boy    Secondary    18     8     6
+ 3  1379 Girl   Secondary    23    26     5
+ 4  1428 Girl   Secondary    19    18     7
+ 5  1356 Boy    Secondary    23    20     1
+ 6  1350 Girl   Secondary    27    33     1
+ 7  1336 Boy    Secondary    22    23     4
+ 8  1393 Boy    Secondary    17    11     7
+ 9  1317 Girl   Secondary    28    32     2
+10  1348 Boy    Secondary    20    30     6</code></pre>
+</div>
+</div>
+<p>The table displays the first 10 rows of the Math Anxiety dataset, which consists of 6 variables: Age, Gender, Grade, AMAS (Abbreviated Math Anxiety Scale), RCMAS (Revised Children’s Manifest Anxiety Scale), and Arithmetic scores. The scores in AMAS, RCMAS, and Arithmetic vary across the students, showcasing different levels of math anxiety and performance. For instance, one student has an AMAS score of 9 and RCMAS score of 20, while another has an AMAS score of 28 and an RCMAS score of 32, indicating variability in anxiety levels among students.</p>
+</section>
+<section id="glimpse---math_anxiety" class="level3">
+<h3 class="anchored" data-anchor-id="glimpse---math_anxiety">Glimpse - math_anxiety</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(math_anxiety)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 599
+Columns: 6
+$ Age    &lt;dbl&gt; 1378, 1407, 1379, 1428, 1356, 1350, 1336, 1393, 1317, 1348, 141…
+$ Gender &lt;chr&gt; "Boy", "Boy", "Girl", "Girl", "Boy", "Girl", "Boy", "Boy", "Gir…
+$ Grade  &lt;chr&gt; "Secondary", "Secondary", "Secondary", "Secondary", "Secondary"…
+$ AMAS   &lt;dbl&gt; 9, 18, 23, 19, 23, 27, 22, 17, 28, 20, 16, 20, 21, 36, 16, 27, …
+$ RCMAS  &lt;dbl&gt; 20, 8, 26, 18, 20, 33, 23, 11, 32, 30, 10, 4, 23, 26, 24, 21, 3…
+$ Arith  &lt;dbl&gt; 6, 6, 5, 7, 1, 1, 4, 7, 2, 6, 2, 5, 2, 6, 2, 7, 2, 4, 7, 3, 8, …</code></pre>
+</div>
+</div>
+<p>The glimpse provides a quick overview of the structure and types of data within the dataset.</p>
+</section>
+<section id="inspect---math_anxiety" class="level3">
+<h3 class="anchored" data-anchor-id="inspect---math_anxiety">Inspect - math_anxiety</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">inspect</span>(math_anxiety)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+categorical variables:  
+    name     class levels   n missing
+1 Gender character      2 599       0
+2  Grade character      2 599       0
+                                   distribution
+1 Boy (53.9%), Girl (46.1%)                    
+2 Primary (66.9%), Secondary (33.1%)           
+
+quantitative variables:  
+   name   class min     Q1 median     Q3  max       mean         sd   n missing
+1   Age numeric  37 1061.5   1208 1418.5 1875 1246.49249 223.112183 599       0
+2  AMAS numeric   4   18.0     22   26.5   45   21.98164   6.597962 599       0
+3 RCMAS numeric   1   14.0     19   25.0   41   19.24040   7.566802 599       0
+4 Arith numeric   0    4.0      6    7.0    8    5.30217   2.105220 599       0</code></pre>
+</div>
+</div>
+<p>The summary of the Math Anxiety dataset, based on the inspect() function, reveals both categorical and quantitative variables. The categorical variables are Gender and Grade, with 53.9% of the entries labeled as Boy and 46.1% as Girl. In terms of Grade, 66.9% belong to the Primary level, while 33.1% are from the Secondary level. The quantitative variables include Age, AMAS (Math Anxiety Scale), RCMAS (Revised Children’s Manifest Anxiety Scale), and Arith (Arithmetic ability). The distribution of ages ranges from 37 to 1875, with a mean of 1246.49 and a standard deviation of 223.11. AMAS scores range from 4 to 45, with a mean of 21.98 and a standard deviation of 6.60. For RCMAS, the range is 1 to 41, with a mean of 19.24 and a standard deviation of 7.57. Finally, Arith scores vary from 0 to 8, with a mean of 5.30 and a standard deviation of 2.11.</p>
+</section>
+<section id="skim---math_anxiety" class="level3">
+<h3 class="anchored" data-anchor-id="skim---math_anxiety">Skim - math_anxiety</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">skim</span>(math_anxiety)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Data summary</caption>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Name</td>
+<td style="text-align: left;">math_anxiety</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Number of rows</td>
+<td style="text-align: left;">599</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Number of columns</td>
+<td style="text-align: left;">6</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">_______________________</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Column type frequency:</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">character</td>
+<td style="text-align: left;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">numeric</td>
+<td style="text-align: left;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">________________________</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Group variables</td>
+<td style="text-align: left;">None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: character</strong></p>
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 19%">
+<col style="width: 13%">
+<col style="width: 19%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 8%">
+<col style="width: 12%">
+<col style="width: 15%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">skim_variable</th>
+<th style="text-align: right;">n_missing</th>
+<th style="text-align: right;">complete_rate</th>
+<th style="text-align: right;">min</th>
+<th style="text-align: right;">max</th>
+<th style="text-align: right;">empty</th>
+<th style="text-align: right;">n_unique</th>
+<th style="text-align: right;">whitespace</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Gender</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Grade</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: numeric</strong></p>
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 11%">
+<col style="width: 16%">
+<col style="width: 9%">
+<col style="width: 8%">
+<col style="width: 3%">
+<col style="width: 8%">
+<col style="width: 5%">
+<col style="width: 8%">
+<col style="width: 5%">
+<col style="width: 6%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">skim_variable</th>
+<th style="text-align: right;">n_missing</th>
+<th style="text-align: right;">complete_rate</th>
+<th style="text-align: right;">mean</th>
+<th style="text-align: right;">sd</th>
+<th style="text-align: right;">p0</th>
+<th style="text-align: right;">p25</th>
+<th style="text-align: right;">p50</th>
+<th style="text-align: right;">p75</th>
+<th style="text-align: right;">p100</th>
+<th style="text-align: left;">hist</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Age</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1246.49</td>
+<td style="text-align: right;">223.11</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">1061.5</td>
+<td style="text-align: right;">1208</td>
+<td style="text-align: right;">1418.5</td>
+<td style="text-align: right;">1875</td>
+<td style="text-align: left;">▁▁▇▇▃</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">AMAS</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">21.98</td>
+<td style="text-align: right;">6.60</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">18.0</td>
+<td style="text-align: right;">22</td>
+<td style="text-align: right;">26.5</td>
+<td style="text-align: right;">45</td>
+<td style="text-align: left;">▂▆▇▃▁</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">RCMAS</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">19.24</td>
+<td style="text-align: right;">7.57</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">14.0</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">25.0</td>
+<td style="text-align: right;">41</td>
+<td style="text-align: left;">▂▇▇▅▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Arith</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">5.30</td>
+<td style="text-align: right;">2.11</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">4.0</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">7.0</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">▂▃▃▇▇</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>This reveals a well-rounded dataset, complete with both categorical and numerical variables that offer a balanced view of the participants’ characteristics and their math-related anxiety scores. The dataset is complete with no missing data.</p>
+</section>
+<section id="data-dictionary-1" class="level3">
+<h3 class="anchored" data-anchor-id="data-dictionary-1">Data Dictionary</h3>
+<section id="quantitative-data-1" class="level4">
+<h4 class="anchored" data-anchor-id="quantitative-data-1">Quantitative Data</h4>
+<ul>
+<li><p><strong>Age (dbl)</strong>: The age of the participant, measured in years.</p></li>
+<li><p><strong>AMAS (dbl)</strong>: American Mathematics Anxiety Scale (AMAS) score, indicating the level of math anxiety.</p></li>
+<li><p><strong>RCMAS (dbl)</strong>: Revised Children’s Manifest Anxiety Scale (RCMAS) score, measuring general anxiety.</p></li>
+<li><p><strong>Arith (dbl)</strong>: Arithmetic test score, indicating performance in a mathematics test.</p></li>
+</ul>
+</section>
+<section id="qualitative-data-1" class="level4">
+<h4 class="anchored" data-anchor-id="qualitative-data-1">Qualitative Data</h4>
+<ul>
+<li><p><strong>Gender</strong>: The gender of the participant, categories include Boy and Girl.</p></li>
+<li><p><strong>Grade</strong>: The educational grade level of the participant, such as Secondary.</p></li>
+</ul>
+</section>
+</section>
+<section id="data-munging-1" class="level3">
+<h3 class="anchored" data-anchor-id="data-munging-1">Data Munging</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>math_anxiety_modified <span class="ot">&lt;-</span> math_anxiety <span class="sc">%&gt;%</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(</span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">Age =</span> Age<span class="sc">/</span><span class="dv">120</span>,</span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">Gender =</span> <span class="fu">as_factor</span>(Gender)</span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>math_anxiety_modified</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 599 × 6
+     Age Gender Grade      AMAS RCMAS Arith
+   &lt;dbl&gt; &lt;fct&gt;  &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+ 1  11.5 Boy    Secondary     9    20     6
+ 2  11.7 Boy    Secondary    18     8     6
+ 3  11.5 Girl   Secondary    23    26     5
+ 4  11.9 Girl   Secondary    19    18     7
+ 5  11.3 Boy    Secondary    23    20     1
+ 6  11.2 Girl   Secondary    27    33     1
+ 7  11.1 Boy    Secondary    22    23     4
+ 8  11.6 Boy    Secondary    17    11     7
+ 9  11.0 Girl   Secondary    28    32     2
+10  11.2 Boy    Secondary    20    30     6
+# ℹ 589 more rows</code></pre>
+</div>
+</div>
+<p>In this transformation, the Age column has been scaled down by dividing the values by 120, and the Gender column has been converted into a factor with two levels: “Boy” and “Girl.”</p>
+</section>
+<section id="summary-of-average-amas-scores-and-count-by-gender" class="level3">
+<h3 class="anchored" data-anchor-id="summary-of-average-amas-scores-and-count-by-gender">Summary of Average AMAS Scores and Count by Gender</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a> math_anxiety_modified <span class="sc">%&gt;%</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Gender) <span class="sc">%&gt;%</span></span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">average_AMAS =</span> <span class="fu">mean</span>(AMAS), <span class="at">count =</span> <span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 3
+  Gender average_AMAS count
+  &lt;fct&gt;         &lt;dbl&gt; &lt;int&gt;
+1 Boy            21.2   323
+2 Girl           22.9   276</code></pre>
+</div>
+</div>
+<p>The summary of average AMAS scores grouped by gender reveals that girls have a slightly higher average AMAS score (22.93) compared to boys (21.17). The total count of boys in the dataset is 323, while the total count of girls is 276. This suggests that while boys and girls show close levels of math anxiety, girls exhibit a marginally higher average score in the dataset.</p>
+</section>
+<section id="summary-of-average-amas-scores-and-count-by-gender-and-age-group" class="level3">
+<h3 class="anchored" data-anchor-id="summary-of-average-amas-scores-and-count-by-gender-and-age-group">Summary of Average AMAS Scores and Count by Gender and Age Group</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>math_anxiety_modified <span class="sc">%&gt;%</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Gender,Age) <span class="sc">%&gt;%</span></span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">average_AMAS =</span> <span class="fu">mean</span>(AMAS), <span class="at">count =</span> <span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'Gender'. You can override using the
+`.groups` argument.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 474 × 4
+# Groups:   Gender [2]
+   Gender   Age average_AMAS count
+   &lt;fct&gt;  &lt;dbl&gt;        &lt;dbl&gt; &lt;int&gt;
+ 1 Boy     7.76         16       1
+ 2 Boy     7.82         24       1
+ 3 Boy     7.83         13       1
+ 4 Boy     7.9          14       1
+ 5 Boy     7.91         11       1
+ 6 Boy     7.94         29       1
+ 7 Boy     7.96         16.5     2
+ 8 Boy     7.98          9       1
+ 9 Boy     7.98         29       1
+10 Boy     7.99          9       1
+# ℹ 464 more rows</code></pre>
+</div>
+</div>
+<p>The analysis of average AMAS scores, grouped by gender and age, provides a detailed look at how math anxiety varies across different age groups for boys and girls. By breaking down the data in this way, it is possible to explore patterns in math anxiety that may correlate with age and gender, allowing for a more nuanced understanding of how these factors influence AMAS scores.</p>
+</section>
+<section id="summary-of-average-rcmas-scores-and-count-by-gender" class="level3">
+<h3 class="anchored" data-anchor-id="summary-of-average-rcmas-scores-and-count-by-gender">Summary of Average RCMAS Scores and Count by Gender</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>math_anxiety_modified <span class="sc">%&gt;%</span></span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Gender) <span class="sc">%&gt;%</span></span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">average_RCMAS =</span> <span class="fu">mean</span>(RCMAS), <span class="at">count =</span> <span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 3
+  Gender average_RCMAS count
+  &lt;fct&gt;          &lt;dbl&gt; &lt;int&gt;
+1 Boy             18.1   323
+2 Girl            20.6   276</code></pre>
+</div>
+</div>
+<p>The table shows a summary of average RCMAS (Revised Children’s Manifest Anxiety Scale) scores grouped by gender. The average RCMAS score for boys is 18.12, based on 323 participants, while the average RCMAS score for girls is 20.55, based on 276 participants. This suggests that, on average, girls exhibit slightly higher anxiety levels as measured by the RCMAS scale compared to boys.</p>
+</section>
+<section id="summary-of-average-rcmas-scores-and-count-by-gender-and-age-group" class="level3">
+<h3 class="anchored" data-anchor-id="summary-of-average-rcmas-scores-and-count-by-gender-and-age-group">Summary of Average RCMAS Scores and Count by Gender and Age Group</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>math_anxiety_modified <span class="sc">%&gt;%</span></span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Gender,Age) <span class="sc">%&gt;%</span></span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">average_RCMAS =</span> <span class="fu">mean</span>(RCMAS), <span class="at">count =</span> <span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'Gender'. You can override using the
+`.groups` argument.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 474 × 4
+# Groups:   Gender [2]
+   Gender   Age average_RCMAS count
+   &lt;fct&gt;  &lt;dbl&gt;         &lt;dbl&gt; &lt;int&gt;
+ 1 Boy     7.76            20     1
+ 2 Boy     7.82            20     1
+ 3 Boy     7.83            15     1
+ 4 Boy     7.9             17     1
+ 5 Boy     7.91            15     1
+ 6 Boy     7.94            24     1
+ 7 Boy     7.96            27     2
+ 8 Boy     7.98            23     1
+ 9 Boy     7.98            29     1
+10 Boy     7.99            34     1
+# ℹ 464 more rows</code></pre>
+</div>
+</div>
+<p>This type of summary allows us to analyze how anxiety levels, as measured by the RCMAS, vary across different age groups within each gender.</p>
+</section>
+<section id="star-trek-books-data" class="level3">
+<h3 class="anchored" data-anchor-id="star-trek-books-data">Star Trek Books Data</h3>
+<p>I am working with Star Trek Books Data.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>startrek_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"../../data/star_trek_books.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: One or more parsing issues, call `problems()` on your data frame for details,
+e.g.:
+  dat &lt;- vroom(...)
+  problems(dat)</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 16369 Columns: 1
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (1): title;author;date;publisher;identifier;series;subseries;nchap;nword...
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>startrek_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 16,369 × 1
+   title;author;date;publisher;identifier;series;subseries;nchap;nword;nchar;d…¹
+   &lt;chr&gt;                                                                        
+ 1 "Star Trek: Star Trek Movie Tie-In;Alan Dean Foster;2009-05-12;Simon and Sch…
+ 2 "Starfleet Academy: The Delta Anomaly;Rick Barba;2010-11-02;Simon Spotlight;…
+ 3 "Starfleet Academy: The Edge;Rudy Josephs;2010-12-28;Simon Spotlight;9781442…
+ 4 "Starfleet Academy: The Gemini Agent;Rick Barba;2011-06-28;Simon Spotlight;9…
+ 5 "Starfleet Academy: The Assassination Game;Alan Gratz;2012-06-26;Simon Spotl…
+ 6 "Star Trek: Into Darkness;Alan Dean Foster;2013-05-21;Gallery Books;97814767…
+ 7 "Captain's Table 1: War Dragons;James T. Hirk;1998-06-01;Pocket Books;978143…
+ 8 "Captain's Table 5: Once Burned;Mackenzie;1998-10-01;Pocket Books;9780743455…
+ 9 "Captain's Table 6: Where Sea Meets Sky;Christopher Pike;1998-10-01;Pocket B…
+10 "For my brother, Ray, who introduced me to Star Trek and helped tune it in b…
+# ℹ 16,359 more rows
+# ℹ abbreviated name:
+#   ¹​`title;author;date;publisher;identifier;series;subseries;nchap;nword;nchar;dedication`</code></pre>
+</div>
+</div>
+<p>The Star Trek Books dataset contains 16,369 entries, each representing a book or publication related to the Star Trek franchise. Key variables include the book title, author, publication date, and publisher. The dataset also includes details such as unique identifiers, the series and subseries the book belongs to, and the number of chapters, words, and characters in each book. Additionally, there is a field for any author dedications.</p>
+</section>
+<section id="specifying-delimiter-1" class="level3">
+<h3 class="anchored" data-anchor-id="specifying-delimiter-1">Specifying Delimiter</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>startrek_data <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="at">file=</span><span class="st">"../../data/star_trek_books.csv"</span>,<span class="at">delim =</span><span class="st">";"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 783 Columns: 11
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ";"
+chr  (7): title, author, publisher, identifier, series, subseries, dedication
+dbl  (3): nchap, nword, nchar
+date (1): date
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+</div>
+<p>The dataset is read using a semicolon (;) delimiter.</p>
+</section>
+<section id="dataset---startrek_data" class="level3">
+<h3 class="anchored" data-anchor-id="dataset---startrek_data">Dataset - startrek_data</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>startrek_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 783 × 11
+   title    author date       publisher identifier series subseries nchap  nword
+   &lt;chr&gt;    &lt;chr&gt;  &lt;date&gt;     &lt;chr&gt;     &lt;chr&gt;      &lt;chr&gt;  &lt;chr&gt;     &lt;dbl&gt;  &lt;dbl&gt;
+ 1 Star Tr… Alan … 2009-05-12 Simon an… 1439163391 AV     &lt;NA&gt;         18  77035
+ 2 Starfle… Rick … 2010-11-02 Simon Sp… 978144241… AV     Starflee…    14  40129
+ 3 Starfle… Rudy … 2010-12-28 Simon Sp… 978144241… AV     Starflee…    31  52547
+ 4 Starfle… Rick … 2011-06-28 Simon Sp… 978144241… AV     Starflee…    13  39495
+ 5 Starfle… Alan … 2012-06-26 Simon Sp… 978144242… AV     Starflee…    30  62030
+ 6 Star Tr… Alan … 2013-05-21 Gallery … 978147671… AV     &lt;NA&gt;         17  77438
+ 7 Captain… James… 1998-06-01 Pocket B… 978143910… CT     &lt;NA&gt;         21  95110
+ 8 Captain… Macke… 1998-10-01 Pocket B… 978074345… CT     &lt;NA&gt;         26  76392
+ 9 Captain… Chris… 1998-10-01 Pocket B… 978143910… CT     &lt;NA&gt;         34  78678
+10 The Cap… John … 2000-03-01 Pocket B… 978074340… CT     &lt;NA&gt;        176 436682
+# ℹ 773 more rows
+# ℹ 2 more variables: nchar &lt;dbl&gt;, dedication &lt;chr&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="first-10-rows-of-the-star-trek-book-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="first-10-rows-of-the-star-trek-book-dataset">First 10 rows of the Star Trek Book dataset</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>startrek_data <span class="sc">%&gt;%</span> </span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a> <span class="fu">head</span>(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 11
+   title    author date       publisher identifier series subseries nchap  nword
+   &lt;chr&gt;    &lt;chr&gt;  &lt;date&gt;     &lt;chr&gt;     &lt;chr&gt;      &lt;chr&gt;  &lt;chr&gt;     &lt;dbl&gt;  &lt;dbl&gt;
+ 1 Star Tr… Alan … 2009-05-12 Simon an… 1439163391 AV     &lt;NA&gt;         18  77035
+ 2 Starfle… Rick … 2010-11-02 Simon Sp… 978144241… AV     Starflee…    14  40129
+ 3 Starfle… Rudy … 2010-12-28 Simon Sp… 978144241… AV     Starflee…    31  52547
+ 4 Starfle… Rick … 2011-06-28 Simon Sp… 978144241… AV     Starflee…    13  39495
+ 5 Starfle… Alan … 2012-06-26 Simon Sp… 978144242… AV     Starflee…    30  62030
+ 6 Star Tr… Alan … 2013-05-21 Gallery … 978147671… AV     &lt;NA&gt;         17  77438
+ 7 Captain… James… 1998-06-01 Pocket B… 978143910… CT     &lt;NA&gt;         21  95110
+ 8 Captain… Macke… 1998-10-01 Pocket B… 978074345… CT     &lt;NA&gt;         26  76392
+ 9 Captain… Chris… 1998-10-01 Pocket B… 978143910… CT     &lt;NA&gt;         34  78678
+10 The Cap… John … 2000-03-01 Pocket B… 978074340… CT     &lt;NA&gt;        176 436682
+# ℹ 2 more variables: nchar &lt;dbl&gt;, dedication &lt;chr&gt;</code></pre>
+</div>
+</div>
+<p>The first 10 rows of the Star Trek Books dataset display information about books published by various publishers, such as Simon and Schuster, Simon Spotlight, Gallery Books, and Pocket Books. The dataset shows identifiers and indicates the series the books belong to, like “AV” or “CT.” Some entries also belong to subseries, such as “Starfleet Academy.” Additionally, the dataset provides details on the number of chapters (nchap) and the total word count (nword) for each book.</p>
+</section>
+<section id="glimpse---startrek_data" class="level3">
+<h3 class="anchored" data-anchor-id="glimpse---startrek_data">Glimpse - startrek_data</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(startrek_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 783
+Columns: 11
+$ title      &lt;chr&gt; "Star Trek: Star Trek Movie Tie-In", "Starfleet Academy: Th…
+$ author     &lt;chr&gt; "Alan Dean Foster", "Rick Barba", "Rudy Josephs", "Rick Bar…
+$ date       &lt;date&gt; 2009-05-12, 2010-11-02, 2010-12-28, 2011-06-28, 2012-06-26…
+$ publisher  &lt;chr&gt; "Simon and Schuster", "Simon Spotlight", "Simon Spotlight",…
+$ identifier &lt;chr&gt; "1439163391", "9781442414259", "9781442414242", "9781442414…
+$ series     &lt;chr&gt; "AV", "AV", "AV", "AV", "AV", "AV", "CT", "CT", "CT", "CT",…
+$ subseries  &lt;chr&gt; NA, "Starfleet Academy", "Starfleet Academy", "Starfleet Ac…
+$ nchap      &lt;dbl&gt; 18, 14, 31, 13, 30, 17, 21, 26, 34, 176, 9, 12, 36, 23, 44,…
+$ nword      &lt;dbl&gt; 77035, 40129, 52547, 39495, 62030, 77438, 95110, 76392, 786…
+$ nchar      &lt;dbl&gt; 460097, 238567, 295829, 233095, 349595, 537472, 554915, 424…
+$ dedication &lt;chr&gt; "For Bjo and John TrimbleBecause hospitality is forever and…</code></pre>
+</div>
+</div>
+<p>This provides a glimpse into the 783 rows and 11 columns, summarizing various characteristics of Star Trek books.</p>
+</section>
+<section id="inspect---startrek_data" class="level3">
+<h3 class="anchored" data-anchor-id="inspect---startrek_data">Inspect - startrek_data</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="fu">inspect</span>(startrek_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+categorical variables:  
+        name     class levels   n missing
+1      title character    781 783       0
+2     author character    277 783       0
+3  publisher character     21 772      11
+4 identifier character    783 783       0
+5     series character     28 783       0
+6  subseries character     15  56     727
+7 dedication character    372 372     411
+                                   distribution
+1 Kobayashi Maru (0.3%), Warped (0.3%) ...     
+2 Peter David (4.9%) ...                       
+3 Pocket Books (67.4%) ...                     
+4  (%) ...                                     
+5 TOS (26.8%), TNG (18.6%), SCE (10.7%) ...    
+6 Typhon Pact (16.1%) ...                      
+7  (%) ...                                     
+
+Date variables:  
+  name class      first       last min_diff max_diff   n missing
+1 date  Date 1967-01-01 2017-11-28   0 days 485 days 783       0
+
+quantitative variables:  
+   name   class  min     Q1 median       Q3     max         mean           sd
+1 nchap numeric    1     13     21     29.0     373     24.58816     21.61247
+2 nword numeric  782  52500  70730  90994.5  687175  76190.07535  52453.34633
+3 nchar numeric 4337 310520 415964 555866.5 4484069 461822.36271 326062.44928
+    n missing
+1 760      23
+2 783       0
+3 783       0</code></pre>
+</div>
+</div>
+<p>The inspection of the Star Trek book dataset reveals a comprehensive breakdown of variables in categorical, date, and quantitative formats. Among the categorical variables, we have entries such as title, author, publisher, identifier, series, subseries, and dedication. These variables contain character data, with subseries and dedication having the most missing values. For date variables, we have the date variable that records the publication dates of books, ranging from 1967-01-01 to 2017-11-28, spanning a 50-year period. The quantitative variables include nchap (number of chapters), nword (number of words), and nchar (number of characters), all numeric with varying distributions. The average number of chapters per book is approximately 24.59, while the average word count is around 76190 words, and character count averages around 461822 characters.</p>
+</section>
+<section id="skim---startrek_data" class="level3">
+<h3 class="anchored" data-anchor-id="skim---startrek_data">Skim - startrek_data</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="fu">skim</span>(startrek_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Data summary</caption>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Name</td>
+<td style="text-align: left;">startrek_data</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Number of rows</td>
+<td style="text-align: left;">783</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Number of columns</td>
+<td style="text-align: left;">11</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">_______________________</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Column type frequency:</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">character</td>
+<td style="text-align: left;">7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Date</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">numeric</td>
+<td style="text-align: left;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">________________________</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Group variables</td>
+<td style="text-align: left;">None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: character</strong></p>
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 18%">
+<col style="width: 13%">
+<col style="width: 18%">
+<col style="width: 5%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 12%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">skim_variable</th>
+<th style="text-align: right;">n_missing</th>
+<th style="text-align: right;">complete_rate</th>
+<th style="text-align: right;">min</th>
+<th style="text-align: right;">max</th>
+<th style="text-align: right;">empty</th>
+<th style="text-align: right;">n_unique</th>
+<th style="text-align: right;">whitespace</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">title</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">58</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">781</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">author</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">138</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">277</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">publisher</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">0.99</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">26</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">21</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">identifier</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">41</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">783</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">series</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">subseries</td>
+<td style="text-align: right;">727</td>
+<td style="text-align: right;">0.07</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">23</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">dedication</td>
+<td style="text-align: right;">411</td>
+<td style="text-align: right;">0.48</td>
+<td style="text-align: right;">98</td>
+<td style="text-align: right;">97953</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">372</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: Date</strong></p>
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 12%">
+<col style="width: 17%">
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 11%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">skim_variable</th>
+<th style="text-align: right;">n_missing</th>
+<th style="text-align: right;">complete_rate</th>
+<th style="text-align: left;">min</th>
+<th style="text-align: left;">max</th>
+<th style="text-align: left;">median</th>
+<th style="text-align: right;">n_unique</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">date</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">1967-01-01</td>
+<td style="text-align: left;">2017-11-28</td>
+<td style="text-align: left;">2001-12-14</td>
+<td style="text-align: right;">577</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: numeric</strong></p>
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 10%">
+<col style="width: 14%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 5%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 9%">
+<col style="width: 8%">
+<col style="width: 6%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">skim_variable</th>
+<th style="text-align: right;">n_missing</th>
+<th style="text-align: right;">complete_rate</th>
+<th style="text-align: right;">mean</th>
+<th style="text-align: right;">sd</th>
+<th style="text-align: right;">p0</th>
+<th style="text-align: right;">p25</th>
+<th style="text-align: right;">p50</th>
+<th style="text-align: right;">p75</th>
+<th style="text-align: right;">p100</th>
+<th style="text-align: left;">hist</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">nchap</td>
+<td style="text-align: right;">23</td>
+<td style="text-align: right;">0.97</td>
+<td style="text-align: right;">24.59</td>
+<td style="text-align: right;">21.61</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">21</td>
+<td style="text-align: right;">29.0</td>
+<td style="text-align: right;">373</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">nword</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">76190.08</td>
+<td style="text-align: right;">52453.35</td>
+<td style="text-align: right;">782</td>
+<td style="text-align: right;">52500</td>
+<td style="text-align: right;">70730</td>
+<td style="text-align: right;">90994.5</td>
+<td style="text-align: right;">687175</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">nchar</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">461822.36</td>
+<td style="text-align: right;">326062.45</td>
+<td style="text-align: right;">4337</td>
+<td style="text-align: right;">310520</td>
+<td style="text-align: right;">415964</td>
+<td style="text-align: right;">555866.5</td>
+<td style="text-align: right;">4484069</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>The categorical variables like title, author, and publisher are mostly complete, although subseries has significant missing values (727 missing entries) and dedication has 411 missing entries. The date column spans from 1967 to 2017 with a median date around December 14, 2001. For numeric variables, nchap (number of chapters) has 23 missing values, with an average of around 25 chapters per book. The nword (number of words) and nchar (number of characters) columns are complete, showing an average of 76,190 words and 461,822 characters per book.</p>
+</section>
+<section id="data-dictionary-2" class="level3">
+<h3 class="anchored" data-anchor-id="data-dictionary-2">Data Dictionary</h3>
+<section id="quantitative-data-2" class="level4">
+<h4 class="anchored" data-anchor-id="quantitative-data-2">Quantitative Data</h4>
+<ul>
+<li><p><strong>nword (dbl)</strong>: The number of words in the book.</p></li>
+<li><p><strong>nchar (dbl)</strong>: The number of characters (including spaces and punctuation) in the book.</p></li>
+<li><p><strong>date (date)</strong>: The publication date of the book.</p></li>
+</ul>
+</section>
+<section id="qualitative-data-2" class="level4">
+<h4 class="anchored" data-anchor-id="qualitative-data-2">Qualitative Data</h4>
+<ul>
+<li><p><strong>author</strong>: The name of the author who wrote the book.</p></li>
+<li><p><strong>publisher</strong>: The publishing company responsible for releasing the book.</p></li>
+<li><p><strong>series</strong>: The main series of the Star Trek universe to which the book belongs (e.g., <em>The Original Series</em>, <em>The Next Generation</em>).</p></li>
+<li><p><strong>subseries</strong>: A subcategory or subseries within the main Star Trek series (e.g., <em>Deep Space Nine</em>).</p></li>
+<li><p><strong>dedication</strong>: A text string containing the book’s dedication, if applicable</p></li>
+</ul>
+</section>
+</section>
+<section id="summary-of-average-number-of-characters-and-book-count-by-author" class="level3">
+<h3 class="anchored" data-anchor-id="summary-of-average-number-of-characters-and-book-count-by-author">Summary of Average Number of Characters and Book Count by Author</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>startrek_data <span class="sc">%&gt;%</span> </span>
+<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(author) <span class="sc">%&gt;%</span></span>
+<span id="cb80-3"><a href="#cb80-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">average_characters =</span> <span class="fu">mean</span>(nchar, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">count =</span> <span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 277 × 3
+   author                                               average_characters count
+   &lt;chr&gt;                                                             &lt;dbl&gt; &lt;int&gt;
+ 1 A. C. Crispin                                                   571858      1
+ 2 A.C. Crispin                                                    480611.     3
+ 3 Aaron Rosenberg                                                  87922.     3
+ 4 Adam “mojo” Lebowitz; Robert Bonchune; Jonathan Lan…            144868      1
+ 5 Alan Dean Foster                                                498784.     2
+ 6 Alan Gratz                                                      349595      1
+ 7 Allyn Gibson                                                    144935      1
+ 8 Andrew J. Robinson                                              641696      1
+ 9 Andy Mangels                                                    576557      1
+10 Andy Mangels and Michael A. Martin                              571987      1
+# ℹ 267 more rows</code></pre>
+</div>
+</div>
+<p>This gives insight into the volume of work and average text length produced by different authors in the dataset.</p>
+</section>
+<section id="summary-of-average-number-of-words-and-book-count-by-publisher" class="level3">
+<h3 class="anchored" data-anchor-id="summary-of-average-number-of-words-and-book-count-by-publisher">Summary of Average Number of Words and Book Count by Publisher</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a>startrek_data <span class="sc">%&gt;%</span> </span>
+<span id="cb82-2"><a href="#cb82-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(publisher) <span class="sc">%&gt;%</span></span>
+<span id="cb82-3"><a href="#cb82-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize</span>(<span class="at">average_words =</span> <span class="fu">mean</span>(nword, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">count =</span> <span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 22 × 3
+   publisher           average_words count
+   &lt;chr&gt;                       &lt;dbl&gt; &lt;int&gt;
+ 1 Abrams Publications       132041      1
+ 2 Aladdin                    23801.    28
+ 3 Aladdin Paperbacks         69076      1
+ 4 Amereon Ltd                40804.     2
+ 5 Bantam Books               50225.    20
+ 6 Demco Media                23310.     2
+ 7 Dk Publishing             119459      1
+ 8 Elysium                    98779      1
+ 9 Gallery Books              93418.    15
+10 Harlequin                  63453      1
+# ℹ 12 more rows</code></pre>
+</div>
+</div>
+<p>The summary of the Star Trek book dataset, grouped by publisher, provides insights into the average number of words and the total book count for each publisher. For example, Abrams Publications has one book with an average of 132,041 words, while Aladdin has 28 books with an average of 23,800 words.</p>
+</section>
+<section id="summary-of-average-word-count-and-total-books-by-series" class="level3">
+<h3 class="anchored" data-anchor-id="summary-of-average-word-count-and-total-books-by-series">Summary of Average Word Count and Total Books by Series</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a>startrek_data <span class="sc">%&gt;%</span></span>
+<span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(series) <span class="sc">%&gt;%</span></span>
+<span id="cb84-3"><a href="#cb84-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize</span>(<span class="at">average_words =</span> <span class="fu">mean</span>(nword, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">count =</span> <span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 28 × 3
+   series average_words count
+   &lt;chr&gt;          &lt;dbl&gt; &lt;int&gt;
+ 1 AV            58112.     6
+ 2 CT           157688.     5
+ 3 DS9           91641.    83
+ 4 DSC           89367      1
+ 5 DTI           59215.     5
+ 6 ENT           82724.    19
+ 7 KE            74668.     4
+ 8 MIR          115916.     5
+ 9 MISC          89974.    13
+10 MYR          145127      3
+# ℹ 18 more rows</code></pre>
+</div>
+</div>
+<p>The grouping is done by series, and it shows a range of series with their calculated average word counts and the total number of books within each series. For example, the “TOS” series has 210 books with an average word count of 76,522.67, while the “CT” series has only 5 books but a much higher average word count of 157,687.80. There is also a wide variation in word count across different series, such as “YA-DS9” having only 23,298 words on average compared to more substantial works like “MYR” with 145,127 words. This summary helps identify how the different series compare in terms of length and volume, highlighting the diversity of content.</p>
+</section>
+<section id="summary-of-total-books-and-average-word-count-by-series-and-author" class="level3">
+<h3 class="anchored" data-anchor-id="summary-of-total-books-and-average-word-count-by-series-and-author">Summary of Total Books and Average Word Count by Series and Author</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a>startrek_data <span class="sc">%&gt;%</span></span>
+<span id="cb86-2"><a href="#cb86-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(series, author) <span class="sc">%&gt;%</span></span>
+<span id="cb86-3"><a href="#cb86-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize</span>(<span class="at">total_books =</span> <span class="fu">n</span>(), <span class="at">average_words =</span> <span class="fu">mean</span>(nword, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'series'. You can override using the
+`.groups` argument.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 419 × 4
+# Groups:   series [28]
+   series author                                total_books average_words
+   &lt;chr&gt;  &lt;chr&gt;                                       &lt;int&gt;         &lt;dbl&gt;
+ 1 AV     Alan Dean Foster                                2        77236.
+ 2 AV     Alan Gratz                                      1        62030 
+ 3 AV     Rick Barba                                      2        39812 
+ 4 AV     Rudy Josephs                                    1        52547 
+ 5 CT     Christopher Pike                                1        78678 
+ 6 CT     James T. Hirk                                   1        95110 
+ 7 CT     John J. Ordover and Dean Wesley Smith           1       436682 
+ 8 CT     Keith R.A. Decandido                            1       101577 
+ 9 CT     Mackenzie                                       1        76392 
+10 DS9    Andrew J. Robinson                              1       113304 
+# ℹ 409 more rows</code></pre>
+</div>
+</div>
+<p>This allows for an analysis of how different authors contribute to various Star Trek series in terms of the number of books they have written and the average length (in words) of their works.</p>
+</section>
+<section id="summary-of-total-books-and-average-character-count-by-year-and-author" class="level3">
+<h3 class="anchored" data-anchor-id="summary-of-total-books-and-average-character-count-by-year-and-author">Summary of Total Books and Average Character Count by Year and Author</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a>startrek_data <span class="sc">%&gt;%</span></span>
+<span id="cb89-2"><a href="#cb89-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="fu">year</span>(date), author) <span class="sc">%&gt;%</span></span>
+<span id="cb89-3"><a href="#cb89-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize</span>(<span class="at">total_books =</span> <span class="fu">n</span>(), <span class="at">average_characters =</span> <span class="fu">mean</span>(nchar, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'year(date)'. You can override using the
+`.groups` argument.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 624 × 4
+# Groups:   year(date) [51]
+   `year(date)` author         total_books average_characters
+          &lt;dbl&gt; &lt;chr&gt;                &lt;int&gt;              &lt;dbl&gt;
+ 1         1967 James Blish              1            235524 
+ 2         1968 James Blish              1            232094 
+ 3         1969 James Blish              1            224369 
+ 4         1970 James Blish              1            207001 
+ 5         1971 James Blish              1            239859 
+ 6         1972 James Blish              4            268216.
+ 7         1973 James Blish              1            314575 
+ 8         1974 James Blish              1            310749 
+ 9         1975 James Blish              1            332807 
+10         1976 Sondra Marshak           1            431759 
+# ℹ 614 more rows</code></pre>
+</div>
+</div>
+<p>This helps analyze trends over time, showing how many books each author contributed in a particular year and the typical length of those books in terms of characters.</p>
+</section>
+<section id="summary-of-total-books-and-average-character-count-by-publisher-and-series" class="level3">
+<h3 class="anchored" data-anchor-id="summary-of-total-books-and-average-character-count-by-publisher-and-series">Summary of Total Books and Average Character Count by Publisher and Series</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a>startrek_data <span class="sc">%&gt;%</span></span>
+<span id="cb92-2"><a href="#cb92-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(publisher, series) <span class="sc">%&gt;%</span></span>
+<span id="cb92-3"><a href="#cb92-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize</span>(<span class="at">total_books =</span> <span class="fu">n</span>(), <span class="at">average_nchar =</span> <span class="fu">mean</span>(nchar, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'publisher'. You can override using the
+`.groups` argument.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 81 × 4
+# Groups:   publisher [22]
+   publisher           series total_books average_nchar
+   &lt;chr&gt;               &lt;chr&gt;        &lt;int&gt;         &lt;dbl&gt;
+ 1 Abrams Publications REF              1       898671 
+ 2 Aladdin             YA-DS9          11       135368.
+ 3 Aladdin             YA-TNG          14       141448.
+ 4 Aladdin             YA-TOS           2       147656.
+ 5 Aladdin             YA-VOY           1       130989 
+ 6 Aladdin Paperbacks  TOS              1       390799 
+ 7 Amereon Ltd         TOS              2       233809 
+ 8 Bantam Books        TOS             20       287111.
+ 9 Demco Media         YA-VOY           2       134614 
+10 Dk Publishing       REF              1      1094928 
+# ℹ 71 more rows</code></pre>
+</div>
+</div>
+<p>This helps in analyzing the contribution of different publishers to various Star Trek series and the typical length of books published within those series. It provides insight into the publishing trends, helping to compare the output volume and book length across different series and publishers.</p>
+</section>
+<section id="summary-of-average-word-count-and-total-books-by-subseries" class="level3">
+<h3 class="anchored" data-anchor-id="summary-of-average-word-count-and-total-books-by-subseries">Summary of Average Word Count and Total Books by Subseries</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb95"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a>startrek_data <span class="sc">%&gt;%</span></span>
+<span id="cb95-2"><a href="#cb95-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(subseries) <span class="sc">%&gt;%</span></span>
+<span id="cb95-3"><a href="#cb95-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize</span>(<span class="at">average_words =</span> <span class="fu">mean</span>(nword, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">count =</span> <span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 16 × 3
+   subseries               average_words count
+   &lt;chr&gt;                           &lt;dbl&gt; &lt;int&gt;
+ 1 Academy                       106196      1
+ 2 Dark Passions                  52072.     2
+ 3 Day of Honor                  116344.     6
+ 4 Destiny                       147208      4
+ 5 Dominion War                   70683.     5
+ 6 Gateways                      116709      1
+ 7 Mirror Universe Trilogy        95785.     3
+ 8 Prey                           97729      3
+ 9 Section 31                     75524.     6
+10 Starfleet Academy              48550.     4
+11 The Badlands                   60314.     2
+12 The Brave and the Bold         66966      2
+13 The Fall                       95050.     5
+14 Totality                       80817.     3
+15 Typhon Pact                   124866.     9
+16 &lt;NA&gt;                           74781.   727</code></pre>
+</div>
+</div>
+<p>The summarized data from the Star Trek book dataset provides insights into the average word count and total number of books for each subseries. For example, the “Academy” subseries has 1 book with an average word count of 106,196, while “Day of Honor” spans 6 books with an average of 113,644 words. The “Destiny” subseries consists of 4 books averaging 147,208 words, and the “Typhon Pact” subseries features 9 books with an average of 124,866 words. Some subseries, like “Prey,” with 3 books averaging 97,729 words, reflect moderately sized collections. Additionally, there are entries like NA, which account for 727 books with an average word count of 74,780, indicating a group of records that might not fit into a specific subseries.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

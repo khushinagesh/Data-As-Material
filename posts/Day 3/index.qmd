@@ -1,0 +1,513 @@
+---
+title: "Day 3"
+author: "Khushi"
+---
+
+## Introduction
+
+We are working with bar graphs today.
+
+```{r}
+#| label: setup
+library(tidyverse)
+library(mosaic)
+library(ggformula)
+library(skimr)
+```
+
+### Look at the taxi dataset
+
+```{r}
+taxi <- read_csv("https://vincentarelbundock.github.io/Rdatasets/csv/modeldata/taxi.csv")
+taxi
+```
+
+The taxi dataset contains 10,000 entries, detailing information about individual taxi rides. It includes whether a tip was given, the distance of the ride, the company providing the service, and whether the ride was local. Additionally, it records the day of the week, the month, and the hour the ride took place. The dataset allows for analyzing patterns in tipping, ride distances, and usage trends by time (day, month, and hour) as well as comparing performance across different taxi companies. This can provide insights into ride behaviors and preferences.
+
+### Glimpse - taxi dataset
+
+```{r}
+glimpse(taxi)
+```
+
+This glimpse of the taxi dataset provides an overview of its 10,000 rows and 8 columns. This structure gives a clear, organized view of ride-specific information.
+
+### Inspect - taxi dataset
+
+```{r}
+inspect(taxi)
+```
+
+The inspection of the taxi dataset shows that it contains 10,000 entries with both categorical and quantitative variables. The categorical variables include tip, company, local, dow (day of the week), and month, all of which are character types. For example, 92.1% of rides resulted in a tip, and 81.2% of the rides were local. The quantitative variables include rownames, distance, and hour, all of which are numeric. The distance of rides ranges from 0 to 42.3 miles, with a mean of 6.22 miles, and the hour variable represents the time of day, ranging from 0 to 23.
+
+### Skim - taxi dataset
+
+```{r}
+skim(taxi)
+```
+
+This summary provides a detailed breakdown of the dataset's completeness and distribution, making it well-prepared for further analysis.
+
+### Data Munging
+
+```{r}
+taxi_modified <- taxi %>%
+  dplyr::mutate(
+    local = factor(local,
+      levels = c("no", "yes"),
+      labels = c("no", "yes"),
+      ordered = TRUE
+    ),
+    dow = factor(dow,
+      levels = c("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"),
+      labels = c("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"),
+      ordered = TRUE
+    ),
+    month = factor(month,
+      levels = c("Jan", "Feb", "Mar", "Apr"),
+      labels = c("Jan", "Feb", "Mar", "Apr"),
+      ordered = TRUE
+    )
+  )
+glimpse(taxi_modified)
+```
+
+This modified version of the taxi dataset includes the conversion of several variables into factors with ordered levels. Specifically, the variables local, dow, and month have been converted into factors. Each has been assigned specific ordered levels. The local variable indicates whether a ride was local ("no" or "yes"), while dow is now ordered from Monday to Sunday, and month from January to April. This change improves the dataset for analysis where the natural order of days and months is important, making it easier to perform time-based analyses or comparisons.
+
+### Plot 1A: Counts of Tips
+
+```{r}
+gf_bar(~tip, data = taxi_modified) %>%
+  gf_labs(title = "Plot 1A: Counts of Tips")
+# gf_labs- Metadata about the graph
+```
+
+The bar chart titled "Counts of Tips" displays the frequency of taxi rides where a tip was given versus those where no tip was provided. The chart shows a significantly higher count of rides where a tip was given, with over 7,500 rides including a tip, compared to a much smaller count of rides without a tip, which is under 1,000. This indicates that the majority of taxi rides in this dataset included a tip.
+
+### Plot 2A: Colour Bar Chart
+
+```{r}
+taxi_modified %>%
+  gf_bar(~tip,
+    colour = ~local,
+  ) %>%
+  gf_labs(title = "Plot 2A: Colour Bar Chart")
+# colour-outline colour
+```
+
+This colour-coded bar chart titled "Plot 2A: Colour Bar Chart" displays the count of taxi rides where a tip was given or not, with an additional distinction based on whether the ride was local or not. The darker bars represent non-local rides, while the lighter-coloured edges represent local rides.From the chart, it is clear that the majority of taxi rides where a tip was given were non-local, as the darker colour dominates the "yes" category. Similarly, for rides without a tip, the majority are also non-local. There are relatively few local rides, indicated by the lighter-coloured edges, in both the tip and no-tip categories.
+
+### Plot 2B: Stacked Bar Chart
+
+```{r}
+taxi_modified %>%
+  gf_bar(~tip,
+    fill = ~local,
+  ) %>%
+  gf_labs(title = "Plot 2B: Stacked Bar Chart")
+# fill- fill the bar with a colour or variable
+```
+
+This stacked bar chart titled "Plot 2B: Stacked Bar Chart" shows the distribution of taxi rides based on whether a tip was given, with the additional breakdown of local and non-local rides. The purple sections represent non-local rides, while the yellow sections represent local rides. In the "yes" category (rides with a tip), most of the rides are non-local (purple), with a smaller portion being local (yellow). Similarly, in the "no" category (rides without a tip), the majority are also non-local rides.
+
+### Plot 2C: Dodged Bar Chart
+
+```{r}
+taxi_modified %>%
+  gf_bar(~tip,
+    fill = ~local,
+    position = "dodge"
+  ) %>%
+  gf_labs(title = "Plot 2C: Dodged Bar Chart")
+```
+
+This "Dodged Bar Chart" (Plot 2C) provides a side-by-side comparison of taxi rides where tips were given or not, categorized by whether the ride was local or non-local. The purple bars represent non-local rides, and the yellow bars represent local rides.
+
+### Plot 2D: Filled Bar Chart
+
+```{r}
+taxi_modified %>%
+  gf_bar(~tip,
+    fill = ~local,
+    position = "fill"
+  ) %>%
+  gf_labs(
+    title = "Plot 2D: Filled Bar Chart",
+    subtitle = "Shows Per group differences in Proportions!"
+  )# position = "fill"- Used for proportions
+```
+
+This "Filled Bar Chart" (Plot 2D) shows the proportion of local and non-local taxi rides for both the tipping and non-tipping categories. The purple colour represents non-local rides, and the yellow colour represents local rides.This chart emphasizes the relative proportion of local versus non-local rides rather than the absolute counts, making it useful for understanding the distribution of ride types across tipping behaviour.
+
+### Plot 3A: Proportion of taxi rides where tips were given or not, broken down by different taxi companies
+
+```{r}
+taxi_modified %>%
+  gf_bar(~company, fill = ~tip, position = "fill") %>%
+  gf_labs(
+    title = "Plot 3A: Proportion of taxi rides where tips were given or not, broken down by different taxi companies"
+  ) 
+```
+
+This "Filled Bar Chart" (Plot 3A) displays the proportion of taxi rides where tips were given or not, broken down by different taxi companies. The blue segments represent rides where tips were given, and the red segments represent rides without tips. From the chart, it is clear that for all companies, the majority of rides resulted in a tip, while the non-tipping rides make up a smaller proportion across all companies. Some companies, like "Flash Cab," have a slightly larger proportion of non-tipping rides compared to others, but overall, tipping is the dominant behaviour for all the companies displayed. This chart emphasizes the tipping pattern across different taxi providers, showing relatively consistent behaviour.
+
+### Plot 4: Counts of Tips by Hour
+
+```{r}
+gf_bar(~hour, fill = ~tip, data = taxi_modified) %>%
+  gf_labs(title = "Plot 4: Counts of Tips by Hour")
+```
+
+The "Counts of Tips by Hour" chart shows the distribution of taxi rides and tipping behaviour throughout the day. The number of rides increases steadily during the morning, peaks between 2 PM and 4 PM, and then declines in the evening. Most rides result in a tip, as indicated by the large blue bars across all hours, with a smaller proportion of non-tipping rides (red bars). The highest concentration of rides and tips occurs during the afternoon hours, while early morning and late evening see fewer rides overall. This pattern highlights that tipping is consistent throughout the day, especially during peak ride times.
+
+### Plot 5: Counts of Tips by Day of Week
+
+```{r}
+gf_bar(~dow, fill = ~tip, data = taxi_modified) %>%
+  gf_labs(title = "Plot 5: Counts of Tips by Day of Week")
+```
+
+The "Counts of Tips by Day of Week" chart shows the number of taxi rides and tipping behaviour across different days of the week. Thursdays have the highest number of rides, followed by Wednesdays, while the weekends (Saturday and Sunday) have the lowest ride counts. Across all days, most rides result in a tip, as indicated by the blue bars. A small portion of rides, particularly on weekdays, do not result in a tip, shown by the red bars. Overall, tipping behavior is consistent throughout the week, but ride volumes peak midweek and decrease during the weekend.
+
+### Plot 6: Counts of Tips by Month
+
+```{r}
+gf_bar(~month, fill = ~tip, data = taxi_modified) %>%
+  gf_labs(title = "Plot 6: Counts of Tips by Month")
+```
+
+The bar chart illustrates the distribution of taxi rides and tipping behaviour over the months of January through April. March and April show the highest ride counts, both exceeding 3,000 rides, with a significant majority of these rides resulting in tips. February has a moderate number of rides, slightly lower than March and April, but tipping behavior remains strong. January has the fewest rides, but similarly, most rides result in tips. Overall, tipping appears consistent across all four months, with a clear trend of most taxi rides receiving tips, regardless of the month.
+
+### Plot 7: Counts of Tips by Day of Week and Month
+
+```{r}
+gf_bar(~ month | dow, fill = ~tip, data = taxi_modified) %>%
+  gf_labs(title = "Plot 7: Counts of Tips by Day of Week and Month")
+```
+
+The multi-faceted bar chart depicts the counts of taxi rides and tipping patterns across different days of the week (Monday to Sunday) and months (January to April). For most days of the week, March and April show higher counts of rides compared to January and February. Thursdays and Fridays have the highest ride counts, with a strong tendency toward tipping, particularly in March and April. Sundays generally have the fewest rides but maintain a steady tipping trend. Overall, tipping behaviour remains consistent across different days, with the majority of rides receiving tips, especially as the year progresses into spring months.
+
+### Plot 8A: Counts of Tips by Hour and Day of Week
+
+```{r}
+gf_bar(~ dow | hour, fill = ~tip, data = taxi_modified) %>%
+  gf_labs(
+    title = "Plot 8A: Counts of Tips by Hour and Day of Week",
+  )
+```
+
+The bar chart shows the distribution of taxi rides and tipping behaviour across different hours of the day and days of the week. Tipping generally follows a similar pattern throughout the week, with the highest ride counts and tips occurring between 8 AM and 6 PM, particularly around midday. Monday through Friday sees more rides, with a peak tipping period from 8 AM to 3 PM. The early morning and late evening hours (before 7 AM and after 9 PM) have significantly fewer rides and tips. Weekends, especially Sundays, show lower overall ride and tipping activity throughout all hours of the day.
+
+### Plot 8B: Proportions of Tips by Hour and Day of Week
+
+```{r}
+gf_bar(~ dow | hour, fill = ~tip, position ="fill", data = taxi_modified) %>%
+  gf_labs(
+    title = "Plot 8B: Proportions of Tips by Hour and Day of Week",
+  )
+```
+
+The bar chart visualizes the proportion of taxi rides that result in tips across different hours of the day ( segregated as multiple graphs) and days of the week ( x-axis). The consistent blue (representing tips) across most hours and days suggests that a large majority of rides result in tipping, regardless of the time or day. However, some fluctuations occur, particularly during early morning hours (2 AM - 5 AM) on weekdays, when the percentage of rides without tips (in red) increases slightly. Despite these minor variations, tipping appears to be a regular part of most rides across all hours and days.
+
+### Plot 9: Counts of Tips by Hour and Day of Week
+
+```{r}
+gf_bar(~ hour | dow, fill = ~tip, data = taxi_modified) %>%
+  gf_labs(
+    title = "Plot 9: Counts of Tips by Hour and Day of Week",
+  )
+```
+
+The chart illustrates the distribution of taxi rides that resulted in tips across different hours of the day (x-axis) for each day of the week( shown as different graphs). The data reveals that tipping patterns are fairly consistent throughout the week, with peak hours for tipping occurring in the late morning to afternoon (around 9 AM to 3 PM). The chart also shows that there are fewer rides without tips (in red) during these peak hours, while early morning and late-night hours, especially on weekends, tend to have a smaller proportion of tipping. Thursdays and Fridays appear to have the highest number of taxi rides with tips.
+
+### Plot 10: Counts of Tips by Hour
+
+```{r}
+gf_bar(~hour, fill = ~tip, position ="fill", data = taxi_modified) %>%
+  gf_labs(
+    title = "Plot 10: Counts of Tips by Hour",
+  )
+```
+
+This bar chart illustrates the proportion of taxi rides that resulted in tips (in blue) versus no tips (in red) across different hours of the day. The majority of taxi rides during all hours tend to result in a tip, as indicated by the dominant blue colour in the chart. There is a slightly higher proportion of rides without tips in the early morning (around 1 AM to 5 AM) and later in the night, but overall, tipping remains consistent throughout the day, with a slight dip in tip occurrences during off-peak hours.
+
+### Plot 11: Counts of Tips by Day of Week
+
+```{r}
+gf_bar(~dow, fill = ~tip, position ="fill", data = taxi_modified) %>%
+  gf_labs(
+    title = "Plot 11: Counts of Tips by Day of Week",
+  )
+```
+
+This bar chart shows the proportion of taxi rides that received tips (in blue) versus no tips (in red) for each day of the week. Across all days, a majority of rides result in tips, as shown by the larger blue segments in each bar. The proportion of no-tips (red) remains fairly consistent throughout the week, with no significant differences between the days. This suggests that tipping behaviour is relatively uniform, regardless of the day of the week.
+
+### Look at the HELPrct dataset
+
+```{r}
+data("HELPrct")
+HELPrct
+```
+
+The HELPrct dataset displayed contains 453 rows and 30 columns of various types of variables. These variables include data related to demographic characteristics (like age, sex), substance use (such as anysub, daysanysub), risks (drugrisk, sexrisk), treatments (treat, hospitalization), and psychological factors (such as cesd score, mcs, pcs). The dataset provides details like the number of days since a participant last used substances, their risk levels, treatment history, average and maximum number of drinks consumed, and hospitalization incidents. It includes a mix of categorical and numeric data, offering a comprehensive look at factors relevant to participants' treatment and health risks.
+
+### Plot 1: Primary Substance of Abuse
+
+```{r}
+HELPrct %>% 
+  gf_bar(~substance)
+```
+
+The bar chart illustrates the distribution of primary substances of abuse among the participants in the dataset. The three substances depicted are alcohol, cocaine, and heroin. Alcohol has the highest count, with over 150 participants primarily abusing it. Cocaine comes next, followed by heroin, which has the lowest count among the three substances. This suggests that alcohol abuse is more prevalent among the participants compared to cocaine and heroin.
+
+### Plot 2: Proportion of Primary Substance of Abuse by Sex
+
+```{r}
+HELPrct %>%
+  gf_props(~substance, fill=~sex)
+```
+
+This displays the proportion of male and female participants who primarily abuse alcohol, cocaine, or heroin. Each bar is divided to represent the proportion of males (shown in blue) and females (shown in red) for each substance. For alcohol and heroin, males make up a larger portion of the abusers, whereas cocaine has a more balanced proportion between males and females. Overall, more males than females are represented across all three substances of abuse.
+
+### Look at the apartments dataset
+
+```{r}
+apartments <- read_csv("../../data/apartments.csv")
+apartments
+```
+
+The dataset combines two attributes-living area and sale price in each row, allowing for analysis of how living space correlates with the sale price across different apartments.
+
+### Specifying Delimiter
+
+```{r}
+apartments <- read_delim(file="../../data/apartments.csv",delim =";")
+```
+
+The dataset is read using a semicolon (;) delimiter.
+
+### Dataset - apartments
+
+```{r}
+apartments
+```
+
+### First 10 rows of the Apartments dataset
+
+```{r}
+apartments %>% 
+  head(10)
+```
+
+The first 10 rows of the apartments dataset provide details of apartments based on two key variables: GrLivArea (above-ground living area in square feet) and SalePrice (the sale price in US dollars). The data shows a range of living areas from 1,077 to 2,198 square feet, with corresponding sale prices ranging from \$118,000 to \$307,000. The dataset highlights variations in apartment sizes and their market prices, suggesting that larger apartments tend to have higher sale prices. This provides a preliminary glimpse into how apartment size might influence property pricing.
+
+### Glimpse - apartments dataset
+
+```{r}
+glimpse(apartments)
+```
+
+The glimpse gives an overview of the relationship between the living area and sale price for different apartments.
+
+### Inspect - apartments dataset
+
+```{r}
+inspect(apartments)
+```
+
+The ground living area ranges from 334 to 5,642 square feet, with a median of 1,464 square feet and an average of 1,515 square feet. The sale prices vary from \$34,900 to \$755,000, with a median price of \$163,000 and an average price of around \$180,921. The inspection shows a substantial spread in both the living areas and the sale prices of apartments, as indicated by the large standard deviations.
+
+### Skim - apartments dataset
+
+```{r}
+skim(apartments)
+```
+
+The skim summary of the apartments dataset shows that there are no missing values in either of the two variables, GrLivArea and SalePrice. The dataset has a complete rate of 1 for both variables. The mean ground living area is 1,515.464 square feet with a standard deviation of 525.4804, indicating variation in apartment sizes. Similarly, the mean sale price is \$180,921.20 with a higher standard deviation of \$79,442.50, reflecting significant variability in apartment prices.
+
+### Data Dictionary
+
+**Quantitative Data**
+
+-   **GrLivArea (dbl)**: The above-ground living area in square feet for each apartment.
+
+-   **SalePrice (dbl)**: The sale price of the apartment in US dollars.
+
+### What is the average sale price of the apartments?
+
+```{r}
+avg_sale_price <- mean(apartments$SalePrice, na.rm = TRUE)
+avg_sale_price
+```
+
+The average sale price of the apartments in the dataset is approximately \$180,921.2. This figure is calculated by taking the mean of the SalePrice column, which represents the sale prices of the apartments.
+
+### How do sale prices vary by quartiles?
+
+```{r}
+quantile(apartments$SalePrice, probs = c(0.25, 0.5, 0.75), na.rm = TRUE)
+```
+
+This means that 25% of the apartments have a sale price below \$129,975, 50% are below \$163,000, and 75% are below \$214,000.
+
+### What is the typical size of an apartment in terms of living area?
+
+```{r}
+median(apartments$GrLivArea, na.rm = TRUE)
+mean(apartments$GrLivArea, na.rm = TRUE)
+```
+
+These values suggest that most apartments have a living area close to these sizes, with the median indicating the middle value and the mean reflecting the average size across the dataset.
+
+### What is the distribution of living area sizes?
+
+```{r}
+gf_histogram(~ GrLivArea, data = apartments, binwidth = 100, 
+             color = "green", alpha = 0.6) %>%
+  gf_labs(title = "Distribution of Living Area Sizes", 
+          x = "Living Area (sq ft)", 
+          y = "Count") %>%
+  gf_theme(theme_minimal())
+```
+
+The majority of apartments have a living area between 1,000 and 2,500 square feet, with a peak around 1,500 to 2,000 square feet. There are fewer apartments with very small or very large living areas, and the distribution shows a right-skew, with a small number of larger apartments exceeding 3,000 square feet. This suggests that most apartments in the dataset fall within the mid-range of living areas.
+
+### How frequently do apartments of different living area sizes occur?
+
+```{r}
+gf_histogram(~ GrLivArea, data = apartments, fill = "red", bins = 50) %>%
+  gf_labs(x = "Living Area (sqft)", y = "Count", title = "Frequency of Different Living Area Sizes")
+
+```
+
+Most apartments have living areas between 1,000 and 2,000 square feet, with a noticeable peak around 1,500 to 2,000 square feet. As the living area increases beyond 2,500 square feet, the frequency of apartments decreases significantly. Few apartments have living areas larger than 3,500 square feet, indicating that larger apartments are much less common.
+
+### What is the price per square foot of the apartments, and how does it vary?
+
+```{r}
+apartments$PricePerSqFt <- apartments$SalePrice / apartments$GrLivArea
+gf_histogram(~ PricePerSqFt, data = apartments, bins = 50, fill = "yellow", color = "orange") %>%
+  gf_labs(x = "Price per Square Foot", y = "Count", title = "Distribution of Price per Square Foot")
+summary(apartments$PricePerSqFt)
+
+```
+
+Most apartments are priced between \$75 and \$125 per square foot, with the highest concentration just below \$100. As the price per square foot increases beyond \$150, the frequency decreases significantly, with very few apartments exceeding \$200 per square foot. This indicates that the majority of apartments are within a mid-range price, with fewer properties being priced at the higher end.
+
+### Look at the Fertility dataset
+
+```{r}
+fert <- read_csv("../../data/Fertility.csv")
+fert
+```
+
+The Fertility dataset consists of 254,654 rows and 9 columns, capturing demographic and work-related information. It includes both quantitative and qualitative variables. The quantitative data, such as age and work experience, shows that the individuals range in age from 26 to 35, with work experience varying between 0 to 52 years. The qualitative data provides insights into factors like gender (gender1, gender2), ethnicity (African American, Hispanic, and other ethnicities), and whether individuals have more children (morekids).
+
+### First 10 rows of the Fertility dataset
+
+```{r}
+fert %>% 
+  head(10)
+```
+
+The first 10 rows of the Fertility dataset provide a snapshot of individuals, focusing on whether they desire more children ("morekids"), gender roles of both partners ("gender1" and "gender2"), age, ethnicity (whether they are African American "afam" or Hispanic), and work experience. The data shows a mix of individuals with varying work experience, ranging from 0 to 52 years, and includes demographic details such as gender and ethnicity. Most individuals in these first 10 rows do not desire more children.
+
+### Glimpse - Fertility Dataset
+
+```{r}
+glimpse(fert)
+```
+
+The glimpse gives a quick summary of the structure of the data, highlighting the types of variables and their initial values.
+
+### Inspect - Fertility Dataset
+
+```{r}
+inspect(fert)
+```
+
+The categorical variables capture demographic information, such as whether an individual has more children (with 61.9% indicating "no" and 38.1% indicating "yes"), the gender of the parents (roughly evenly split between male and female), and ethnic background (with 94.8% identifying as non-African American and 92.6% identifying as non-Hispanic). The quantitative variables include age, with a median of 31 years and a range from 21 to 35 years, and hours worked per week, with a median of 5 hours and a range extending up to 52 hours. This dataset provides a broad demographic and work-related profile of individuals.
+
+### Skim - Fertility Dataset
+
+```{r}
+skim(fert)
+```
+
+From the skim summary, the dataset has no missing values across all columns. The age of individuals in the dataset ranges from 21 to 35 years, with a mean of approximately 30. The work variable ranges from 0 to 52, with a mean value of around 19, indicating a spread of work hours or some related measurement.
+
+### Data Dictionary
+
+### Quantitative Data:
+
+-   **rowname (dbl)**: The index or row number of the dataset.
+
+-   **age (dbl)**: The age of individuals in the dataset.
+
+-   **work (dbl)**: The number of years the individuals have worked.
+
+### Qualitative Data:
+
+-   **morekids (chr)**: Indicates whether the individual has more kids (e.g., yes, no).
+
+-   **gender1 (chr)**: The gender of the individual (e.g., male, female).
+
+-   **gender2 (chr)**: Another column representing gender (e.g., male, female).
+
+-   **afam (chr)**: Indicates African American status (e.g., yes, no).
+
+-   **hispanic (chr)**: Indicates Hispanic ethnicity (e.g., yes, no).
+
+-   **other (chr)**: Indicates whether the individual belongs to another ethnic group (e.g., yes, no).
+
+### What is the distribution of ages?
+
+```{r}
+gf_bar(~ age, data = fert, bins = 30, fill = "purple") %>%
+  gf_labs(x = "Age", y = "Count", title = "Distribution of Age")
+
+```
+
+The distribution of ages in the fertility dataset shows that the majority of individuals fall between the ages of 25 and 35. There is a noticeable peak around the ages of 30 to 33, where the count of individuals reaches its highest point. The dataset contains fewer individuals under the age of 25 and over the age of 35, indicating a concentration of respondents in their late 20s to early 30s. This histogram suggests that the dataset primarily includes individuals in this middle age range, which could be typical for studies related to fertility.
+
+### What is the proportion of individuals with more children?
+
+```{r}
+gf_bar(~ morekids, data = fert, fill = "lightgreen") %>%
+  gf_labs(x = "More Children", y = "Count", title = "Proportion of Individuals with More Children")
+```
+
+A larger portion of individuals, over 150,000, indicated that they do not have more children, while a smaller group, approximately 100,000, reported having more children. This indicates that the majority of respondents do not have additional children compared to those who do. The distribution suggests a notable difference between the two groups, with fewer individuals opting for more children.
+
+### What is the distribution of work hours across individuals?
+
+```{r}
+gf_histogram(~ work, data = fert, bins = 20, fill = "orange") %>%
+  gf_labs(x = "Work Hours", y = "Count", title = "Distribution of Work Hours")
+```
+
+The histogram illustrates the distribution of work hours across individuals. A significant proportion of the individuals report zero work hours, as seen by the large spike at the beginning of the graph. There are also smaller groups of individuals with higher work hours, particularly around the 40-hour mark, which is typically considered a full-time workload. This suggests that many individuals in the dataset do not work, while those who do often work around 40 hours per week. The distribution is heavily skewed toward the lower end of the work hours scale.
+
+### What is the gender distribution?
+
+```{r}
+gf_props(~ gender1, data = fert, fill = "lightblue") %>%
+  gf_labs(x = "Gender 1", y = "Count", title = "Gender 1 Distribution")
+
+gf_props(~ gender2, data = fert, fill = "darkblue") %>%
+  gf_labs(x = "Gender 2", y = "Count", title = "Gender 2 Distribution")
+```
+
+The fertility dataset presents a balanced distribution of genders across both the Gender 1 and Gender 2 categories. In both groups, males and females are represented almost equally, as shown by the bar charts. The proportion of males in Gender 1 is slightly higher at 51.4%, while the proportion of females is 48.6%. Similarly, in Gender 2, the male proportion is 51.3%, with females comprising 48.7%. This even distribution highlights that gender representation is fairly uniform within the dataset, providing a balanced basis for further analysis regarding gender-related variables.
+
+### What is the ethnicity distribution?
+
+```{r}
+gf_bar(~ afam, data = fert, fill = "lightpink") %>%
+  gf_labs(x = "African American", y = "Count", title = "African American Status Distribution")
+
+gf_bar(~ hispanic, data = fert, fill = "violet") %>%
+  gf_labs(x = "Hispanic", y = "Count", title = "Hispanic Status Distribution")
+```
+
+The two graphs show the distribution of African American and Hispanic statuses within the dataset. For both variables, the majority of individuals are classified as "no," indicating they are not African American or Hispanic, while a smaller proportion is classified as "yes," indicating they are. This suggests that the dataset has a relatively low representation of both African American and Hispanic individuals.
