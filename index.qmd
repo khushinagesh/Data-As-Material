@@ -1,5 +1,5 @@
 ---
-title: "My-Blog-For-Peasants"
+title: "Data-As-Material"
 listing:
   contents: posts
   sort: "date desc"
