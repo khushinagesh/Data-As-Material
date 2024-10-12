@@ -2,10 +2,14 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/Assignment 2 - Part 1/index.html",
+      "/posts/Assignment 2 - Part 2/index.html",
+      "/posts/Assignment 2 - Part 3/index.html",
       "/posts/Day 1/index.html",
       "/posts/Day 2/index.html",
       "/posts/Day 3/index.html",
-      "/posts/Day 4/index.html"
+      "/posts/Day 4/index.html",
+      "/posts/Day 5/index.html"
     ]
   }
 ]

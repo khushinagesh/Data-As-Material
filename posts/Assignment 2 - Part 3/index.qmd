@@ -1,0 +1,483 @@
+---
+title: "Assignment 2 - Part 3"
+author: "Khushi"
+---
+
+## Introduction
+
+This is Part 3 of Assignment 2.
+
+```{r}
+#| label: setup
+library(tidyverse)
+library(mosaic)
+library(skimr)
+library(ggformula)
+library(correlation)
+library(broom)
+library(knitr)
+```
+
+### Dataset - heptathlon
+
+This is a dataset pertaining to scores of multiple athletes in the 7 events that make up the Heptathlon.
+
+```{r}
+library(HSAUR)
+heptathlon
+```
+
+The dataset contains performance metrics for various athletes across different disciplines that make up the Heptathlon event. The columns include measurements for hurdles, high jump, shot put, 200m run, long jump, javelin, 800m run, and the total score. Athletes are identified by their names and nationalities, and their scores in each event are displayed. For example, Joyner-Kersee leads with a score of 7291 points, achieving the best times and distances across several events, including hurdles, high jump, and long jump.
+
+### First 10 rows of the Heptathlon dataset
+
+```{r}
+heptathlon %>% 
+  head(10)
+```
+
+The first 10 rows of the heptathlon dataset show the performances of athletes across various events. The columns include data for hurdles, high jump, shot put, 200m run, long jump, javelin throw, 800m run, and the total score. For example, Joyner-Kersee (USA) leads the list with a total score of 7291 points, excelling in the 200m run, hurdles, and long jump. Other athletes, such as John and Behmer from GDR, follow closely with scores of 6897 and 6858, respectively, also showing strong performances across events like shot put and high jump. Each row represents an athlete's results across all seven heptathlon events, culminating in their final score.
+
+### Glimpse - Heptathlon
+
+```{r}
+glimpse(heptathlon)
+```
+
+The glimpse of the heptathlon dataset provides an overview of 25 rows and 8 columns, showcasing athletes' performances across various events.
+
+### Inspect - Heptathlon
+
+```{r}
+inspect(heptathlon)
+```
+
+The inspection of the heptathlon dataset reveals important summary statistics for each event. The dataset has 25 entries with no missing data. The hurdles times range from 12.69 to 16.42 seconds, with a median of 13.75 seconds. High jump heights range from 1.50 to 1.86 meters, with a median of 1.80 meters. Shot put distances vary between 10.00 and 16.23 meters, and the median distance is 12.88 meters. For the 200m run, the times range from 22.56 to 26.61 seconds, with a median of 24.83 seconds. Long jump distances range from 4.88 to 7.27 meters. The javelin throw distances span from 35.68 to 47.50 meters, while the 800m run times range between 124.20 and 163.43 seconds. The total score varies widely, from 4566 to 7291 points, with a mean score of 6090.
+
+### Skim - Heptathlon
+
+```{r}
+skim(heptathlon)
+```
+
+The skim summary of the heptathlon dataset provides key statistical insights into the eight numeric variables. The dataset contains 25 rows and no missing data. For each variable, the mean, standard deviation (sd), and percentiles (p0, p25, p50, p75, p100) are shown. For example, the hurdles event has a mean of 13.84 seconds with a standard deviation of 0.74, and the scores range from 12.69 to 16.42 seconds. Similarly, the high jump has a mean of 1.78 meters with a low standard deviation of 0.08. The score column has a broad range from 4566 to 7291 points, with a mean score of 6090. These statistics offer an overview of how the athletes' performances are distributed across the different events.
+
+### Data Dictionary
+
+**Quantitative Data:**
+
+-   **hurdles (dbl):** The time (in seconds) taken to complete the 100m hurdles event.
+
+-   **highjump (dbl):** The height (in meters) cleared in the high jump event.
+
+-   **shot (dbl):** The distance (in meters) achieved in the shot put event.
+
+-   **run200m (dbl):** The time (in seconds) taken to complete the 200m sprint.
+
+-   **longjump (dbl):** The distance (in meters) achieved in the long jump event.
+
+-   **javelin (dbl):** The distance (in meters) achieved in the javelin throw event.
+
+-   **run800m (dbl):** The time (in seconds) taken to complete the 800m run.
+
+-   **score (int):** The total score accumulated from all the events for each athlete.
+
+**Qualitative Data:**
+
+-   **name (chr):** The name of the athlete participating in the heptathlon competition.
+
+### Target Variable
+
+**Score**
+
+The score is the key outcome of interest in the heptathlon dataset as it represents the cumulative performance of athletes across all events. The goal of the analysis is to understand how each individual event contributes to the overall score. This makes the score the most logical target variable for evaluating the athletes' success across the seven heptathlon events.
+
+### Predictor Variables
+
+-   **Hurdles**
+
+The time taken to complete the 100m hurdles event is a critical factor in determining an athlete’s score. Faster times typically translate into higher scores, making hurdles an important predictor of the overall performance.
+
+-   **High Jump**
+
+The height an athlete clears in the high jump event significantly contributes to their score. Higher jumps generally result in more points, making it a valuable predictor for the overall score.
+
+-   **Shot Put**
+
+The distance achieved in the shot put event is another factor that influences the total score. Longer throws result in higher points, making this event a crucial predictor of an athlete's overall performance.
+
+-   **200m Sprint**
+
+The time taken to complete the 200m sprint is an essential measure of an athlete’s speed and stamina. Faster times contribute to higher scores, making the 200m sprint an important predictor variable.
+
+-   **Long Jump**
+
+The distance jumped in the long jump event provides another key input into the total score. Longer jumps generally lead to higher scores, making it an influential predictor.
+
+-   **Javelin Throw**
+
+The distance achieved in the javelin throw event plays a role in determining the athlete’s score. Longer throws result in more points, making this an important predictor for the final score.
+
+-   **800m Run**
+
+The time taken to complete the 800m run is a measure of endurance and speed. Faster times contribute to higher scores, making the 800m run a significant predictor of the overall score.
+
+### Research Experiment for the Heptathlon Dataset
+
+The primary objective of the research experiment could be to measure and evaluate the athletic performance of multiple athletes competing in the heptathlon, a multi-event track and field competition. The goal might have been to assess how individual event performances contribute to the overall score, providing insights into which events could be most predictive of an athlete's cumulative success.
+
+#### **Hypothesis:**
+
+The experiment could have been designed to test the hypothesis that certain events (e.g., long jump, 200m sprint) would have a stronger correlation with the overall score than others (e.g., shot put or javelin throw).
+
+#### **Participants:**
+
+-   **Subjects:** 25 female athletes who participated in an international heptathlon competition, possibly at a world-class event such as the Olympics or World Championships.
+
+-   **Selection Criteria:** Athletes could have been selected based on their qualification to compete in the heptathlon, likely elite athletes with prior experience and high skill levels across the seven events.
+
+#### **Methodology:**
+
+1.  **Data Collection Procedure:**
+
+    -   The athletes participated in **seven heptathlon events**, which took place over two days:
+
+        1.  100m hurdles
+
+        2.  High jump
+
+        3.  Shot put
+
+        4.  200m sprint
+
+        5.  Long jump
+
+        6.  Javelin throw
+
+        7.  800m run
+
+    -   Each event was measured precisely using standard procedures. For example:
+
+        -   **Times** for hurdles, 200m sprint, and 800m run were measured using electronic timing systems.
+
+        -   **Distances** for shot put, long jump, and javelin throw were measured using precise distance-measuring equipment.
+
+        -   **Heights** for the high jump were measured using high-precision tools to ensure accuracy.
+
+2.  **Data Recording:**
+
+    -   The performance of each athlete in each event was recorded. This included:
+
+        -   Time (in seconds) for the sprint events (100m hurdles, 200m sprint, 800m run).
+
+        -   Distance (in meters) for throwing and jumping events (shot put, long jump, javelin throw).
+
+        -   Height (in meters) for the high jump.
+
+        -   The results for each event were converted into points using **IAAF Heptathlon Scoring Tables** (standard scoring guidelines used in heptathlon). The points for each event were summed to obtain the **total score** for each athlete.
+
+**Controlled Variables:**
+
+-   Environmental factors such as **weather conditions** (e.g., wind speed, temperature) that could influence performance might have been controlled or recorded to ensure fairness.
+
+-   **Equipment** used for measurements (e.g., electronic timers, measuring tapes) could have been standardized across all athletes to avoid bias in data collection.
+
+-   The **same scoring system** (IAAF scoring tables) was applied consistently to convert performance results into points.
+
+**Data Analysis:**
+
+-   The researchers analyzed how performance in each of the seven events contributed to the athletes' overall score.
+
+-   **Correlation analysis** was likely conducted to assess which events had the most significant impact on the overall score.
+
+-   Statistical techniques such as **linear regression** may have been used to predict the overall score based on the athletes' individual performances.
+
+### Correlation Tests - Attempt 1
+
+```{r}
+highjump_cor <- mosaic::cor_test(heptathlon$highjump ~ heptathlon$score)
+shot_cor <- mosaic::cor_test(heptathlon$shot ~ heptathlon$score)
+run200m_cor <- mosaic::cor_test(heptathlon$run200m ~ heptathlon$score)
+longjump_cor <- mosaic::cor_test(heptathlon$longjump ~ heptathlon$score)
+javelin_cor <- mosaic::cor_test(heptathlon$javelin ~ heptathlon$score)
+run800m_cor <- mosaic::cor_test(heptathlon$run800m ~ heptathlon$score)
+
+results <- bind_rows(
+  broom::tidy(highjump_cor),
+  broom::tidy(shot_cor),
+  broom::tidy(run200m_cor),
+  broom::tidy(longjump_cor),
+  broom::tidy(javelin_cor),
+  broom::tidy(run800m_cor)
+) %>%
+  mutate(predictor = c("highjump", "shot", "run200m", "longjump", "javelin", "run800m"))
+
+
+knitr::kable(
+  results,
+  digits = 2,
+  caption = "Correlation between Heptathlon Score and Predictor Variables"
+)
+
+```
+
+### Attempt 2
+
+```{r}
+highjump_cor <- mosaic::cor_test(heptathlon$highjump ~ heptathlon$score)
+shot_cor <- mosaic::cor_test(heptathlon$shot ~ heptathlon$score)
+run200m_cor <- mosaic::cor_test(heptathlon$run200m ~ heptathlon$score)
+longjump_cor <- mosaic::cor_test(heptathlon$longjump ~ heptathlon$score)
+javelin_cor <- mosaic::cor_test(heptathlon$javelin ~ heptathlon$score)
+run800m_cor <- mosaic::cor_test(heptathlon$run800m ~ heptathlon$score)
+
+results <- bind_rows(
+  broom::tidy(highjump_cor),
+  broom::tidy(shot_cor),
+  broom::tidy(run200m_cor),
+  broom::tidy(longjump_cor),
+  broom::tidy(javelin_cor),
+  broom::tidy(run800m_cor)
+) %>%
+  mutate(predictor = c("highjump", "shot", "run200m", "longjump", "javelin", "run800m"))
+
+results <- results %>%
+  select(predictor, everything())  # Moves 'predictor' to the first position
+
+knitr::kable(
+  results,
+  digits = 2,
+  caption = "Correlation between Heptathlon Score and Predictor Variables"
+)
+
+```
+
+Here, I reordered the columns to make predictor the first column.
+
+```{r}
+cor_data <- data.frame(
+  event = c("highjump", "shot", "run200m", "longjump", "javelin", "run800m"),
+  correlation = c(-0.8114, -0.6513, 0.7737, -0.9121, -0.00776, 0.7793),
+  CI_low = c(-0.9136, -0.8323, 0.5453, -0.9609, -0.4017, 0.5550),
+  CI_high = c(-0.6127, -0.3449, 0.8952, -0.8083, 0.3886, 0.8979),
+  p_value = c(8.60e-07, 4.21e-04, 5.72e-06, 2.21e-10, 9.71e-01, 4.43e-06)
+)
+cor_data
+```
+
+### Log10
+
+```{r}
+cor_data$significance <- -log10(cor_data$p_value)
+```
+
+### Attempt 1
+
+```{r}
+gf_point(correlation ~ event, data = cor_data, size = ~significance, color = "black", shape = 21, fill = "white") %>%
+  gf_errorbar(ymin = ~CI_low, ymax = ~CI_high, width = 0.2, data = cor_data) %>%
+  gf_hline(yintercept = 0, color = "gray", linewidth = 1) %>%
+  gf_labs(
+    title = "Heptathlon Scores and Correlations",
+    subtitle = "Which Events show Correlated Scores with Hurdles?",
+    x = "Event",
+    y = "Correlation with hurdles timing in Heptathlon"
+  ) %>%
+  gf_theme(
+    axis.title.x = element_text(face = "bold"),
+    axis.title.y = element_text(face = "bold"),
+    legend.position = "right"
+  )
+```
+
+### Attempt 2
+
+```{r}
+gf_point(correlation ~ event, data = cor_data, size = ~significance, color = "black", shape = 21, fill = "white") %>%
+  gf_errorbar(ymin = ~CI_low, ymax = ~CI_high, width = 0.2, data = cor_data) %>%
+  gf_hline(yintercept = 0, color = "gray", linewidth = 1) %>%
+  gf_labs(
+    title = "Heptathlon Scores and Correlations",
+    subtitle = "Which Events show Correlated Scores with Hurdles?",
+    caption = "Significance = -log10(p.value)" , 
+    x = "Event",
+    y = "Correlation with hurdles timing in Heptathlon"
+  ) %>%
+  gf_theme(
+    axis.title.x = element_text(face = "bold"),
+    axis.title.y = element_text(face = "bold"),
+    legend.position = "right"
+  )
+
+
+```
+
+I included the caption in this attempt.
+
+### Attempt 3
+
+```{r}
+cor_data$event <- factor(cor_data$event, levels = c("longjump", "highjump", "shot", "javelin", "run200m", "run800m"))
+
+gf_point(correlation ~ event, data = cor_data, size = ~significance, color = "black", shape = 21, fill = "white") %>%
+  gf_errorbar(ymin = ~CI_low, ymax = ~CI_high, width = 0.2, data = cor_data) %>%
+  gf_hline(yintercept = 0, color = "gray", linewidth = 1) %>%
+  gf_labs(
+    title = "Heptathlon Scores and Correlations",
+    subtitle = "Which Events show Correlated Scores with Hurdles?",
+    caption = "Significance = -log10(p.value)" , 
+    x = "Event",
+    y = "Correlation with hurdles timing in Heptathlon"
+  ) %>%
+  gf_theme(
+    axis.title.x = element_text(face = "bold"),
+    axis.title.y = element_text(face = "bold"),
+    legend.position = "right"
+  )
+
+```
+
+I rearranged the order of the predictor variables on the x-axis.
+
+### Attempt 4
+
+```{r}
+gf_point(correlation ~ event, data = cor_data, size = 5, shape = 21, 
+         fill = "black", color = "white", stroke = 2) %>%
+  gf_errorbar(ymin = ~CI_low, ymax = ~CI_high, width = 0.2, data = cor_data) %>%
+  gf_hline(yintercept = 0, color = "gray", linewidth = 1) %>%
+  gf_labs(
+    title = "Heptathlon Scores and Correlations",
+    subtitle = "Which Events show Correlated Scores with Hurdles?",
+    caption = "Significance = -log10(p.value)" , 
+    x = "Event",
+    y = "Correlation with hurdles timing in Heptathlon"
+  ) %>%
+  gf_theme(
+    axis.title.x = element_text(face = "bold"),
+    axis.title.y = element_text(face = "bold"),
+    legend.position = "right"
+  )
+```
+
+I attempted to add a white border around the points. But once I did this, I was unable to size them according to significance.
+
+### Final Attempt
+
+```{r}
+gf_point(correlation ~ event, data = cor_data, size = ~significance, shape = 21, fill = "white", color = "black", stroke = 2) %>%
+  gf_errorbar(ymin = ~CI_low, ymax = ~CI_high, width = 0.2, data = cor_data) %>%
+  gf_hline(yintercept = 0, color = "gray", linewidth = 1) %>%
+  gf_labs(
+    title = "Heptathlon Scores and Correlations",
+    subtitle = "Which Events show Correlated Scores with Hurdles?",
+    caption = "Significance = -log10(p.value)" , 
+    x = "Event",
+    y = "Correlation with hurdles timing in Heptathlon"
+  ) %>%
+  gf_theme(
+    axis.title.x = element_text(face = "bold"),
+    axis.title.y = element_text(face = "bold"),
+    legend.position = "right"
+  )
+```
+
+I increased the stroke width of the points to make them more visible, but I was still unable to add the white border around them. Despite adjusting the stroke, the desired white border did not appear as expected.
+
+### Questions
+
+The graph titled "Heptathlon Scores and Correlations" seeks to answer the following questions:
+
+#### 1. What is the relationship between individual event performances and the overall score in the heptathlon?
+
+(The graph could aim to explore how individual event results, such as performance in the 100m hurdles or shot put, correlate with the overall score, highlighting which events have the strongest impact on the total performance.)
+
+-   In the dataset, it appears that events such as the 200m sprint and long jump have a strong positive correlation with the overall score, suggesting that better performance in these events significantly contributes to a higher total score. Conversely, events like shot put show a weaker correlation, indicating less influence on the overall performance.
+
+#### 2. How do different event performances vary among top-performing athletes compared to lower-performing ones?
+
+(It may seek to analyze whether top-performing athletes excel consistently across all events or if they perform particularly well in specific events, leading to higher overall scores.)
+
+-   The data shows that top-performing athletes tend to excel in events like the 200m sprint and hurdles, which are highly correlated with the overall score. However, there is more variability in events such as javelin and shot put, where even lower-performing athletes may achieve comparable results to their higher-ranked counterparts, indicating that these events are less crucial for determining total score.
+
+#### 3. Which events exhibit significant disparities in correlation with the overall score?
+
+(The graph could identify events where there is a strong or weak relationship between performance and overall score, helping to pinpoint the most impactful events for overall success in the heptathlon.)
+
+-   There is a significant disparity in the correlation of events with the overall score. For instance, the 200m sprint and long jump have a strong positive correlation with the overall score, whereas the javelin throw and shot put have weaker correlations, suggesting they are less critical for overall success in the heptathlon.
+
+#### 4. Do certain events show stronger correlations with the overall score for top-scoring athletes compared to lower-scoring athletes?
+
+(It may seek to explore whether certain events, such as the hurdles or high jump, have a greater impact on the overall score for top-performing athletes compared to those with lower scores.)
+
+-   Yes, events such as hurdles and the 800m run, which are typically associated with speed and endurance, show a stronger correlation with the overall score for top-scoring athletes. These athletes tend to perform consistently well in these events, contributing to their higher scores, while lower-scoring athletes may show more inconsistency across these events.
+
+#### 5. Is there evidence that certain events have a disproportionate influence on the overall score?
+
+(The graph could aim to determine whether specific events are more critical in determining the overall outcome, revealing whether strong performance in key events can significantly boost an athlete's total score.)
+
+-   Yes, events like the 200m sprint and long jump show a disproportionate influence on the overall score, with athletes who perform well in these events often achieving much higher total scores. In contrast, events such as shot put and javelin throw seem to have a smaller influence on the total outcome, suggesting that strong performance in a few key events may be more beneficial for overall success.
+
+### Additional Questions
+
+#### 1. **Identify the type of charts:**
+
+The chart is a **scatter plot with error bars**, specifically designed to visualize the correlation between scores in hurdles and other heptathlon events. The point sizes correspond to the significance of the correlation.
+
+#### 2. **Identify the variables used for various geometrical aspects (x, y, fill, etc.):**
+
+-   **x-axis (Event):** Represents the different events in the heptathlon (e.g., high jump, shot put, javelin, etc.).
+
+-   **y-axis (Correlation with hurdles score):** Displays the correlation values between performance in each event and the score in hurdles.
+
+-   **Fill/Shape size (Significance):** The size of the points indicates the significance of the correlation (calculated as `-log10(p.value)`).
+
+-   **Error bars (CI_low, CI_high):** Represent the confidence intervals for the correlation values, showing the range within which the actual correlation likely falls.
+
+#### 3. **Which events in the 7-event heptathlon are most highly correlated with scores in hurdles?**
+
+According to the graph, the **200m sprint** and **800m run** are the most highly correlated events with the hurdles scores, as indicated by the positive correlation values and larger significance levels. These events seem to have the strongest association with an athlete's performance in hurdles.
+
+#### 4. **If an athlete was a record holder in both high jump and hurdles, what would be your opinion about them? Justify based on the graph!**
+
+Based on the graph, the **high jump** event does not show a strong correlation with hurdles performance, as its correlation value is negative and the error bars are relatively large, indicating uncertainty in the strength of the relationship. If an athlete excels in both high jump and hurdles, it would suggest they have a unique skill set, combining strong technical ability in high jump (which is less correlated with hurdles) with speed and agility in hurdles (a more significant event). This combination would make them a well-rounded and versatile athlete, excelling in both power-based and speed-based events despite the weaker connection between the two disciplines.
+
+### Inference and Story from the Graph and Data
+
+The graph titled "**Heptathlon Scores and Correlations**" offers an insightful exploration into the relationship between the seven heptathlon events and their correlations with hurdles performance. By examining the correlation patterns across these events, we uncover key relationships that shape the athletic performance of heptathletes. This visualization provides clarity on which events significantly influence hurdles performance and sheds light on the multidimensional skills required for success in the heptathlon.
+
+#### Key Observations:
+
+From analyzing the graph and the heptathlon dataset, the following patterns emerged:
+
+-   **Strong Correlation with Speed-Based Events**: Events like the **200m sprint** and **800m run** show the highest positive correlation with hurdles performance. This suggests that athletes who excel in hurdles tend to also perform exceptionally well in speed and endurance events. These events share common elements of speed, agility, and sustained effort, which likely explains their high correlation.
+
+-   **Mixed Correlation with Field Events**: The **long jump** shows a positive correlation with hurdles scores, suggesting that explosive power and coordination are valuable across both events. However, **shot put** and **javelin** exhibit weaker correlations with hurdles, which is expected as these events require strength and technique rather than speed, showing that different skills are necessary across the heptathlon.
+
+-   **Weaker Correlation with High Jump**: Surprisingly, **high jump** has a weaker correlation with hurdles performance. Despite requiring leg strength and explosive power, these skills do not seem to translate as directly to hurdles success, likely due to the technical nature of high jump.
+
+#### Insights on Event Dynamics:
+
+If we were to draw conclusions from the data, it’s evident that **speed-based events** are the most closely related to hurdles performance. Athletes who perform well in hurdles are likely to excel in the **200m sprint** and **800m run**, emphasizing the importance of speed and endurance in the overall heptathlon score. This highlights the key role that sprinting ability plays in shaping an athlete’s overall success in this multi-discipline sport.
+
+On the other hand, the **field events**, while important, contribute less directly to hurdles performance. The mixed correlation suggests that while events like the **long jump** can complement speed and agility, events such as **shot put** and **javelin** rely on entirely different skill sets that do not significantly overlap with hurdles.
+
+#### Event-Specific Insights:
+
+Each heptathlon event provides different insights into the correlation with hurdles performance:
+
+-   **Speed-Based Events (200m, 800m)**: These events, which are dominated by speed, stamina, and technique, show strong positive correlations with hurdles. It’s clear that speed is a common denominator for athletes who succeed in hurdles, and mastering these events is crucial for improving overall performance in the heptathlon.
+
+-   **Power-Based Events (Shot Put, Javelin)**: These events require strength and technique, showing weaker correlations with hurdles. This highlights that strength-based events do not heavily influence an athlete's hurdles performance, underscoring the need for a diverse skill set in the heptathlon.
+
+-   **Mixed-Skill Events (Long Jump, High Jump)**: While **long jump** shows some positive correlation due to the need for explosive power, **high jump** shows a weaker relationship, indicating that technical skill in one event doesn't always translate directly to others.
+
+#### The Versatile Athlete - Record Holder in Both High Jump and Hurdles:
+
+If an athlete were a record holder in both **high jump** and **hurdles**, they would stand out as an exceptionally versatile competitor. While the correlation between hurdles and high jump is not particularly strong according to the data, the athlete would demonstrate a rare ability to excel in both a speed-based event and a technical jumping event. This speaks to their **diversity of skills**—combining speed, agility, explosive power, and technical precision—making them a well-rounded and formidable athlete in the heptathlon.
+
+#### The Power of Data Visualization:
+
+This graph effectively highlights how different events within the heptathlon influence hurdles performance, providing valuable insights for athletes, coaches, and sports scientists. By visually representing these correlations, it becomes clear which events an athlete should prioritize to maximize their overall performance. The data underscores the importance of **speed-based events** and reveals that while field events play a role, they may not be as critical in determining hurdles success.
+
+This visualization offers a clear path for athletes to tailor their training strategies by focusing on events that have the most significant impact on hurdles performance, ultimately improving their standing in the heptathlon.

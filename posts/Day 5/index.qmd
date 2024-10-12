@@ -1,0 +1,613 @@
+---
+title: "Day 5"
+author: "Khushi"
+---
+
+## Introduction
+
+Here, we are looking at groups.
+
+```{r}
+#| label: setup
+library(tidyverse)
+library(mosaic)
+library(ggformula)
+library(palmerpenguins) 
+```
+
+### Look at the wages dataset
+
+```{r}
+wages <- read_csv("https://vincentarelbundock.github.io/Rdatasets/csv/stevedata/gss_wages.csv")
+```
+
+```{r}
+wages
+```
+
+The dataset contains 61,697 entries across 12 variables, providing a rich source of information on individuals' demographic and socioeconomic characteristics. Key variables include real income (realrinc), age, occupation (occ10 and occrecode), occupational prestige (prestg10), number of children (childs), work status (wrkstat), gender, education (educcat), and marital status (maritalcat). There are some missing values in the age and income columns. The dataset spans several years, beginning in 1974, offering insights into individuals' employment, education, and family structures over time.
+
+### Glimpse - wages
+
+```{r}
+glimpse(wages)
+```
+
+The glimpse captures various demographic and economic attributes of individuals, making it suitable for analysis of income trends, employment, education, and family demographics over time.
+
+### Inspect - wages
+
+```{r}
+inspect(wages)
+```
+
+The numeric variables, such as year, real income (realrinc), age, and occupation code (occ10), range from values like 18 (age) to a maximum real income of 48,014.5. The dataset spans from 1974 to 2018, and the median year is 1996. Variables such as occupational prestige (prestg10) and the number of children (childs) provide additional demographic and socioeconomic details, with occupational prestige ranging from 16 to 80. Categorical variables include work status (wrkstat), gender, education category (educcat), and marital status, some of which contain missing values.
+
+### Skim - wages
+
+```{r}
+skimr::skim(wages)
+```
+
+According to the skim, there are 5 character columns and 7 numeric columns. The numeric columns include variables like real income (realrinc), age, occupation code (occ10), prestige score (prestg10), and number of children (childs). These variables show some missing values, with realrinc having 23,810 missing entries and occ10 having 3,561 missing values. The character variables, including occupation recode (occrecode), work status (wrkstat), gender, education (educcat), and marital status (maritalcat), also show some missing data, such as 3,561 missing values for occrecode.
+
+### Data Dictionary
+
+#### Quantitative Data:
+
+-   **rownames (dbl):** The index or row number of the dataset.
+
+-   **year (dbl):** The year in which the wage data was recorded (e.g., 1974, 2018).
+
+-   **realrinc (dbl):** The real income of individuals, measured in inflation-adjusted dollars.
+
+-   **age (dbl):** The age of individuals in the dataset.
+
+-   **occ10 (dbl):** The numeric code representing an individual's occupation.
+
+-   **prestg10 (dbl):** The occupational prestige score, measuring the perceived societal prestige of the occupation.
+
+-   **childs (dbl):** The number of children each individual has.
+
+#### Qualitative Data:
+
+-   **occrecode (chr):** A descriptive label for the occupation category (e.g., "Office and Administrative Support," "Professional").
+
+-   **wrkstat (chr):** The work status of individuals, indicating their employment category (e.g., "Full-Time," "Housekeeper," "Retired").
+
+-   **gender (chr):** The gender of the individuals (e.g., "Male," "Female").
+
+-   **educcat (chr):** The education level of individuals, categorized into groups like "High School," "Graduate," etc.
+
+-   **maritalcat (chr):** The marital status of individuals (e.g., "Married," "Widowed," "Never Married").
+
+```{r}
+wages_clean <-
+  wages %>%
+  tidyr::drop_na(realrinc) 
+```
+
+This cleans the wages dataset by removing rows that have missing (NA) values in the realrinc (real income) column.
+
+### **Question-1: What is the basic distribution of realrinc?**
+
+```{r}
+wages_clean %>%
+  gf_boxplot(realrinc ~ "Income") %>% # Dummy X-axis "variable"
+  gf_labs(
+    title = "Plot 1A: Income",
+    subtitle = "Many outliers on the high side"
+  )
+## A boxplot visually summarizes the distribution of a dataset by displaying its quartiles. It highlights the median, the interquartile range (IQR), and potential outliers. The whiskers extend to the smallest and largest values within 1.5 times the IQR, while any points outside this range are considered outliers.
+## A skewed distribution occurs when data is unevenly spread, with one tail longer than the other. In right-skewed data, the tail is longer on the right; in left-skewed data, it's longer on the left. The mean, median, and mode are different in skewed distributions.
+```
+
+The boxplot provides a summary of the distribution of real income (realrinc) in the dataset. The median income is located near the lower end of the distribution, as indicated by the position of the horizontal line within the box. The interquartile range (IQR), represented by the box, shows that most income values are clustered at the lower end. However, there are numerous outliers, particularly on the higher income side, extending well beyond the upper whisker of the boxplot. These outliers suggest that while most individuals have lower incomes, a small subset earns significantly higher wages, creating a right-skewed distribution.
+
+### **Question-2: Is realrinc affected by gender?**
+
+```{r}
+wages_clean %>%
+  gf_boxplot(gender ~ realrinc) %>%
+  gf_labs(title = "Plot 2A: Income by Gender")
+```
+
+The boxplot comparing real income (realrinc) across genders shows a clear distinction between male and female income distributions. Males exhibit a higher median income compared to females, as indicated by the higher position of the central line within the box. Additionally, the interquartile range (IQR) for males is wider, suggesting greater variability in income for males compared to females. Both groups show a significant number of outliers, but the outliers for males extend much higher, reaching above 400,000, while the highest outliers for females are lower, around 300,000. This visualization suggests that males tend to earn more on average and have a wider spread of incomes than females, though both groups include individuals with significantly higher incomes as outliers.
+
+```{r}
+wages_clean %>%
+  gf_boxplot(gender ~ log10(realrinc)) %>%
+  gf_labs(title = "Plot 2B: Log(Income) by Gender")
+## Income data is often right-skewed, meaning most people earn lower incomes while a few people earn very high incomes. The distribution stretches out far to the right, which can make visualizing the data challenging. Taking the log compresses large values, making the data more normally distributed and easier to compare across different groups (like gender in this case).
+## Interpreting Differences: In many cases, percentage differences in income are more meaningful than absolute differences. For example, the difference between earning $50,000 and $100,000 is similar in importance to the difference between earning $100,000 and $200,000 in percentage terms. Logarithmic transformations highlight relative differences more effectively.
+##The function log10(realrinc) transforms each income value (realrinc) to the logarithm base 10 of that value.
+## For example:
+## If realrinc = 1000, then log10(1000) = 3 
+## If realrinc = 10,000, then log10(10000) = 4.
+
+```
+
+This boxplot compares the distribution of logarithmic-transformed income (log10 of realinc) by gender. Since income data is often right-skewed, the log transformation compresses higher values, making the distribution more symmetric and easier to interpret. -
+
+```{r}
+wages_clean %>%
+  gf_boxplot(gender ~ realrinc, fill = ~gender) %>%
+  gf_refine(scale_x_log10()) %>%
+  gf_labs(title = "Plot 2C: Income filled by Gender, log scale")
+## gf_refine(scale_x_log10()) modifies the x-axis of a plot to a logarithmic (base 10) scale, making it better suited for visualizing data with large ranges or skewed distributions.
+```
+
+Here, the distribution of income (realinc) is displayed on a logarithmic scale, filled by gender.
+
+### **Question-3: Is realrinc affected by educcat?**
+
+```{r}
+wages_clean %>%
+  gf_boxplot(educcat ~ realrinc) %>%
+  gf_labs(title = "Plot 3A: Income by Education Category")
+## The values on the x-axis use scientific notation to represent large numbers, where, for example, 1e+05 equals 1x10 to the power 5 equals 100,000, 2e+05 equals 200,000, and so on.
+```
+
+This boxplot illustrates the relationship between income (realinc) and education categories (educcat). As expected, individuals with higher education levels, such as those with bachelor's or graduate degrees, tend to have higher incomes. The medians for these groups are notably higher than for those with only high school or junior college education. Additionally, there are more income outliers in the higher education categories, especially among those with graduate degrees. In contrast, individuals with "Less Than High School" education show lower incomes with fewer outliers at the higher income levels. The plot clearly indicates that income tends to increase with higher levels of education.
+
+```{r}
+wages_clean %>%
+  gf_boxplot(educcat ~ log10(realrinc)) %>%
+  gf_labs(title = "Plot 3B: Log(Income) by Education Category")
+```
+
+This boxplot, using a logarithmic transformation of income (log10(realinc)), further highlights the differences in income distributions across education categories. By compressing the data, it becomes easier to compare the spread of incomes within each education level
+
+```{r}
+wages_clean %>%
+  gf_boxplot(
+    reorder(educcat, realrinc, FUN = median) ~ log(realrinc),
+    fill = ~educcat,
+    alpha = 0.3
+  ) %>%
+  gf_labs(title = "Plot 3C: Log(Income) by Education Category, sorted") %>%
+  gf_labs(
+    x = "Log Income",
+    y = "Education Category"
+  )
+## FUN = median: The function median is applied to realrinc within each level of educcat. This means that the median income is calculated for each education category.
+```
+
+This boxplot represents income (realinc) across different education categories, ordered by their median income.The "NA" category represents missing or unknown education data, with its income distribution appearing inconsistent.
+
+```{r}
+wages_clean %>%
+  gf_boxplot(reorder(educcat, realrinc, FUN = median) ~ realrinc,
+    fill = ~educcat,
+    alpha = 0.5
+  ) %>%
+  gf_refine(scale_x_log10()) %>%
+  gf_labs(
+    title = "Plot 3D: Income by Education Category, sorted",
+    subtitle = "Log Income"
+  ) %>%
+  gf_labs(
+    x = "Income",
+    y = "Education Category"
+  )
+## log10(realrinc): Transforms the data to its logarithmic values before plotting. The actual data points are on a logarithmic scale.log10(realrinc) is better if the requirement is to work directly with the transformed (logarithmic) data.
+## scale_x_log10(): Keeps the data as is but applies a logarithmic transformation to the x-axis. The axis ticks show the logarithmic values, but the data remains untransformed.scale_x_log10() is useful if you want to keep the original data but simply change how it's displayed on the plot for better visualization of a wide range of values.
+```
+
+This analyses the relationship between income (realinc) and education level (educat) by applying a logarithmic transformation to the income values. In these boxplots, the data is grouped by education categories, and the log-transformed income values (log10(realinc)) are plotted, helping to handle the right-skewed nature of income distributions. This transformation makes it easier to compare income differences across education levels, with income typically increasing as education level rises.
+
+### **Question-4: Is the target variable realrinc affected by combinations of Qual factors gender, educcat, maritalcat and childs?**
+
+```{r}
+wages %>%
+  drop_na() %>%
+  gf_boxplot(reorder(educcat, realrinc) ~ log10(realrinc),
+    fill = ~educcat,
+    alpha = 0.5
+  ) %>%
+  gf_facet_wrap(vars(childs)) %>%
+  gf_refine(scale_fill_brewer(type = "qual", palette = "Dark2")) %>%
+  gf_labs(
+    title = "Plot 4A: Log Income by Education Category and Family Size",
+    x = "Log income",
+    y = "No. of Children"
+  )
+```
+
+The plot "Log Income by Education Category and Family Size" explores the relationship between income (in logarithmic scale) and education category across various family sizes (number of children). Each panel represents a different family size, from zero to eight children, showing how education levels influence income. The boxplots within each panel illustrate income distribution across six education levels: Less Than High School, High School, Junior College, Bachelor, Graduate, and NA (missing data). The log-transformed income values make it easier to see trends despite the wide range of income values. Generally, individuals with higher education levels (Bachelor and Graduate) tend to have higher median incomes across all family sizes. However, family size appears to introduce variations, particularly in lower education categories, where the spread of income distribution changes with the number of children. This suggests that family size, along with education, has a nuanced effect on income levels.
+
+```{r}
+wages %>%
+  drop_na() %>%
+  mutate(childs = as_factor(childs)) %>%
+  gf_boxplot(childs ~ log10(realrinc),
+    group = ~childs,
+    fill = ~childs,
+    alpha = 0.5
+  ) %>%
+  gf_facet_wrap(~gender) %>%
+  gf_refine(scale_fill_brewer(type = "qual", palette = "Set3")) %>%
+  gf_labs(
+    title = "Plot 4B: Log Income by Gender and Family Size",
+    x = "Log income",
+    y = "No. of Children"
+  )
+```
+
+Here, the number of children (childs) is first transformed into a categorical variable (factor) using the mutate() function.The data illustrates the relationship between log-transformed income, gender, and the number of children (family size). The boxplot is faceted by gender (male and female), showing how income varies with the number of children across both genders. Each box represents a group of individuals with a specific number of children (ranging from 0 to 8), with different colors indicating different family sizes. In general, the distribution of income appears to be skewed, with a wider spread of log income among males compared to females. Additionally, family size seems to correlate with variations in income distribution, with larger families generally showing more variability in income, especially among males. The median income tends to increase with the number of children for both males and females, but the patterns are more pronounced among males with larger family sizes.
+
+## Change
+
+Here, we are looking at Correlations.
+
+```{r}
+#| label: setup
+library(tidyverse)
+library(ggformula) 
+library(mosaic) 
+library(skimr) 
+library(kableExtra) 
+library(GGally) 
+library(corrplot)
+library(ggExtra) 
+library(Lock5withR) 
+library(palmerpenguins) 
+library(easystats) 
+library(correlation) 
+```
+
+### Hollywood Movies-2011
+
+Let us look at the movies dataset.
+
+```{r}
+HollywoodMovies2011 -> movies
+```
+
+```{r}
+movies
+```
+
+The dataset shown contains information about 136 movies and includes 14 columns. These columns provide details such as the movie title, lead studio, Rotten Tomatoes score, audience score, and various financial data. The dataset lists movies like Insidious, Paranormal Activity 3, and Harry Potter and the Deathly Hallows Part 2 along with their corresponding studios (e.g., Sony, Warner Bros, DreamWorks Pictures). The dataset also contains audience reception data (RottenTomatoes, AudienceScore), thematic details (Story, Genre), and box office-related information (TheatersOpenWeek, BOAverageOpenWeek, DomesticGross, ForeignGross, WorldGross, and Profitability). For example, Harry Potter and the Deathly Hallows Part 2 performed significantly well with a domestic gross of 381.01 million and a foreign gross of 947.10 million. Additionally, the dataset contains profitability and budget details.
+
+### Glimpse-movies
+
+```{r}
+glimpse(movies)
+```
+
+The glimpse shows that the dataset includes both categorical data (e.g., genre, story) and numeric data (e.g., gross earnings, profitability), enabling detailed analyses of the movies' success based on various factors.
+
+### Data Dictionary
+
+**Quantitative Data:**
+
+-   **RottenTomatoes (int):** Rotten Tomatoes critic rating for the movie (out of 100).
+
+-   **AudienceScore (int):** Audience rating for the movie (out of 100).
+
+-   **TheatersOpenWeek (int):** Number of theaters the movie opened in during its first week.
+
+-   **BOAverageOpenWeek (int):** Average box office earnings during the opening week.
+
+-   **DomesticGross (dbl):** Total domestic box office gross earnings (in millions).
+
+-   **ForeignGross (dbl):** Total foreign box office gross earnings (in millions).
+
+-   **WorldGross (dbl):** Total worldwide box office gross earnings (in millions).
+
+-   **Budget (dbl):** Movie production budget (in millions).
+
+-   **Profitability (dbl):** The profitability ratio, calculated as gross earnings divided by budget.
+
+-   **OpeningWeekend (dbl):** Total box office earnings during the opening weekend (in millions).
+
+**Qualitative Data:**
+
+-   **Movie (fct):** Title of the movie.
+
+-   **LeadStudio (fct):** The studio that produced or distributed the movie.
+
+-   **Story (fct):** A brief descriptor of the movie's plot (e.g., "Comedy," "Rivalry").
+
+-   **Genre (fct):** Genre of the movie (e.g., "Action," "Comedy," "Drama").
+
+### movies_quant
+
+```{r}
+movies_quant <- movies %>%
+  drop_na() %>%
+  select(where(is.numeric))
+movies_quant
+## This creates a new dataset, movies_quant, that contains only numeric columns from the movies dataset and excludes any rows with missing data.
+```
+
+The dataset movies_quant consists of 111 rows and 10 columns, which include only numeric variables from the original movies dataset, with all missing values excluded. The numeric columns include critical movie performance metrics such as Rotten Tomatoes scores, Audience Scores, theater and box office performance during the opening week, Domestic and Foreign Gross earnings, World Gross earnings, production Budget, Profitability, and Opening Weekend revenue. The dataset captures a wide range of movie performance data, with varying numbers across different movies, indicating substantial differences in profitability, audience reception, and box office success. This dataset is valuable for analyzing relationships between different financial and audience response metrics.
+
+### Scatter Plot 1
+
+```{r}
+movies %>%
+  gf_point(DomesticGross ~ WorldGross) %>%
+  gf_lm() %>%
+  gf_labs(
+    title = "Scatter Plot",
+    subtitle = "Movie Gross Earnings: Domestics vs World"
+  )
+## gf_lm() adds a linear regression line (best-fit line) to the scatter plot, showing the trend or relationship between DomesticGross and WorldGross. The line helps visualize how closely the two variables are related.
+```
+
+The scatter plot displays the relationship between DomesticGross and WorldGross earnings for movies, with a linear regression line (best-fit line) added to highlight the trend. The plot suggests a strong positive correlation between domestic and worldwide box office earnings, as the points cluster closely around the regression line, indicating that movies with higher worldwide earnings generally also have higher domestic earnings. The linear trend line suggests that as global earnings increase, domestic earnings tend to rise proportionally. However, a few outliers are visible, where movies with substantial global earnings had relatively lower domestic earnings and vice versa.
+
+### Scatter Plot 2
+
+```{r}
+movies %>%
+  gf_point(Profitability ~ OpeningWeekend) %>%
+  gf_lm() %>%
+  gf_labs(
+    title = "Scatter Plot",
+    subtitle = "Movies: Does Opening Week Earnings indicate Profitability?"
+  )
+```
+
+The scatter plot illustrates the relationship between OpeningWeekend earnings and Profitability of movies, with a linear regression line included to show the overall trend. The data points reveal that while there is a slight positive correlation between opening weekend earnings and profitability, the relationship appears weak. Most of the points are clustered near the lower values for both axes, indicating that many movies have relatively low profitability and opening weekend earnings. However, there are a few outliers with significantly higher profitability despite relatively modest opening weekend earnings, suggesting that factors other than just opening weekend performance contribute to overall movie profitability. The linear regression line reflects the weak positive trend, but it is not a strong predictor of profitability based on opening weekend alone.
+
+### Scatter Plot 3
+
+```{r}
+movies %>%
+  gf_point(RottenTomatoes ~ AudienceScore) %>%
+  gf_lm() %>%
+  gf_labs(
+    title = "Scatter Plot",
+    subtitle = "Movie Ratings: Tomatoes vs Audience"
+  )
+```
+
+The scatter plot compares RottenTomatoes scores (critical ratings) with AudienceScore (viewer ratings) for various movies. There is a clear positive correlation between the two variables, as shown by the upward-sloping linear regression line. This indicates that, generally, movies with higher audience scores also tend to receive higher critic ratings. However, there is noticeable variability in the data, with some movies receiving relatively high audience scores but lower critic ratings, and vice versa. Overall, the trend suggests that audience and critic perceptions are often aligned, but not perfectly so, highlighting differences in how critics and audiences evaluate movies.
+
+### Scatter Plot 4
+
+```{r}
+movies %>%
+  drop_na() %>%
+  gf_point(RottenTomatoes ~ AudienceScore,
+    color = ~Genre
+  ) %>%
+  gf_lm() %>%
+  gf_labs(
+    title = "Scatter Plot",
+    subtitle = "Movie Ratings: Trends by Genre"
+  )
+```
+
+The scatter plot shows the relationship between RottenTomatoes scores and AudienceScore, broken down by different movie genres, with each genre represented by a distinct colour.
+
+### Movies Data correlation Plot 1
+
+```{r}
+GGally::ggpairs(
+  movies %>% drop_na(),
+  # Select Quant variables only for now
+  columns = c(
+    "RottenTomatoes", "AudienceScore", "DomesticGross", "ForeignGross"
+  ),
+  switch = "both",
+  # axis labels in more traditional locations(left and bottom)
+
+  progress = FALSE,
+  # no compute progress messages needed
+
+  # Choose the diagonal graphs (always single variable! Think!)
+  diag = list(continuous = "barDiag"),
+  # choosing histogram,not density
+
+  # Choose lower triangle graphs, two-variable graphs
+  lower = list(continuous = wrap("smooth", alpha = 0.3, se = FALSE)),
+  title = "Movies Data Correlations Plot #1"
+)
+## GGally::ggpairs(): This generates a pairwise plot matrix that shows the relationships between several variables. 
+## columns = c("RottenTomatoes", "AudienceScore", "DomesticGross", "ForeignGross"): Specifies which numeric variables from the movies dataset will be included in the pairwise comparison. 
+## switch = "both": This moves the axis labels to the more traditional locations (left for the y-axis and bottom for the x-axis), instead of having them on all sides.
+## progress = FALSE: Disables progress messages during the computation process, making the code execution cleaner.
+## diag = list(continuous = "barDiag"): Specifies that on the diagonal of the matrix, which shows single-variable plots, a bar chart will be used for continuous variables (i.e., histograms of the individual variables rather than density plots).
+## lower = list(continuous = wrap("smooth", alpha = 0.3, se = FALSE)): Specifies the type of plot in the lower triangle of the matrix, where two-variable relationships are shown. Here, a smoothed line (without standard error shading se = FALSE) is used, with the points having transparency
+```
+
+The pairwise plot matrix highlights key relationships between movie ratings and gross earnings. Notably, there is a strong positive correlation (0.833) between RottenTomatoes and AudienceScore, indicating that movies rated highly by critics are also well-received by audiences. Additionally, DomesticGross and ForeignGross have an even higher correlation (0.873), suggesting that movies successful in domestic markets tend to perform well internationally too. Other moderate relationships include AudienceScore and DomesticGross (0.385), showing that audience ratings have some influence on a movie's financial success. However, weaker correlations, such as between RottenTomatoes and ForeignGross (0.098), suggest that critic reviews may not significantly impact international box office earnings. These findings provide insights into the interplay between ratings and financial performance in the film industry.
+
+### Movies Data correlation Plot 2
+
+```{r}
+GGally::ggpairs(
+  movies %>% drop_na(),
+  columns = c(
+    "Budget", "Profitability", "DomesticGross", "ForeignGross"
+  ),
+  switch = "both",
+ progress = FALSE,
+  diag = list(continuous = "barDiag"),
+  lower = list(continuous = wrap("smooth", alpha = 0.3, se = FALSE)),
+  title = "Movies Data Correlations Plot #2"
+)
+```
+
+This movie data correlation plot explores the relationships between several key quantitative variables: Budget, Profitability, DomesticGross, and ForeignGross. The scatterplots in the lower triangle show pairwise relationships between these variables, while the diagonal contains histograms of each variable. The correlations displayed reveal strong positive relationships between DomesticGross and ForeignGross (correlation of 0.873), and moderate positive correlations between Budget and both DomesticGross (0.650) and ForeignGross (0.671). However, there is a negative correlation between Budget and Profitability (-0.144), suggesting that higher budgets do not necessarily translate to higher profitability. The weak correlation between Profitability and other gross earnings further highlights this point. This analysis provides insight into how certain financial factors in the movie industry relate to one another.
+
+### **Doing a series of Correlation Tests**
+
+```{r}
+mosaic::cor_test(Profitability ~ Budget, data = movies) %>%
+  broom::tidy() %>%
+  knitr::kable(
+    digits = 2,
+    caption = "Movie Profitability vs Budget"
+  )
+```
+
+The correlation test between movie profitability and budget reveals a positive Pearson correlation estimate of 0.7, indicating a moderate-to-strong positive relationship between the two variables. The p-value is extremely small (0), signifying that the correlation is statistically significant. The confidence interval ranges from 0.6 to 0.77, further supporting this positive association.
+
+```{r}
+mosaic::cor_test(DomesticGross ~ Budget, data = movies) %>%
+  broom::tidy() %>%
+  knitr::kable(
+    digits = 2,
+    caption = "Movie Domestic Gross vs Budget"
+  )
+```
+
+The correlation test between domestic gross earnings and budget indicates a positive Pearson correlation estimate of 0.7, suggesting a moderately strong relationship between the two variables. The p-value is 0, indicating that the correlation is statistically significant. The confidence interval for the correlation ranges from 0.6 to 0.77, reinforcing this positive relationship. This analysis implies that as a movie's budget increases, its domestic gross earnings tend to increase as well.
+
+```{r}
+mosaic::cor_test(ForeignGross ~ Budget, data = movies) %>%
+  broom::tidy() %>%
+  knitr::kable(
+    digits = 2,
+    caption = "Movie Foreign Gross vs Budget"
+  )
+```
+
+The correlation test between foreign gross earnings and budget reveals a Pearson correlation estimate of 0.69, indicating a moderately strong positive relationship between the two variables. The p-value is 0, which suggests that this correlation is statistically significant. The confidence interval ranges from 0.58 to 0.77, which supports the presence of a positive correlation. This suggests that movies with higher budgets tend to earn more in foreign markets.
+
+### Dataset - mtcars
+
+Let us look at the mtcars dataset.
+
+```{r}
+mtcars
+```
+
+The mtcars dataset provides detailed information on 32 car models across 11 attributes. These attributes include fuel efficiency (measured in miles per gallon or mpg), engine specifics like the number of cylinders and displacement (in cubic inches), horsepower, and weight (in thousands of pounds). Additionally, it includes performance measures like quarter mile time (in seconds) and technical specifications such as transmission type (automatic or manual), the rear axle ratio, and the number of forward gears and carburetors.
+
+### Glimpse - mtcars
+
+```{r}
+glimpse(mtcars)
+```
+
+The mtcars dataset contains 32 rows (representing different car models) and 11 columns with a mix of continuous and categorical data.
+
+### Data Dictionary
+
+**Quantitative Data:**
+
+-   **rownames (dbl):** The index or row number of the dataset.
+
+-   **mpg (dbl):** Miles per gallon (fuel efficiency).
+
+-   **cyl (dbl):** Number of cylinders in the engine.
+
+-   **disp (dbl):** Displacement (cubic inches), a measure of engine size.
+
+-   **hp (dbl):** Horsepower, a measure of engine power.
+
+-   **drat (dbl):** Rear axle ratio, related to the gearing of the car.
+
+-   **wt (dbl):** Weight of the car (1000 lbs).
+
+-   **qsec (dbl):** 1/4 mile time (in seconds), a measure of acceleration performance.
+
+-   **gear (dbl):** Number of forward gears in the transmission.
+
+-   **carb (dbl):** Number of carburetors in the engine.
+
+**Qualitative Data:**
+
+-   **vs (int):** Engine type (0 = V-shaped engine, 1 = straight engine).
+
+-   **am (int):** Transmission type (0 = automatic, 1 = manual).
+
+### Calculating correlations
+
+```{r}
+cor <- correlation::correlation(mtcars)
+cor
+```
+
+The correlation matrix for the mtcars dataset reveals several significant relationships between variables. For instance, mpg (miles per gallon) is strongly and negatively correlated with cyl (number of cylinders), disp (displacement), and wt (weight), indicating that as these factors increase, fuel efficiency decreases. Additionally, mpg shows a moderate positive correlation with qsec (1/4 mile time) and vs (engine shape), suggesting that cars with higher fuel efficiency may also have different performance characteristics. The cyl variable is positively correlated with hp (horsepower) and disp, highlighting the connection between larger engines and higher horsepower. Strong positive correlations are also observed between disp, wt, and hp, implying that larger engines tend to weigh more and produce more power.
+
+### Correlation Errorbar chart
+
+```{r}
+cor %>%
+  # Filter for target variable `mpg` and plot
+  filter(Parameter1 == "mpg") %>%
+  gf_point(r ~ reorder(Parameter2, r), size = 4) %>%
+  gf_errorbar(CI_low + CI_high ~ reorder(Parameter2, r),
+    width = 0.5
+  ) %>%
+  gf_hline(yintercept = 0, color = "red", linewidth = 2) %>%
+  gf_labs(
+    title = "Correlation Errorbar Chart",
+    subtitle = "Target variable: mpg",
+    x = "Predictor Variable",
+    y = "Correlation Score with mpg"
+  )
+## filter(Parameter1 == "mpg") %>%: This filters the dataset to include only rows where the target variable (Parameter1) is "mpg". 
+## gf_point(r ~ reorder(Parameter2, r), size = 4): This creates a scatter plot where the correlation scores (r) are plotted on the y-axis, and the predictor variables (Parameter2) are reordered and displayed on the x-axis based on their correlation with mpg. The size of the points is set to 4.
+## gf_errorbar(CI_low + CI_high ~ reorder(Parameter2, r), width = 0.5): This adds error bars to the plot, showing the confidence intervals (CI_low and CI_high) for the correlation scores. The predictor variables are reordered on the x-axis, and the width of the horizontal "caps" on the error bars is set to 0.5.
+## gf_hline(yintercept = 0, color = "grey", linewidth = 2): Adds a horizontal line at y = 0 (representing no correlation) as a reference point. This line is grey and has a thickness of 2 units.
+```
+
+This Correlation Errorbar Chart visualizes the correlation between the target variable, mpg (miles per gallon), and various predictor variables (e.g., wt, cyl, disp, etc.) in the dataset. Each point represents the correlation score for one predictor variable, and the error bars show the confidence intervals around those scores. A horizontal red line at y = 0 represents no correlation. Variables like wt, cyl, and disp have strong negative correlations with mpg, while variables like vs and drat show positive correlations. This chart helps to quickly assess the strength and direction of correlations, along with the uncertainty in the estimates, which is important for understanding the relationships between these car features and fuel efficiency.
+
+### Penguins dataset
+
+Let us look at the penguins dataset.
+
+```{r}
+library(ggExtra)
+penguins
+```
+
+The dataset contains measurements and characteristics of 344 penguins. Key variables include species (e.g., Adelie), island location (e.g., Torgersen), bill length and depth (in millimeters), flipper length (in millimeters), body mass (in grams), sex, and the year of data collection. This dataset provides a detailed overview of penguin physical attributes across different islands and species, which can be useful for analyzing species differences or environmental adaptations. The data contains some missing values, notably in bill length, bill depth, and body mass for certain rows.
+
+### Glimpse - penguins
+
+```{r}
+glimpse(penguins)
+```
+
+The penguin dataset contains 344 rows and 8 columns. The columns include categorical data like species (e.g., Adelie), island (e.g., Torgersen), and sex (e.g., male, female). It also contains numerical data such as bill length (in mm), bill depth (in mm), flipper length (in mm), body mass (in grams), and the year of data collection.
+
+### Data Dictionary
+
+**Quantitative Data:**
+
+-   **rownames (dbl):** The index or row number of the dataset.
+
+-   **bill_length_mm (dbl):** The length of the penguin’s bill, measured in millimeters.
+
+-   **bill_depth_mm (dbl):** The depth of the penguin’s bill, measured in millimeters.
+
+-   **flipper_length_mm (dbl):** The length of the penguin’s flipper, measured in millimeters.
+
+-   **body_mass_g (dbl):** The body mass of the penguin, measured in grams.
+
+-   **year (dbl):** The year when the data was collected (e.g., 2007, 2008, 2009).
+
+**Qualitative Data:**
+
+-   **species (chr):** The species of penguin (e.g., "Adelie," "Chinstrap," "Gentoo").
+
+-   **island (chr):** The island where the penguin was found (e.g., "Torgersen," "Biscoe").
+
+-   **sex (chr):** The sex of the penguin (e.g., "male," "female").
+
+### Combination Plot
+
+```{r}
+penguins %>%
+  drop_na() %>%
+  gf_point(body_mass_g ~ flipper_length_mm, colour = ~species) %>%
+  gf_smooth(method = "lm") %>%
+  gf_refine(scale_colour_brewer(palette = "Accent")) %>%
+  gf_labs(title = "Scatter Plot with Marginal Densities") %>%
+  ggExtra::ggMarginal(
+    type = "density", groupColour = TRUE,
+    groupFill = TRUE, margins = "both"
+  )
+```
+
+The combination plot displayed here illustrates the relationship between penguin species, body mass (in grams), and flipper length (in millimeters) through a scatter plot with marginal densities. Each species (Adelie, Chinstrap, and Gentoo) is represented by a different color, with linear regression lines indicating the general trend between body mass and flipper length for each species. The marginal density plots surrounding the scatter plot help visualize the distribution of the flipper lengths on the x-axis and body mass on the y-axis, providing additional context on the spread and concentration of data points for each species. This visualization makes it easier to see how flipper length correlates with body mass and highlights the distinct characteristics of the different penguin species.
