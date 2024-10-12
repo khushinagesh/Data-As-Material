@@ -5,8 +5,6 @@ about:
   template: jolla
 ---
 
-\## About Me
-
 Welcome to my blog! My name is Khushi, and I'm passionate about data visualization, interaction design, photography and game design, and music.
 
 I love capturing moments through the lens, exploring creative ways to communicate through visuals. Music deeply influences my creativity.
