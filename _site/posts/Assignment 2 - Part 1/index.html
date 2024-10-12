@@ -1,0 +1,1377 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.555">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Khushi">
+
+<title>Data-As-Material - Assignment 2 - Part 1</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Data-As-Material</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com"> <i class="bi bi-twitter" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Assignment 2 - Part 1</h1>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Khushi </p>
+            </div>
+    </div>
+      
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>This is Part 1 of Assignment 2.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+✔ purrr     1.0.2     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mosaic)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Registered S3 method overwritten by 'mosaic':
+  method                           from   
+  fortify.SpatialPolygonsDataFrame ggplot2
+
+The 'mosaic' package masks several functions from core packages in order to add 
+additional features.  The original behavior of these functions should not be affected by this.
+
+Attaching package: 'mosaic'
+
+The following object is masked from 'package:Matrix':
+
+    mean
+
+The following objects are masked from 'package:dplyr':
+
+    count, do, tally
+
+The following object is masked from 'package:purrr':
+
+    cross
+
+The following object is masked from 'package:ggplot2':
+
+    stat
+
+The following objects are masked from 'package:stats':
+
+    binom.test, cor, cor.test, cov, fivenum, IQR, median, prop.test,
+    quantile, sd, t.test, var
+
+The following objects are masked from 'package:base':
+
+    max, mean, min, prod, range, sample, sum</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'skimr'
+
+The following object is masked from 'package:mosaic':
+
+    n_missing</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggformula)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="dataset---movie-profits" class="level2">
+<h2 class="anchored" data-anchor-id="dataset---movie-profits">Dataset - Movie Profits</h2>
+<p>This is a dataset pertaining to movies and genres.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>movie_profit <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"../../data/movie_profit.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: One or more parsing issues, call `problems()` on your data frame for details,
+e.g.:
+  dat &lt;- vroom(...)
+  problems(dat)</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 3310 Columns: 1
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (1): release_date;movie;production_budget;domestic_gross;worldwide_gross...
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>movie_profit</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3,310 × 1
+   release_date;movie;production_budget;domestic_gross;worldwide_gross;distrib…¹
+   &lt;chr&gt;                                                                        
+ 1 2005-07-22;November;250000;191862;191862;Other;R;Drama;7,67448000000000e-01;…
+ 2 1998-08-28;I Married a Strange Person;250000;203134;203134;Other;NA;Comedy;8…
+ 3 1997-03-28;Love and Other Catastrophes;250000;212285;743216;Other;R;Comedy;2…
+ 4 2000-07-14;Chuck&amp;Buck;250000;1055671;1157672;Other;R;Drama;4,63068800000000e…
+ 5 2011-10-28;Like Crazy;250000;3395391;3728400;Paramount&nbsp;Pictures;PG-13;Drama;…
+ 6 2003-04-11;Better Luck Tomorrow;250000;3802390;3809226;Paramount&nbsp;Pictures;R;…
+ 7 2017-04-28;Sleight;250000;3930990;3934450;Other;R;Action;1,57378000000000e+0…
+ 8 2002-06-28;Lovely and Amazing;250000;4210379;4613482;Other;R;Drama;1,8453928…
+ 9 2012-08-17;Compliance;270000;319285;830700;Other;R;Drama;3,07666666666667e+0…
+10 2005-05-06;Fighting Tommy Riley;300000;10514;10514;Other;R;Drama;3,504666666…
+# ℹ 3,300 more rows
+# ℹ abbreviated name:
+#   ¹​`release_date;movie;production_budget;domestic_gross;worldwide_gross;distributor;mpaa_rating;genre;profit_ratio;decade`</code></pre>
+</div>
+</div>
+<section id="specifying-delimiter" class="level3">
+<h3 class="anchored" data-anchor-id="specifying-delimiter">Specifying Delimiter</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>movie_profit <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="at">file=</span><span class="st">"../../data/movie_profit.csv"</span>,<span class="at">delim =</span><span class="st">";"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 3310 Columns: 10
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ";"
+chr  (4): movie, distributor, mpaa_rating, genre
+dbl  (4): production_budget, domestic_gross, worldwide_gross, decade
+num  (1): profit_ratio
+date (1): release_date
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>movie_profit</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3,310 × 10
+   release_date movie           production_budget domestic_gross worldwide_gross
+   &lt;date&gt;       &lt;chr&gt;                       &lt;dbl&gt;          &lt;dbl&gt;           &lt;dbl&gt;
+ 1 2005-07-22   November                   250000         191862          191862
+ 2 1998-08-28   I Married a St…            250000         203134          203134
+ 3 1997-03-28   Love and Other…            250000         212285          743216
+ 4 2000-07-14   Chuck&amp;Buck                 250000        1055671         1157672
+ 5 2011-10-28   Like Crazy                 250000        3395391         3728400
+ 6 2003-04-11   Better Luck To…            250000        3802390         3809226
+ 7 2017-04-28   Sleight                    250000        3930990         3934450
+ 8 2002-06-28   Lovely and Ama…            250000        4210379         4613482
+ 9 2012-08-17   Compliance                 270000         319285          830700
+10 2005-05-06   Fighting Tommy…            300000          10514           10514
+# ℹ 3,300 more rows
+# ℹ 5 more variables: distributor &lt;chr&gt;, mpaa_rating &lt;chr&gt;, genre &lt;chr&gt;,
+#   profit_ratio &lt;dbl&gt;, decade &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>The movie_profit dataset consists of 3,310 rows and 10 columns, offering detailed insights into various films’ financial and categorical information. It includes data such as the release date of each movie, its title, production budget, and earnings from both domestic and worldwide markets. The dataset also captures additional attributes like the movie’s distributor, MPAA rating (e.g., R, PG-13), genre (e.g., Drama, Comedy, Action), profit ratio, and the decade of release.</p>
+</section>
+<section id="first-10-rows-of-the-movie-profits-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="first-10-rows-of-the-movie-profits-dataset">First 10 rows of the Movie Profits dataset</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>movie_profit <span class="sc">%&gt;%</span> </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 10
+   release_date movie           production_budget domestic_gross worldwide_gross
+   &lt;date&gt;       &lt;chr&gt;                       &lt;dbl&gt;          &lt;dbl&gt;           &lt;dbl&gt;
+ 1 2005-07-22   November                   250000         191862          191862
+ 2 1998-08-28   I Married a St…            250000         203134          203134
+ 3 1997-03-28   Love and Other…            250000         212285          743216
+ 4 2000-07-14   Chuck&amp;Buck                 250000        1055671         1157672
+ 5 2011-10-28   Like Crazy                 250000        3395391         3728400
+ 6 2003-04-11   Better Luck To…            250000        3802390         3809226
+ 7 2017-04-28   Sleight                    250000        3930990         3934450
+ 8 2002-06-28   Lovely and Ama…            250000        4210379         4613482
+ 9 2012-08-17   Compliance                 270000         319285          830700
+10 2005-05-06   Fighting Tommy…            300000          10514           10514
+# ℹ 5 more variables: distributor &lt;chr&gt;, mpaa_rating &lt;chr&gt;, genre &lt;chr&gt;,
+#   profit_ratio &lt;dbl&gt;, decade &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>The first ten rows of the Movie Profits dataset provide a snapshot of films spanning from 1997 to 2017. Each row contains details such as the release date, movie title, and production budget, with budgets ranging from $250,000 to $300,000 for these films. The domestic gross and worldwide gross values vary significantly, reflecting the financial performance of each movie. For instance, “Chuck&amp;Buck” has a worldwide gross of over $1 million, while “Fighting Tommy Riley” has a modest gross of just over $10,000.The decade column categorizes each film based on its release period, with most films in this sample from the 2000s.</p>
+</section>
+<section id="glimpse---movie_profit" class="level3">
+<h3 class="anchored" data-anchor-id="glimpse---movie_profit">Glimpse - movie_profit</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(movie_profit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 3,310
+Columns: 10
+$ release_date      &lt;date&gt; 2005-07-22, 1998-08-28, 1997-03-28, 2000-07-14, 201…
+$ movie             &lt;chr&gt; "November", "I Married a Strange Person", "Love and …
+$ production_budget &lt;dbl&gt; 250000, 250000, 250000, 250000, 250000, 250000, 2500…
+$ domestic_gross    &lt;dbl&gt; 191862, 203134, 212285, 1055671, 3395391, 3802390, 3…
+$ worldwide_gross   &lt;dbl&gt; 191862, 203134, 743216, 1157672, 3728400, 3809226, 3…
+$ distributor       &lt;chr&gt; "Other", "Other", "Other", "Other", "Paramount&nbsp;Pictu…
+$ mpaa_rating       &lt;chr&gt; "R", NA, "R", "R", "PG-13", "R", "R", "R", "R", "R",…
+$ genre             &lt;chr&gt; "Drama", "Comedy", "Comedy", "Drama", "Drama", "Dram…
+$ profit_ratio      &lt;dbl&gt; 7.674480e+13, 8.125360e+13, 2.972864e+14, 4.630688e+…
+$ decade            &lt;dbl&gt; 2000, 1990, 1990, 2000, 2010, 2000, 2010, 2000, 2010…</code></pre>
+</div>
+</div>
+<p>The glimpse provides an overview of financial, categorical, and chronological data for each movie in the dataset.</p>
+</section>
+<section id="inspect---movie_profit" class="level3">
+<h3 class="anchored" data-anchor-id="inspect---movie_profit">Inspect - movie_profit</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">inspect</span>(movie_profit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+categorical variables:  
+         name     class levels    n missing
+1       movie character   3310 3310       0
+2 distributor character      6 3268      42
+3 mpaa_rating character      4 3180     130
+4       genre character      5 3310       0
+                                   distribution
+1 10 Days in a Madhouse (0%) ...               
+2  Other (53.2%), Warner&nbsp;Bros. (11%) ...       
+3 R (46.4%), PG-13 (33.5%), PG (17.4%) ...     
+4 Drama (36.5%), Comedy (24.1%) ...            
+
+Date variables:  
+          name class      first       last min_diff  max_diff    n missing
+1 release_date  Date 1936-02-05 2017-12-22   0 days 2592 days 3310       0
+
+quantitative variables:  
+               name   class      min           Q1       median           Q3
+1 production_budget numeric 2.50e+05 9.500000e+06 2.000000e+07 4.500000e+07
+2    domestic_gross numeric 0.00e+00 6.530094e+06 2.558731e+07 6.046695e+07
+3   worldwide_gross numeric 4.23e+02 1.086144e+07 4.040903e+07 1.184703e+08
+4      profit_ratio numeric 1.38e+10 7.861269e+13 1.962499e+14 3.942158e+14
+5            decade numeric 1.93e+03 1.990000e+03 2.000000e+03 2.010000e+03
+           max         mean           sd    n missing
+1 1.750000e+08 3.326794e+07 3.460741e+07 3310       0
+2 4.745447e+08 4.551509e+07 5.852794e+07 3310       0
+3 1.162782e+09 9.384123e+07 1.389514e+08 3310       0
+4 4.315179e+16 4.319388e+14 1.501736e+15 3310       0
+5 2.010000e+03 1.998785e+03 1.061308e+01 3310       0</code></pre>
+</div>
+</div>
+<p>The movie_profit dataset contains both categorical and quantitative variables. Categorical variables include the movie name, distributor (with 6 levels), mpaa_rating (with 4 levels), and genre (with 5 levels). The release dates span from February 5, 1936, to December 22, 2017, with the time difference between movies varying from 0 to 2,592 days. Quantitative variables include production_budget, domestic_gross, worldwide_gross, profit_ratio, and decade. The production budget ranges from 250,000 to significantly higher values, while domestic gross, worldwide gross, and profit ratio also exhibit wide variation across movies.</p>
+</section>
+<section id="skim---movie_profit" class="level3">
+<h3 class="anchored" data-anchor-id="skim---movie_profit">Skim - movie_profit</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">skim</span>(movie_profit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Data summary</caption>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Name</td>
+<td style="text-align: left;">movie_profit</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Number of rows</td>
+<td style="text-align: left;">3310</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Number of columns</td>
+<td style="text-align: left;">10</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">_______________________</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Column type frequency:</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">character</td>
+<td style="text-align: left;">4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Date</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">numeric</td>
+<td style="text-align: left;">5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">________________________</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Group variables</td>
+<td style="text-align: left;">None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: character</strong></p>
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 19%">
+<col style="width: 13%">
+<col style="width: 19%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 8%">
+<col style="width: 12%">
+<col style="width: 15%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">skim_variable</th>
+<th style="text-align: right;">n_missing</th>
+<th style="text-align: right;">complete_rate</th>
+<th style="text-align: right;">min</th>
+<th style="text-align: right;">max</th>
+<th style="text-align: right;">empty</th>
+<th style="text-align: right;">n_unique</th>
+<th style="text-align: right;">whitespace</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">movie</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">35</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3310</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">distributor</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">0.99</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">18</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">mpaa_rating</td>
+<td style="text-align: right;">130</td>
+<td style="text-align: right;">0.96</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">genre</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: Date</strong></p>
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 12%">
+<col style="width: 17%">
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 11%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">skim_variable</th>
+<th style="text-align: right;">n_missing</th>
+<th style="text-align: right;">complete_rate</th>
+<th style="text-align: left;">min</th>
+<th style="text-align: left;">max</th>
+<th style="text-align: left;">median</th>
+<th style="text-align: right;">n_unique</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">release_date</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">1936-02-05</td>
+<td style="text-align: left;">2017-12-22</td>
+<td style="text-align: left;">2005-06-30</td>
+<td style="text-align: right;">1723</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: numeric</strong></p>
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 13%">
+<col style="width: 7%">
+<col style="width: 10%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 6%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 4%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">skim_variable</th>
+<th style="text-align: right;">n_missing</th>
+<th style="text-align: right;">complete_rate</th>
+<th style="text-align: right;">mean</th>
+<th style="text-align: right;">sd</th>
+<th style="text-align: right;">p0</th>
+<th style="text-align: right;">p25</th>
+<th style="text-align: right;">p50</th>
+<th style="text-align: right;">p75</th>
+<th style="text-align: right;">p100</th>
+<th style="text-align: left;">hist</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">production_budget</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3.326794e+07</td>
+<td style="text-align: right;">3.460741e+07</td>
+<td style="text-align: right;">2.50e+05</td>
+<td style="text-align: right;">9.500000e+06</td>
+<td style="text-align: right;">2.000000e+07</td>
+<td style="text-align: right;">4.500000e+07</td>
+<td style="text-align: right;">1.750000e+08</td>
+<td style="text-align: left;">▇▂▁▁▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">domestic_gross</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">4.551509e+07</td>
+<td style="text-align: right;">5.852794e+07</td>
+<td style="text-align: right;">0.00e+00</td>
+<td style="text-align: right;">6.530094e+06</td>
+<td style="text-align: right;">2.558731e+07</td>
+<td style="text-align: right;">6.046695e+07</td>
+<td style="text-align: right;">4.745447e+08</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">worldwide_gross</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">9.384123e+07</td>
+<td style="text-align: right;">1.389514e+08</td>
+<td style="text-align: right;">4.23e+02</td>
+<td style="text-align: right;">1.086144e+07</td>
+<td style="text-align: right;">4.040903e+07</td>
+<td style="text-align: right;">1.184703e+08</td>
+<td style="text-align: right;">1.162782e+09</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">profit_ratio</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">4.319388e+14</td>
+<td style="text-align: right;">1.501736e+15</td>
+<td style="text-align: right;">1.38e+10</td>
+<td style="text-align: right;">7.861269e+13</td>
+<td style="text-align: right;">1.962499e+14</td>
+<td style="text-align: right;">3.942158e+14</td>
+<td style="text-align: right;">4.315179e+16</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">decade</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1.998790e+03</td>
+<td style="text-align: right;">1.061000e+01</td>
+<td style="text-align: right;">1.93e+03</td>
+<td style="text-align: right;">1.990000e+03</td>
+<td style="text-align: right;">2.000000e+03</td>
+<td style="text-align: right;">2.010000e+03</td>
+<td style="text-align: right;">2.010000e+03</td>
+<td style="text-align: left;">▁▁▁▃▇</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>The production_budget has a minimum value of $250,000, a maximum of over $336 million, with a mean of about $33.27 million, a median of $20 million, and a standard deviation of $34.6 million, indicating high variability in film budgets. The domestic_gross shows a minimum of $0, a maximum of around $451.5 million, with a mean of $45.5 million, and a standard deviation of $58.53 million, suggesting that while some movies earned significantly, others did poorly. Similarly, worldwide_gross ranges from $423 to nearly $1.39 billion, with an average of $93.84 million and a high standard deviation of $138.95 million, highlighting the broad spread in international earnings. The profit_ratio has a huge range from 1.38e+10 to 4.31e+14, reflecting the varying degrees of profitability, with a mean around 4.32e+14. The decade variable covers the time span from the early 1900s, with a mean year of approximately 1998, and a standard deviation of 10.6, showing that most of the data comes from modern movies.</p>
+</section>
+<section id="data-dictionary" class="level3">
+<h3 class="anchored" data-anchor-id="data-dictionary">Data Dictionary</h3>
+<section id="quantitative-data" class="level4">
+<h4 class="anchored" data-anchor-id="quantitative-data">Quantitative Data:</h4>
+<ul>
+<li><p><strong>production_budget (dbl)</strong>: The amount of money spent on producing the movie.</p></li>
+<li><p><strong>domestic_gross (dbl)</strong>: The total revenue generated by the movie in the domestic (U.S.) market.</p></li>
+<li><p><strong>worldwide_gross (dbl)</strong>: The total revenue generated by the movie worldwide.</p></li>
+<li><p><strong>profit_ratio (dbl)</strong>: The ratio of the movie’s profit relative to its budget.</p></li>
+<li><p><strong>decade (dbl)</strong>: The decade during which the movie was released, represented numerically.</p></li>
+</ul>
+</section>
+<section id="qualitative-data" class="level4">
+<h4 class="anchored" data-anchor-id="qualitative-data">Qualitative Data:</h4>
+<ul>
+<li><p><strong>release_date (date)</strong>: The date when the movie was released.</p></li>
+<li><p><strong>movie (chr)</strong>: The title of the movie.</p></li>
+<li><p><strong>distributor (chr)</strong>: The name of the studio or company that distributed the movie.</p></li>
+<li><p><strong>mpaa_rating (chr)</strong>: The Motion Picture Association of America (MPAA) rating of the movie.</p></li>
+<li><p><strong>genre (chr)</strong>: The genre or category of the movie.</p></li>
+</ul>
+</section>
+</section>
+<section id="target-variable" class="level3">
+<h3 class="anchored" data-anchor-id="target-variable">Target Variable</h3>
+<p><strong>Profit Ratio</strong></p>
+<p>The profit ratio is a key outcome of interest because it measures the success or profitability of each movie relative to its production budget. This is the most logical target variable because it represents the business performance of the movies in financial terms. The goal of analysis could be to understand what factors influence the profitability of movies.</p>
+</section>
+<section id="predictor-variables" class="level3">
+<h3 class="anchored" data-anchor-id="predictor-variables">Predictor Variables</h3>
+<ul>
+<li><p><strong>Production Budget</strong></p>
+<p>The amount of money spent to produce a movie likely affects its profit ratio. Larger budgets may lead to higher production values, star power, or marketing, but may also increase the risk of lower profitability if the movie doesn’t perform well.</p></li>
+<li><p><strong>Domestic Gross</strong></p>
+<p>The domestic box office earnings provide a direct measure of the movie’s success within its home country, which likely impacts the overall profitability.</p></li>
+<li><p><strong>Worldwide Gross</strong></p>
+<p>Like domestic gross, this variable represents the movie’s global earnings, which play a crucial role in determining profitability, especially for internationally successful films.</p></li>
+<li><p><strong>Distributor</strong></p>
+<p>Different distributors may have different levels of market reach, marketing budgets, and strategic capabilities, which could influence a movie’s success and profit ratio.</p></li>
+<li><p><strong>MPAA Rating</strong></p>
+<p>The MPAA rating (e.g., PG, PG-13, R) affects the audience size and demographics. Certain ratings may limit a movie’s audience, which could affect its overall profitability.</p></li>
+<li><p><strong>Genre</strong></p>
+<p>Different genres attract different audience demographics, which could influence box office performance and profitability. Some genres might consistently perform better than others.</p></li>
+<li><p><strong>Release Date</strong></p>
+<p>The timing of a movie’s release (e.g., summer blockbuster season, holiday period) can significantly influence its box office performance, which may impact profitability.</p></li>
+<li><p><strong>Decade</strong></p>
+<p>The decade provides a historical context. Movies released in different decades may face different market conditions (e.g., competition, audience preferences, economic conditions), influencing profitability.</p></li>
+</ul>
+</section>
+<section id="research-experiment-to-investigate-movie-profitability" class="level3">
+<h3 class="anchored" data-anchor-id="research-experiment-to-investigate-movie-profitability">Research Experiment to Investigate Movie Profitability</h3>
+<p>The objective of this research experiment could have been to explore the factors that potentially influence the profitability of movies. The study might have aimed to analyze how various variables related to movie production, such as budget, genre, distributor, and MPAA rating, as well as market performance indicators like domestic and worldwide gross earnings, could affect a movie’s <strong>profit ratio</strong>.</p>
+<p>Several hypotheses could have been proposed:</p>
+<ul>
+<li><p>Movies with higher production budgets might correlate with lower profit ratios, possibly due to the increased financial risk associated with larger budgets.</p></li>
+<li><p>Certain genres, such as action or adventure, could exhibit higher profit ratios compared to others like drama or comedy.</p></li>
+<li><p>Films distributed by larger studios, such as Warner Bros.&nbsp;or Paramount Pictures, might show better financial performance than those handled by smaller distributors.</p></li>
+<li><p>MPAA ratings could also play a role in profitability, with R-rated films potentially drawing smaller audiences compared to PG or PG-13 rated films.</p></li>
+</ul>
+<p>The dataset used for this study consists of 3,310 movies from 1936 to 2017. The sample includes data on production budgets, domestic and worldwide gross, distributors, MPAA ratings, genres, profit ratios, and the decade in which the movie was released.</p>
+<p>The data could have been obtained from box office databases (e.g., Box Office Mojo, IMDb), industry reports, and public financial records of movie studios. Additional information such as MPAA ratings and genres could be sourced from the Motion Picture Association of America (MPAA) and film databases.</p>
+<p><strong>Limitations:</strong></p>
+<ul>
+<li><p><strong>Missing Data:</strong> Some movies may have incomplete data (e.g., missing MPAA ratings or gross earnings), which could affect the robustness of conclusions.</p></li>
+<li><p><strong>External Factors:</strong> The dataset may not account for external factors like economic downturns, marketing spend, or competition from other media during the release window, all of which could impact profitability.</p></li>
+<li><p><strong>Historical Bias:</strong> Older movies may have different box office reporting practices, and inflation was likely accounted for in calculating the profit ratios to ensure comparability across time.</p></li>
+</ul>
+<p>Insights gained from this study could inform studios on what variables drive financial success and help in decision-making for future film projects.</p>
+</section>
+<section id="calculating-median-profit-ratio" class="level3">
+<h3 class="anchored" data-anchor-id="calculating-median-profit-ratio">Calculating median profit ratio</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Aggregating data by distributor and genre to calculate median profit ratio</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>movie_profit_summary <span class="ot">&lt;-</span> movie_profit <span class="sc">%&gt;%</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(distributor, genre) <span class="sc">%&gt;%</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">median_profit_ratio =</span> <span class="fu">median</span>(profit_ratio, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) , <span class="at">count =</span> <span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'distributor'. You can override using the
+`.groups` argument.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>movie_profit_summary</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 35 × 4
+# Groups:   distributor [7]
+   distributor      genre     median_profit_ratio count
+   &lt;chr&gt;            &lt;chr&gt;                   &lt;dbl&gt; &lt;int&gt;
+ 1 20th&nbsp;Century&nbsp;Fox Action                2.68e14    67
+ 2 20th&nbsp;Century&nbsp;Fox Adventure             2.76e14    75
+ 3 20th&nbsp;Century&nbsp;Fox Comedy                2.70e14    69
+ 4 20th&nbsp;Century&nbsp;Fox Drama                 1.96e14    55
+ 5 20th&nbsp;Century&nbsp;Fox Horror                2.50e14    13
+ 6 Other            Action                1.76e14   227
+ 7 Other            Adventure             2.07e14   191
+ 8 Other            Comedy                1.53e14   375
+ 9 Other            Drama                 1.22e14   784
+10 Other            Horror                2.47e14   160
+# ℹ 25 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="plotting-the-graph---attempt-1" class="level3">
+<h3 class="anchored" data-anchor-id="plotting-the-graph---attempt-1">Plotting the graph - Attempt 1</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>movie_profit_summary <span class="sc">%&gt;%</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_bar</span>(<span class="sc">~</span>median_profit_ratio) <span class="sc">%&gt;%</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_facet_wrap</span>(<span class="sc">~</span> distributor, <span class="at">scales =</span> <span class="st">"free"</span>, <span class="at">ncol =</span> <span class="dv">4</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Profits made by Film Distributors"</span>,</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Ratio of Profits to Budgets"</span>,</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Median Profit Ratio"</span>,</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Genre"</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="attempt-2" class="level3">
+<h3 class="anchored" data-anchor-id="attempt-2">Attempt 2</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>movie_profit_summary <span class="sc">%&gt;%</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_bar</span>(<span class="sc">~</span>median_profit_ratio <span class="sc">|</span> distributor, <span class="at">fill =</span> <span class="sc">~</span>genre) <span class="sc">%&gt;%</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_refine</span>(<span class="fu">coord_flip</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Profits made by Film Distributors"</span>,</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Ratio of Profits to Budgets"</span>,</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Median Profit Ratio"</span>,</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Genre"</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="attempt-3" class="level3">
+<h3 class="anchored" data-anchor-id="attempt-3">Attempt 3</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>movie_profit_summary <span class="sc">%&gt;%</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_bar</span>(<span class="sc">~</span>median_profit_ratio <span class="sc">|</span> genre, <span class="at">fill =</span> <span class="sc">~</span><span class="st">"darkgrey"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_facet_wrap</span>(<span class="sc">~</span>distributor, <span class="at">scales =</span> <span class="st">"free_x"</span>, <span class="at">ncol =</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Profits made by Film Distributors"</span>,</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Ratio of Profits to Budgets"</span>,</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"median_profit_ratio"</span>,</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"genre"</span></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_refine</span>(<span class="fu">theme_minimal</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_refine</span>(<span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_number</span>(<span class="at">scale =</span> <span class="dv">1</span>, <span class="at">suffix =</span> <span class="st">"X"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>In my first three attempts, I tried using gf_bar and spent a lot of time trying to figure out where I was going wrong. After revisiting some resources, I realized that gf_col (or geom_col) was the appropriate function to use, as it requires both X and Y variables to plot columns accurately. This was the key issue since gf_bar wasn’t designed for this type of plotting. In my third attempt, I read further to understand how to change the label names on the X-axis. However, I encountered challenges with formatting the numbers correctly.</p>
+</section>
+<section id="attempt-4" class="level3">
+<h3 class="anchored" data-anchor-id="attempt-4">Attempt 4</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>movie_profit_summary <span class="sc">%&gt;%</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_col</span>(median_profit_ratio <span class="sc">~</span> genre <span class="sc">|</span> distributor, </span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">scales =</span> <span class="st">"free_x"</span>, </span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">fill =</span> <span class="sc">~</span><span class="st">"darkgrey"</span>, </span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">ncol =</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Profits made by Film Distributors"</span>,</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Ratio of Profits to Budgets"</span>,</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"median_profit_ratio"</span>,</span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"genre"</span></span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_refine</span>(<span class="fu">theme_minimal</span>()) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="final-attempt" class="level3">
+<h3 class="anchored" data-anchor-id="final-attempt">Final Attempt</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>movie_profit_summary <span class="sc">%&gt;%</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_col</span>(genre <span class="sc">~</span> median_profit_ratio <span class="sc">|</span> distributor, </span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">scales =</span> <span class="st">"free_x"</span>, </span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">fill =</span> <span class="st">"black"</span>, </span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">ncol =</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Profits made by Film Distributors"</span>,</span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Ratio of Profits to Budgets"</span>,</span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"median_profit_ratio"</span>,</span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"genre"</span></span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_refine</span>(<span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_number</span>(<span class="at">scale =</span> <span class="fl">1e-14</span>, <span class="at">accuracy =</span> <span class="dv">1</span>, <span class="at">suffix =</span> <span class="st">"X"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>I finally figured it out! I realized that the issue was with the scale for the labeling on the X-axis. The scale needed to be adjusted from 1 to 1e-14 in order to display the numbers correctly. This adjustment made a big difference in cleaning up the axis labels and presenting the data in a more readable format.</p>
+</section>
+<section id="questions" class="level3">
+<h3 class="anchored" data-anchor-id="questions">Questions</h3>
+<p>The graph titled “Profits made by Film Distributors” seeks to answer the following questions:</p>
+<p><strong>1.How does the profit-to-budget ratio vary across different film genres (Horror, Drama, Comedy, Adventure, Action) for major film distributors?</strong></p>
+<p>( The graph compares the profitability of different genres for distributors like 20th Century Fox, Paramount Pictures, Sony Pictures, Universal, Warner Bros., and others. This helps to identify which genres are more profitable for specific distributors.)</p>
+<ul>
+<li><strong>20th Century Fox</strong> has the highest median profit ratio in the <strong>Adventure</strong> genre with a value of 2.76e+14, followed closely by <strong>Action</strong> (2.68e+14) and <strong>Comedy</strong> (2.69e+14).</li>
+<li><strong>Paramount Pictures</strong> also sees high profits from <strong>Adventure</strong> films with a median ratio of 2.93e+14, followed by <strong>Action</strong> (2.78e+14) and <strong>Comedy</strong> (1.89e+14).</li>
+<li><strong>Sony Pictures</strong> has the highest median profit ratio for <strong>Adventure</strong> films (2.47e+14) and <strong>Action</strong> films (2.22e+14).</li>
+<li><strong>Universal</strong> stands out in the <strong>Adventure</strong> genre with a median profit ratio of 3.47e+14, showing Adventure films are quite profitable for them.</li>
+<li><strong>Warner Bros.</strong> performs best in <strong>Horror</strong> with a median profit ratio of 3.18e+14, followed by <strong>Comedy</strong> (1.76e+14).</li>
+</ul>
+<p>Across the board, <strong>Adventure</strong> and <strong>Action</strong> films tend to show higher median profit ratios for most major distributors. <strong>Horror</strong> also stands out for Warner Bros.</p>
+<p><strong>2.Which film distributor yields the highest median profit-to-budget ratio for each genre?</strong></p>
+<p>( By displaying the profit ratios for each genre across multiple distributors, the graph helps to determine which distributor is most successful in turning a profit for specific types of films.)</p>
+<ul>
+<li><p>For <strong>Action</strong>, <strong>Paramount Pictures</strong> leads with a median profit ratio of 2.78e+14.</p></li>
+<li><p>In the <strong>Adventure</strong> genre, <strong>Universal</strong> has the highest profit ratio with 3.47e+14.</p></li>
+<li><p><strong>Warner Bros.</strong> has the highest profit ratio in the <strong>Horror</strong> genre, at 3.18e+14.</p></li>
+<li><p>For <strong>Comedy</strong>, <strong>Universal</strong> stands out with 2.58e+14.</p></li>
+<li><p>In <strong>Drama</strong>, <strong>Paramount Pictures</strong> takes the lead with 2.06e+14.</p></li>
+</ul>
+<p>Thus, <strong>Universal</strong> dominates Adventure and Comedy, <strong>Paramount Pictures</strong> excels in Action and Drama, and <strong>Warner Bros.</strong> shines in Horror.</p>
+<p><strong>3.How do smaller or unspecified distributors compare to larger, well-known distributors in terms of profitability?</strong></p>
+<p>( The “Other” and “NA” categories allow for a comparison between larger studios and smaller or unclassified distributors, providing insight into whether smaller entities can achieve comparable profitability.)</p>
+<ul>
+<li><p>Smaller distributors grouped under “Other” tend to have median profit ratios that are competitive with the larger studios. For instance, the median profit ratio for <strong>Action</strong> films under “Other” is 1.76e+14, which is relatively close to that of major distributors.</p></li>
+<li><p>The <strong>Horror</strong> genre under “Other” also does well with a profit ratio of 2.46e+14, almost on par with <strong>Warner Bros.’</strong> high profitability in the same genre (3.18e+14).</p></li>
+</ul>
+<p>This shows that smaller or unclassified distributors, while not always outperforming the majors, can still achieve significant profitability, particularly in certain genres like Horror or Action.</p>
+</section>
+<section id="additional-questions" class="level3">
+<h3 class="anchored" data-anchor-id="additional-questions">Additional Questions</h3>
+<p><strong>1.Identify the type of plot:</strong> The graph is a <strong>facet bar plot</strong> showing the ratio of profits to budgets for different film genres across various distributors.</p>
+<p><strong>2.What are the variables used to plot this graph?</strong></p>
+<ul>
+<li><p>The <strong>x-axis</strong> represents the <strong>median profit ratio</strong> (Ratio of profits to budgets).</p></li>
+<li><p>The <strong>y-axis</strong> represents the <strong>genres</strong> of films (Horror, Drama, Comedy, Adventure, Action).</p></li>
+<li><p>The different <strong>facets</strong> represent the various <strong>distributors</strong> (e.g., 20th Century Fox, Paramount Pictures, Sony Pictures, etc.).</p></li>
+</ul>
+<p><strong>3.If you were to invest in movie production ventures, which are the two best genres that you might decide to invest in?</strong></p>
+<p><strong>Adventure</strong> and <strong>Action</strong> films appear to be the best genres to invest in, as they show the highest median profit ratios across multiple distributors.</p>
+<p><strong>4.Which R command might have been used to obtain the separate plots for each distributor?</strong> The gf_facet_wrap command (from the <strong>ggformula</strong> package) might have been used to create separate plots for each distributor. However, I used the gf_col command.</p>
+<p><strong>5.If the original dataset had BUDGETS and PROFITS in separate columns, what preprocessing might have been done to achieve this plot?</strong></p>
+<p>The data could be <strong>grouped by distributor and genre</strong> to calculate the <strong>median profit ratio</strong>:</p>
+<p><code>movie_profit_summary &lt;- movie_profit %&gt;%   group_by(distributor, genre) %&gt;%   summarize(median_profit_ratio = median(profit_ratio, na.rm = TRUE))</code></p>
+<p>This would aggregate the data and prepare it for plotting as shown in the graph.</p>
+</section>
+<section id="inference-and-story-from-the-graph-and-data" class="level3">
+<h3 class="anchored" data-anchor-id="inference-and-story-from-the-graph-and-data">Inference and Story from the Graph and Data</h3>
+<p>The graph titled “Profits made by Film Distributors” presents a fascinating breakdown of how the median profit ratios for different film genres compare across major film distributors. By plotting this data, we gain valuable insights into the profitability trends of each distributor and their success in various genres.</p>
+<section id="key-observations" class="level4">
+<h4 class="anchored" data-anchor-id="key-observations"><strong>Key Observations</strong></h4>
+<p>From the data and the graph, I observed that:</p>
+<ul>
+<li><p><strong>Adventure and Action Dominate</strong>: Across most distributors, the Adventure and Action genres consistently exhibit the highest median profit ratios. For instance, in the case of Universal and Warner Bros., the Adventure genre outperforms other genres in terms of profitability, with Action following closely behind. These two genres clearly provide the highest return on investment for these distributors.</p></li>
+<li><p><strong>Comedy’s Strong Performance</strong>: Comedy also shows strong performance across distributors like Paramount Pictures and Warner Bros., highlighting that it’s another genre that often yields significant profits relative to its budget.</p></li>
+<li><p><strong>Horror’s Variable Performance</strong>: While Horror films generally show high profit margins (especially with Warner Bros.&nbsp;and 20th Century Fox), the number of films (represented by the count data) in this genre tends to be lower compared to other genres. This could suggest that while fewer horror films are produced, they tend to be highly profitable.</p></li>
+</ul>
+</section>
+<section id="where-would-you-invest" class="level4">
+<h4 class="anchored" data-anchor-id="where-would-you-invest"><strong>Where Would You Invest?</strong></h4>
+<p>If I were to invest in movie production ventures based on this data, the two best genres to invest in would likely be <strong>Adventure</strong> and <strong>Action</strong>. These genres consistently demonstrate the highest profit-to-budget ratios across multiple distributors, making them safe bets for maximizing returns on investment. Adventure films, in particular, seem to have a broad appeal and high profitability, as seen with Universal and Warner Bros., where the Adventure genre outperforms other categories significantly.</p>
+<p>If I were to invest in movie production ventures based on this data, the two best genres to invest in would likely be <strong>Adventure</strong> and <strong>Action</strong>. These genres consistently demonstrate the highest profit-to-budget ratios across multiple distributors, making them safe bets for maximizing returns on investment. Adventure films, in particular, seem to have a broad appeal and high profitability, as seen with Universal and Warner Bros., where the Adventure genre outperforms other categories significantly.</p>
+</section>
+<section id="the-role-of-distributors" class="level4">
+<h4 class="anchored" data-anchor-id="the-role-of-distributors"><strong>The Role of Distributors</strong></h4>
+<p>Each distributor seems to have strengths in different genres. For example:</p>
+<ul>
+<li><p><strong>Paramount Pictures</strong> shows strong performance across all genres, with no one genre clearly dominating, indicating a well-balanced strategy across its film portfolio.</p></li>
+<li><p><strong>20th Century Fox</strong> and <strong>Sony Pictures</strong> both show relatively high profit margins across Action and Adventure, making these genres crucial for their financial success.</p></li>
+<li><p>The <strong>“Other”</strong> category suggests that smaller or independent distributors can still achieve solid profitability, particularly in genres like Action and Comedy.</p></li>
+</ul>
+</section>
+<section id="the-power-of-data-visualization" class="level4">
+<h4 class="anchored" data-anchor-id="the-power-of-data-visualization"><strong>The Power of Data Visualization</strong></h4>
+<p>This graph not only tells a story about the profitability of genres but also underscores the importance of visualizing data to make informed business decisions. If you are a studio executive or a potential investor, this kind of analysis helps you pinpoint the genres that offer the best return on investment, the distributors that succeed in specific markets, and areas where opportunities might exist.</p>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

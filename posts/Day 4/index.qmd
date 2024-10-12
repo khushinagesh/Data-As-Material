@@ -22,6 +22,8 @@ library(crosstable)
 diamonds
 ```
 
+The diamonds dataset displayed above contains 53,940 rows and 10 columns, including variables such as carat, cut, color, clarity, depth, table, price, and dimensions (x, y, z) of the diamonds. Each row represents a diamond, with its characteristics like carat weight, quality of cut, color grade, clarity, depth percentage, table width, price, and dimensions (length, width, and height).
+
 ### First 10 rows of the diamonds dataset
 
 ```{r}
@@ -29,11 +31,17 @@ diamonds
  head(10)
 ```
 
+The carat weight of the diamonds ranges from 0.21 to 0.31 in the first 10 rows. The cut quality is classified into categories such as Ideal, Premium, and Good. In this sample, we see Ideal, Premium, Good, and Very Good cuts. The color ranges from E to J, indicating the absence of color, with E being better. Clarity is measured using grades like SI2, SI1, VS1, and VS2, which reflect the diamond's internal flawlessness.
+
+For proportions, the depth (which represents the height percentage relative to the average diameter) ranges from 59.4% to 65.1%, while the table (the flat facet on top) varies between 55.0% and 65.0%. Price in this sample ranges from \$326 to \$336. The dimensions of the diamonds (x, y, and z, representing length, width, and height) range from 3.87 mm to 4.35 mm in length and width, and from 2.31 mm to 2.75 mm in height,
+
 ### Glimpse - diamonds dataset
 
 ```{r}
 glimpse(diamonds)
 ```
+
+The glimpse provides an overview of the structure and some representative values within the dataset.
 
 ### Inspect - diamonds dataset
 
@@ -41,11 +49,41 @@ glimpse(diamonds)
 inspect(diamonds)
 ```
 
+The categorical variables include Cut (with 5 levels such as Ideal, Premium, and Good), Color (7 levels ranging from D to J), and Clarity (8 levels, from IF to I1). All three categorical variables have 53,940 observations. The quantitative variables include Carat, which ranges from 0.20 to 5.01, with an average of 0.7979; Depth, which ranges from 43.0 to 79.0, with an average of 61.75; Table, ranging from 43.0 to 95.0 with an average of 57.46; and Price, which varies from 326 to 18,823, with an average price of 3932.
+
 ### Skim - diamonds dataset
 
 ```{r}
 skim(diamonds)
 ```
+
+No missing values are reported, and all variables have a complete rate of 1.
+
+### Data Dictionary
+
+#### Quantitative Data:
+
+-   **carat (dbl)**: The weight of the diamond in carats.
+
+-   **depth (dbl)**: The total depth percentage of the diamond, calculated as `(z / mean(x, y)) * 100`.
+
+-   **table (dbl)**: The width of the top of the diamond relative to its widest point (as a percentage).
+
+-   **price (dbl)**: The price of the diamond in USD.
+
+-   **x (dbl)**: The length of the diamond in millimeters.
+
+-   **y (dbl)**: The width of the diamond in millimeters.
+
+-   **z (dbl)**: The depth of the diamond in millimeters.
+
+#### Qualitative Data:
+
+-   **cut (chr)**: The quality of the cut (Fair, Good, Very Good, Premium, Ideal).
+
+-   **color (chr)**: The color grade of the diamond, ranging from D (best) to J (worst).
+
+-   **clarity (chr)**: The clarity of the diamond, with grades ranging from I1 (worst) to IF (best).
 
 ### What is the distribution of the target variable price?
 
@@ -56,6 +94,8 @@ gf_histogram(~price, data = diamonds) %>%
     caption = "ggformula"
   )
 ```
+
+The distribution is heavily skewed to the right, with a large concentration of diamonds priced under \$5,000. The majority of diamonds have prices clustered between \$0 and \$5,000, with the frequency decreasing significantly for higher price ranges. Very few diamonds are priced above \$10,000, and the highest prices approach \$18,000. This distribution suggests that most diamonds in the dataset are relatively lower priced, while high-priced diamonds are less common.
 
 ### Plot 1B: Diamond Prices
 
@@ -71,6 +111,8 @@ gf_histogram(~price,
 # bins- number of classes on the x-axis
 ```
 
+The updated histogram shows a more detailed distribution of diamond prices with an increased number of bins (100), providing a finer breakdown of price ranges.
+
 ### What is the distribution of the predictor variable carat?
 
 ```{r}
@@ -81,6 +123,8 @@ diamonds %>%
     caption = "ggformula"
   )
 ```
+
+The plot shows the distribution of the carat variable, which represents the weight of the diamonds in the dataset. The histogram indicates that most diamonds in the dataset are less than 1 carat in weight, with a sharp decline in frequency as the carat size increases. Very few diamonds are above 2 carats, and the distribution has a positive skew, meaning the majority of diamonds are smaller in carat size.
 
 ### Plot 2B: Carats of Diamonds
 
@@ -95,12 +139,16 @@ diamonds %>%
   )
 ```
 
+The additional bins highlight more intricate variations in the lower carat range.
+
 ### Does a price distribution vary based upon type of cut, clarity, and colour?
 
 ```{r}
 gf_histogram(~price, fill = ~cut, data = diamonds) %>%
   gf_labs(title = "Plot 3A: Diamond Prices", caption = "ggformula")
 ```
+
+The distribution of diamond prices based on cut quality shows a strong right-skewed pattern, meaning most diamonds are priced on the lower end, with fewer diamonds at higher price points. "Ideal" and "Premium" cuts dominate the lower price range, especially around prices below 5000, but extend across the price spectrum more consistently than other cuts. "Very Good" and "Good" cuts also appear frequently, though less so compared to "Ideal" and "Premium." In contrast, "Fair" cut diamonds are the least common and mostly concentrated at the lower end of the price scale. This indicates that higher-quality cuts, such as "Ideal" and "Premium," are more prevalent across various price ranges, while lower-quality cuts tend to be rarer and limited to lower prices.
 
 ### Plot 3B: Prices by Cut
 
@@ -113,6 +161,8 @@ diamonds %>%
   )
 #color- colour of outline, alpha- opacity of filled colour
 ```
+
+The outline and fill color coding highlight the distribution and overlap among the different cuts.
 
 ### Plot 3C: Prices by Filled and Facetted by Cut
 
@@ -132,6 +182,8 @@ diamonds %>%
   ))
 # gf_facet_wrap- divides the one graph into various graphs depending on the numbers of levels, gf_theme- style of text for characters titling the x-axis
 ```
+
+Plot 3C shows the distribution of diamond prices by cut type, where each cut category ("Fair," "Good," "Very Good," "Premium," and "Ideal") is displayed separately using faceting.
 
 ### Plot 3D: Prices Filled and Facetted by Cut
 
@@ -154,7 +206,11 @@ diamonds %>%
 # free y-scale- each different graph will now follow a different scale along the y-axis according to requirements
 ```
 
+The facetted graphs allow for a clear comparison of price distributions across cut categories, showing that higher-quality cuts not only command higher prices but also exhibit greater variability in pricing.
+
 ### Look at the two datasets- "race_df" and "rank_df"
+
+Let us look at two datasets.
 
 ```{r}
 race_df <- read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-10-26/race.csv")
@@ -167,11 +223,69 @@ rank_df <- read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesd
 race_df
 ```
 
+The race_df dataset contains detailed information on 1,207 ultra-marathon races across various locations worldwide. Key variables include the race event, race name, city, and country, as well as important race-specific metrics like distance (in kilometers), elevation gain and loss, and the number of aid stations. Additionally, the dataset provides details on the start date and time of each race, the type of participation (all "solo" in this subset), and the number of participants, which ranges from 0 to 2,300. The dataset covers a wide variety of events, such as the UTMB® and Salomon Rondane 100, offering insights into both geographical and performance-related factors in ultra-marathons.
+
+### Data Dictionary - race_df
+
+#### Quantitative Data:
+
+-   **race_year_id (dbl)**: A unique numeric identifier for each race and year.
+
+-   **distance (dbl)**: The length of each race in kilometers.
+
+-   **elevation_gain (dbl)**: The total elevation gain (in meters) during the race.
+
+-   **elevation_loss (dbl)**: The total elevation loss (in meters) during the race.
+
+-   **aid_stations (dbl)**: The number of aid stations available along the race course.
+
+-   **participants (dbl)**: The total number of participants in the race.
+
+#### Qualitative Data:
+
+-   **event (chr)**: The name of the race event (e.g., UTMB®, Salomon Rondane 100).
+
+-   **race (chr)**: The specific race within the event (e.g., Millstone 100).
+
+-   **city (chr)**: The city where the race took place.
+
+-   **country (chr)**: The country where the race took place.
+
+-   **date (chr)**: The date when the race occurred.
+
+-   **start_time (chr)**: The starting time of the race.
+
+-   **participation (chr)**: The type of participation, in this case, always "solo."
+
 ### Dataset - rank_df
 
 ```{r}
 rank_df
 ```
+
+The dataset rank_df consists of 137,803 rows and 8 columns, each representing information about runners' performances in various races. The key columns include race_year_id, which is a numeric identifier for the race, rank denoting the runner's position in the race, and runner showing the names of the participants. The time column captures the duration in hours, minutes, and seconds taken by each runner to complete the race. Other columns include age, representing the age of the runner, gender, with "M" and "W" indicating male and female runners, respectively, and nationality specifying the country each runner represents, such as "GBR" for Great Britain.
+
+### Data Dictionary - rank_df
+
+#### Quantitative Data:
+
+-   **race_year_id (dbl)**: A unique numeric identifier for each race and year.
+
+-   **rank (dbl)**: The rank or finishing position of the runner in the race.
+
+-   **age (dbl)**: The age of the runner.
+
+-   **time_in_seconds (dbl)**: The race completion time for the runner, in seconds.
+
+#### Qualitative Data:
+
+-   **runner (chr)**: The name of the participant (runner).
+
+-   **time (chr)**: The time taken by the runner to complete the race, represented in hours, minutes, and seconds (hh:mm).
+
+-   **gender (chr)**: The gender of the runner (e.g., "M" for male, "W" for female).
+
+-   **nationality (chr)**: The country or nationality of the runner (e.g., "GBR" for Great Britain, "FRA" for France).
 
 ### Glimpse - race_df
 
@@ -179,11 +293,15 @@ rank_df
 glimpse(race_df)
 ```
 
+The glimpse provides a comprehensive overview of ultra-marathon events.
+
 ### Glimpse - rank_df
 
 ```{r}
 glimpse(rank_df)
 ```
+
+The glimpse offers a detailed view of race results,
 
 ### Summary of Statistics - Distance
 
@@ -192,6 +310,8 @@ race_df %>%
   favstats(~distance, data = .)
 # favstats- summary statistics (such as the minimum, maximum, mean, median, standard deviation, and more) 
 ```
+
+The minimum race distance is 0 km, while the maximum distance reaches 179.1 km. The first quartile (Q1) is 160.1 km, the median distance is 161.5 km, and the third quartile (Q3) is 165.15 km. The mean distance across all races is 152.6 km, with a standard deviation of 39.88 km, indicating variability in race distances. These statistics highlight a central tendency of races around 161 km, with some races being significantly shorter or longer.
 
 ### Summary of Statistics - Time in seconds, Gender
 
@@ -202,6 +322,10 @@ rank_df %>%
 # drop_na()- removes rows that contain missing values
 ```
 
+For males, the race times range from a minimum of 3,600 seconds (1 hour) to a maximum of 288,000 seconds (80 hours). The first quartile (Q1) is 96,536.5 seconds, the median time is 115,845 seconds, and the third quartile (Q3) is 149,761.5 seconds. The mean race time for males is 123,271.1 seconds, with a standard deviation of 37,615.42 seconds, across 101,643 entries.
+
+For females, the minimum race time is 9,191 seconds (about 2.5 hours) and the maximum is 296,806 seconds (over 82 hours). The first quartile (Q1) is 96,695 seconds, the median is 107,062 seconds, and the third quartile (Q3) is 131,464 seconds. The mean race time for females is 117,296.5 seconds, with a standard deviation of 34,604.26 seconds, across 18,341 entries. These statistics indicate that, on average, females took slightly less time than males to complete races, but the variability in both groups is high.
+
 ### Crosstable
 
 ```{r}
@@ -209,6 +333,10 @@ crosstable(time_in_seconds + age ~ gender, data = rank_df) %>%
   crosstable::as_flextable()
 # crosstable- useful for exploring the relationship between two or more categorical variables, and it often includes descriptive statistics for numeric variables.
 ```
+
+The crosstable provides a comparison of time_in_seconds and age across gender categories (M for male, W for female, and NA for missing). For time_in_seconds, males (M) have a minimum time of 3,600 seconds and a maximum of 290,000 seconds, with a median of 120,000 seconds and an interquartile range (IQR) between 97,000 and 150,000 seconds. The mean time for males is 120,000 seconds with a standard deviation of 38,000 seconds. In comparison, females (W) have a minimum time of 9,191 seconds and a maximum of 300,000 seconds, with a median of 110,000 seconds (IQR: 97,000 to 130,000 seconds) and a mean of 120,000 seconds with a standard deviation of 35,000 seconds.
+
+Regarding age, males have an age range from 0 to 133 years, with a median age of 47 years (IQR: 40 to 53 years) and a mean of 46.4 years with a standard deviation of 10.2 years. Females have an age range from 0 to 81 years, with a median of 45 years (IQR: 39 to 52 years) and a mean of 45.3 years with a standard deviation of 9.7 years.
 
 ### Arranging countries in descending order of counts under races
 
@@ -220,6 +348,8 @@ race_df %>%
 # arrange(desc(n)): This function sorts the resulting data frame in descending order (desc) based on the count (n).
 ```
 
+The dataset analysis reveals a list of 61 countries where races were held, with the United States leading with 438 events, followed by the United Kingdom with 110, and France with 56. Countries like Australia, Sweden, China, and Canada also held a significant number of races. As the list progresses, other countries such as Argentina, Switzerland, and Croatia feature fewer races, with Singapore hosting only one race. This data provides insights into the global distribution of races, with the majority occurring in the US, indicating a strong racing culture there, followed by other active nations.
+
 ### Arranging in descending order of counts under nationality
 
 ```{r}
@@ -227,6 +357,8 @@ rank_df %>%
   count(nationality) %>%
   arrange(desc(n))
 ```
+
+The dataset shows the count of participants by nationality for races, arranged in descending order. The USA has the highest number of participants, with 47,259, followed by France (28,905) and the United Kingdom (11,076). Japan and Spain also have significant representation with 6,729 and 5,478 participants, respectively. The list continues with countries like China, Canada, Italy, and Sweden. At the lower end, countries like Chad, Ecuador, Fiji, and Taiwan have one participant each, showing the diverse international participation in these events. The dataset includes 133 nationalities in total.
 
 ### Filtering according to ranks
 
@@ -237,6 +369,8 @@ rank_df %>%
   arrange(desc(n))
 # filter(rank %in% c(1, 2, 3))- This function filters the rows of rank_df where the rank column contains the values 1, 2, or 3.
 ```
+
+The table presented shows the nationality breakdown of athletes who ranked in the top 3 positions for various races. The data is filtered to include only ranks 1, 2, and 3 and sorted by the number of participants per nationality. The United States has the highest number of top-3 finishers with 1,240 athletes, followed by Great Britain (347), France (210), Australia (140), and Canada (132). The table includes a variety of nationalities, with countries like China, Sweden, and Spain also appearing among the top contributors.
 
 ### Number of participants from different nationalities appearing in the top 10 ranks of the longest races, sorted by the highest count of participants per nationality
 
@@ -254,6 +388,8 @@ longest_races %>%
 # filter(rank %in% c(1:10))- After joining, this filters the data to include only participants who ranked between 1 and 10. It keeps the top 10 participants for each of the longest races.
 ```
 
+The results reveal that participants from different nationalities showed varied representation in these top ranks. French participants dominate, with 26 individuals appearing in the top 10 rankings across the longest races. Australians follow with 9 participants, while Portugal and Thailand each have 8 participants in the top 10. Several other countries, including Belgium, Brazil, Spain, Malaysia, and Russia, each have one participant in the top rankings.
+
 ### Histogram of Race Times
 
 ```{r}
@@ -261,6 +397,8 @@ rank_df %>%
   gf_histogram(~time_in_seconds, bins = 75) %>%
   gf_labs(title = "Histogram of Race Times")
 ```
+
+The histogram of race times shows the distribution of times for participants in races, with the data plotted in bins of 75. The race times (in seconds) reveal that most participants finished their races within a certain range, with the highest count of participants completing their races around the 1e+05 second mark (100,000 seconds or approximately 27.8 hours). The histogram also notes the removal of 17,791 rows containing non-finite values that were outside the scale range, indicating potential missing or erroneous data. Overall, the race times distribution appears skewed, with a long tail towards higher times.
 
 ### Histogram of Race Distances
 
@@ -270,13 +408,17 @@ race_df %>%
   gf_labs(title = "Histogram of Race Distances")
 ```
 
-### Filtering raceswith Distance=0
+The histogram of race distances shows a clear distribution of race lengths, with most races clustered around the 160-kilometer mark. There is a notable gap in the distribution between shorter races (around 0 to 50 kilometers) and these longer races, with very few races in the mid-distance range (50 to 150 kilometers). The high concentration of races at longer distances suggests that participants in this dataset mostly competed in ultramarathons or similarly lengthy events.
+
+### Filtering races with Distance=0
 
 ```{r}
 race_df %>%
   filter(distance == 0)
 # Could be cancelled events
 ```
+
+The filtered dataset displays races where the distance recorded is zero, which may indicate cancelled events. The table shows details of 74 races with columns such as the race year ID, event name, race location (city and country), participation type, and race statistics like distance, elevation gain/loss, aid stations, and participant numbers. For many of these events, the distance, elevation changes, and number of participants are listed as zero, potentially confirming that these events did not occur or were canceled.
 
 ### Arranging in descending order of counts under Race Start Time
 
@@ -286,6 +428,8 @@ race_times <- race_df %>%
   arrange(desc(n))
 race_times
 ```
+
+The data shows that a significant number of races (513) started at midnight (00:00:00), followed by races starting at 6:00 AM (114) and 8:00 AM (63). Start times appear to vary widely, with the least common start times including isolated events starting at 4:15 AM, 7:45 AM, 11:50 AM, and 4:30 PM, each having only one race. This suggests that while races tend to favor starting early in the morning or at midnight, there is considerable diversity in start times across different events.
 
 ### Distribution of race times based on when the race started during the day
 
@@ -343,18 +487,40 @@ race_start_factor %>%
 #  It uses 2 columns (ncol = 2).
 ```
 
+The analysis of race start times categorized race times into different parts of the day: early morning, late morning, mid-day, afternoon, evening, night, and post-midnight. A transformation was performed on the dataset to create a new factor based on the start times, grouping races that occurred at similar times of the day. The plot visually represents race times across these time categories, showing a clear distribution of races starting at night and in the early morning, with a higher count of participants finishing races in these time slots. The other periods like mid-day and late morning exhibit a lower count, indicating fewer races starting at these times.
+
 ### Populations dataset
+
+Let us look at the populations dataset.
 
 ```{r}
 populations <- read_csv("../../data/populations.csv")
 populations
 ```
 
+The dataset presented shows the populations of various countries over time. Each row contains four columns: the country_code (abbreviation of the country), country_name (full name of the country), year, and value (population for that year). This dataset includes 16,400 rows, suggesting data for multiple countries over several years.
+
 ### Inspect - populations dataset
 
 ```{r}
 inspect(populations)
 ```
+
+The populations dataset contains 16,400 rows and 4 columns: country_code, country_name, year, and value. The country_code and country_name columns represent categorical data, with 265 unique countries included. The year column contains numeric data ranging from 1960 to 2021, representing population data for different years. The value column, also numeric, reflects the population count for each country-year combination, with values ranging from 2,646 to a maximum of 7,888,408,686. The dataset has no missing values, and summary statistics for the numeric columns provide insights into the distribution of population sizes over time.
+
+### Data Dicitonary
+
+### Quantitative Data:
+
+-   **year (dbl)**: The year in which the population data is recorded (e.g., 1960, 2020).
+
+-   **value (dbl)**: The population of the country in the respective year, measured as the total number of inhabitants.
+
+### Qualitative Data:
+
+-   **country_code (chr)**: The abbreviated code for the country (e.g., "USA" for the United States, "IND" for India).
+
+-   **country_name (chr)**: The full name of the country (e.g., "United States," "India").
 
 ### Long Tailed Histogram and Density
 
@@ -365,6 +531,8 @@ gf_density(~value, data = populations, title = "Long Tailed Density")
 # gf_density(): This function creates a density plot, which is a smoothed version of the histogram. It estimates the probability density function of the variable. Shows the overall shape of the distribution without the bins.Shows both the discrete and continuous aspects of the distribution.
 ```
 
+The visualizations show a long-tailed distribution for population values from the dataset. The histogram indicates that most population counts are clustered on the lower end of the scale, with very few reaching higher values. Similarly, the density plot provides a smoothed version of the histogram, highlighting the overall shape of the distribution. Both plots emphasize that the majority of population values are low, with a sharp decline in density as values increase, indicating a strong right-skewed distribution.
+
 ### Histogram and Density with Log transformed x-variable
 
 ```{r}
@@ -372,3 +540,5 @@ gf_histogram(~ log10(value), data = populations, title = "Histogram with Log tra
 ##
 gf_density(~ log10(value), data = populations, title = "Density with Log transformed x-variable")
 ```
+
+The dataset visualizations provide a deeper understanding of the population distribution using both a histogram and density plot, where the x-variable (population value) has been log-transformed to better depict the distribution of values. The histogram with the log-transformed x-variable shows a more normalized spread, revealing that most population values cluster around the log10 range of approximately 6 to 7. Similarly, the density plot presents a smooth curve that further confirms this concentration of values, with a few peaks representing the most frequent population ranges.
