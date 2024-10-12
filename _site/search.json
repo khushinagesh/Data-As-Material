@@ -67,14 +67,14 @@
     "href": "about.html",
     "title": "About",
     "section": "",
-    "text": "# About Me\nWelcome to my blog! My name is Khushi, and I’m passionate about data visualization, interaction design, photography and game design, and music.\nI love capturing moments through the lens, exploring creative ways to communicate through visuals. Music deeply influences my creativity."
+    "text": "## About Me\nWelcome to my blog! My name is Khushi, and I’m passionate about data visualization, interaction design, photography and game design, and music.\nI love capturing moments through the lens, exploring creative ways to communicate through visuals. Music deeply influences my creativity."
   },
   {
     "objectID": "about.html#what-i-do",
     "href": "about.html#what-i-do",
     "title": "About",
     "section": "What I Do",
-    "text": "What I Do\n- Build games with educational goals, integrating fun with learning - Design user interfaces to enhance user experience and engagement - Explore and tell stories through data visualization, making information more accessible and insightful - Enjoy photography, especially animal portraits and outdoor shoots - Connect music to visual arts, using it as inspiration for both photography and design"
+    "text": "What I Do\n- Build games with educational goals, integrating fun with learning\n- Design user interfaces to enhance user experience and engagement\n- Explore and tell stories through data visualization, making information more accessible and insightful\n- Enjoy photography, especially animal portraits and outdoor shoots\n- Connect music to visual arts, using it as inspiration for both photography and design"
   },
   {
     "objectID": "posts/Assignment 2 - Part 1/index.html",
