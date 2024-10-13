@@ -400,7 +400,7 @@ gf_point(median_salary ~ percent_female,
 
 I spent about two hours trying to resolve the issue with the data showing 0 percent on the x-axis. Despite multiple attempts—ranging from adjusting the scale, specifying limits, mutating the percentage data, and setting breaks—nothing seemed to work. Each attempt either resulted in all the percentages remaining at 0 or caused the percentages to disappear entirely. Even when I tried different methods, the numbers on the axis shifted, and I still couldn’t get the correct percentages to display. It’s been frustrating, as no matter what I tried, the issue persists, and I haven't been able to resolve it.
 
-### Questions 
+### Questions
 
 The graph titled "Salaries and Gender Proportion in the Workforce" seeks to answer the following questions:
 

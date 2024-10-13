@@ -12,6 +12,7 @@ format:
   html:
     theme: lux
     css: styles.css
+    df_print: paged
 
 editor: visual
 

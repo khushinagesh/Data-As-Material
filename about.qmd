@@ -10,6 +10,7 @@ Welcome to my blog! My name is Khushi, and I'm passionate about data visualizati
 I love capturing moments through the lens, exploring creative ways to communicate through visuals. Music deeply influences my creativity.
 
 ## What I Do
+
 [-]{.underline} Build games with educational goals, integrating fun with learning
 
 [-]{.underline} Design user interfaces to enhance user experience and engagement
