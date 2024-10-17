@@ -22,7 +22,7 @@ navbar:
 format:
   html:
     theme: lux
-    css: styles.css
+    # css: styles.css
     df_print: paged
 
 editor: visual
