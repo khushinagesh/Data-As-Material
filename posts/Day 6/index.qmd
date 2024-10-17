@@ -1,0 +1,1081 @@
+---
+title: "Day 6"
+author: "Khushi"
+---
+
+## Introduction
+
+We are looking at Samples, Populations, Statistics and Inference today.
+
+```{r}
+#| label: setup
+library(tidyverse) 
+library(mosaic) 
+library(skimr) 
+library(ggformula)
+```
+
+```{r}
+library(NHANES)
+library(infer)
+```
+
+### Plot Theme
+
+```{r}
+knitr::opts_chunk$set(
+  fig.width = 7,
+## Sets the default width of figures to 7 inches.
+  fig.asp = 0.618, 
+## Sets the aspect ratio of the figure to approximately the golden ratio.
+  fig.align = "center"
+## Centers the alignment of the figure output.
+)
+theme_custom <- function() {
+## defines a custom theme for ggplot2 plots, using the font "Roboto Condensed" and modifying certain visual elements like the plot title, subtitles, captions, axis titles, and text.
+  font <- "Roboto Condensed" 
+  theme_classic(base_size = 14) %+replace% ## used to replace elements from the base theme with custom settings.
+    theme(
+      panel.grid.minor = element_blank(), 
+      text = element_text(family = font),
+      plot.title = element_text( 
+        family = font, 
+        face = "bold", 
+        hjust = 0, 
+        margin = margin(0, 0, 10, 0)
+      ),
+      plot.subtitle = element_text( 
+        family = font,                
+        hjust = 0,
+        margin = margin(2, 0, 5, 0)
+      ),
+      plot.caption = element_text( 
+        family = font, 
+        size = 8, 
+        hjust = 1
+      ), 
+
+      axis.title = element_text( 
+        family = font,
+        size = 10
+      ),
+      axis.text = element_text(
+        family = font, 
+        size = 8
+      ) 
+    )
+}
+
+
+theme_set(new = theme_custom())
+
+```
+
+### Dataset - NHANES
+
+```{r}
+data("NHANES")
+NHANES
+```
+
+The dataset is from the NHANES (National Health and Nutrition Examination Survey) and consists of 10,000 rows with 76 columns. The table shows variables such as the participant's ID, survey year (SurveyYr), gender, age, age grouped by decades (AgeDecade), age in months (AgeMonths), and race (Race1 and Race3).The dataset also includes some missing values in the Race3 column, represented by "NA".
+
+### Glimpse - NHANES
+
+```{r}
+glimpse(NHANES)
+```
+
+The glimpse of the data reveals a variety of demographic, health, and lifestyle-related fields:
+
+-   **Demographics**: The dataset includes fields like ID, Survey Year, Gender, Age, Age in Decades, and Race.
+
+-   **Socioeconomic Information**: It includes educational background, marital status, household income (HHIncome), and poverty index.
+
+-   **Health Measurements**: Variables such as height, weight, BMI, blood pressure (systolic and diastolic values), and cholesterol levels are captured.
+
+-   **Health Conditions and Behaviors**: Information on physical activity, smoking habits, alcohol consumption, and drug use are present, along with metrics like diabetes status, sleep patterns, and general health perception.
+
+-   **Lifestyle Factors**: The dataset covers employment status, home ownership, and family size.
+
+-   **Additional Variables**: More detailed information is available on reproductive health, mental health, and sexual behavior.
+
+The dataset contains missing values (denoted as "NA") in several columns, indicating that not all participants answered or were measured for every variable.
+
+### NHANES (sub)-dataset
+
+```{r}
+NHANES_adult <-
+  NHANES %>%
+  distinct(ID, .keep_all = TRUE) %>%
+  filter(Age >= 18) %>%
+  select(Height) %>%
+  drop_na(Height)
+NHANES_adult
+```
+
+Here, a subset of the NHANES dataset is created, that focuses on adults (individuals aged 18 or older) and includes only the "Height" variable. Duplicate entries are removed based on the "ID" column to ensure unique participants, filtering the dataset to include only those with age 18 and above, selecting only the "Height" variable, and finally removing any missing values (NA) from the "Height" column. The resulting dataset contains 4,790 rows of height data, with values ranging from around 148.1 to 181.9 cm in the displayed portion.
+
+### Population Parameters
+
+```{r}
+pop_mean <- mosaic::mean(~Height, data = NHANES_adult)
+
+pop_sd <- mosaic::sd(~Height, data = NHANES_adult)
+
+pop_mean
+```
+
+```{r}
+pop_sd
+```
+
+Now we calculate the mean and standard deviation of the height for adults in the NHANES dataset. The average (mean) height of the adult population is approximately 168.35 cm, with a standard deviation of 10.16 cm, which shows the typical variation around the mean. This suggests that while most adults have a height close to 168.35 cm, the heights can vary by about 10 cm above or below the mean.
+
+### Sampling
+
+```{r}
+theme_set(new = theme_custom())
+sample_50 <- mosaic::sample(NHANES_adult, size = 50) %>%
+  select(Height)
+sample_50
+## A random sample of 50 observations is taken from the NHANES_adult dataset for the "Height" variable using mosaic::sample. This subset of 50 heights is stored in sample_50.
+sample_mean_50 <- mean(~Height, data = sample_50)
+sample_mean_50
+## The mean of the heights from the sample (sample_50) is calculated and stored in sample_mean_50.
+
+sample_50 %>%
+  gf_histogram(~Height, bins = 10) %>%
+  gf_vline(
+    xintercept = ~sample_mean_50,
+    color = "purple"
+  ) %>%
+## A vertical line (gf_vline) is added at the sample mean (sample_mean_50)
+  gf_vline(
+    xintercept = ~pop_mean,
+    colour = "black"
+  ) %>%
+## Another vertical line is added at the population mean (pop_mean), colored black, to show where the overall average height of the population falls in comparison to the sample mean.
+  gf_label(7 ~ (pop_mean + 8),
+    label = "Population Mean",
+    color = "black"
+  ) %>%
+  gf_label(7 ~ (sample_mean_50 - 8),
+    label = "Sample Mean", color = "purple"
+  ) %>%
+## Two labels are added to the plot to clearly identify the "Population Mean" (in black) and the "Sample Mean" (in purple), positioned at appropriate points in the plot.
+  gf_labs(
+    title = "Distribution and Mean of a Single Sample",
+    subtitle = "Sample Size = 50"
+  )
+```
+
+The plot visualizes the distribution of a random sample of 50 heights from the NHANES dataset, represented as a histogram. Two key reference lines are shown: the Sample Mean (marked with a purple vertical line and label) and the Population Mean (marked with a black vertical line and label). The sample mean is slightly to the left of the population mean, demonstrating the variation that can occur between a random sample and the overall population. The title and subtitle of the plot clarify that it is depicting the distribution and mean for a sample size of 50. This plot highlights how the sample's average height compares to the broader population mean.
+
+### Repeated Samples and Sample Means
+
+```{r}
+sample_50_500 <- do(500) * {
+## The do(500) function repeats the sampling process 500 times.
+## For each iteration, a random sample of 50 heights is taken from the NHANES_adult dataset.
+  sample(NHANES_adult, size = 50) %>%
+    select(Height) %>% 
+    summarise(
+      sample_mean = mean(Height),
+      sample_sd = sd(Height),
+      sample_min = min(Height),
+      sample_max = max(Height)
+    )
+}
+sample_50_500
+dim(sample_50_500)
+## The dim(sample_50_500) command prints the dimensions of the resulting dataset, showing how many rows and columns are in sample_50_500.
+```
+
+The table shows the results of 500 repeated samples (each of size 50) taken from the NHANES adult height dataset. For each sample, four key statistics are calculated: the sample mean, sample standard deviation (sd), minimum height, and maximum height. The sample means range from approximately 166.7 to 171.9 cm, with variability in standard deviation (ranging from around 8.3 to 10.8 cm). The minimum and maximum heights in the samples show some variation, with minimum heights ranging from around 142.6 to 154.9 cm and maximum heights ranging from around 184.9 to 195.9 cm. This simulation highlights the natural variation in summary statistics when taking random samples from the population.
+
+### Plotting the graphs
+
+```{r}
+theme_set(new = theme_custom())
+sample_50_500 %>%
+  gf_point(.index ~ sample_mean,
+    color = "purple",
+    title = "Sample Means are close to the Population Mean",
+    subtitle = "Sample Means are Random!",
+    caption = "Grey lines represent our 500 samples"
+  ) %>%
+  gf_segment(
+    .index + .index ~ sample_min + sample_max,
+    color = "grey",
+    linewidth = 0.3,
+    alpha = 0.3,
+    ylab = "Sample Index (1-500)",
+    xlab = "Sample Means"
+  ) %>%
+  gf_vline(
+    xintercept = ~pop_mean,
+    color = "black"
+  ) %>%
+  gf_label(-25 ~ pop_mean,
+    label = "Population Mean",
+    color = "black"
+  )
+sample_50_500 %>%
+  gf_point(.index ~ sample_sd,
+    color = "purple",
+    title = "Sample SDs are close to the Population Sd",
+    subtitle = "Sample SDs are Random!",
+  ) %>%
+  gf_vline(
+    xintercept = ~pop_sd,
+    color = "black"
+  ) %>%
+  gf_label(-25 ~ pop_sd,
+    label = "Population SD",
+    color = "black"
+  ) %>%
+  gf_refine(lims(x = c(4, 16)))
+```
+
+The plots illustrate the variability in the means and standard deviations of 500 random samples, each of size 50, taken from the NHANES adult height data.
+
+In the first plot, the sample means are shown as purple points, with grey lines representing the range from the minimum to maximum height in each sample. A vertical black line marks the population mean. The plot highlights that while individual sample means vary, most are clustered around the population mean, demonstrating that sample means tend to be close to the population mean despite random variation.
+
+In the second plot, the sample standard deviations (SDs) are plotted, again using purple points, with a vertical line indicating the population standard deviation. The plot shows that sample SDs also vary, but most are concentrated around the population SD. Both plots demonstrate the concept of sampling variability: individual sample statistics fluctuate, but they generally reflect the overall population parameters.
+
+The titles emphasize that both the sample means and sample standard deviations are random but tend to be close to the corresponding population values.
+
+### Distribution of Sample-Means
+
+```{r}
+theme_set(new = theme_custom())
+sample_50_500 %>%
+  gf_dhistogram(~sample_mean, bins = 30, xlab = "Height") %>%
+  gf_vline(
+    xintercept = pop_mean,
+    color = "blue"
+  ) %>%
+  gf_label(0.01 ~ pop_mean,
+    label = "Population Mean",
+    color = "blue"
+  ) %>%
+  gf_labs(
+    title = "Sampling Mean Distribution",
+    subtitle = "500 means"
+  )
+sample_50_500 %>%
+  gf_dhistogram(~sample_mean, bins = 30, xlab = "Height") %>%
+  gf_vline(
+    xintercept = pop_mean,
+    color = "blue"
+  ) %>%
+  gf_label(0.01 ~ pop_mean,
+    label = "Population Mean",
+    color = "blue"
+  ) %>%
+  gf_histogram(~Height,
+    data = NHANES_adult,
+    alpha = 0.2, fill = "blue",
+    bins = 30
+  ) %>%
+  gf_label(0.025 ~ (pop_mean + 20),
+    label = "Population Distribution", color = "blue"
+  ) %>%
+  gf_labs(title = "Sampling Mean Distribution", subtitle = "Original Population overlay")
+```
+
+The plots visualize the distribution of sample means from 500 random samples, each consisting of 50 heights from the NHANES dataset.
+
+In the first plot, the histogram shows the distribution of sample means across the 500 samples. The population mean is marked with a blue vertical line. The title emphasizes that the sample means tend to cluster around the population mean, despite some variation due to random sampling.
+
+The second plot overlays the distribution of the sample means on top of the original population distribution. The blue-shaded area represents the population height distribution, while the grey histogram represents the sample mean distribution. The comparison shows that the sample means are generally more tightly clustered around the population mean than individual heights, demonstrating the concept of the Central Limit Theorem: as sample size increases, the distribution of the sample means becomes narrower and centered around the population mean.
+
+Both plots highlight the relationship between the sample mean distribution and the original population distribution, illustrating how random samples from a population can reflect the underlying characteristics of the entire population.
+
+### Sampling Height repeatedly
+
+```{r}
+samples_08_1000 <- do(1000) * mean(resample(NHANES_adult$Height, size = 08))
+
+samples_16_1000 <- do(1000) * mean(resample(NHANES_adult$Height, size = 16))
+
+samples_32_1000 <- do(1000) * mean(resample(NHANES_adult$Height, size = 32))
+
+samples_64_1000 <- do(1000) * mean(resample(NHANES_adult$Height, size = 64))
+## Four different sets of samples are drawn, each with a different sample size (8, 16, 32, and 64)
+## For each sample size, the resample() function draws a random sample of heights, and the mean() function calculates the mean height of the resample.
+## This process is repeated 1000 times for each sample size using the do(1000) function.
+
+head(samples_08_1000)
+```
+
+The table shows the first six mean heights from 1000 random samples of size 8 drawn from the NHANES adult dataset. Each value represents the average height calculated from one of the samples. The mean heights range from 165.6 cm to 171.8 cm across these six samples, showing how the mean fluctuates between different samples. This variability demonstrates the random nature of sampling, with each sample producing slightly different mean values even though they are drawn from the same population. This helps to understand how sample size and repetition can impact the stability and accuracy of sample means.
+
+### Plotting individual Histograms for comparison
+
+```{r}
+theme_set(new = theme_custom())
+p5 <- gf_dhistogram(~mean,
+  data = samples_08_1000,
+  color = "grey",
+  fill = "dodgerblue", title = "N = 8"
+) %>%
+  gf_fitdistr(linewidth = 1) %>%
+  gf_vline(
+    xintercept = pop_mean, inherit = FALSE,
+    color = "blue"
+  ) %>%
+  gf_label(-0.025 ~ pop_mean,
+    label = "Population Mean",
+    color = "blue"
+  ) %>%
+  gf_theme(scale_y_continuous(expand = expansion(mult = c(0.08, 0.02))))
+p6 <- gf_dhistogram(~mean,
+  data = samples_16_1000,
+  color = "grey",
+  fill = "sienna", title = "N = 16"
+) %>%
+  gf_fitdistr(linewidth = 1) %>%
+  gf_vline(
+    xintercept = pop_mean,
+    color = "blue"
+  ) %>%
+  gf_label(-.025 ~ pop_mean,
+    label = "Population Mean",
+    color = "blue"
+  ) %>%
+  gf_theme(scale_y_continuous(expand = expansion(mult = c(0.08, 0.02))))
+p7 <- gf_dhistogram(~mean,
+  data = samples_32_1000,
+  na.rm = TRUE,
+  color = "grey",
+  fill = "palegreen", title = "N = 32"
+) %>%
+  gf_fitdistr(linewidth = 1) %>%
+  gf_vline(
+    xintercept = pop_mean,
+    color = "blue"
+  ) %>%
+  gf_label(-.025 ~ pop_mean,
+    label = "Population Mean", color = "blue"
+  ) %>%
+  gf_theme(scale_y_continuous(expand = expansion(mult = c(0.08, 0.02))))
+
+p8 <- gf_dhistogram(~mean,
+  data = samples_64_1000,
+  na.rm = TRUE,
+  color = "grey",
+  fill = "violetred", title = "N = 64"
+) %>%
+  gf_fitdistr(linewidth = 1) %>%
+  gf_vline(
+    xintercept = pop_mean,
+    color = "blue"
+  ) %>%
+  gf_label(-.025 ~ pop_mean,
+    label = "Population Mean", color = "blue"
+  ) %>%
+  gf_theme(scale_y_continuous(expand = expansion(mult = c(0.08, 0.02))))
+p5
+p6
+p7
+p8
+## Each histogram is created using the gf_dhistogram() function, with a different fill color and title to denote the sample size:
+## For N = 8: fill is dodgerblue.
+## For N = 16: fill is sienna.
+## For N = 32: fill is palegreen.
+## For N = 64: fill is violetred.
+## Each histogram has a density curve fitted using gf_fitdistr(), with the line width set to 1%
+## gf_fitdistr(~mean, ...): This overlays a fitted normal distribution curve over the histogram, allowing comparison between the empirical distribution and the theoretical normal distribution.
+```
+
+The four histograms show the distribution of sample means from 1000 random samples of sizes 8, 16, 32, and 64 taken from the NHANES adult height dataset. Each histogram is fitted with a density curve and includes a blue vertical line marking the population mean for comparison.
+
+As the sample size increases, the distribution of sample means becomes more concentrated around the population mean (approximately 168 cm).
+
+For smaller sample sizes (N = 8), the distribution of sample means is wider, indicating more variability in the sample means.
+
+As the sample size increases (N = 16, N = 32, N = 64), the distribution narrows, demonstrating how larger sample sizes produce more precise estimates of the population mean.
+
+The density curve in each plot shows the shape of the sample mean distribution, and as expected from the Central Limit Theorem, the distribution becomes more normal as the sample size increases.
+
+This visualization highlights how increasing the sample size leads to more stable and accurate estimates of the population mean, with less variability.
+
+### Overlaying the histograms
+
+```{r}
+gf_dhistogram(~mean, data = samples_08_1000, fill = "dodgerblue", color = "grey") %>%
+  gf_vline(xintercept = pop_mean, color = "blue") %>%
+  gf_fitdistr(linewidth = 1, data = samples_08_1000, color = "dodgerblue") %>%
+  
+  gf_dhistogram(~mean, data = samples_16_1000, fill = "sienna", color = "grey") %>%
+  gf_vline(xintercept = pop_mean, color = "blue") %>%
+  gf_fitdistr(linewidth = 1, data = samples_16_1000, color = "sienna") %>%
+  
+  gf_dhistogram(~mean, data = samples_32_1000, fill = "palegreen", color = "grey") %>%
+  gf_vline(xintercept = pop_mean, color = "blue") %>%
+  gf_fitdistr(linewidth = 1, data = samples_32_1000, color = "palegreen") %>%
+  
+  gf_dhistogram(~mean, data = samples_64_1000, fill = "violetred", color = "grey") %>%
+  gf_vline(xintercept = pop_mean, color = "blue") %>%
+  gf_fitdistr(linewidth = 1, data = samples_64_1000, color = "violetred") %>% 
+gf_label(-.025 ~ pop_mean,
+    label = "Population Mean", color = "blue"
+  ) 
+
+```
+
+The graph visualizes the overlay of histograms and density curves for sample means of different sizes (N = 8, 16, 32, 64) from the NHANES adult height dataset. Each sample size is represented with a different color, where histograms show the distribution of sample means and the corresponding density curves are fitted on top of the histograms. The vertical blue line marks the population mean, which serves as a reference point for comparison across all sample sizes.
+
+As expected, the density curves for smaller sample sizes (N = 8, 16) are wider, indicating higher variability in the sample means. Conversely, larger sample sizes (N = 32, 64) have more narrow and peaked density curves, demonstrating that the sample means cluster more closely around the population mean as sample size increases. This graph effectively illustrates how increasing the sample size leads to more precise estimates of the population mean, as predicted by the Central Limit Theorem.
+
+### Calculating the means of the sample-distributions
+
+```{r}
+mean(~mean, data = samples_08_1000) 
+mean(~mean, data = samples_16_1000)
+mean(~mean, data = samples_32_1000)
+mean(~mean, data = samples_64_1000)
+pop_mean
+```
+
+The output shows the means of the sample distributions for different sample sizes (N = 8, 16, 32, and 64) compared to the population mean. The sample means are as follows:
+
+For N = 8: 168.73
+
+For N = 16: 168.37
+
+For N = 32: 168.34
+
+For N = 64: 168.39
+
+The population mean is 168.35.
+
+The sample means across all sample sizes are close to the population mean, with slight variability. As the sample size increases, the sample mean converges more closely to the population mean, illustrating how larger sample sizes provide more accurate estimates of the population parameter.
+
+### Calculating the standard deviations of the sample-distributions
+
+```{r}
+pop_sd
+sd(~mean, data = samples_08_1000)
+sd(~mean, data = samples_16_1000)
+sd(~mean, data = samples_32_1000)
+sd(~mean, data = samples_64_1000)
+```
+
+The output shows the standard deviations of the sample distributions for different sample sizes (N = 8, 16, 32, 64) compared to the population standard deviation:
+
+Population standard deviation: 10.16
+
+For N = 8: 3.63
+
+For N = 16: 2.60
+
+For N = 32: 1.86
+
+For N = 64: 1.30
+
+As the sample size increases, the standard deviation of the sample means decreases. This demonstrates that larger sample sizes lead to more consistent estimates with less variability. The population standard deviation is much larger, as it reflects the variability of individual data points, while the sample means become more tightly clustered as the sample size increases.
+
+### Calculating standard errors of the mean for different sample sizes
+
+```{r}
+pop_sd
+pop_sd / sqrt(8)
+pop_sd / sqrt(16)
+pop_sd / sqrt(32)
+pop_sd / sqrt(64)
+## sqrt(N) is the square root of the sample size
+```
+
+The output displays the calculated standard errors of the mean for different sample sizes (N = 8, 16, 32, 64). The population standard deviation (pop_sd) is 10.16, and the standard errors are as follows:
+
+-   For N = 8: 3.59
+
+-   For N = 16: 2.54
+
+-   For N = 32: 1.80
+
+-   For N = 64: 1.27
+
+As the sample size increases, the standard error decreases. This illustrates that larger sample sizes lead to more precise estimates of the population mean, with less variability between sample means. The decrease in standard error follows the expected relationship, where the standard error is inversely proportional to the square root of the sample size.
+
+### Standard deviations for four different random samples of heights
+
+```{r}
+sample_08 <- mosaic::sample(NHANES_adult, size = 8) %>%
+  select(Height)
+sample_16 <- mosaic::sample(NHANES_adult, size = 16) %>%
+  select(Height)
+sample_32 <- mosaic::sample(NHANES_adult, size = 32) %>%
+  select(Height)
+sample_64 <- mosaic::sample(NHANES_adult, size = 64) %>%
+  select(Height)
+
+sd(~Height, data = sample_08)
+## Sampling from NHANES_adult: It uses the mosaic::sample function to create random samples of different sizes from the NHANES_adult dataset.
+```
+
+```{r}
+sd(~Height, data = sample_16)
+```
+
+```{r}
+sd(~Height, data = sample_32)
+```
+
+```{r}
+sd(~Height, data = sample_64)
+```
+
+The results show the standard deviations for four different random samples of heights, with varying sample sizes (N = 8, 16, 32, 64) from the NHANES dataset:
+
+For N = 8: 11.11
+
+For N = 16: 6.54
+
+For N = 32: 10.39
+
+For N = 64: 9.39
+
+The standard deviations show some variability across the samples, which is expected due to random sampling. Smaller sample sizes, such as N = 8 and N = 16, tend to have more variation in their standard deviations compared to larger sample sizes, where the values are closer to the population standard deviation (approximately 10.16). This reflects how larger samples are more representative of the population and produce more consistent measures of dispersion.
+
+### Calculation of the standard errors for different sample sizes
+
+```{r}
+pop_sd <- sd(~Height, data = NHANES_adult)
+pop_sd
+sd(~Height, data = sample_08) / sqrt(8)
+sd(~Height, data = sample_16) / sqrt(16)
+sd(~Height, data = sample_32) / sqrt(32)
+sd(~Height, data = sample_64) / sqrt(64)
+```
+
+The results of the calculation of the standard errors for different sample sizes (N = 8, 16, 32, 64) using the standard deviations of the samples are displayed here. The population standard deviation is calculated as approximately 10.16, and the standard errors for the samples are as follows:
+
+For N = 8: 3.93
+
+For N = 16: 1.63
+
+For N = 32: 1.84
+
+For N = 64: 1.17
+
+The population standard deviation is higher than the standard errors, as expected. As the sample size increases, the standard error decreases. This pattern highlights that larger sample sizes produce more precise estimates of the population mean, with less variability.
+
+### Confidence Intervals
+
+```{r}
+theme_set(new = theme_custom())
+
+tbl_1 <- get_ci(samples_08_1000, level = 0.95)
+tbl_2 <- get_ci(samples_16_1000, level = 0.95)
+tbl_3 <- get_ci(samples_32_1000, level = 0.95)
+tbl_4 <- get_ci(samples_64_1000, level = 0.95)
+rbind(tbl_1, tbl_2, tbl_3, tbl_4) %>%
+  rownames_to_column("index") %>%
+  cbind("sample_size" = c(8, 16, 32, 64)) %>%
+  gf_segment(index + index ~ lower_ci + upper_ci) %>%
+  gf_vline(xintercept = pop_mean) %>%
+  gf_labs(
+    title = "95% Confidence Intervals for the Mean",
+    subtitle = "Varying samples sizes 8-16-32-64",
+    y = "Sample Size", x = "Mean Ranges"
+  ) %>%
+  gf_refine(scale_y_discrete(labels = c(8, 16, 32, 64))) %>%
+  gf_refine(annotate(geom = "label", x = pop_mean + 1.75, y = 1.5, label = "Population Mean"))
+## The function get_ci() calculates 95% confidence intervals for the mean of the samples (samples_08_1000, samples_16_1000, samples_32_1000, and samples_64_1000), which represent 1000 resampled means of different sizes (8, 16, 32, 64).
+## Four variables (tbl_1, tbl_2, tbl_3, tbl_4) are created, each containing the confidence intervals (lower and upper bounds) for a specific sample size.
+## The rbind() function combines these four datasets (tbl_1, tbl_2, tbl_3, and tbl_4) row-wise into one table.
+## The cbind() function adds a sample_size column with the values 8, 16, 32, and 64 to correspond with each confidence interval.
+```
+
+This plot shows the 95% confidence intervals for the mean of different sample sizes (`8`, `16`, `32`, and `64`). Each horizontal line represents the confidence interval for a given sample size, with the vertical line marking the population mean. The plot visually demonstrates how the confidence intervals become narrower as the sample size increases, indicating more precise estimates of the population mean. The intervals for smaller samples are wider, reflecting greater variability, while larger sample sizes yield tighter intervals that are more closely aligned with the population mean. This helps illustrate the concept that larger sample sizes provide more accurate estimates of the population parameter.
+
+### Confidence Intervals and the Bell Curve
+
+```{r}
+theme_set(new = theme_custom())
+
+sample_mean <- mean(~Height, data = sample_16)
+se <- sd(~Height, data = sample_16) / sqrt(16)
+
+xqnorm(
+  p = c(0.025, 0.975),
+  mean = sample_mean,
+  sd = sd(~Height, data = sample_16),
+  return = c("plot"), verbose = F
+) %>%
+  gf_vline(xintercept = ~pop_mean, colour = "black") %>%
+  gf_vline(xintercept = mean(~Height, data = sample_16), colour = "purple") %>%
+  gf_labs(title = "Confidence Intervals and the Bell Curve. N=16") %>%
+  gf_refine(
+    annotate(geom = "label", x = pop_mean + 15, y = 0.05, label = "Population Mean"),
+    annotate(geom = "label", x = sample_mean - 15, y = 0.05, label = "Sample Mean", colour = "purple")
+  )
+## The mean of Height from sample_16 is computed and assigned to sample_mean.
+## The standard error (se) is calculated as the standard deviation of Height from sample_16, divided by the square root of the sample size (16).
+##The xqnorm function calculates the quantiles for a normal distribution with a probability of 95% (p = c(0.025, 0.975)), using the calculated sample_mean and standard error (se). The result is a confidence interval for the mean of the sample data.
+```
+
+The graph illustrates the relationship between the sample mean and the population mean within a normal distribution for a sample size of 16. It shows a bell curve divided into three probability sections: the outermost areas represent the lower and upper 2.5% of the data, and the middle section highlights the 95% confidence interval, which covers the majority of the data. Two vertical lines are present—one representing the sample mean (in purple) and the other the population mean (in black).
+
+### Calculating confidence interval
+
+```{r}
+pop_mean
+se <- sd(~Height, data = sample_16) / sqrt(16)
+mean(~Height, data = sample_16) - 2.0 * se
+mean(~Height, data = sample_16) + 2.0 * se
+```
+
+The code calculates the 95% confidence interval for the mean of a sample of 16 observations. It computes the standard error (SE) of the sample mean and then uses it to find the lower and upper bounds of the confidence interval. The output shows the population mean (168.3497) and the lower and upper bounds of the confidence interval, which are 162.7563 and 169.2937, respectively. This interval gives an estimate of where the true population mean is likely to lie based on the sample.
+
+## Inference for a Single Mean
+
+```{r}
+#| label: setup
+library(tidyverse)
+library(mosaic)
+library(ggformula)
+library(infer)
+library(broom)
+library(resampledata) 
+library(openintro) 
+```
+
+### Toy Data
+
+```{r}
+set.seed(40)  
+y <- rnorm(50, mean = 2, sd = 2)
+
+mydata <- tibble(y = y)
+mydata
+## set.seed(40): This ensures that the random numbers generated are reproducible. Every time this code is run with the same seed (40), you will get the same set of random values.
+## y <- rnorm(50, mean = 2, sd = 2): This line generates 50 random numbers from a normal distribution (rnorm) where the mean is 2, and the standard deviation is 2. These values are stored in the variable y.
+## mydata <- tibble(y = y): This converts the generated data y into a tibble (a modern version of a data frame in R), making it easier to view and work with the data.
+```
+
+The code creates a dataset of 50 random values drawn from a normal distribution with a mean of 2 and standard deviation of 2, storing it in a tibble for further manipulation or analysis.
+
+### Inspecting and Charting Data
+
+```{r}
+theme_set(new = theme_custom())
+
+mydata %>%
+    gf_density(~y) %>%
+    gf_fitdistr(dist = "dnorm") %>%
+    gf_labs(title = "Densities of Original Data Variables", subtitle = "Compared with Normal Density")
+```
+
+This generates a density plot to compare the distribution of the original data, which was generated from a normal distribution, with a theoretical normal distribution. The plot shows two overlapping curves: the filled grey region represents the density of the actual data (generated via rnorm), and the black line shows the density of the normal distribution (fit using gf_fitdistr). The graph's title and subtitle indicate that the purpose is to compare these densities, helping visualize how well the sample data follows a normal distribution.
+
+### Could the mean of the population μ, from which y has been drawn, be zero?
+
+If the sample mean y¯ is close to zero and the variability (standard deviation) of the sample is high, it could suggest that the population mean is near zero. However, from the density plot, we observe that the center of the distribution is not near zero, but rather shifted to the right. The data is clustered around a value closer to 2, meaning that it is unlikely the population mean is zero.
+
+### The t-test
+
+```{r}
+t1 <- mosaic::t_test(
+          y, 
+          mu = 0, 
+          alternative = "two.sided") %>% 
+  
+  broom::tidy()
+t1
+```
+
+Here,a two-sided one-sample t-test is conducted to determine if the mean of the population from which the data y is drawn differs from 0. The test's null hypothesis (H₀) assumes that the population mean is 0, while the alternative hypothesis (H₁) suggests it is not. The output shows a t-statistic of 6.79 and a very small p-value (1.43e-08), which allows us to confidently reject the null hypothesis. Additionally, the 95% confidence interval for the mean ranges from approximately 1.44 to 2.65, further supporting that the population mean is unlikely to be 0. Therefore, we can conclude that the population mean from which the data was sampled is significantly different from zero.
+
+### Wilcoxon's Signed-Rank Test
+
+```{r}
+signed_rank <- function(x) {
+    sign(x) * rank(abs(x))
+}
+## A custom function signed_rank() in R is defined, which takes a numeric vector x as input. The function calculates the signed ranks of the elements of x.
+## sign(x) extracts the sign of each element in x (i.e., it returns 1 for positive values, -1 for negative values, and 0 for zero).
+## abs(x) computes the absolute value of each element in x.
+## rank(abs(x)) calculates the ranks of the absolute values of x.
+## The signs from sign(x) are multiplied by the ranks from rank(abs(x)), so the original signs are applied to the ranked values.
+```
+
+```{r}
+t2 <- wilcox.test(y, 
+                  mu = 0, 
+                  alternative = "two.sided",
+                  conf.int = TRUE,
+                  conf.level = 0.95) %>% 
+  broom::tidy()
+t2
+## y: This is the sample data on which the test is performed.
+## mu = 0: The null hypothesis (H₀) assumes that the median of the sample y is equal to 0.
+## alternative = "two.sided": This specifies that the test is two-sided, meaning it checks if the median is significantly different from 0 (not just greater or less than).
+## conf.int = TRUE: A confidence interval for the median is computed.
+## conf.level = 0.95: The confidence level for the interval is set at 95%.
+## broom::tidy(): This function formats the output of the test into a tidy (dataframe) format, making the results easier to interpret and display.
+```
+
+This performs a Wilcoxon signed-rank test on the dataset y with a null hypothesis that the true population mean (μ) is zero, using a two-sided alternative hypothesis. The Wilcoxon test is a non-parametric test that compares the median of the dataset to a hypothesized value (in this case, zero). The result shows an estimate of the sample median (2.04533), a test statistic of 1144, and a very small p-value (1.036606e-06), suggesting strong evidence against the null hypothesis. Additionally, the 95% confidence interval for the median is \[1.383205, 2.721736\], which does not include zero, further reinforcing the rejection of the null hypothesis. The method applied here is a Wilcoxon signed-rank test with continuity correction, and the test was two-sided.
+
+```{r}
+t3 <- t.test(signed_rank(y),
+             mu = 0,
+             alternative = "two.sided",
+             conf.int = TRUE,
+             conf.level = 0.95) %>% 
+  broom::tidy()
+t3
+```
+
+The output of this table is the result of a one-sample t-test applied to the signed rank of data points from the variable y. The table shows the estimate (20.26), the test statistic (6.70), the p-value (1.933926e-08), and the 95% confidence interval ranging from 14.1834 to 26.3366. The test was conducted to see if the mean of the signed ranks differs significantly from zero (mu = 0), with the p-value indicating strong evidence against the null hypothesis (p \< 0.05), suggesting that the population mean of the signed ranks is significantly different from zero.
+
+The primary difference from the previous table is that in this one, the t-test is applied to the signed rank of y, rather than directly to y. Consequently, the test statistic, p-value, confidence interval, and estimate differ due to the transformation applied through the signed rank function. This analysis allows for a non-parametric test that does not assume normality, unlike the original t-test on y.
+
+### Using Permutation and Bootstrap
+
+```{r}
+theme_set(new = theme_custom())
+
+obs_mean <- mean( ~ y, data = mydata)
+belief1 <- 0 
+obs_diff_mosaic <- obs_mean - belief1
+obs_diff_mosaic
+## obs_mean <- mean( ~ y, data = mydata): This calculates the observed mean of the variable y from the dataset mydata. The tilde ~ represents a formula syntax in R used to specify the variable for calculation.
+## belief1 <- 0: This defines the variable belief1 and sets it to zero. 
+## obs_diff_mosaic <- obs_mean - belief1: This computes the difference between the observed mean (obs_mean) and the belief (belief1). In this case, since belief1 is zero, this step effectively just stores the observed mean in obs_diff_mosaic.
+## obs_diff_mosaic: This simply displays the value of obs_diff_mosaic, which is the difference between the observed mean and the belief (or just the observed mean since belief1 is zero).
+```
+
+The code calculates the observed mean of a variable y from the dataset mydata and compares it to a predefined belief, which is set to zero in this case. The difference between the observed mean and the belief is stored in obs_diff_mosaic. Since the belief is zero, the value displayed (2.045689) is the same as the observed mean itself. The code also includes comments explaining each step of the process.
+
+### Generating a null distribution by simulating 9999 repetitions of the observed data using random resampling
+
+```{r}
+null_dist_mosaic <- 
+mosaic::do(9999) * mean( ~ abs(y) * 
+          sample(c(-1, 1),
+            length(y),     
+            replace = T),  
+        data = mydata)
+
+range(null_dist_mosaic$mean)
+## mosaic::do(9999) repeats the operation 9999 times.
+## mean(~ abs(y) * sample(c(-1, 1), length(y), replace = TRUE), data = mydata) calculates the mean of the absolute values of the variable y after randomly assigning positive or negative signs to each value (using sample(c(-1, 1))).
+## The null distribution, stored in null_dist_mosaic, represents what would be expected if the observed differences between the data and the belief were due to random chance.
+## range(null_dist_mosaic$mean) calculates and returns the range of means generated by the simulation, showing the minimum and maximum values from the simulated null distribution.
+```
+
+The code generates a null distribution by randomly simulating 9999 iterations of the observed data. In each iteration, the values of the variable `y` are multiplied by randomly assigned positive or negative signs, and the mean of the absolute values is calculated. This results in a distribution of means under the assumption that the observed differences could be due to chance. The final result is the range of the simulated means, which shows how extreme the values can be in the null distribution. The range in this example is between approximately -1.75 and 1.47, representing the boundaries of the expected outcomes if there is no true effect.
+
+### Distribution of Permutation Means under Null Hypothesis
+
+```{r}
+gf_histogram(
+  ~ mean,
+  data = null_dist_mosaic,
+  fill = ~ (mean >= obs_diff_mosaic),
+  bins = 50, title = "Distribution of Permutation Means under Null Hypothesis",
+  subtitle = "Why is the mean of the means zero??") %>%
+  gf_labs(x = "Calculated Random Means",
+          y = "How Often do these occur?") %>% 
+  gf_vline(xintercept = obs_diff_mosaic, colour = "red")
+```
+
+The plot shows the distribution of permutation means under the null hypothesis, where 9999 random permutations of the data were generated. The x-axis represents the calculated random means, and the y-axis indicates how often these means occur. The distribution is centered around zero, as expected under the null hypothesis, which assumes no effect or difference between the observed data and the hypothesized value (zero). The vertical red line represents the observed difference, and the shaded area indicates that no random mean is greater than or equal to the observed difference. The question posed on the graph, "Why is the mean of the means zero?" highlights the fact that the null hypothesis assumes a lack of effect, meaning that random differences should average out to zero over many simulations.
+
+```{r}
+# p-value
+# Null distributions are always centered around zero. Why?
+prop(~ mean >= obs_diff_mosaic, 
+     data = null_dist_mosaic)
+```
+
+This calculates the proportion of random means from the null distribution that are greater than or equal to the observed difference (obs_diff_mosaic). The result shows that none of the permuted differences in the null distribution were as extreme as the observed difference, as indicated by a proportion of 0. This suggests that the observed result is highly unlikely to occur under the null hypothesis, leading to a very small p-value and providing evidence against the null hypothesis. The question in the comment "Why are null distributions always centered around zero?" reflects the underlying statistical concept: under the null hypothesis, the expectation is that no systematic difference exists, so the random differences should average out to zero over many simulations.
+
+### Bootstrap sampling
+
+```{r}
+theme_set(new = theme_custom())
+
+null_toy_bs <- mosaic::do(4999) * 
+  mean( ~ sample(y,
+            replace = T), 
+        data = mydata)
+
+gf_histogram(
+  ~ mean,
+  data = null_toy_bs,
+  bins = 50, 
+  title = "Distribution of Bootstrap Means") %>%
+  gf_labs(x = "Calculated Random Means",
+          y = "How Often do these occur?") %>% 
+  gf_vline(xintercept = ~ belief1, colour = "red") 
+## null_toy_bs <- mosaic::do(4999) * mean(~ sample(y, replace = T), data = mydata): This performs bootstrap sampling 4,999 times. In each iteration, it takes a random sample (with replacement) from the variable y in the dataset mydata and calculates the mean of that sample. The result (null_toy_bs) is a dataset containing 4,999 bootstrap means.
+```
+
+The histogram shows the distribution of bootstrap means generated by resampling the original data (y) 4,999 times. Each iteration involves calculating the mean of a random sample (with replacement), and the histogram reflects how frequently different means were observed. The red vertical line at 0 represents the hypothesized mean (belief1=0). This plot allows comparison between the distribution of bootstrap means and the hypothesized value. The distribution is centered around the observed means of the bootstrap samples, and the red line indicates how far the hypothesized mean is from the typical bootstrap results.
+
+```{r}
+prop(~ mean >= belief1, 
+     data = null_toy_bs) +
+  prop(~ mean <= - belief1, 
+     data = null_toy_bs)
+```
+
+This computes the proportion of bootstrap sample means that are either greater than or equal to belief(0) or less than or equal to -belief1 (also 0, since belief1 is 0). The result is 1, indicating that all bootstrap sample means fall within this range, meaning the bootstrap sampling generated values that cover the hypothesized mean (0) completely. This is a way to measure the probability or proportion of values in a bootstrap distribution that are consistent with a given belief, here showing complete consistency with 0.
+
+### Intuitive 
+
+```{r}
+mean_belief_pop <- 0 
+
+mean_y <- mean(y)
+mean_y
+```
+
+The code is assigning a value of 0 to the variable mean_belief_pop, which represents the assumed mean of the population (null hypothesis). It then calculates the mean of the toy dataset y using the mean() function and stores it in the variable mean_y. The value of mean_y is 2.045689, which is displayed as the observed mean of the dataset. This result shows the difference between the observed data's mean and the population mean assumption of zero (under the null hypothesis).
+
+### Sample standard error
+
+```{r}
+std_error <- sd(y)/sqrt(length(y))
+std_error
+```
+
+This calculates the sample standard error of the dataset y. It does so by dividing the standard deviation of the dataset (sd)y) by the square root of the sample size (sqrt(length(y))). The standard error is 0.3014752, which gives an estimate of how much variability there is in the sample mean compared to the true population mean.
+
+### Confidence Interval of Observed Mean
+
+```{r}
+conf_int <- tibble(ci_low = mean_y - 1.96 * std_error, ci_high = mean_y + 1.96 *
+    std_error)
+conf_int
+```
+
+This code calculates the 95% confidence interval for the observed mean of the dataset y. The confidence interval is computed using the formula:
+
+-   Lower bound (ci_low) = mean_y - 1.96 \* standard error
+
+-   Upper bound (ci_high) = mean_y + 1.96 \* standard error
+
+The multiplier 1.96 comes from the standard normal distribution, corresponding to a 95% confidence level. The resulting confidence interval for the mean of y is between 1.454798 and 2.63658. This interval estimates that the true population mean is likely to fall within this range 95% of the time.
+
+### Difference between actual and believed mean
+
+```{r}
+mean_diff <- mean_y - mean_belief_pop
+mean_diff
+```
+
+This code calculates the difference between the observed mean (mean_y) and a believed population mean (mean_belief_pop), which is set to 0 in this case. The resulting difference is 2.045689, indicating that the actual mean of the data is 2.045689 units higher than the believed mean (which was zero).
+
+### Test Statistic
+
+```{r}
+t <- mean_diff/std_error
+t
+```
+
+This code calculates the *t*-statistic, which is used in hypothesis testing to determine how far the observed mean is from the hypothesized population mean in terms of standard errors. The *t*-statistic is computed as the ratio of the difference between the observed and believed means (mean_diff) to the standard error (std_error). In this case, the *t*-statistic is 6.785596, which suggests that the observed mean is significantly different from the hypothesized mean, assuming the data follows a t-distribution. This high value indicates strong evidence against the null hypothesis.-
+
+### Dataset - Exam Data
+
+```{r}
+data("exam_grades")
+exam_grades
+```
+
+The dataset shown, titled "Exam Data," consists of 233 rows and 6 columns. The columns represent different variables: *semester* (the term in which the exam was taken), *sex* (gender of the student), *exam1*, *exam2*, and *exam3* (scores on three exams), and *course_grade* (the overall course grade). The dataset shows individual student scores from different semesters and exams, categorized by gender. Each row represents a student's performance across multiple exams and their final grade for the course. This data could be useful for analyzing trends, comparing exam performance, or identifying differences in grades between semesters or genders.
+
+### There are quite a few Quant variables in the data. Let us choose course_grade as our variable of interest. What might we wish to find out?
+
+When focusing on *course_grade* as the variable of interest, several analytical questions and insights could be explored:
+
+1.  **Distribution of Grades**:
+
+    -   What is the overall distribution of *course_grade*? Are the grades normally distributed, skewed, or do they have multiple modes?
+
+2.  **Grade Averages and Trends**:
+
+    -   What is the mean or median *course_grade* across all students?
+
+    -   Are there noticeable trends in *course_grade* over different semesters? Are grades improving or declining over time?
+
+3.  **Gender Differences**:
+
+    -   Are there significant differences in *course_grade* between men and women? Do one group tend to perform better than the other on average?
+
+4.  **Correlation with Exams**:
+
+    -   How does *course_grade* correlate with *exam1*, *exam2*, and *exam3* scores? Are any particular exams more predictive of the overall course grade?
+
+5.  **Grade Distributions by Semester**:
+
+    -   How do *course_grades* differ between semesters? Are there any specific semesters where grades seem to be unusually high or low?
+
+6.  **Grade Range**:
+
+    -   What is the range of *course_grades*? What is the maximum and minimum course grade achieved?
+
+7.  **Outliers**:
+
+    -   Are there any outliers in the *course_grade* data? Are there students who significantly over- or under-perform relative to their peers?
+
+8.  **Statistical Significance**:
+
+    -   If analyzing gender or semester differences, are the observed differences in *course_grade* statistically significant?
+
+### Inspecting and Charting Data
+
+```{r}
+theme_set(new = theme_custom())
+
+exam_grades %>%
+    gf_density(~course_grade) %>%
+    gf_fitdistr(dist = "dnorm") %>%
+    gf_labs(title = "Density of Course Grade", subtitle = "Compared with Normal Density")
+```
+
+The graph displays the density of the *course_grade* variable from the dataset, overlaid with a normal distribution for comparison. The shape of the density plot shows how the grades are distributed across the range of scores, with a peak near the 70-75 mark. The comparison with the normal distribution (represented by the smooth curve) indicates that the actual distribution of course grades might be slightly skewed or deviating from a perfect normal distribution. This could suggest that a majority of students cluster around certain grade ranges, with fewer extreme outliers on both the lower and higher ends.
+
+### **Testing Assumptions in the Data**
+
+Is the data normally distributed?
+
+```{r}
+stats::shapiro.test(x = exam_grades$course_grade) %>%
+    broom::tidy()
+```
+
+The Shapiro-Wilk test, conducted to determine whether the *course_grade* data is normally distributed, provides a test statistic of 0.9939453 and a p-value of 0.470688. Since the p-value is greater than the common significance level of 0.05, we fail to reject the null hypothesis, meaning that there is not enough evidence to suggest that the data deviates from a normal distribution. In other words, based on this test, the *course_grade* data appears to be normally distributed.
+
+```{r}
+library(nortest)
+
+nortest::ad.test(x = exam_grades$course_grade) %>%
+    broom::tidy()
+```
+
+The Anderson-Darling normality test was applied to the *course_grade* data to determine whether it follows a normal distribution. The test yielded a statistic of 0.3306555 and a p-value of 0.5118521. Since the p-value is greater than the significance level of 0.05, we fail to reject the null hypothesis, suggesting that the *course_grade* data does not significantly deviate from normality. Therefore, the test supports the assumption that the data is normally distributed.
+
+### The t-test
+
+```{r}
+t4 <- mosaic::t_test(
+          exam_grades$course_grade, # Name of variable
+          mu = 80, # belief
+          alternative = "two.sided") %>% # Check both sides
+broom::tidy()
+t4
+```
+
+This conducts a one-sample t-test on the course grades of the *exam_grades* dataset, comparing them against a hypothesized mean of 80 (belief). The null hypothesis in this t-test is that the mean of the course grades is equal to 80. The alternative hypothesis is that the mean is different from 80 (a two-sided test).
+
+In the output:
+
+-   The estimate of the mean is approximately 72.24, which is significantly lower than 80.
+
+-   The t-statistic is -12.08, which indicates how many standard errors the observed mean is away from the hypothesized mean.
+
+-   The p-value is extremely small (2.187e-26), showing strong evidence against the null hypothesis.
+
+-   The 95% confidence interval for the true mean lies between 70.97 and 73.50, further supporting that the true mean is likely lower than 80.
+
+In conclusion, the test results reject the null hypothesis, suggesting that the mean of the course grades is significantly different from (and specifically lower than) 80.
+
+### Wilcoxon's Signed-Rank Test
+
+```{r}
+t5 <- wilcox.test(
+          exam_grades$course_grade, 
+          mu = 90, # belief
+          alternative = "two.sided",
+          conf.int = TRUE,
+          conf.level = 0.95) %>% 
+  
+  broom::tidy() 
+t5
+```
+
+The Wilcoxon Signed-Rank Test provides a comparison between the median course grade and a hypothesized value of 90 (mu = 90). The test is two-sided, meaning it checks for deviations both above and below 90. The resulting estimate (72.42511) indicates the sample median, while the test statistic (75) represents the Wilcoxon rank sum. The extremely low p-value (1.487917e-39) suggests that the observed data are highly unlikely under the null hypothesis that the median course grade is equal to 90. Additionally, the 95% confidence interval (71.15002, 73.71426) does not contain 90, further supporting the rejection of the null hypothesis. Thus, it is statistically significant that the course grades differ from 90.
+
+### Distribution of Permuted Difference-Means under Null Hypothesis
+
+```{r}
+theme_set(new = theme_custom())
+
+obs_mean_grade = mean(~course_grade, data = exam_grades)
+belief <- 80
+obs_grade_diff <- belief - obs_mean_grade
+
+null_dist_grade <- 
+mosaic::do(4999) * 
+  mean(~ (course_grade - belief) * 
+          sample(c(-1, 1),             
+                 length(course_grade), 
+                 replace = T),         
+      data = exam_grades
+)
+
+gf_histogram(
+  ~ mean,
+  data = null_dist_grade,
+  fill = ~ (mean >= obs_grade_diff),
+  bins = 50, 
+  title = "Distribution of Permuted Difference-Means under Null Hypothesis",
+  subtitle = "Why is the mean of the means zero??") %>%
+  gf_labs(x = "Calculated Random Means",
+          y = "How Often do these occur?") %>% 
+  gf_vline(xintercept = obs_grade_diff, colour = "red") %>%
+  gf_vline(xintercept = - obs_grade_diff, colour = "red")
+```
+
+The graph shows a distribution of permuted difference-means under the null hypothesis. The histogram represents how often different mean values occur when randomly permuting the data under the assumption that the null hypothesis is true. The x-axis shows calculated random means, while the y-axis shows the frequency of occurrence for those means. The mean of these means is centered around zero, indicated by the red line, as expected under the null hypothesis. Additionally, the shaded region indicates that none of the permuted means were greater than or equal to the observed grade difference (obs_grade_diff), reinforcing that the observed difference is unlikely to have occurred by chance. This suggests that the null hypothesis is likely incorrect.
+
+### Permutation distributions are always centered around zero. Why?
+
+```{r}
+prop(~ mean >= obs_grade_diff, 
+     data = null_dist_grade) +
+  prop(~ mean <= - obs_grade_diff, 
+     data = null_dist_grade)
+```
+
+This calculates the proportion of permuted means from the null distribution (null_dist_grade) that are either greater than or equal to the observed grade difference (obs_grade_diff) or less than or equal to the negative observed grade difference. In this case, the result is 0, meaning that none of the permuted means were as extreme as the observed difference. This suggests that the observed grade difference is highly unlikely under the null hypothesis, implying that the null hypothesis may not hold true. The permutation distributions are centered around zero because under the null hypothesis, there is no expected difference, which is why the mean of the permutations is zero.
+
+### Bootstrap Test
+
+```{r}
+null_grade_bs <- mosaic::do(4999) * 
+  mean( ~ sample(course_grade,
+            replace = T), 
+        data = exam_grades)
+
+gf_histogram(
+  ~ mean,
+  data = null_grade_bs,
+  fill = ~ (mean >= obs_grade_diff),
+  bins = 50, 
+  title = "Distribution of Bootstrap Means") %>%
+  gf_labs(x = "Calculated Random Means",
+          y = "How Often do these occur?") %>% 
+  gf_vline(xintercept = ~ belief, colour = "red") 
+```
+
+The plot shows the distribution of bootstrap means calculated from the exam grades. It demonstrates how often random means occur when bootstrapping the data. The vertical red line represents the observed grade difference (obs_grade_diff), and the plot indicates that the majority of the bootstrap samples fall to the left of this value. The label "TRUE" in the legend suggests that the observed grade difference is greater than or equal to a very small proportion of the bootstrap means, implying that the observed value is significantly higher than what would be expected by chance, reinforcing the conclusion that the observed result is unlikely to have occurred randomly.
+
+### Permutation Test
+
+```{r}
+prop(~ mean >= belief, 
+     data = null_grade_bs) +
+  prop(~ mean <= - belief, 
+     data = null_grade_bs)
+```
+
+This calculates the proportion of bootstrap means that are greater than or equal to the "belief" (null hypothesis value) and less than or equal to the negative value of "belief" in the null_grade_bs dataset. The result of prop_TRUE being 0 means that none of the bootstrap means are equal to or exceed the values set by the belief in either direction. This suggests that the observed grade difference or belief is highly unlikely to occur by random chance, further strengthening the evidence against the null hypothesis.
