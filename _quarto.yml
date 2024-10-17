@@ -5,17 +5,8 @@ website:
   title: "Data-As-Material"
 
 navbar:
-  
   right:
     - text: "Categories"
-      menu:
-        - text: "All"
-          link: /categories/all
-        - text: "Assignments"
-          link: /categories/assignments
-        - text: "Daily Visualisations and Analysis"
-          link: /categories/daily-visualisations-and-analysis
-    
     - text: "About"
       link: about.qmd
     - icon: github
