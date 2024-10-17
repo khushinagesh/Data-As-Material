@@ -2,23 +2,31 @@ project:
   type: website
 
 website:
-  title: "Data-As-Material"  
-
+  title: "Data-As-Material"
 
 navbar:
-  right:  
-    - text: "About"     
+  right:
+    - text: "Categories"
+      menu:
+        - text: "All"
+          link: /categories/all
+        - text: "Assignments"
+          link: /categories/assignments
+        - text: "Daily Visualisations and Analysis"
+          link: /categories/daily-visualisations-and-analysis
+    - text: "About"
       link: about.qmd
-    - icon: github      
-      href: https://github.com/my-repo
+    - icon: github
+      href: https://github.com/
 
 format:
   html:
-    theme: lux   
-    css: styles.css   
-    df_print: paged   
+    theme: lux
+    css: styles.css
+    df_print: paged
 
 editor: visual
+
 
 
 
