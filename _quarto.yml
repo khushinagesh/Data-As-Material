@@ -7,6 +7,13 @@ website:
 navbar:
   right:
     - text: "Categories"
+      menu:
+        - text: "All"
+          link: /categories/all
+        - text: "Assignments"
+          link: /categories/assignments
+        - text: "Daily Visualisations and Analysis"
+          link: /categories/daily-visualisations-and-analysis
     - text: "About"
       link: about.qmd
     - icon: github
@@ -19,6 +26,7 @@ format:
     df_print: paged
 
 editor: visual
+
 
 
 
