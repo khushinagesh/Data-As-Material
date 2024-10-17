@@ -5,7 +5,7 @@ website:
   title: "Data-As-Material"
 
 navbar:
-right:
+  right:
     - text: "Categories"
       menu:
         - text: "All"
@@ -26,5 +26,6 @@ format:
     df_print: paged
 
 editor: visual
+
 
 
