@@ -1,6 +1,7 @@
 ---
 title: "Day 1"
 author: "Khushi"
+categories: ["Daily Visualisations and Analysis"]
 ---
 
 ## Introduction

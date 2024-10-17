@@ -1,6 +1,7 @@
 ---
 title: "Assignment 2 - Part 2"
 author: "Khushi"
+categories: ["Assignments"]
 ---
 
 ## Introduction
