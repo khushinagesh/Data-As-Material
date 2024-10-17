@@ -6,6 +6,8 @@ website:
 
 navbar:
   right:
+    - text: "Home"
+      link: index.qmd
     - text: "Categories"
       menu:
         - text: "All"
@@ -22,7 +24,7 @@ navbar:
 format:
   html:
     theme: lux
-    # css: styles.css
+    css: styles.css
     df_print: paged
 
 editor: visual
