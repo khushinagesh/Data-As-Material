@@ -1,9 +1,8 @@
 ---
 title: "About"
 image: profile.jpg
-format:
-  html:
-    theme: lux
+about: 
+ template: jolla
 ---
 
 Welcome to my blog! My name is Khushi, and I'm passionate about data visualization, interaction design, photography and game design, and music.
