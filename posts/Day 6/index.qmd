@@ -69,7 +69,6 @@ theme_custom <- function() {
 
 
 theme_set(new = theme_custom())
-
 ```
 
 ### Dataset - NHANES
@@ -830,7 +829,7 @@ prop(~ mean >= belief1,
 
 This computes the proportion of bootstrap sample means that are either greater than or equal to belief(0) or less than or equal to -belief1 (also 0, since belief1 is 0). The result is 1, indicating that all bootstrap sample means fall within this range, meaning the bootstrap sampling generated values that cover the hypothesized mean (0) completely. This is a way to measure the probability or proportion of values in a bootstrap distribution that are consistent with a given belief, here showing complete consistency with 0.
 
-### Intuitive
+### Assigning a value of 0 to the variable mean_belief_pop
 
 ```{r}
 mean_belief_pop <- 0 

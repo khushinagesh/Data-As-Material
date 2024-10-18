@@ -1,0 +1,1134 @@
+---
+title: "Day 7"
+author: "Khushi"
+categories: ["Daily Visualizations and Analysis"]
+---
+
+## Introduction
+
+We are looking at Inference for Comparing Two Paired Means.
+
+```{r}
+#| label: setup
+library(tidyverse)
+library(mosaic)
+library(broom) 
+library(resampledata3)
+library(gt) 
+```
+
+### Plot Theme
+
+```{r}
+knitr::opts_chunk$set(
+  fig.width = 7,
+## Sets the default width of figures to 7 inches.
+  fig.asp = 0.618, 
+## Sets the aspect ratio of the figure to approximately the golden ratio.
+  fig.align = "center"
+## Centers the alignment of the figure output.
+)
+theme_custom <- function() {
+## defines a custom theme for ggplot2 plots, using the font "Roboto Condensed" and modifying certain visual elements like the plot title, subtitles, captions, axis titles, and text.
+  font <- "Roboto Condensed" 
+  theme_classic(base_size = 14) %+replace% ## used to replace elements from the base theme with custom settings.
+    theme(
+      panel.grid.minor = element_blank(), 
+      text = element_text(family = font),
+      plot.title = element_text( 
+        family = font, 
+        face = "bold", 
+        hjust = 0, 
+        margin = margin(0, 0, 10, 0)
+      ),
+      plot.subtitle = element_text( 
+        family = font,                
+        hjust = 0,
+        margin = margin(2, 0, 5, 0)
+      ),
+      plot.caption = element_text( 
+        family = font, 
+        size = 8, 
+        hjust = 1
+      ), 
+
+      axis.title = element_text( 
+        family = font,
+        size = 10
+      ),
+      axis.text = element_text(
+        family = font, 
+        size = 8
+      ) 
+    )
+}
+
+
+theme_set(new = theme_custom())
+```
+
+### Case Study - **Results from a Diving Championship**
+
+```{r}
+data("Diving2017", package = "resampledata3")
+Diving2017
+Diving2017_inspect <- inspect(Diving2017)
+Diving2017_inspect$categorical
+Diving2017_inspect$quantitative
+```
+
+The dataset from the Diving2017 championship includes results from 12 divers across 8 countries, with no missing data. The semifinal scores ranged from 313.7 to 382.8, with a median of 325.63 and a standard deviation of 22.95, indicating a relatively consistent performance among divers. The final scores showed more variation, ranging from 283.35 to 397.5, with a higher median of 358.93 and a larger standard deviation of 40.02, suggesting greater performance differences in the final round. Overall, most divers improved their scores in the final compared to the semifinals.
+
+### Converting the Data into long form
+
+```{r}
+theme_set(new = theme_custom())
+
+Diving2017_long <- Diving2017 %>%
+  pivot_longer(
+    cols = c(Final, Semifinal),
+    names_to = "race",
+    values_to = "scores"
+  )
+Diving2017_long
+```
+
+In the transformed long-format dataset from the Diving2017 championship, each diver now has two rows: one for their semifinal score and one for their final score, making a total of 24 rows. The columns include the diver’s Name, Country, Race (indicating whether the score is from the semifinal or final), and Scores. This reshaping of the data makes it easier to compare semifinal and final performance for each diver. The scores range from a low of 307.15 in the final to a high of 397.5, reflecting varying levels of improvement or decline between the semifinal and final rounds.
+
+### Diving Scores - Density Plot
+
+```{r}
+Diving2017_long %>%
+  gf_density(~scores,
+    fill = ~race,
+    alpha = 0.5,
+    title = "Diving Scores"
+  ) %>%
+  gf_facet_grid(~race) %>%
+  gf_fitdistr(dist = "dnorm")
+```
+
+The density plot visualizes the distribution of scores from the Diving2017 championship, separated into semifinal and final rounds. The semifinal scores (in blue) show a slightly more concentrated distribution, with a peak around 350, indicating that most divers scored close to this value. The final scores (in pink) are more widely spread, peaking around 375, but with a flatter distribution, suggesting a greater variability in performance. The normal distribution curve is fitted for both sets of scores, showing that while the semifinal scores are more normally distributed, the final scores have a wider range and less symmetry.
+
+### Diving Scores - Histogram
+
+```{r}
+Diving2017_long %>%
+  gf_col(
+    fct_reorder(Name, scores) ~ scores,
+    fill = ~race,
+    alpha = 0.5,
+    position = "dodge",
+    xlab = "Scores",
+    ylab = "Name",
+    title = "Diving Scores"
+  )
+```
+
+The plot shows that top performers like SI Yajie and REN Qian from China consistently scored higher in both rounds, while other divers, such as KIM Mi Rae and CHEONG Jun Hoong, also performed well but with slight variations between the two rounds. Notably, some divers, like BENFEITO Meaghan and MURILLO URREA Carolina, experienced a drop in their final scores compared to the semifinals. The plot, with its clear distinction between semifinal and final scores through color coding, makes it easy to see changes in individual performances across the rounds.
+
+### Diving Scores - Boxplot
+
+```{r}
+Diving2017_long %>%
+  gf_boxplot(
+    scores ~ race,
+    fill = ~race,
+    alpha = 0.5,
+    xlab = "Race",
+    ylab = "Scores",
+    title = "Diving Scores"
+  )
+```
+
+The boxplot visualizes the distribution of diving scores for the semifinal and final rounds. The box for the final scores (in pink) is positioned higher overall, indicating that final scores tend to be higher than semifinal scores. The median score in the final round is higher, around 375, compared to the semifinal's median of about 350. The final scores also show more variability, with a wider interquartile range (IQR) and longer whiskers, reflecting a broader spread of scores. The semifinal scores (in blue) are more concentrated, with a smaller IQR and whiskers, indicating less variation in scores. This plot emphasizes that divers generally performed better and with more variability in the final round than in the semifinal.
+
+### Checking for Normality
+
+```{r}
+shapiro.test(Diving2017$Final)
+shapiro.test(Diving2017$Semifinal)
+```
+
+The Shapiro-Wilk normality test was performed on the semifinal and final diving scores to assess whether the data is normally distributed.
+
+-   **Final scores**: The test statistic W=0.9184 and the p-value is 0.273. Since the p-value is greater than the typical significance level of 0.05, we fail to reject the null hypothesis, indicating that the final scores do not significantly deviate from a normal distribution.
+
+-   **Semifinal scores**: The test statistic W=0.86554 and the p-value is 0.05738. Although the p-value is close to 0.05, it is still slightly higher, so we also fail to reject the null hypothesis for the semifinal scores. This suggests that the semifinal scores are approximately normally distributed, but with a slightly stronger deviation from normality compared to the final scores.
+
+In summary, both the semifinal and final scores are not significantly different from a normal distribution based on the Shapiro-Wilk test results.
+
+### Comparing Data and Normal Boxplots
+
+```{r}
+theme_set(new = theme_custom())
+
+set.rseed(1234)
+Diving2017 %>%
+  mutate(
+    Final_norm = rnorm(
+      n = 12,
+      mean = mean(Final),
+      sd = sd(Final)
+    ),
+    Semifinal_norm = rnorm(
+      n = 12,
+      mean = mean(Semifinal),
+      sd = sd(Semifinal)
+    )
+  ) %>%
+  pivot_longer(
+    cols =
+      c(Semifinal, Final, Semifinal_norm, Final_norm),
+    names_to = "score_type", values_to = "value"
+  ) %>%
+  gf_boxplot(value ~ score_type,
+    fill = ~score_type,
+    show.legend = FALSE
+  ) %>%
+  gf_labs(title = "Comparing Data and Normal Boxplots")
+
+Diving2017_long %>%
+  gf_qq(~ scores | race, size = 2) %>%
+  gf_qqline(ylab = "scores", xlab = "theoretical normal")
+## set.rseed(1234)-This ensures reproducibility by setting a seed for random number generation. The seed ensures that random numbers generated in the next step will be the same every time the code is run.
+## gf_qq() generates the QQ plot for the scores variable, grouped by race (semifinal and final).
+## gf_qqline() adds a reference line to the QQ plot, which helps to assess how closely the actual data follows a normal distribution.
+```
+
+In the boxplots comparing the actual and simulated normal scores for the diving championship data, the Final and Semifinal scores are shown alongside their respective normally generated counterparts. The actual final scores exhibit a wider range with a slightly higher median compared to the simulated normal distribution, which is narrower. Similarly, the semifinal scores display more variability than the corresponding simulated normal distribution, but they are closer in range compared to the finals. The normal simulations serve as a baseline for comparison, highlighting the greater variability in actual scores, especially in the finals.
+
+In the QQ plot (Quantile-Quantile plot), the actual scores for both the final and semifinal rounds are plotted against a theoretical normal distribution. While the semifinal scores mostly follow the expected straight-line pattern of a normal distribution, the final scores deviate more significantly, particularly at the higher end, where outliers appear above the theoretical line. This confirms that the final scores show more variation from normality, whereas the semifinal scores are closer to a normal distribution.
+
+### Checking for Variances
+
+```{r}
+var.test(scores ~ race,
+  data = Diving2017_long,
+  ratio = 1, 
+  conf.int = TRUE,
+  conf.level = 0.95
+) %>%
+  broom::tidy()
+## The var.test() function is used to conduct the F-test for equality of variances between two groups (semifinal and final scores in this case).
+## ratio = 1: Specifies the null hypothesis that the ratio of the variances is equal to 1, meaning both groups have the same variance.
+```
+
+The F-test for variances was performed to compare the variability between the final and semifinal scores in the Diving2017 dataset. The test statistic is 3.041, with a p-value of 0.0783. Since the p-value is greater than the typical significance level of 0.05, we fail to reject the null hypothesis, suggesting that the variances between the two groups (final and semifinal scores) are not significantly different.
+
+The confidence interval for the variance ratio is (0.8755, 10.5644), which includes 1, further supporting the conclusion that there is no significant difference in variance between the semifinal and final scores. Thus, the variability in scores is approximately the same in both rounds.
+
+### **Observed and Test Statistic**
+
+```{r}
+obs_diff_swim <- diffmean(scores ~ race,
+  data = Diving2017_long,
+  only.2 = FALSE
+)
+obs_diff_swim
+## diffmean(scores ~ race): This calculates the difference in the mean scores between the two groups defined by the race variable (semifinal and final).
+## only.2 = FALSE: This argument specifies that the comparison should be made between the two groups in race (semifinal and final), even if there are more than two categories. Here, it ensures the comparison is made between exactly these two categories.
+```
+
+This calculates that the mean score in the semifinal is about 11.975 points lower than the mean score in the final. This negative value suggests that divers generally performed better in the final round compared to the semifinal.
+
+### Paired t-test
+
+```{r}
+mosaic::t.test(
+  x = Diving2017$Semifinal,
+  y = Diving2017$Final,
+  paired = TRUE, var.equal = FALSE
+) %>% broom::tidy()
+```
+
+The paired t-test comparing the semifinal and final diving scores reveals that the average score difference is -11.975, with semifinal scores being lower than final scores. However, the p-value of 0.259 indicates that this difference is not statistically significant, meaning the observed difference could be due to random variation. The 95% confidence interval for the mean difference, ranging from -34.11 to 10.17, includes zero, further supporting that there is no meaningful difference between the two rounds. Overall, there is no significant evidence to suggest that scores significantly improved from the semifinals to the finals.
+
+### Non-parametric paired Wilcoxon test
+
+```{r}
+wilcox.test(
+  x = Diving2017$Semifinal,
+  y = Diving2017$Final,
+  mu = 0,
+  alternative = "two.sided", 
+  paired = TRUE,
+  conf.int = TRUE,
+  conf.level = 0.95
+) %>%
+  broom::tidy()
+```
+
+The Wilcoxon signed-rank test was conducted to compare the semifinal and final diving scores. The estimated difference between the median semifinal and final scores is -11.96, suggesting that semifinal scores are lower. However, the p-value of 0.38 indicates that this difference is not statistically significant at the 95% confidence level. The 95% confidence interval for the median difference ranges from -35.83 to 12.3, which includes zero, further supporting the conclusion that there is no significant difference between the scores in the semifinal and final rounds. This test confirms that the score differences could be due to random variation.
+
+### Using the Linear Model Method
+
+```{r}
+lm(Semifinal - Final ~ 1, data = Diving2017) %>%
+  broom::tidy(conf.int = TRUE, conf.level = 0.95)
+
+signed_rank <- function(x) {
+  sign(x) * rank(abs(x))
+}
+
+lm(signed_rank(Semifinal - Final) ~ 1,
+  data = Diving2017
+) %>%
+  broom::tidy(conf.int = TRUE, conf.level = 0.95)
+## lm(Semifinal - Final ~ 1, data = Diving2017)- This part fits a simple linear model to the difference between Semifinal and Final scores, essentially calculating the mean difference between the two. ~ 1 means that the model is fitting just the intercept, which represents the average difference between semifinal and final scores.
+## signed_rank <- function(x) 
+## This function applies a signed rank transformation to the difference between Semifinal and Final scores.
+## sign(x) returns the sign of each element in x (positive or negative).
+## rank(abs(x)) computes the ranks of the absolute values of x.
+## The result is a vector where each difference is replaced by its signed rank.
+## lm(signed_rank(Semifinal - Final) ~ 1, data = Diving2017)- After applying the signed rank transformation, the code fits another linear model (just like the first one) but with the signed ranks instead of the raw differences.
+```
+
+The first linear model estimates the mean difference between semifinal and final scores. The estimate of -11.975 indicates that the semifinal scores are, on average, 11.975 points lower than the final scores. However, the p-value of 0.259 suggests that this difference is not statistically significant.
+
+The second linear model, based on the signed ranks, estimates a mean difference of -2, which is also not statistically significant (p = 0.369). The confidence interval ranges from -6.7 to 2.7, indicating that the mean rank difference is not meaningfully different from zero.
+
+### Permutation Test
+
+```{r}
+polarity <- c(rep(1, 6), rep(-1, 6))
+
+polarity
+
+null_dist_swim <- do(4999) *
+  mean(
+    data = Diving2017,
+    ~ (Final - Semifinal) * 
+      mosaic::resample(polarity, 
+        replace = TRUE
+      )
+  )
+
+null_dist_swim
+## polarity <- c(rep(1, 6), rep(-1, 6))- This creates a vector polarity that contains six 1s and six -1s. The 1s represent keeping the original sign of the difference between Final and Semifinal scores, while the -1s represent flipping the sign of the difference.
+## The do(4999) command runs the following process 4999 times to create a null distribution of resampled mean differences.
+## In each iteration, it calculates the mean of the differences between Final and Semifinal scores, with the polarity of the differences randomly flipped using mosaic::resample(polarity, replace = TRUE).
+## The null distribution simulates what the mean differences would look like under the null hypothesis, assuming no true difference between the scores.
+```
+
+This generates a null distribution of mean differences between Final and Semifinal scores by flipping the sign of the differences randomly and calculating the mean across 4999 iterations. This permutation test helps assess whether the observed difference in scores is statistically significant by comparing it against the generated null distribution. The results (e.g., 1.866, -3.733, etc.) represent the simulated mean differences under the assumption of no real difference between the scores.
+
+### Plotting the Null Distribution
+
+```{r}
+theme_set(new = theme_custom())
+
+gf_histogram(data = null_dist_swim, ~mean) %>%
+  gf_vline(
+    xintercept = obs_diff_swim,
+    colour = "red",
+    linewidth = 1
+  )
+
+gf_ecdf(data = null_dist_swim, ~mean, linewidth = 1) %>%
+  gf_vline(
+    xintercept = obs_diff_swim,
+    colour = "red",
+    linewidth = 1
+  )
+
+prop1(~ mean <= obs_diff_swim, data = null_dist_swim)
+## gf_ecdf(data = null_dist_swim, ~mean, linewidth = 1) %>%
+## gf_vline(xintercept = obs_diff_swim, colour = "red", linewidth = 1)- This creates an ECDF plot, showing the cumulative proportion of mean values from the null distribution. Again, a red vertical line is added at the location of the observed mean difference (obs_diff_swim).
+## prop1(~ mean <= obs_diff_swim, data = null_dist_swim)- This calculates the proportion of the values in the null distribution that are less than or equal to the observed mean difference (obs_diff_swim). This can be interpreted as a two-tailed p-value.
+```
+
+The code visualizes the null distribution of resampled mean differences between the final and semifinal diving scores, and compares it to the observed mean difference of -11.975. The histogram shows that the observed difference lies in the left tail of the null distribution, suggesting that such a difference is rare under the assumption of no true difference between rounds. The ECDF plot further highlights this by showing that only a small proportion of the null distribution is less than or equal to the observed difference. This visualization suggests that the observed difference may be statistically significant, as it deviates notably from the central values of the null distribution.
+
+### All Tests Together
+
+```{r}
+mosaic::t.test(
+  x = Diving2017$Semifinal,
+  y = Diving2017$Final,
+  paired = TRUE
+) %>%
+  broom::tidy() %>%
+  gt() %>%
+  tab_style(
+    style = list(cell_fill(color = "cyan"), cell_text(weight = "bold")),
+    locations = cells_body(columns = p.value)
+  ) %>%
+  tab_header(title = "t.test")
+
+lm(Semifinal - Final ~ 1, data = Diving2017) %>%
+  broom::tidy(conf.int = TRUE, conf.level = 0.95) %>%
+  gt() %>%
+  tab_style(
+    style = list(cell_fill(color = "cyan"), cell_text(weight = "bold")),
+    locations = cells_body(columns = p.value)
+  ) %>%
+  tab_header(title = "Linear Model")
+
+wilcox.test(
+  x = Diving2017$Semifinal,
+  y = Diving2017$Final,
+  paired = TRUE
+) %>%
+  broom::tidy() %>%
+  gt() %>%
+  tab_style(
+    style = list(cell_fill(color = "palegreen"), cell_text(weight = "bold")),
+    locations = cells_body(columns = p.value)
+  ) %>%
+  tab_header(title = "Wilcoxon test")
+
+lm(signed_rank(Semifinal - Final) ~ 1,
+  data = Diving2017
+) %>%
+  broom::tidy(conf.int = TRUE, conf.level = 0.95) %>%
+  gt() %>%
+  tab_style(
+    style = list(cell_fill(color = "palegreen"), cell_text(weight = "bold")),
+    locations = cells_body(columns = p.value)
+  ) %>%
+  tab_header(title = "Linear Model with sign.rank")
+```
+
+The results from four different statistical tests, including the paired t-test, linear model, Wilcoxon signed-rank test, and linear model with signed ranks, all consistently show that there is no statistically significant difference between the semifinal and final diving scores. The p-values from all tests (ranging from 0.259 to 0.380) are well above the typical significance threshold of 0.05, indicating that any observed difference in scores could be due to random variation. The paired t-test and linear model both estimate a mean score difference of -11.975, while the Wilcoxon test and the signed-rank model yield slightly different estimates but ultimately lead to the same conclusion: the score difference is not significant. This suggests that the diving performances in the semifinal and final rounds are statistically similar.
+
+### Case Study - **Walmart vs Target**
+
+```{r}
+data("Groceries")
+Groceries <- Groceries %>%
+  mutate(Product = stringr::str_squish(Product)) # Knock off extra spaces
+Groceries
+Groceries_inspect <- inspect(Groceries)
+Groceries_inspect$categorical
+Groceries_inspect$quantitative
+```
+
+The case study compares the prices of 30 grocery items between Walmart and Target. The dataset includes products such as cereals, cookies, and beverages with their respective sizes and prices at both stores. The summary statistics show that Target's prices range from \$0.99 to \$7.99, with a median price of \$2.545 and an average price of \$2.76. On the other hand, Walmart's prices range from \$1.00 to \$6.98, with a median price of \$2.34 and an average price of \$2.71. The standard deviations are quite similar for both stores (Target: 1.58, Walmart: 1.56), suggesting comparable price variability. Overall, Target tends to have slightly higher average prices than Walmart for the same products, though the difference is minimal.
+
+### Converting the Data into long form
+
+```{r}
+theme_set(new = theme_custom())
+
+Groceries_long <- Groceries %>%
+  pivot_longer(
+    cols = c(Walmart, Target),
+    names_to = "store",
+    values_to = "prices"
+  ) %>%
+  mutate(store = as_factor(store))
+Groceries_long
+```
+
+In this analysis, the grocery prices from both Walmart and Target are reshaped into a long-form dataset for easier comparison. The data is structured to display each product, its size, the store (Walmart or Target), and the corresponding price at each store. This restructuring allows for clearer analysis by aligning the same products across both stores, making it easier to compare the price differences for each item. For example, Kellogg NutriGrain Bars are priced at \$2.78 at Walmart and \$2.50 at Target. Similarly, Quaker Oats Life Cereal is priced at \$6.01 at Walmart and \$3.19 at Target, highlighting significant variations in pricing between the two retailers for certain items.
+
+### Grocery Costs - Histogram
+
+```{r}
+Groceries_long %>%
+  gf_dhistogram(~prices,
+    fill = ~store,
+    alpha = 0.5,
+    title = "Grocery Costs"
+  ) %>%
+  gf_facet_grid(~store) %>%
+  gf_fitdistr(dist = "dnorm")
+```
+
+This visualisation compares the distribution of grocery prices at Walmart and Target using histograms and overlaying normal distribution curves. Each store's prices are represented separately, with Walmart in red and Target in blue. The shapes of the distributions indicate that Walmart prices are more widely spread, with several items priced above \$5, whereas Target has a higher concentration of items priced between \$2 and \$4. The fitted normal distribution curves further suggest that Walmart's pricing has a wider range, while Target's pricing is more clustered around the lower price range, making Target appear slightly more consistent in pricing across products.
+
+### Grocery Costs - Density Plot
+
+```{r}
+Groceries_long %>%
+  gf_density(~prices,
+    fill = ~store,
+    alpha = 0.5,
+    title = "Grocery Costs"
+  ) %>%
+  gf_facet_grid(~store) %>%
+  gf_fitdistr(dist = "dnorm")
+```
+
+This density plot compares grocery prices between Walmart and Target. The red area represents Walmart prices, while the blue area shows Target prices. The graph suggests that Walmart has a higher concentration of lower-priced items around the \$2 range, with a sharp peak and a gradual decline, showing a few products priced above \$6. In contrast, Target has a more evenly distributed pricing structure, with a peak around \$3 and more products priced consistently in the \$2 to \$4 range. The normal distribution curves indicate that Walmart’s prices are more dispersed, while Target’s prices are clustered closer to the lower range, with fewer high-priced items.
+
+### Grocery Costs - Boxplot
+
+```{r}
+theme_set(new = theme_custom())
+
+Groceries_long %>%
+  gf_boxplot(prices ~ store,
+    fill = ~store
+  )
+```
+
+This boxplot compares the prices of grocery items at Walmart and Target. The boxes represent the interquartile range (IQR) of prices, with the median price indicated by the thick horizontal line within each box. Both stores have a similar median price, with Walmart slightly lower than Target. Walmart's prices appear to be more tightly clustered around the lower range, while Target has a wider range of prices. There are more outliers (higher-priced items) for both stores, but Target has more extreme price outliers above \$6. This suggests that while the general pricing between the two stores is similar, Target has a slightly broader distribution of higher-priced items.
+
+### Grocery Costs - Horizontal Bar Plot
+
+```{r}
+theme_set(new = theme_custom())
+
+Groceries_long %>%
+  gf_col(fct_reorder(Product, prices) ~ prices,
+    fill = ~store,
+    alpha = 0.5,
+    position = "dodge",
+    xlab = "Prices",
+    ylab = "",
+    title = "Grocery Costs"
+  ) %>%
+  gf_col(
+    data =
+      Groceries_long %>%
+        filter(
+          Product == "Quaker Oats Life Cereal Original"
+        ),
+    fct_reorder(Product, prices) ~ prices,
+    fill = ~store,
+    position = "dodge"
+  )
+```
+
+The bar plot compares the prices of various grocery items between Walmart and Target. Each product is listed on the y-axis, with the corresponding prices shown on the x-axis. The products are color-coded based on the store, with Walmart represented in red and Target in blue. The graph reveals that prices for similar items vary between the two stores. For example, products like Skittles and Cheez-it Original Baked show notable differences in price, with Target generally having higher prices in some categories while Walmart has higher prices in others. This visual comparison provides an effective way to see which store offers lower prices on particular products. The plot also emphasizes that certain items have similar pricing between both stores, highlighting the competitiveness in pricing strategies.
+
+### Difference in mean prices between Walmart and Target
+
+```{r}
+obs_diff_price <- diffmean(prices ~ store,
+  data = Groceries_long,
+  only.2 = FALSE
+)
+obs_diff_price
+```
+
+This calculates the difference in mean prices between two stores (Walmart and Target) using the diffmean function. The result, shown as diffmean = 0.05666667, indicates that the average price difference between the stores is approximately 0.057. This small positive difference suggests that, on average, prices are marginally higher at Target compared to Walmart for the grocery items in the dataset. However, the difference is not substantial, implying that both stores have relatively similar pricing overall.
+
+### **Checking for Normality**
+
+```{r}
+shapiro.test(Groceries$Walmart)
+shapiro.test(Groceries$Target)
+```
+
+The Shapiro-Wilk normality tests were conducted for both Walmart and Target grocery prices to assess if the data follows a normal distribution. For Walmart, the W-value is 0.78662 with a p-value of 3.774e-05, and for Target, the W-value is 0.79722 with a p-value of 5.836e-05. In both cases, the very small p-values (much less than 0.05) indicate that the prices for groceries at both Walmart and Target do not follow a normal distribution. Therefore, these distributions are likely non-normal, and further analysis might require non-parametric methods or transformations.
+
+### Checking for Variances
+
+```{r}
+var.test(Groceries$Walmart, Groceries$Target)
+```
+
+The F-test for comparing the variances between Walmart and Target grocery prices resulted in an F-value of 0.97249 with a p-value of 0.9406. Since the p-value is much greater than 0.05, we fail to reject the null hypothesis, which means there is no significant difference in the variances between the two stores. The ratio of the variances is approximately 0.9725, and the 95% confidence interval ranges from 0.4627 to 2.0439, further confirming that the variance in grocery prices between Walmart and Target is similar.
+
+### Paired t-test
+
+```{r}
+mosaic::t_test(Groceries$Walmart, Groceries$Target, paired = TRUE) %>%
+  broom::tidy()
+```
+
+The paired t-test results comparing prices at Walmart and Target show a mean difference of -0.0567, with a t-statistic of -0.4704556 and a p-value of 0.6415488. The confidence interval for the difference ranges from -0.3030159 to 0.1896825. Since the p-value is quite large (greater than 0.05), the results suggest that there is no statistically significant difference between the grocery prices at Walmart and Target. The confidence interval further supports this, as it contains zero, indicating that the mean difference could be negligible or non-existent.
+
+### Non-parametric paired Wilcoxon test
+
+```{r}
+## For stability reasons, it may be advisable to use rounded data or to set digits.rank = 7, say,
+## such that determination of ties does not depend on very small numeric differences (see the example).
+
+wilcox.test(Groceries$Walmart, Groceries$Target,
+  data = Groceries_long,
+  digits.rank = 7, paired = TRUE,
+  conf.int = TRUE, conf.level = 0.95
+) %>%
+  broom::tidy()
+```
+
+The non-parametric paired Wilcoxon test compares the grocery prices between Walmart and Target. The test's p-value is 0.0143, which is significant at a 0.05 level, suggesting that the difference in prices between the two stores is statistically significant. The confidence interval ranges from -0.1750051 to -0.03005987, and the estimate of the effect size is -0.104966. This implies that Walmart's prices tend to be slightly lower than Target's, with the test favoring the conclusion that there is a genuine difference between the two.
+
+### Using the Linear Model Method
+
+```{r}
+lm(Target - Walmart ~ 1, data = Groceries) %>%
+  broom::tidy(conf.int = TRUE, conf.level = 0.95)
+
+signed_rank <- function(x) {
+  sign(x) * rank(abs(x))
+}
+
+lm(signed_rank(Target - Walmart) ~ 1,
+  data = Groceries
+) %>%
+  broom::tidy(conf.int = TRUE, conf.level = 0.95)
+```
+
+The first model computes the difference between Target and Walmart prices directly, resulting in an estimate of around 0.0567, but with a p-value of 0.6415, indicating no statistically significant difference between prices. The second model uses a rank transformation (signed rank) of the price differences.
+
+The second approach produces an estimate of around 8.53, with a highly significant p-value (0.006), suggesting that Target's prices are notably higher than Walmart's. The confidence interval for the estimate ranges from 2.625 to 14.44, further confirming this significant difference when using the rank-based method.
+
+This suggests that while a simple linear model does not reveal a significant price difference, a rank-based approach indicates that Target prices tend to be higher than Walmart prices.
+
+### Permutation Test
+
+```{r}
+# | layout: [[15, 85, 15]]
+
+theme_set(new = theme_custom())
+
+polarity <- c(rep(1, 15), rep(-1, 15))
+
+null_dist_price <- do(9999) *
+  mean(
+    data = Groceries,
+    ~ (Target - Walmart) *
+      resample(polarity, replace = TRUE)
+  )
+null_dist_price
+```
+
+This code performs a permutation test to analyze the difference in grocery prices between Walmart and Target. The polarity vector is used to randomly shuffle the data between the two stores (Target and Walmart) to simulate the null distribution, where no real difference between the stores exists. The do(9999) function is used to generate 9,999 resamples, and the mean difference between the two stores is calculated for each resample. The output shows the distribution of these simulated mean differences, with values both positive and negative, suggesting random variations around the null hypothesis of no difference between the two stores.
+
+### Plotting the Null Distribution
+
+```{r}
+gf_histogram(data = null_dist_price, ~mean) %>%
+  gf_vline(xintercept = obs_diff_price, colour = "red")
+```
+
+This plot shows the null distribution of the mean differences in grocery prices between Target and Walmart from the permutation test. The histogram represents the distribution of the simulated mean differences when the null hypothesis is assumed (no real price difference between the stores). The red vertical line indicates the observed mean price difference (approximately 0.0567) between Walmart and Target. This line's position relative to the null distribution helps visualize whether the observed difference is extreme or typical under the null hypothesis, aiding in the determination of statistical significance.
+
+### Proportion of values in the null distribution that are less than or equal to the observed mean difference
+
+```{r}
+prop1(~mean, data = null_dist_price)
+```
+
+This calculates the proportion of values in the null distribution that are less than or equal to the observed mean difference. The result shows that approximately 0.0292% (2e-04) of the simulated null distribution values are less than the observed difference. This small proportion suggests that the observed difference is quite extreme under the null hypothesis, potentially indicating statistical significance depending on the context of the test.
+
+### All Tests Together
+
+```{r}
+mosaic::t_test(Groceries$Walmart, Groceries$Target, paired = TRUE) %>%
+  broom::tidy() %>%
+  gt() %>%
+  tab_style(
+    style = list(
+      cell_fill(color = "cyan"),
+      cell_text(weight = "bold")
+    ),
+    locations = cells_body(columns = p.value)
+  ) %>%
+  tab_header(title = "t.test")
+
+lm(Target - Walmart ~ 1, data = Groceries) %>%
+  broom::tidy(conf.int = TRUE, conf.level = 0.95) %>%
+  gt() %>%
+  tab_style(
+    style = list(
+      cell_fill(color = "cyan"),
+      cell_text(weight = "bold")
+    ),
+    locations = cells_body(columns = p.value)
+  ) %>%
+  tab_header(title = "Linear Model")
+
+wilcox.test(Groceries$Walmart, Groceries$Target,
+  digits.rank = 7,
+  paired = TRUE,
+  conf.int = TRUE,
+  conf.level = 0.95
+) %>%
+  broom::tidy() %>%
+  gt() %>%
+  tab_style(
+    style = list(
+      cell_fill(color = "palegreen"),
+      cell_text(weight = "bold")
+    ),
+    locations = cells_body(columns = p.value)
+  ) %>%
+  tab_header(title = "Wilcoxon Test")
+
+lm(signed_rank(Target - Walmart) ~ 1,
+  data = Groceries
+) %>%
+  broom::tidy(conf.int = TRUE, conf.level = 0.95) %>%
+  gt() %>%
+  tab_style(
+    style = list(
+      cell_fill(color = "palegreen"),
+      cell_text(weight = "bold")
+    ),
+    locations = cells_body(columns = p.value)
+  ) %>%
+  tab_header(title = "Linear Model with Sign.Ranks")
+```
+
+The analysis includes different statistical methods comparing grocery prices at Walmart and Target. The paired t-test and linear model both returned high p-values (0.6415), indicating no significant difference between the prices at the two stores. However, the non-parametric Wilcoxon test (p-value = 0.0143) and the linear model with signed ranks (p-value = 0.0062) both show significant differences, suggesting that there is indeed a notable price difference between Walmart and Target. The contrast in results implies that the t-test and standard linear model may not be suitable due to possible violations of assumptions like normality, which the Wilcoxon and signed rank models effectively account for, leading to more reliable results in this case.
+
+### Removing the Quaker cereal data item
+
+```{r}
+theme_set(new = theme_custom())
+
+set.seed(12345)
+Groceries_less <- Groceries %>%
+  filter(Product != "Quaker Oats Life Cereal Original")
+
+Groceries_less_long <- Groceries_less %>%
+  pivot_longer(
+    cols = c(Target, Walmart),
+    names_to = "store",
+    values_to = "prices"
+  )
+
+wilcox.test(Groceries_less$Walmart,
+  Groceries_less$Target,
+  paired = TRUE, digits.rank = 7,
+  conf.int = TRUE,
+  conf.level = 0.95
+) %>%
+  broom::tidy()
+
+obs_diff_price_less <-
+  mean(~ (Target - Walmart), data = Groceries_less)
+obs_diff_price_less
+polarity_less <- c(rep(1, 15), rep(-1, 14))
+
+null_dist_price_less <-
+  do(9999) * mean(
+    data = Groceries_less,
+    ~ (Target - Walmart) * resample(polarity_less, replace = TRUE)
+  )
+
+gf_histogram(data = null_dist_price_less, ~mean) %>%
+  gf_vline(
+    xintercept = obs_diff_price_less,
+    colour = "red"
+  )
+
+mean(null_dist_price_less >= obs_diff_price_less)
+```
+
+The code focuses on analysing the price difference between Target and Walmart after removing "Quaker Oats Life Cereal Original" using a Wilcoxon signed rank test. The data is reshaped into a long format for comparison between the two stores. The Wilcoxon signed rank test shows a statistically significant result with an estimate of -0.1102, a p-value of 0.00349, and confidence intervals ranging from -0.1899 to -0.0450. A permutation test is also conducted, generating a null distribution of the mean differences between the two stores. The observed difference (marked by a red line) is plotted on a histogram of the null distribution, suggesting the observed difference is greater than expected under the null hypothesis. Overall, the analysis indicates that Target prices are significantly lower than Walmart prices for this specific product.
+
+### **Comparing Multiple Means with ANOVA**
+
+```{r}
+library(tidyverse) 
+library(ggformula) 
+library(mosaic) 
+library(broom) 
+library(infer) 
+library(patchwork) 
+library(ggprism) 
+library(supernova) 
+```
+
+### Dataset - Frogs
+
+```{r}
+frogs_orig <- read_csv("../../data/frogs.csv")
+frogs_orig
+```
+
+The dataset displayed in the image titled "Frogs" contains frogspawn sample data with three different temperature measurements (13°C, 18°C, and 25°C). The dataset comprises 60 rows and 4 columns, with the columns labeled "Frogspawn sample," "Temperature13," "Temperature18," and "Temperature25." The "Frogspawn sample" column represents the sample IDs, while the temperature columns show frogspawn counts or measurements recorded at each respective temperature. The dataset includes missing values, represented by "NA," across the temperature columns, indicating incomplete data for certain samples at specific temperatures.
+
+### Cleaning the data
+
+```{r}
+frogs_orig %>%
+  pivot_longer(
+    .,
+    cols = starts_with("Temperature"),
+    cols_vary = "fastest",
+    
+    names_to = "Temp",
+    values_to = "Time"
+  ) %>%
+  drop_na() %>%
+  
+  separate_wider_regex(
+    cols = Temp,
+    patterns = c("Temperature", TempFac = "\\d+"),
+    cols_remove = TRUE
+  ) %>%
+## Convert Temp into TempFac, a 3-level factor
+  mutate(TempFac = factor(
+    x = TempFac,
+    levels = c(13, 18, 25),
+    labels = c("13", "18", "25")
+  )) %>%
+  rename("Id" = `Frogspawn sample id`) -> frogs_long
+frogs_long
+
+frogs_long %>% count(TempFac)
+```
+
+The dataset on frogs consists of observations of frogspawn samples at various temperatures (13°C, 18°C, and 25°C). The data cleaning process involves restructuring the dataset into a long format, renaming and separating columns to create a temperature factor variable (TempFac) with three levels representing the different temperatures. Missing values are dropped, and the cleaned dataset contains 60 observations, 20 for each temperature level. The table shows frogspawn sample IDs, the corresponding temperature factors, and the time recorded at each temperature. Finally, a count confirms that each temperature factor has exactly 20 observations.
+
+### Histograms of Hatching Time Distributions vs Temperature
+
+```{r}
+theme_set(new = theme_custom())
+
+gf_histogram(~Time,
+  fill = ~TempFac,
+  data = frogs_long, alpha = 0.5
+) %>%
+  gf_vline(xintercept = ~ mean(Time)) %>%
+  gf_labs(
+    title = "Histograms of Hatching Time Distributions vs Temperature",
+    x = "Hatching Time", y = "Count"
+  ) %>%
+  gf_text(7 ~ (mean(Time) + 2),
+    label = "Overall Mean"
+  ) %>%
+  gf_refine(guides(fill = guide_legend(title = "Temperature level (°C)")))
+```
+
+The plot presented shows histograms of hatching times across these temperature levels, with a vertical line representing the overall mean hatching time. The plot highlights the distribution of hatching times for each temperature level, revealing different patterns in hatching time depending on the temperature. The overall mean is marked for comparison.
+
+### Boxplots of Hatching Time Distributions vs Temperature
+
+```{r}
+theme_set(new = theme_custom())
+
+gf_boxplot(
+  data = frogs_long,
+  Time ~ TempFac,
+  fill = ~TempFac,
+  alpha = 0.5
+) %>%
+  gf_vline(xintercept = ~ mean(Time)) %>%
+  gf_labs(
+    title = "Boxplots of Hatching Time Distributions vs Temperature",
+    x = "Temperature", y = "Hatching Time",
+    caption = "Using ggprism"
+  ) %>%
+  gf_refine(
+    scale_x_discrete(guide = "prism_bracket"),
+    guides(fill = guide_legend(title = "Temperature level (°C)"))
+  )
+```
+
+The boxplot visualisation compares the distribution of hatching times across the different temperature levels. At 13°C, the median hatching time is higher, around 27–28 days, with a slight outlier. At 18°C, the hatching time decreases with a median around 21 days. At 25°C, the hatching time is the shortest, with the median around 17 days. The variation in hatching time reduces as the temperature increases, reflecting a clearer distinction in the relationship between temperature and hatching time. This trend demonstrates that higher temperatures result in shorter hatching periods.
+
+### ANOVA
+
+```{r}
+frogs_anova <- aov(Time ~ TempFac, data = frogs_long)
+```
+
+This creates an ANOVA model object, called frogs_anova.
+
+### Errorbar Plot
+
+```{r}
+theme_set(new = theme_custom())
+
+supernova::pairwise(frogs_anova,
+  correction = "Bonferroni", 
+  alpha = 0.05, 
+  var_equal = TRUE, 
+  plot = TRUE
+)
+```
+
+The error bar plot provides a comparison of the differences in hatching times between three temperature groups (13°C, 18°C, and 25°C), with confidence intervals based on Bonferroni correction. The differences between these groups are statistically significant (all p-values are less than 0.05), as shown by the pairwise comparisons of the group means. The intervals for each comparison do not overlap the zero line, indicating clear distinctions between the temperature groups' effects on hatching time. For example, the difference between 25°C and 13°C is about -10.1 with a confidence interval from -10.66 to -9.54. These findings suggest that temperature significantly affects the hatching time, with higher temperatures generally leading to faster hatching.
+
+### Table from supernova
+
+```{r}
+supernova::supernova(frogs_anova)
+```
+
+The analysis of variance (ANOVA) table provides insight into the model’s effectiveness in explaining the variation in hatching time as a function of temperature levels (TempFac). The table shows the following:
+
+-   **Model (error reduced)**: The sum of squares (SS) for the model is 1020.933, with 2 degrees of freedom (df). The mean square (MS) is 510.467. The F-statistic is 385.897, with a p-value of 0.0000, indicating strong statistical significance. This suggests that the temperature factor explains a significant portion of the variance in hatching time.
+
+-   **Error (from model)**: The error SS is 75.400 with 57 degrees of freedom, giving an MS of 1.323. This reflects the variance not explained by the temperature levels.
+
+-   **Total (empty model)**: The total sum of squares is 1096.333, which is the sum of explained and unexplained variation in the model.
+
+Overall, the model is highly significant, with a p-value close to zero, confirming that temperature has a strong impact on the frogs' hatching time.
+
+### Calculating overall sum squares
+
+```{r}
+frogs_overall <- frogs_long %>%
+  summarise(
+    overall_mean_time = mean(Time),
+
+    SST = sum((Time - overall_mean_time)^2),
+    n = n()
+  ) 
+frogs_overall
+```
+
+This table calculates the overall sum of squares for the frogs' hatching time data. The overall mean hatching time is 21.17 units, and the sum of squares total (SST) is 1096.333. This SST represents the total variation in hatching time that the model will attempt to explain. The sample size (n) consists of 60 frogspawn samples. This value of SST matches the total variation from the previous ANOVA table, which confirms the accuracy of the sum of squares calculation in the dataset.
+
+### Sum of Squares Total
+
+```{r}
+SST <- frogs_overall$SST
+SST
+```
+
+This output displays the Sum of Squares Total (SST) value, which is calculated as 1096.333. This value represents the total variability in the dataset for the frogs' hatching time. The SST reflects the overall variation that the model will partition into components explained by the temperature factors and those left unexplained by the model (residuals). This calculation is consistent with the overall SST value observed in the ANOVA table earlier.
+
+### Calculating the sums of square errors within each group
+
+```{r}
+frogs_within_groups <- frogs_long %>%
+  group_by(TempFac) %>%
+  summarise(
+    grouped_mean_time = mean(Time),
+    grouped_variance_time = var(Time),
+    group_error_squares = sum((Time - grouped_mean_time)^2),
+    n = n()
+  )
+frogs_within_groups
+
+frogs_SSE <- frogs_within_groups %>%
+  summarise(SSE = sum(group_error_squares))
+
+SSE <- frogs_SSE$SSE
+SSE
+```
+
+The analysis shows the calculation of sums of square errors (SSE) within each group of frogspawn samples across three different temperature levels (13°C, 18°C, and 25°C). The grouped mean time (average hatching time) for each temperature level was calculated: 26.3 for 13°C, 21.0 for 18°C, and 16.2 for 25°C. Each group’s variance and sum of square errors (the total variation within each group from the group mean) were also calculated. The total SSE was found to be 75.4, which quantifies the variation within the groups.
+
+### Sum of squares between groups
+
+```{r}
+SST
+SSE
+SSA <- SST - SSE
+SSA
+```
+
+This computes the sum of squares between groups (SSA) for the frog hatching time analysis. The total sum of squares (SST) is 1096.333, which represents the overall variation in the hatching times. The sum of square errors (SSE), which measures the variation within the temperature groups, was calculated to be 75.4. Finally, the sum of squares among groups (SSA), representing the variation between the different temperature levels, was found to be 1020.933 by subtracting SSE from SST. This indicates that most of the variation in hatching time is due to differences in the temperature levels.
+
+### Degrees of freedom for the quantities
+
+```{r}
+df_SSE <- frogs_long %>%
+  
+  group_by(TempFac) %>%
+  summarise(per_group_df_SSE = n() - 1) %>%
+  summarise(df_SSE = sum(per_group_df_SSE)) %>%
+  as.numeric()
+
+df_SST <- frogs_long %>%
+  summarise(df_SST = n() - 1) %>%
+  as.integer()
+
+k <- length(unique(frogs_long$TempFac))
+df_SSA <- k - 1
+```
+
+```{r}
+df_SST
+df_SSE
+df_SSA
+```
+
+The degrees of freedom (df) for the sum of squares are calculated as follows: for the total sum of squares (SST), the degrees of freedom are 59. For the sum of square errors (SSE), the degrees of freedom are 57, which represents the number of data points minus the number of groups. Finally, for the sum of squares among groups (SSA), the degrees of freedom are 2, reflecting the number of temperature groups minus 1.
+
+### Mean Square Error 
+
+```{r}
+MSE <- frogs_within_groups %>%
+  summarise(mean_square_error = sum(group_error_squares / df_SSE)) %>%
+  as.numeric()
+MSE
+```
+
+The code calculates the Mean Square Error (MSE) from the frog dataset. It first takes the group_error_squares (which are the sum of squared differences from the group means) and divides them by the degrees of freedom for the error term (df_SSE). The result, 1.322807, represents the average variation within the groups. MSE is a key component in an ANOVA analysis, as it quantifies the variance within each group and is used in hypothesis testing to compare the means across different groups.
+
+### Mean Square for the Factor
+
+```{r}
+MSA <- SSA / df_SSA 
+MSA
+```
+
+This computes the Mean Square for the Factor (MSA) by dividing the sum of squares for the factor (SSA) by its degrees of freedom (df_SSA). The resulting value, 510.4667, represents the average variation between the group means. This MSA value is essential in the ANOVA calculation as it is used to determine the F-statistic, comparing the variation between the groups (due to the factor) to the variation within the groups (from the MSE) to assess if the differences between group means are statistically significant.
+
+### F-Statistic
+
+```{r}
+F_stat <- MSA / MSE
+F_stat
+```
+
+The code calculates the F-statistic for the ANOVA test by dividing the Mean Square for the Factor (MSA) by the Mean Square for Error (MSE). The resulting F-statistic value is 385.8966. This value helps determine whether there is a statistically significant difference between the group means. A higher F-statistic generally indicates that the variation between the groups is more significant than the variation within the groups, leading to stronger evidence against the null hypothesis that all group means are equal.
+
+### Critical F-value
+
+```{r}
+F_crit <-
+  qf(
+    p = (1 - 0.05 / 3), 
+    df1 = df_SSA, 
+    df2 = df_SSE 
+  )
+F_crit
+F_stat
+```
+
+The code calculates the critical F-value (F_crit) for an ANOVA test, given a significance level adjusted for multiple comparisons (0.05/3) and the degrees of freedom for both the factor (df_SSA) and error (df_SSE). The F_crit value is 4.403048. The F_stat, calculated earlier, is 385.8966. Since the F_stat is much larger than the F_crit, this suggests a significant difference between the groups, providing strong evidence to reject the null hypothesis.
+
+### F distribution for Frogs Data
+
+```{r}
+theme_set(new = theme_custom())
+
+mosaic::xpf(
+  q = F_crit,
+  df1 = df_SSA, df2 = df_SSE, method = "gg",
+  log.p = FALSE, lower.tail = TRUE,
+  return = "plot"
+) %>%
+  gf_vline(xintercept = F_crit) %>%
+  gf_label(0.75 ~ 5,
+    label = "F_critical",
+    inherit = F, show.legend = F
+  ) %>%
+  gf_labs(
+    title = "F distribution for Frogs Data",
+    subtitle = "F_critical = 4.403"
+  )
+```
+
+The F distribution plot for the frog data, with the calculated critical F value of 4.403, visually illustrates the density distribution of F values under the null hypothesis. The plot shows a steep decrease in probability density as F values increase, with most of the probability mass concentrated near zero. The shaded area in purple (A: 0.983) represents the region where the observed F-statistic is less than the critical F value, while the small green area (B: 0.017) represents the region beyond the critical value. Since the calculated F-statistic (385.897) is far beyond the critical value, we reject the null hypothesis, suggesting that temperature levels significantly impact hatching time. This conclusion is based on the comparison of the observed F-statistic with the critical threshold in the F distribution.
+
+### Linear equation relating Hatching_Time to TempFac
+
+```{r}
+supernova::equation(frogs_anova)
+```
+
+The linear equation suggests that at a baseline temperature (13°C), the average hatching time is 26.3 days. When the temperature increases to 18°C (TempFac18), the hatching time decreases by 5.3 days, and when the temperature reaches 25°C (TempFac25), the hatching time decreases further by 10.1 days. The residual error is represented by eee, accounting for any variation not explained by the temperature levels. This equation illustrates a clear negative relationship between temperature and hatching time: as temperature increases, hatching time decreases.
+
+### Checking for Normality
+
+```{r}
+shapiro.test(x = frogs_long$Time)
+```
+
+The Shapiro-Wilk normality test was conducted on the variable "Time" from the "frogs_long" dataset to check whether the data follows a normal distribution. The test result produced a W statistic of 0.92752 and a p-value of 0.001561. Since the p-value is below the typical significance threshold of 0.05, we reject the null hypothesis that the data is normally distributed. Therefore, the "Time" data does not follow a normal distribution, indicating potential skewness or deviation from normality.
+
+### Shapiro-Wilk normality test on the "Time" data across different temperature levels
+
+```{r}
+frogs_long %>%
+  group_by(TempFac) %>%
+  group_modify(~ .x %>%
+    select(Time) %>%
+    as_vector() %>%
+    shapiro.test() %>%
+    broom::tidy())
+```
+
+The Shapiro-Wilk normality test was conducted on the "Time" data across different temperature levels (TempFac) of 13°C, 18°C, and 25°C. The results show that for TempFac 13°C, the W statistic is 0.8895 with a p-value of 0.0264, suggesting a deviation from normality as the p-value is less than 0.05. For TempFac 18°C, the W statistic is 0.9254 with a p-value of 0.1261, which indicates no significant departure from normality at the 0.05 level. Similarly, for TempFac 25°C, the W statistic is 0.8979 with a p-value of 0.0377, also showing a marginal deviation from normality. Overall, while TempFac 18°C appears to be normally distributed, the other two temperature levels show some departure from normality.
+
+```{r}
+theme_set(new = theme_custom())
+
+frogs_anova$residuals %>%
+  as_tibble() %>%
+  gf_dhistogram(~value, data = .) %>%
+  gf_fitdistr()
+
+frogs_anova$residuals %>%
+  as_tibble() %>%
+  gf_qq(~value, data = .) %>%
+  gf_qqstep() %>%
+  gf_qqline()
+
+shapiro.test(frogs_anova$residuals)
+```
+
+This checks the normality of residuals from an ANOVA model (frogs_anova\$residuals) by using both graphical and statistical methods. First, a histogram with a fitted distribution is created, which visualizes the residuals to check if they approximately follow a normal distribution. Next, a QQ plot (Quantile-Quantile plot) is generated with the gf_qq function to further assess the normality of the residuals by comparing the observed quantiles of the residuals with the expected quantiles from a standard normal distribution. Finally, a Shapiro-Wilk test is conducted on the residuals to provide a formal test of normality, where the null hypothesis is that the data is normally distributed. The results of the Shapiro-Wilk test and the plots together help determine whether the residuals meet the assumption of normality, which is important for validating the ANOVA model.
+
+### Checking for Similar Varience
+
+```{r}
+frogs_long %>%
+  group_by(TempFac) %>%
+  summarise(variance = var(Time))
+
+DescTools::LeveneTest(Time ~ TempFac, data = frogs_long)
+
+fligner.test(Time ~ TempFac, data = frogs_long)
+```
+
+The data being analysed involves three temperature levels (13°C, 18°C, and 25°C) and their impact on hatching times of frogspawn samples. A variance test was conducted to check for homogeneity across the temperature groups. The variance values for the groups were approximately 1.27, 1.26, and 1.43, respectively. Two statistical tests, Levene's test and the Fligner-Killeen test, were performed to check if variances between the groups are statistically equal. The Levene's test returned a p-value of 0.6768, and the Fligner-Killeen test gave a p-value of 0.7638, both of which are greater than 0.05, indicating that the assumption of equal variances holds across the temperature groups. This justifies the use of ANOVA or similar tests under the assumption of homogeneity of variance.
+
+### Errorbar Chart
+
+```{r}
+theme_set(new = theme_custom())
+
+frogs_supernova <-
+  supernova::pairwise(frogs_anova,
+    plot = TRUE,
+    alpha = 0.05,
+    correction = "Bonferroni"
+  )
+```
+
+This applies the Bonferroni correction in a pairwise comparison of the ANOVA model for frog data, using the supernova::pairwise function. The output plot represents 95.1% confidence intervals (CI) for pairwise comparisons between the temperature levels (13°C, 18°C, and 25°C). The error bars indicate the confidence intervals for the differences in hatching times between these temperatures. The confidence intervals help to determine whether the differences between groups are statistically significant; intervals that do not overlap zero indicate significant differences.
+
+### Pairwise t-tests with Bonferroni correction
+
+```{r}
+frogs_supernova
+```
+
+The results from the pairwise t-tests with Bonferroni correction provide insights into the comparison of hatching times across three temperature levels (13°C, 18°C, and 25°C). The family-wise error rate is set at 0.049 to account for multiple comparisons. The table displays differences between groups, their pooled standard errors, t-values, degrees of freedom (df), and adjusted p-values. All comparisons between the temperature groups are significant (p_adj = 0.000), suggesting that the hatching times significantly differ between the temperature levels, with higher t-values indicating stronger evidence against the null hypothesis.
+
+### F-Statistic
+
+```{r}
+observed_infer <-
+  frogs_long %>%
+  specify(Time ~ TempFac) %>%
+  hypothesise(null = "independence") %>%
+  calculate(stat = "F")
+observed_infer
+```
+
+The output shows the result of calculating the observed F-statistic for testing the independence between the variables Time and TempFac (temperature factor). The F-statistic calculated is approximately 385.8966, indicating a strong deviation from the null hypothesis of independence. This value suggests that there is a significant difference between the means of the hatching times across the different temperature levels. This high F-statistic provides further evidence that temperature has a substantial effect on the hatching time.
+
+### Permutation Test to generate a null distribution of F-statistics
+
+```{r}
+null_dist_infer <- frogs_long %>%
+  specify(Time ~ TempFac) %>%
+  hypothesise(null = "independence") %>%
+  generate(reps = 4999, type = "permute") %>%
+  calculate(stat = "F")
+
+null_dist_infer
+```
+
+The output represents a permutation test to generate a null distribution of F-statistics. The hypothesis test involves shuffling the data 4,999 times to simulate what the F-statistics would be if the null hypothesis of independence between hatching time and temperature levels (TempFac) were true. The results show a wide range of F-statistic values, starting with values such as 2.40, 3.47, and 4.28. These values serve as a basis to compare the observed F-statistic (385.8966). If the observed F-statistic significantly exceeds these values, it provides strong evidence against the null hypothesis.
+
+### Visualisation of the null distribution of the F-statistic
+
+```{r}
+null_dist_infer %>%
+  visualise(method = "simulation") +
+  shade_p_value(obs_stat = observed_infer$stat, direction = "right") +
+  scale_x_continuous(trans = "log10", expand = c(0, 0)) +
+  coord_cartesian(xlim = c(0.2, 500), clip = "off") +
+  annotation_logticks(outside = FALSE) +
+  theme_custom()
+```
+
+This visualizes the null distribution of the F-statistic generated through simulation. The plot shows the frequency distribution of F-statistics under the null hypothesis of independence between hatching time and temperature levels. The x-axis is displayed on a logarithmic scale, and the observed F-statistic (indicated by the red line) is far to the right, well beyond the range of most simulated F-values. This suggests that the observed F-statistic is highly significant and unlikely to occur under the null hypothesis, providing strong evidence against it.
