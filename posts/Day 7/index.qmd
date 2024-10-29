@@ -938,7 +938,7 @@ df_SSA
 
 The degrees of freedom (df) for the sum of squares are calculated as follows: for the total sum of squares (SST), the degrees of freedom are 59. For the sum of square errors (SSE), the degrees of freedom are 57, which represents the number of data points minus the number of groups. Finally, for the sum of squares among groups (SSA), the degrees of freedom are 2, reflecting the number of temperature groups minus 1.
 
-### Mean Square Error 
+### Mean Square Error
 
 ```{r}
 MSE <- frogs_within_groups %>%

@@ -1,0 +1,213 @@
+---
+title: "Online Class"
+author: "Khushi"
+categories: ["Online Class"]
+---
+
+## Introduction
+
+We are looking at Geospatial data and how to use it with intent.
+
+```{r}
+#| label: setup
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(sf)
+library(tmap)
+library(osmdata)
+library(rnaturalearth)
+```
+
+### Specifying an Area of Interest
+
+```{r}
+# https://boundingbox.klokantech.com
+# CSV: 77.574028,12.917262,77.595073,12.939895
+bbox_1 <- matrix(
+  c(77.574028, 12.917262, 77.595073, 12.939895),
+  byrow = FALSE,
+  nrow = 2,
+  ncol = 2,
+  dimnames = list(c('x', 'y'), c('min', 'max'))
+)
+bbox_1
+```
+
+This specifies a bounding box for an area of interest. The bounding box is represented as a matrix named bbox_1, which stores the minimum and maximum x and y coordinates. The x-values (longitude) range from 77.57403 to 77.59507, and the y-values (latitude) range from 12.91726 to 12.93990. The matrix has two rows and two columns, and the coordinate labels ('x', 'y') are set as the row names, while 'min' and 'max' are set as the column names.
+
+### Using the getbb command from the osmdata package
+
+```{r}
+bbox_2 <- osmdata::getbb("Jayanagar, Bangalore, India")
+bbox_2
+```
+
+This retrieves the bounding box for Jayanagar, Bangalore, India, using the osmdata::getbb function. The resulting bounding box matrix, bbox_2, specifies the minimum and maximum x and y coordinates. The x-values range from 77.58528 to 77.58929, while the y-values range from 12.93650 to 12.94369.
+
+### Output of the bbox_1 matrix
+
+```{r}
+bbox_1
+```
+
+This gives the output of the bbox_1 matrix, which specifies a bounding box for an area of interest. The matrix consists of minimum and maximum x and y coordinates. The x-values range from 77.57403 to 77.59507, and the y-values range from 12.91726 to 12.93989.
+
+### Output of the bbox_2 matrix
+
+```{r}
+bbox_2
+```
+
+This shows the output of the bbox_2 matrix, which defines a bounding box for a specific area. The matrix contains the minimum and maximum x and y coordinates. The x-values range from 77.58528 to 77.58929, and the y-values range from 12.93650 to 12.94369.
+
+### Available Features
+
+```{r}
+osmdata::available_features() %>% as_tibble()
+```
+
+The table shows a list of available features in the OpenStreetMap (OSM) dataset, converted into a tibble with 272 rows. The features displayed in the output include elements like "4wd_only," "abandoned," "abutters," "access," and various address-related tags. These represent different categories or attributes that can be used when extracting or analyzing geographical data from OSM, indicating the variety of metadata available for locations.
+
+### Available Tags - Highway
+
+```{r}
+available_tags(feature = "highway")
+```
+
+The output represents a tibble of available tags for the "highway" feature, providing a list of 56 key-value pairs. Each key is labeled as "highway," and the values describe specific highway-related features like "bridleway," "bus_stop," "busway," "cycleway," and "crossing." These tags offer various classifications for highways and related infrastructure, helping to map different types of roads and pathways.
+
+### Available Tags - Amenity
+
+```{r}
+available_tags("amenity")
+```
+
+This shows the available tags for the "amenity" feature, providing a list of 137 key-value pairs. Each key is labeled as "amenity," and the values describe specific amenity-related features like "animal_boarding," "animal_shelter," "arts_centre," "atm," "bank," and "bar."
+
+### Available Tags - Natural
+
+```{r}
+available_tags("natural")
+```
+
+The output shows the available tags for the "natural" feature, listing 49 key-value pairs. Each key is labeled "natural," and the values represent various natural features such as "arch," "arete," "bay," "beach," "cliff," "blowhole," "cape," and "cave_entrance."
+
+### Features within bbox_2
+
+```{r}
+# Get all restaurants, atms, colleges within my bbox
+locations <- 
+  osmdata::opq(bbox = bbox_2) %>% 
+  osmdata::add_osm_feature(key = "amenity", 
+                           value = c("restaurant", "atm", "college")) %>% 
+  osmdata_sf() %>%  # Convert to Simple Features format
+  purrr::pluck("osm_points") # Pull out the data frame of interest
+
+# Get all buildings within my bbox
+dat_buildings <-
+  osmdata::opq(bbox = bbox_2) %>% 
+  osmdata::add_osm_feature(key = "building") %>% 
+  osmdata_sf() %>% 
+  purrr::pluck("osm_polygons") 
+
+# Get all residential roads within my bbox
+dat_roads <- 
+  osmdata::opq(bbox = bbox_2) %>% 
+  osmdata::add_osm_feature(key = "highway", 
+                           value = c("residential")) %>% 
+  osmdata_sf() %>% 
+  purrr::pluck("osm_lines") 
+
+# Get all parks / natural /greenery areas and spots within my bbox
+dat_natural <-   
+  osmdata::opq(bbox = bbox_2) %>% 
+  osmdata::add_osm_feature(key = "natural",
+                           value = c("tree", "water", "wood")) %>% 
+  osmdata_sf()
+dat_natural
+
+dat_trees <- 
+  dat_natural %>% 
+  purrr::pluck("osm_points") 
+
+dat_greenery <- 
+  dat_natural %>% pluck("osm_polygons")
+```
+
+This extracts various features from OpenStreetMap (OSM) data within a specified bounding box (bbox_2). The first part of the code retrieves restaurants, ATMs, and colleges using the "amenity" tag, converting the result into simple features and extracting points of interest. The second section gathers building data by filtering for the "building" tag and extracting polygons. The third part retrieves residential roads using the "highway" tag, extracting line data. Lastly, the code fetches parks and natural areas such as trees, water, and wood using the "natural" tag, extracting both points (for trees) and polygons (for greenery). The second image provides metadata information from the OSM data, including the bounding box coordinates, the Overpass API call, and the presence of points and polygons with 0 features for the extracted dataset.
+
+### Writing spatial data to GeoPackage files
+
+```{r}
+st_write(dat_roads, dsn = "roads.gpkg", 
+         append = FALSE, quiet = FALSE)
+
+st_write(dat_buildings, 
+         dsn = "buildings.gpkg", 
+         append = FALSE, 
+         quiet = FALSE)
+
+st_write(dat_greenery, dsn = "greenery.gpkg", 
+         append = FALSE,quiet = FALSE)
+
+st_write(dat_trees, dsn = "trees.gpkg", 
+         append = FALSE,quiet = FALSE)
+```
+
+The dat_roads object, containing 39 features with 8 fields of Line String geometry, is written to roads.gpkg. The dat_buildings object, with 551 features and 9 fields of Polygon geometry, is written to buildings.gpkg. The dat_greenery and dat_trees objects are also written to GeoPackage files (greenery.gpkg and trees.gpkg), but both contain 0 features with 1 field for Polygon and Point geometries, respectively.
+
+### Reading the buildings.gpkg file
+
+```{r}
+buildings <- st_read("./buildings.gpkg")
+```
+
+The output shows the process of reading the buildings.gpkg file using the st_read function. It reads the layer named 'buildings' from the specified file path, which contains 551 features and 9 fields. The geometry type is POLYGON, and the data uses the XY dimension. The bounding box of the data spans from xmin: 77.58523, ymin: 12.9361 to xmax: 77.58935, ymax: 12.94357. The file uses the WGS 84 geodetic coordinate reference system (CRS).
+
+### Reading the greenery.gpkg file
+
+```{r}
+greenery <- st_read("./greenery.gpkg")
+```
+
+This reads the greenery.gpkg file using the st_read function. It reads the layer named 'greenery' from the specified file path, which contains 0 features and 1 field. The bounding box values (xmin, ymin, xmax, ymax) are all NA, indicating there are no spatial features in this layer.
+
+### Reading the trees.gpkg file
+
+```{r}
+trees <- st_read("./trees.gpkg")
+```
+
+This reads the layer named 'trees' from the specified file path, which contains 0 features and 1 field. The bounding box values (xmin, ymin, xmax, ymax) are all NA, indicating no spatial data is present in this layer.
+
+### Reading the roads.gpkg file
+
+```{r}
+roads <- st_read("./roads.gpkg")
+```
+
+This reads the roads.gpkg file using the st_read function. It accesses the 'roads' layer from the given file path, containing 39 features and 8 attributes. The geometry type for these features is LINESTRING, with data represented in the XY dimension. The bounding box coordinates range from xmin: 77.58511, ymin: 12.936 to xmax: 77.59122, ymax: 12.94625.
+
+### How many buildings?
+
+```{r}
+nrow(buildings)
+```
+
+The dataset contains 551 buildings.
+
+### Geometry Set
+
+```{r}
+buildings$geom
+```
+
+The output displays a geometry set for 551 features, where the geometry type is a polygon with XY dimensions. The bounding box of the data covers a range of coordinates between xmin: 77.58523, ymin: 12.9361 and xmax: 77.58935, ymax: 12.94357, following the WGS 84 coordinate reference system (CRS). The first five geometries are shown as sets of latitude and longitude coordinates that define the polygons representing buildings or structures. These polygons outline the spatial extent of the buildings in the dataset.
+
+### Class of the buildings\$geom object
+
+```{r}
+class(buildings$geom)
+```
+
+The class of the buildings\$geom object is sfc_POLYGON and sfc, which indicates that this object contains a collection of simple feature geometries, specifically polygons. These polygons represent the spatial boundaries or shapes of features (such as buildings) in a geographic dataset, with the sfc class standing for simple feature collection.

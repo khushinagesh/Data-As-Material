@@ -1,0 +1,352 @@
+---
+title: "Assignment 3 - Part 1"
+author: "Khushi"
+categories: ["Assignments"]
+---
+
+## Introduction
+
+We are investigating spending behaviour between genders.
+
+```{r}
+#| label: setup
+library(tidyverse)
+library(mosaic)
+library(ggformula)
+library(crosstable)
+library(skimr)
+library(dplyr)
+library(broom)
+```
+
+### **Research Experiment to Investigate Spending Behaviour Between Genders**
+
+**Objective:** The purpose of this research experiment is to investigate whether there is a significant difference in the amount of money spent between guys and girls among students at MAHE Bengaluru. The study aims to test the hypothesis that guys tend to spend more money than girls, by collecting and analyzing spending data during a specific period.
+
+**Hypothesis:**
+
+-   Guys spend more money on average compared to girls within a given timeframe.
+
+**Experiment Design:**
+
+**Data Collection:**
+
+-   *Sample:* The dataset consists of spending data from 60 students at MAHE Bengaluru, with 30 guys and 30 girls. The participants were randomly selected through coin tosses and asked to record their spending on October 23rd, 2024.
+
+-   *Data Sources:* The data was recorded in an Excel sheet by the people conducting the experiment. Each participant reported how much money they spent on the allocated date.
+
+**Variables Measured:**
+
+-   *Target Variable:* Amount of money spent by each participant during the experiment period.
+
+-   *Predictor Variable:* Gender (guys vs. girls)
+
+**Sampling:**
+
+-   *Time Period:* The experiment was conducted on October 24th, 2024, over a period of 1.5 hours.
+
+-   *Participant Selection Criteria:* 30 guys and 30 girls were randomly selected by tossing a coin.
+
+**Analysis Plan:**
+
+-   *Data Cleaning and Transformation:* The data was checked for accuracy in the Excel sheet, ensuring that each participant's spending was properly recorded and that there were no missing or erroneous entries.
+
+-   *Exploratory Data Analysis (EDA):* Visualizations like histograms and box plots will be used to compare spending distributions between guys and girls, in order to identify any patterns or discrepancies.
+
+**Statistical Tests:**
+
+-   *Shapiro-Wilk Test for Normality:* The Shapiro-Wilk test should be performed to check if the spending data follows a normal distribution for both groups (guys and girls). If the p-value is small (typically below 0.05), the data significantly deviates from normality, suggesting that non-parametric tests should be used.
+-   *Variance Test (F-Test):* To check if the variances of spending between guys and girls are equal, the variance test (F-test) must be conducted. This will help assess the assumption of homogeneity of variances required for the t-test. If the p-value is significant, variances are unequal, which may necessitate the use of a non-parametric test.
+-   *Two-Sample t-Test:* A two-independent sample test for means has to be conducted to compare the average amount spent by guys and girls. This helps in determining if there is a statistically significant difference in spending behaviour between the two groups.
+-   *Wilcoxon Rank-Sum Test:* If the normality assumption is not met (based on the Shapiro-Wilk test), a Wilcoxon Rank-Sum test should be conducted. This non-parametric test compares the spending behaviour between guys and girls, providing an alternative to the t-test that does not rely on normality.
+-   *Rank-Based Linear Model:* A rank-based regression model should be used to explore the relationship between gender and spending if normality is violated. This method uses ranked values instead of raw data to compare groups while controlling for non-normality.
+-   *Permutation Test:* A permutation test has to be conducted to assess the likelihood of the observed difference in spending occurring by chance, providing a non-parametric alternative to the two-sample t-test.
+-   *Descriptive Statistics:* Measures like mean, median, and standard deviation have to be calculated for both groups to summarize spending behaviour.
+
+**Limitations:**
+
+-   *Sample Size:* With 30 participants per gender, the results may not be generalizable to a larger population. A more extensive sample would have provided greater reliability.
+
+-   *Contextual Factors:* The study did not account for reasons behind spending (e.g., necessities vs. discretionary purchases), which might have influenced spending patterns.
+
+**Outcome:**
+
+The analysis will reveal whether a significant difference in spending exists between guys and girls at MAHE Bengaluru. If the hypothesis holds, it would suggest that guys, on average, spend more in a limited timeframe. These findings will provide insights into gender-specific spending behaviour within this student population.
+
+### Dataset - Spending
+
+```{r}
+spending_23rd <- read_csv("../../data/Pocketmoney.csv")
+spending_23rd
+```
+
+The table provides information on the spending behaviour of individuals on October 23rd, categorized by gender. It highlights the amount spent by 82 participants, allowing for a comparison of spending patterns between guys and girls. The data provides insight into the variability in spending amounts, as well as individual outliers, offering a basis for further analysis of gender-based financial behaviour.
+
+```{r}
+spending_modified <- spending_23rd %>% 
+  dplyr::mutate( Gender = as_factor(Gender)) 
+```
+
+### Glimpse - Spending Behaviour
+
+```{r}
+glimpse(spending_modified)
+```
+
+The columns include a unique identifier for each participant (Sr no), their Name, Gender (male or female), and the Money Spent. The dataset contains numeric data for the money spent, with a wide range of amounts from 0 to significant expenditures, allowing for analysis of spending patterns between males and females.
+
+### Inspect - Spending Behaviour
+
+```{r}
+inspect(spending_modified)
+```
+
+The gender distribution is evenly split, with no missing data in the dataset. The summary statistics for the Money Spent variable show a wide range of spending, with a minimum value of 0 rupees and a maximum value of 13,000 rupees. The median spending is 264.5 rupees, while the mean spending is 720.9 rupees, indicating that a few individuals spent significantly more than others. The standard deviation of 1,835.3 rupees reflects a high level of variability in spending behaviour. These results suggest that while most participants had moderate spending, a few high spenders significantly influenced the overall average.
+
+### Skim - Spending Behaviour
+
+```{r}
+skim(spending_modified)
+```
+
+The key variable of interest, Money Spent, shows a mean spending of 720.96 rupees, with a high variability indicated by a standard deviation of 1,835.7 rupees. The spending ranges from 0 to 13,000 rupees, with a median of 264.5 rupees. The distribution is heavily skewed, with most participants spending below the median, but a few high spenders significantly contributing to the total amount, leading to the large spread in spending behaviour.
+
+### Data Dictionary
+
+#### Quantitative Data:
+
+-   **Money Spent (dbl)**: The total amount of money spent by each participant on October 23rd, recorded in Indian rupees.
+
+#### Qualitative Data:
+
+-   **Sr no (fct)**: A sequential number assigned to each participant for identification purposes (treated as a categorical factor).
+
+-   **Name (chr)**: The name of the participant.
+
+-   **Gender (chr)**: The gender of the participant, categorized as either Male or Female.
+
+### Histogram - Distribution of Money Spent by Gender
+
+```{r}
+gf_histogram(~ `Money Spent` | Gender, 
+             data = spending_modified, 
+             binwidth = 200, 
+             fill = "skyblue", 
+             color = "black") %>% 
+  gf_labs(
+    title = "Distribution of Money Spent by Gender",
+    x = "Money Spent (in rupees)",
+    y = "Count"
+  )
+```
+
+The histograms comparing money spent by gender reveal that both males and females exhibit a similar spending pattern, with the majority of participants spending relatively small amounts, primarily below 1,000 rupees. There is a notable concentration of individuals in both groups who spent minimal amounts (0 to 500 rupees), with a few significant outliers who spent as much as 13,000 rupees. The distribution is right-skewed for both genders, indicating that while most participants spent modestly, a few individuals in each group spent considerably more. Overall, the spending behaviour shows similar trends between males and females, with only slight variations in the frequency of higher spending outliers.
+
+### Box plot - Distribution of Money Spent by Gender
+
+```{r}
+gf_boxplot(`Money Spent` ~ Gender, 
+           data = spending_modified, 
+           fill = ~ Gender) %>% 
+  gf_labs(
+    title = "Distribution of Money Spent by Gender",
+    x = "Gender",
+    y = "Money Spent (in rupees)"
+  ) 
+```
+
+The box plot comparing the distribution of money spent between males and females shows that both genders have a similar range of spending, with most participants spending relatively low amounts. The median spending is low for both genders, as indicated by the position of the boxes. However, there are a few notable outliers in both groups, with some individuals spending significantly higher amounts, particularly around 10,000 rupees for males. These outliers create a noticeable extension in the upper range of the male box plot. Overall, the distribution suggests that while typical spending is modest, a few individuals in both groups account for much higher spending.
+
+### Scatter Plot - Individual Money Spent by Gender
+
+```{r}
+gf_point(`Money Spent` ~ Gender, 
+         data = spending_modified,
+         color = ~ Gender) %>% 
+  gf_labs(
+    title = "Individual Money Spent by Gender",
+    x = "Gender",
+    y = "Money Spent (in rupees)"
+  ) 
+```
+
+The scatter plot displays individual spending points for both males and females, highlighting the distribution of money spent on October 23rd. Most participants, regardless of gender, spent relatively small amounts, clustering around the lower end of the plot. However, there are noticeable outliers in both groups, with a few individuals spending significantly higher amounts—one female and one male spending close to 13,000 rupees. These outliers are clearly separated from the main group, indicating that while the general spending pattern is modest, a few individuals contribute to a much higher level of spending.
+
+### Density Plot of Money Spent
+
+```{r}
+spending_modified %>%
+  gf_density(~ `Money Spent`, fill = "gray", alpha = 0.5) %>%
+  gf_fitdistr(~ `Money Spent`, dist = "dnorm") %>%
+  gf_labs(
+    title = "Density Plot of Money Spent",
+    subtitle = "Compared with Normal Distribution",
+    x = "Money Spent (in rupees)",
+    y = "Density"
+  )
+```
+
+The actual spending data is highly right-skewed, with a majority of participants spending small amounts, as indicated by the sharp peak near zero. The density drops off quickly, with a long tail extending toward higher spending amounts, reflecting a few individuals who spent significantly more. The fitted normal distribution deviates from the actual data, confirming that the spending data does not follow a normal distribution, particularly due to the extreme outliers and the overall skewness. This suggests that parametric tests assuming normality may not be appropriate without data transformation. ( If the data is not normally distributed, the results could be unreliable.)
+
+### Checking for Normality
+
+```{r}
+shapiro.test(spending_modified$`Money Spent`[spending_modified$Gender == "Male"])
+shapiro.test(spending_modified$`Money Spent`[spending_modified$Gender == "Female"])
+```
+
+The Shapiro-Wilk test for normality was performed on the spending behaviour dataset for both male and female students. The results indicate that the data for both genders does not follow a normal distribution. Specifically, for male students, the test produced a W statistic of 0.40726 and a p-value of 1.136e-11, while for female students, the W statistic was 0.29606 with a p-value of 8.961e-13. Both p-values are extremely small (much smaller than the typical threshold of 0.05), leading us to reject the null hypothesis of normality.
+
+### Checking for Variances
+
+```{r}
+var.test(`Money Spent` ~ Gender, data = spending_modified) %>% 
+broom::tidy()
+```
+
+The variance test conducted on the spending behaviour of male and female students at MAHE Bengaluru resulted in a p-value of 0.1717. This suggests that there is no statistically significant difference in the variances of money spent between the two gender groups. The F-statistic for this test was 0.6462, with a 95% confidence interval for the ratio of variances between 0.3446 and 1.2117. Since the p-value is greater than the common significance level of 0.05, we cannot reject the null hypothesis, indicating that the assumption of equal variances holds true in this dataset.
+
+### Log-Transformed Distribution of Money Spent
+
+```{r}
+spending_modified <- spending_modified %>%
+  mutate(log_money_spent = log(`Money Spent` + 1))
+
+gf_density(~ log_money_spent, data = spending_modified) %>% 
+  gf_labs(
+    title = "Log-Transformed Distribution of Money Spent",
+    x = "Log of Money Spent",
+    y = "Density"
+  )
+```
+
+The density plot of the log-transformed spending data shows a more symmetric distribution compared to the original skewed data. After applying the log transformation, the previously right-skewed data is now centered with a peak around a log value of 4 to 5, suggesting a more normalized spread of spending behaviour. While the log transformation has reduced the extreme effects of outliers and compressed the range of higher values, the data still exhibits some variation but appears more suitable for parametric testing.
+
+### Crosstable
+
+```{r}
+crosstable(`Money Spent` ~ Gender, data = spending_modified) %>% 
+  crosstable::as_flextable()
+```
+
+The summary table shows the spending behaviour between males and females. The median spending for males was 250 rupees (IQR: 150 to 842 rupees), while for females, it was 280 rupees (IQR: 85 to 500 rupees). The mean spending for males was 748.6 rupees (standard deviation: 1636.5), and for females, it was 693.3 rupees (standard deviation: 2035.8). Both groups exhibited a wide range of spending, with males spending between 0 and 10,000 rupees and females spending between 0 and 13,000 rupees.
+
+### The t-test
+
+```{r}
+t <- t.test(
+  `Money Spent` ~ Gender, 
+  data = spending_modified, 
+  mu = 0, 
+  alternative = "two.sided", 
+  conf.int = TRUE, 
+  conf.level = 0.95
+) %>% 
+broom::tidy()
+
+t
+```
+
+The results of the Welch Two-Sample t-test comparing the average money spent by males and females show a t-value of 0.13555 and a p-value of 0.8925, which is much larger than the typical significance threshold of 0.05. This indicates that there is no statistically significant difference in the mean spending between the two groups. The 95% confidence interval for the difference in means ranges from -757.07 to 867.66, further suggesting that the difference could be zero. The mean spending for males was 748.61 rupees, while the mean for females was 693.32 rupees, but this difference is not statistically significant based on the t-test results.
+
+### Wilcoxon's Signed-Rank Test
+
+```{r}
+wilcox_test <- wilcox.test(
+  `Money Spent` ~ Gender, 
+  data = spending_modified, 
+  alternative = "two.sided", 
+  conf.int = TRUE, 
+  conf.level = 0.95
+) %>% 
+broom::tidy()
+
+wilcox_test
+```
+
+The Wilcoxon Signed-Rank Test results indicate that the p-value is 0.3806, which is greater than the common significance threshold of 0.05. This suggests that there is no statistically significant difference in the median spending between males and females. The test statistic is 935.5, with a 95% confidence interval for the difference in spending between groups ranging from -69.99 to 180. The estimate of the difference in ranks is 55.00, further indicating that the observed difference in spending behaviour is not large enough to be statistically significant. Therefore, based on this test, we cannot conclude that there is a significant difference in spending between males and females.
+
+### Using the Linear Model Method
+
+```{r}
+lm(rank(`Money Spent`) ~ Gender, data = spending_modified) %>%
+  broom::tidy(conf.int = TRUE, conf.level = 0.95)
+```
+
+The results from the rank-based linear model analysis on the spending data, with gender as a factor, show that the intercept is significant with a very low p-value (3.89e-08), suggesting that there is a significant baseline effect on the ranking of the spending amounts. However, the "Gender: Female" coefficient has a high p-value (0.3814), indicating that gender does not have a statistically significant impact on the spending behaviour when analyzed using this rank-based approach.
+
+### Permutation Test
+
+```{r}
+perm_test_result <- do(9999) * diffmean(
+  shuffle(`Money Spent`) ~ Gender, 
+  data = spending_modified
+)
+perm_test_result
+```
+
+After running the permutation test with 9,999 iterations to evaluate the difference in mean spending between genders, the resulting distribution of the difference in means ranged from large positive values to large negative values, with several differences hovering around smaller values. This wide spread of differences indicates that the gender-based reshuffling of the spending data produces a variety of outcomes.
+
+### Plotting the results of the Permutation Test
+
+```{r}
+gf_histogram(~ diffmean, data = perm_test_result, fill = "lightblue", binwidth = 5) %>%
+  gf_labs(
+    title = "Permutation Test for Difference in Spending",
+    subtitle = "Permutation Distribution of Mean Spending Differences",
+    x = "Difference in Mean Spending (Rupees)",
+    y = "Frequency"
+  )
+```
+
+The histogram displays the results of a permutation test for the difference in mean spending between genders. The distribution of differences in mean spending ranges from approximately -1000 to 1000 rupees, with the majority of the differences centered around zero. The peak frequency, around zero, suggests that under random shuffling, the difference in mean spending is often close to zero, indicating no substantial difference between genders. However, the spread in the distribution, with a long tail on both sides, shows that large differences can occur, though they are less frequent.
+
+### The observed difference in means
+
+```{r}
+observed_diff <- diffmean(`Money Spent` ~ Gender, data = spending_modified)
+observed_diff
+```
+
+The observed difference in mean spending between males and females is approximately -55.29 rupees, indicating that, on average, females spent slightly more than males. This negative value suggests a small difference in spending behaviour, but it is relatively modest.
+
+### Calculating the p-value
+
+```{r}
+p_value <- prop(~ (abs(diffmean) >= abs(observed_diff)), data = perm_test_result)
+p_value
+```
+
+The permutation test resulted in a p-value of 0.8632, indicating that there is an 86.3% probability that the observed difference in mean spending between males and females (approximately -55.29 rupees) could occur by random chance. Given this high p-value, we fail to reject the null hypothesis, which suggests that there is no statistically significant difference in spending behaviour between males and females in this dataset. In other words, the observed difference is not extreme enough to conclude that the two groups spend differently at a statistically significant level.
+
+### Summary of Results for the Spending Behaviour Research Experiment
+
+The research experiment aimed to determine if there was a significant difference in spending behaviour between male and female students at MAHE Bengaluru. The following statistical tests were conducted:
+
+**Shapiro-Wilk Test for Normality:**
+
+-   The Shapiro-Wilk test was used to assess whether the spending data follows a normal distribution. For both males and females, the test resulted in very small p-values (**1.136e-11** and **8.961e-13**, respectively), indicating that the spending data for both groups significantly deviates from a normal distribution. This result supports the decision to use non-parametric tests such as the Wilcoxon test.
+
+**Variance Test (F-Test):**
+
+-   An F-test was conducted to check for homogeneity of variances between the two groups. The test resulted in a p-value of **0.1717**, indicating no significant difference in variances between males and females. Thus, the assumption of equal variances holds in this case.
+
+**Two-Sample t-Test (Welch’s t-test)**:
+
+-   The two-sample t-test comparing the mean spending between males and females resulted in a **p-value of 0.8925**. This indicates no statistically significant difference in the average spending between the two groups, as the p-value is much higher than the typical threshold of 0.05.
+
+**Wilcoxon Signed-Rank Test**:
+
+-   The Wilcoxon test, a non-parametric alternative to the t-test, resulted in a **p-value of 0.3806**, which similarly suggests no significant difference between the two groups in terms of spending behaviour. This result supports the findings of the t-test.
+
+**Rank-Based Linear Model:**
+
+-   A rank-based regression was used to further explore the relationship between gender and spending. The results showed a non-significant p-value of 0.3814 for the "Gender: Female" coefficient, reinforcing the conclusion that gender does not significantly influence spending behaviour in this dataset.
+
+**Permutation Test**:
+
+-   The permutation test, designed to assess the likelihood of observing the difference in spending due to random chance, resulted in a **p-value of 0.8632**. This further confirms that the observed difference in mean spending of approximately -55.29 rupees (females spending slightly more than males on average) is likely due to random variation and not a true underlying difference in spending behaviour.
+
+### Conclusion:
+
+Based on the results of these tests, there is no evidence to suggest that males and females differ significantly in terms of spending behaviour in this dataset. The high p-values across all tests indicate that the observed differences in mean spending are likely due to chance, and we cannot conclude that gender has a significant impact on spending in this sample. Additionally, the Shapiro-Wilk test suggests that the data is not normally distributed, further justifying the use of non-parametric tests. The variance test confirms that equal variances are a reasonable assumption, and the rank-based regression analysis supports the overall conclusion. Therefore, the initial hypothesis that males might spend more than females (or vice versa) is not supported by the data.

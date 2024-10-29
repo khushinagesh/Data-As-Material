@@ -1,0 +1,2264 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.555">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Khushi">
+
+<title>Data-As-Material - Assignment 3 - Part 1</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Data-As-Material</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Assignment 3 - Part 1</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">Assignments</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Khushi </p>
+            </div>
+    </div>
+      
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>We are investigating spending behaviour between genders.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+✔ purrr     1.0.2     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mosaic)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Registered S3 method overwritten by 'mosaic':
+  method                           from   
+  fortify.SpatialPolygonsDataFrame ggplot2
+
+The 'mosaic' package masks several functions from core packages in order to add 
+additional features.  The original behavior of these functions should not be affected by this.
+
+Attaching package: 'mosaic'
+
+The following object is masked from 'package:Matrix':
+
+    mean
+
+The following objects are masked from 'package:dplyr':
+
+    count, do, tally
+
+The following object is masked from 'package:purrr':
+
+    cross
+
+The following object is masked from 'package:ggplot2':
+
+    stat
+
+The following objects are masked from 'package:stats':
+
+    binom.test, cor, cor.test, cov, fivenum, IQR, median, prop.test,
+    quantile, sd, t.test, var
+
+The following objects are masked from 'package:base':
+
+    max, mean, min, prod, range, sample, sum</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggformula)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(crosstable)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'crosstable'
+
+The following object is masked from 'package:purrr':
+
+    compact</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'skimr'
+
+The following object is masked from 'package:mosaic':
+
+    n_missing</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="research-experiment-to-investigate-spending-behaviour-between-genders" class="level3">
+<h3 class="anchored" data-anchor-id="research-experiment-to-investigate-spending-behaviour-between-genders"><strong>Research Experiment to Investigate Spending Behaviour Between Genders</strong></h3>
+<p><strong>Objective:</strong><br>
+The purpose of this research experiment is to investigate whether there is a significant difference in the amount of money spent between guys and girls among students at MAHE Bengaluru. The study aims to test the hypothesis that guys tend to spend more money than girls, by collecting and analyzing spending data during a specific period.</p>
+<p><strong>Hypothesis:</strong></p>
+<ul>
+<li>Guys spend more money on average compared to girls within a given timeframe.</li>
+</ul>
+<p><strong>Experiment Design:</strong><br>
+<strong>Data Collection:</strong></p>
+<ul>
+<li><p><em>Sample:</em> The dataset consists of spending data from 60 students at MAHE Bengaluru, with 30 guys and 30 girls. The participants were randomly selected through coin tosses and asked to record their spending on October 23rd, 2024.</p></li>
+<li><p><em>Data Sources:</em> The data was recorded in an Excel sheet by the people conducting the experiment. Each participant reported how much money they spent on the allocated date.</p></li>
+</ul>
+<p><strong>Variables Measured:</strong></p>
+<ul>
+<li><p><em>Target Variable:</em> Amount of money spent by each participant during the experiment period.</p></li>
+<li><p><em>Predictor Variable:</em> Gender (guys vs.&nbsp;girls)</p></li>
+</ul>
+<p><strong>Sampling:</strong></p>
+<ul>
+<li><p><em>Time Period:</em> The experiment was conducted on October 24th, 2024, over a period of 1.5 hours.</p></li>
+<li><p><em>Participant Selection Criteria:</em> 30 guys and 30 girls were randomly selected by tossing a coin.</p></li>
+</ul>
+<p><strong>Analysis Plan:</strong></p>
+<ul>
+<li><p><em>Data Cleaning and Transformation:</em> The data was checked for accuracy in the Excel sheet, ensuring that each participant’s spending was properly recorded and that there were no missing or erroneous entries.</p></li>
+<li><p><em>Exploratory Data Analysis (EDA):</em> Visualizations like histograms and box plots will be used to compare spending distributions between guys and girls, in order to identify any patterns or discrepancies.</p></li>
+</ul>
+<p><strong>Statistical Tests:</strong></p>
+<ul>
+<li><em>Two-Sample t-Test:</em> A two-independent sample test for means has to be conducted to compare the average amount spent by guys and girls. This helps in determining if there is a statistically significant difference in spending behaviour between the two groups.</li>
+</ul>
+<!-- -->
+<ul>
+<li><p><em>Permutation Test:</em> A permutation test has to be conducted to assess the likelihood of the observed difference in spending occurring by chance, providing a non-parametric alternative to the two-sample t-test.</p></li>
+<li><p><em>Descriptive Statistics:</em> Measures like mean, median, and standard deviation have to be calculated for both groups to summarize spending behaviour.</p></li>
+<li><p><em>Wilcoxon Rank-Sum Test:</em> This is a non-parametric test that has to be conducted to compare the spending behaviour between guys and girls.( if the normality assumption is not met )</p></li>
+</ul>
+<p><strong>Limitations:</strong></p>
+<ul>
+<li><p><em>Sample Size:</em> With 30 participants per gender, the results may not be generalizable to a larger population. A more extensive sample would have provided greater reliability.</p></li>
+<li><p><em>Contextual Factors:</em> The study did not account for reasons behind spending (e.g., necessities vs.&nbsp;discretionary purchases), which might have influenced spending patterns.</p></li>
+</ul>
+<p><strong>Outcome:</strong><br>
+The analysis will reveal whether a significant difference in spending exists between guys and girls at MAHE Bengaluru. If the hypothesis holds, it would suggest that guys, on average, spend more in a limited timeframe. These findings will provide insights into gender-specific spending behaviour within this student population.</p>
+</section>
+<section id="dataset---spending" class="level3">
+<h3 class="anchored" data-anchor-id="dataset---spending">Dataset - Spending</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>spending_23rd <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"../../data/Pocketmoney.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 82 Columns: 4
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (2): Name, Gender
+dbl (2): Sr no, Money Spent
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>spending_23rd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 82 × 4
+   `Sr no` Name     Gender `Money Spent`
+     &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt;          &lt;dbl&gt;
+ 1       1 Aagam    Male             150
+ 2       2 Aakash   Male             240
+ 3       3 Aarushi  Female           382
+ 4       4 Abheeta  Female            60
+ 5       5 Adithya  Male              68
+ 6       6 Aditya   Male             300
+ 7       7 Akanksha Female           270
+ 8       8 Amruta   Female           190
+ 9       9 Anaaya   Female           300
+10      10 Anish    Male               0
+# ℹ 72 more rows</code></pre>
+</div>
+</div>
+<p>The table provides information on the spending behaviour of individuals on October 23rd, categorized by gender. It highlights the amount spent by 82 participants, allowing for a comparison of spending patterns between guys and girls. The data provides insight into the variability in spending amounts, as well as individual outliers, offering a basis for further analysis of gender-based financial behaviour.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>spending_modified <span class="ot">&lt;-</span> spending_23rd <span class="sc">%&gt;%</span> </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>( <span class="at">Gender =</span> <span class="fu">as_factor</span>(Gender)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="glimpse---spending-behaviour" class="level3">
+<h3 class="anchored" data-anchor-id="glimpse---spending-behaviour">Glimpse - Spending Behaviour</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(spending_modified)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 82
+Columns: 4
+$ `Sr no`       &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 1…
+$ Name          &lt;chr&gt; "Aagam", "Aakash", "Aarushi", "Abheeta", "Adithya", "Adi…
+$ Gender        &lt;fct&gt; Male, Male, Female, Female, Male, Male, Female, Female, …
+$ `Money Spent` &lt;dbl&gt; 150, 240, 382, 60, 68, 300, 270, 190, 300, 0, 250, 85, 7…</code></pre>
+</div>
+</div>
+<p>The columns include a unique identifier for each participant (<strong>Sr no</strong>), their <strong>Name</strong>, <strong>Gender</strong> (male or female), and the <strong>Money Spent</strong>. The dataset contains numeric data for the money spent, with a wide range of amounts from 0 to significant expenditures, allowing for analysis of spending patterns between males and females.</p>
+</section>
+<section id="inspect---spending-behaviour" class="level3">
+<h3 class="anchored" data-anchor-id="inspect---spending-behaviour">Inspect - Spending Behaviour</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">inspect</span>(spending_modified)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+categorical variables:  
+    name     class levels  n missing
+1   Name character     82 82       0
+2 Gender    factor      2 82       0
+                                   distribution
+1 Aagam (1.2%), Aakash (1.2%) ...              
+2 Male (50%), Female (50%)                     
+
+quantitative variables:  
+         name   class min     Q1 median     Q3   max     mean         sd  n
+1       Sr no numeric   1  21.25   41.5  61.75    82  41.5000   23.81526 82
+2 Money Spent numeric   0 100.00  264.5 596.25 13000 720.9634 1835.72169 82
+  missing
+1       0
+2       0</code></pre>
+</div>
+</div>
+<p>The gender distribution is evenly split, with no missing data in the dataset. The summary statistics for the <strong>Money Spent</strong> variable show a wide range of spending, with a minimum value of 0 rupees and a maximum value of 13,000 rupees. The median spending is 264.5 rupees, while the mean spending is 720.9 rupees, indicating that a few individuals spent significantly more than others. The standard deviation of 1,835.3 rupees reflects a high level of variability in spending behavior. These results suggest that while most participants had moderate spending, a few high spenders significantly influenced the overall average.</p>
+</section>
+<section id="skim---spending-behaviour" class="level3">
+<h3 class="anchored" data-anchor-id="skim---spending-behaviour">Skim - Spending Behaviour</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">skim</span>(spending_modified)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Data summary</caption>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Name</td>
+<td style="text-align: left;">spending_modified</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Number of rows</td>
+<td style="text-align: left;">82</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Number of columns</td>
+<td style="text-align: left;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">_______________________</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Column type frequency:</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">character</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">factor</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">numeric</td>
+<td style="text-align: left;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">________________________</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Group variables</td>
+<td style="text-align: left;">None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: character</strong></p>
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 19%">
+<col style="width: 13%">
+<col style="width: 19%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 8%">
+<col style="width: 12%">
+<col style="width: 15%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">skim_variable</th>
+<th style="text-align: right;">n_missing</th>
+<th style="text-align: right;">complete_rate</th>
+<th style="text-align: right;">min</th>
+<th style="text-align: right;">max</th>
+<th style="text-align: right;">empty</th>
+<th style="text-align: right;">n_unique</th>
+<th style="text-align: right;">whitespace</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Name</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">82</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: factor</strong></p>
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 19%">
+<col style="width: 13%">
+<col style="width: 19%">
+<col style="width: 11%">
+<col style="width: 12%">
+<col style="width: 23%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">skim_variable</th>
+<th style="text-align: right;">n_missing</th>
+<th style="text-align: right;">complete_rate</th>
+<th style="text-align: left;">ordered</th>
+<th style="text-align: right;">n_unique</th>
+<th style="text-align: left;">top_counts</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Gender</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">Mal: 41, Fem: 41</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: numeric</strong></p>
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 15%">
+<col style="width: 11%">
+<col style="width: 15%">
+<col style="width: 7%">
+<col style="width: 9%">
+<col style="width: 3%">
+<col style="width: 7%">
+<col style="width: 6%">
+<col style="width: 7%">
+<col style="width: 6%">
+<col style="width: 6%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">skim_variable</th>
+<th style="text-align: right;">n_missing</th>
+<th style="text-align: right;">complete_rate</th>
+<th style="text-align: right;">mean</th>
+<th style="text-align: right;">sd</th>
+<th style="text-align: right;">p0</th>
+<th style="text-align: right;">p25</th>
+<th style="text-align: right;">p50</th>
+<th style="text-align: right;">p75</th>
+<th style="text-align: right;">p100</th>
+<th style="text-align: left;">hist</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Sr no</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">41.50</td>
+<td style="text-align: right;">23.82</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">21.25</td>
+<td style="text-align: right;">41.5</td>
+<td style="text-align: right;">61.75</td>
+<td style="text-align: right;">82</td>
+<td style="text-align: left;">▇▇▇▇▇</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Money Spent</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">720.96</td>
+<td style="text-align: right;">1835.72</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">100.00</td>
+<td style="text-align: right;">264.5</td>
+<td style="text-align: right;">596.25</td>
+<td style="text-align: right;">13000</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>The key variable of interest, <strong>Money Spent</strong>, shows a mean spending of 720.96 rupees, with a high variability indicated by a standard deviation of 1,835.7 rupees. The spending ranges from 0 to 13,000 rupees, with a median of 264.5 rupees. The distribution is heavily skewed, with most participants spending below the median, but a few high spenders significantly contributing to the total amount, leading to the large spread in spending behavior.</p>
+</section>
+<section id="data-dictionary" class="level3">
+<h3 class="anchored" data-anchor-id="data-dictionary">Data Dictionary</h3>
+<section id="quantitative-data" class="level4">
+<h4 class="anchored" data-anchor-id="quantitative-data">Quantitative Data:</h4>
+<ul>
+<li><strong>Money Spent (dbl)</strong>: The total amount of money spent by each participant on October 23rd, recorded in Indian rupees.</li>
+</ul>
+</section>
+<section id="qualitative-data" class="level4">
+<h4 class="anchored" data-anchor-id="qualitative-data">Qualitative Data:</h4>
+<ul>
+<li><p><strong>Sr no (fct)</strong>: A sequential number assigned to each participant for identification purposes (treated as a categorical factor).</p></li>
+<li><p><strong>Name (chr)</strong>: The name of the participant.</p></li>
+<li><p><strong>Gender (chr)</strong>: The gender of the participant, categorized as either Male or Female.</p></li>
+</ul>
+</section>
+</section>
+<section id="histogram---distribution-of-money-spent-by-gender" class="level3">
+<h3 class="anchored" data-anchor-id="histogram---distribution-of-money-spent-by-gender">Histogram - Distribution of Money Spent by Gender</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gf_histogram</span>(<span class="sc">~</span> <span class="st">`</span><span class="at">Money Spent</span><span class="st">`</span> <span class="sc">|</span> Gender, </span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> spending_modified, </span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">binwidth =</span> <span class="dv">200</span>, </span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">fill =</span> <span class="st">"skyblue"</span>, </span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Distribution of Money Spent by Gender"</span>,</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Money Spent (in rupees)"</span>,</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Count"</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The histograms comparing money spent by gender reveal that both males and females exhibit a similar spending pattern, with the majority of participants spending relatively small amounts, primarily below 1,000 rupees. There is a notable concentration of individuals in both groups who spent minimal amounts (0 to 500 rupees), with a few significant outliers who spent as much as 13,000 rupees. The distribution is right-skewed for both genders, indicating that while most participants spent modestly, a few individuals in each group spent considerably more. Overall, the spending behaviour shows similar trends between males and females, with only slight variations in the frequency of higher spending outliers.</p>
+</section>
+<section id="bar-chart---average-money-spent-by-gender" class="level3">
+<h3 class="anchored" data-anchor-id="bar-chart---average-money-spent-by-gender">Bar Chart - Average Money Spent by Gender</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gf_bar</span>(</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>(<span class="st">`</span><span class="at">Money Spent</span><span class="st">`</span>) <span class="sc">~</span> Gender,</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> spending_modified,</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">fill =</span> <span class="sc">~</span> Gender</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span> </span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Average Money Spent by Gender"</span>,</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Gender"</span>,</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Average Money Spent (in rupees)"</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>  ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Ignoring unknown aesthetics: .</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The bar chart compares the average money spent by gender, showing that both males and females have nearly identical average spending, with only a slight difference. The mean amount spent by males and females is approximately 721 rupees, indicating that, on average, there is minimal variation in spending behaviour between the two genders in this dataset. This suggests that gender does not significantly influence the average amount of money spent on October 23rd.</p>
+</section>
+<section id="boxplot---distribution-of-money-spent-by-gender" class="level3">
+<h3 class="anchored" data-anchor-id="boxplot---distribution-of-money-spent-by-gender">Boxplot - Distribution of Money Spent by Gender</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gf_boxplot</span>(<span class="st">`</span><span class="at">Money Spent</span><span class="st">`</span> <span class="sc">~</span> Gender, </span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>           <span class="at">data =</span> spending_modified, </span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">fill =</span> <span class="sc">~</span> Gender) <span class="sc">%&gt;%</span> </span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Distribution of Money Spent by Gender"</span>,</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Gender"</span>,</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Money Spent (in rupees)"</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>  ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The box plot comparing the distribution of money spent between males and females shows that both genders have a similar range of spending, with most participants spending relatively low amounts. The median spending is low for both genders, as indicated by the position of the boxes. However, there are a few notable outliers in both groups, with some individuals spending significantly higher amounts, particularly around 10,000 rupees for males. These outliers create a noticeable extension in the upper range of the male box plot. Overall, the distribution suggests that while typical spending is modest, a few individuals in both groups account for much higher spending.</p>
+</section>
+<section id="scatter-plot---individual-money-spent-by-gender" class="level3">
+<h3 class="anchored" data-anchor-id="scatter-plot---individual-money-spent-by-gender">Scatter Plot - Individual Money Spent by Gender</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gf_point</span>(<span class="st">`</span><span class="at">Money Spent</span><span class="st">`</span> <span class="sc">~</span> Gender, </span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">data =</span> spending_modified,</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">color =</span> <span class="sc">~</span> Gender) <span class="sc">%&gt;%</span> </span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Individual Money Spent by Gender"</span>,</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Gender"</span>,</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Money Spent (in rupees)"</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>  ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The scatter plot displays individual spending points for both males and females, highlighting the distribution of money spent on October 23rd. Most participants, regardless of gender, spent relatively small amounts, clustering around the lower end of the plot. However, there are noticeable outliers in both groups, with a few individuals spending significantly higher amounts—one female and one male spending close to 13,000 rupees. These outliers are clearly separated from the main group, indicating that while the general spending pattern is modest, a few individuals contribute to a much higher level of spending.</p>
+</section>
+<section id="density-plot-of-money-spent" class="level3">
+<h3 class="anchored" data-anchor-id="density-plot-of-money-spent">Density Plot of Money Spent</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>spending_modified <span class="sc">%&gt;%</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_density</span>(<span class="sc">~</span> <span class="st">`</span><span class="at">Money Spent</span><span class="st">`</span>, <span class="at">fill =</span> <span class="st">"gray"</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_fitdistr</span>(<span class="sc">~</span> <span class="st">`</span><span class="at">Money Spent</span><span class="st">`</span>, <span class="at">dist =</span> <span class="st">"dnorm"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Density Plot of Money Spent"</span>,</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Compared with Normal Distribution"</span>,</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Money Spent (in rupees)"</span>,</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Density"</span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The actual spending data is highly right-skewed, with a majority of participants spending small amounts, as indicated by the sharp peak near zero. The density drops off quickly, with a long tail extending toward higher spending amounts, reflecting a few individuals who spent significantly more. The fitted normal distribution deviates from the actual data, confirming that the spending data does not follow a normal distribution, particularly due to the extreme outliers and the overall skewness. This suggests that parametric tests assuming normality may not be appropriate without data transformation. ( If the data is not normally distributed, the results could be unreliable.)</p>
+</section>
+<section id="log-transformed-distribution-of-money-spent" class="level3">
+<h3 class="anchored" data-anchor-id="log-transformed-distribution-of-money-spent">Log-Transformed Distribution of Money Spent</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>spending_modified <span class="ot">&lt;-</span> spending_modified <span class="sc">%&gt;%</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">log_money_spent =</span> <span class="fu">log</span>(<span class="st">`</span><span class="at">Money Spent</span><span class="st">`</span> <span class="sc">+</span> <span class="dv">1</span>))</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="fu">gf_density</span>(<span class="sc">~</span> log_money_spent, <span class="at">data =</span> spending_modified) <span class="sc">%&gt;%</span> </span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Log-Transformed Distribution of Money Spent"</span>,</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Log of Money Spent"</span>,</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Density"</span></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The density plot of the log-transformed spending data shows a more symmetric distribution compared to the original skewed data. After applying the log transformation, the previously right-skewed data is now centered with a peak around a log value of 4 to 5, suggesting a more normalized spread of spending behavior. While the log transformation has reduced the extreme effects of outliers and compressed the range of higher values, the data still exhibits some variation but appears more suitable for parametric testing.</p>
+</section>
+<section id="the-t-test" class="level3">
+<h3 class="anchored" data-anchor-id="the-t-test">The t-test</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>t <span class="ot">&lt;-</span> <span class="fu">t.test</span>(</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Money Spent</span><span class="st">`</span> <span class="sc">~</span> Gender, </span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> spending_modified, </span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">mu =</span> <span class="dv">0</span>, </span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">alternative =</span> <span class="st">"two.sided"</span>, </span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">conf.int =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">conf.level =</span> <span class="fl">0.95</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span> </span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>broom<span class="sc">::</span><span class="fu">tidy</span>()</span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>t</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 10
+  estimate estimate1 estimate2 statistic p.value parameter conf.low conf.high
+     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+1     55.3      749.      693.     0.136   0.893      76.5    -757.      868.
+# ℹ 2 more variables: method &lt;chr&gt;, alternative &lt;chr&gt;</code></pre>
+</div>
+</div>
+<p>The results of the Welch Two-Sample t-test comparing the average money spent by males and females show a <strong>t-value of 0.13555</strong> and a <strong>p-value of 0.8925</strong>, which is much larger than the typical significance threshold of 0.05. This indicates that there is <strong>no statistically significant difference</strong> in the mean spending between the two groups. The 95% confidence interval for the difference in means ranges from <strong>-757.07 to 867.66</strong>, further suggesting that the difference could be zero. The mean spending for males was <strong>748.61 rupees</strong>, while the mean for females was <strong>693.32 rupees</strong>, but this difference is not statistically significant based on the t-test results.</p>
+</section>
+<section id="wilcoxons-signed-rank-test" class="level3">
+<h3 class="anchored" data-anchor-id="wilcoxons-signed-rank-test">Wilcoxon’s Signed-Rank Test</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>wilcox_test <span class="ot">&lt;-</span> <span class="fu">wilcox.test</span>(</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Money Spent</span><span class="st">`</span> <span class="sc">~</span> Gender, </span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> spending_modified, </span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">alternative =</span> <span class="st">"two.sided"</span>, </span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">conf.int =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">conf.level =</span> <span class="fl">0.95</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span> </span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>broom<span class="sc">::</span><span class="fu">tidy</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in wilcox.test.default(x = DATA[[1L]], y = DATA[[2L]], ...): cannot
+compute exact p-value with ties</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in wilcox.test.default(x = DATA[[1L]], y = DATA[[2L]], ...): cannot
+compute exact confidence intervals with ties</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>wilcox_test</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 7
+  estimate statistic p.value conf.low conf.high method               alternative
+     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;                &lt;chr&gt;      
+1     55.0      936.   0.381    -70.0      180. Wilcoxon rank sum t… two.sided  </code></pre>
+</div>
+</div>
+<p>The Wilcoxon Signed-Rank Test results indicate that the <strong>p-value is 0.3806</strong>, which is greater than the common significance threshold of 0.05. This suggests that there is <strong>no statistically significant difference</strong> in the median spending between males and females. The test statistic is <strong>935.5</strong>, with a 95% confidence interval for the difference in spending between groups ranging from <strong>-69.99 to 180</strong>. The estimate of the difference in ranks is <strong>55.00</strong>, further indicating that the observed difference in spending behavior is not large enough to be statistically significant. Therefore, based on this test, we cannot conclude that there is a significant difference in spending between males and females.</p>
+</section>
+<section id="permutation-test" class="level3">
+<h3 class="anchored" data-anchor-id="permutation-test">Permutation Test</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>perm_test_result <span class="ot">&lt;-</span> <span class="fu">do</span>(<span class="dv">1000</span>) <span class="sc">*</span> <span class="fu">diffmean</span>(</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">shuffle</span>(<span class="st">`</span><span class="at">Money Spent</span><span class="st">`</span>) <span class="sc">~</span> Gender, </span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> spending_modified</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>perm_test_result</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         diffmean
+1    -311.3414634
+2     633.2439024
+3     671.0487805
+4      84.4146341
+5    -686.6097561
+6     145.0000000
+7    -195.9268293
+8     577.1463415
+9    -125.8292683
+10    373.0487805
+11    -56.5121951
+12   -510.1219512
+13    618.6097561
+14     98.7073171
+15    145.9756098
+16    135.8780488
+17   -660.0243902
+18   -303.5853659
+19   -821.2439024
+20    167.5853659
+21     75.1463415
+22    421.6341463
+23   -614.1219512
+24    -21.8780488
+25   -330.7073171
+26   -588.4634146
+27    745.4878049
+28   -103.0487805
+29   -114.8536585
+30     72.3658537
+31    -37.4390244
+32   -174.4146341
+33   -198.3170732
+34    637.7317073
+35     27.8292683
+36    -73.9268293
+37    128.3170732
+38    449.6341463
+39    702.2682927
+40   -470.0731707
+41   -140.4634146
+42    134.8048780
+43    466.1219512
+44   -151.0000000
+45    561.7804878
+46   -661.3414634
+47   -434.8048780
+48    170.3658537
+49   -485.0975610
+50    546.6097561
+51   -420.2195122
+52   -703.7317073
+53    526.2682927
+54    -88.3170732
+55    540.6585366
+56   -354.6585366
+57     68.2682927
+58   -168.2682927
+59   -205.4390244
+60    522.1707317
+61    547.4390244
+62    131.0975610
+63   -527.9268293
+64    346.4634146
+65    572.2195122
+66    107.7804878
+67   -419.0487805
+68    330.0731707
+69    -21.7317073
+70    348.4146341
+71    629.0975610
+72    -93.3414634
+73    601.2926829
+74    284.1707317
+75   -434.0731707
+76     -8.3170732
+77    208.1707317
+78   -122.1219512
+79   -540.5609756
+80   -718.2195122
+81   -252.4634146
+82   -541.9268293
+83   -354.6097561
+84    287.5365854
+85   -713.3902439
+86    462.3658537
+87    156.0243902
+88    434.3658537
+89     77.4878049
+90    608.7560976
+91   -128.8048780
+92    -42.3658537
+93    -37.8292683
+94   -781.8780488
+95    475.3414634
+96   -752.4634146
+97   -358.9024390
+98   -470.1707317
+99    -30.9024390
+100  -570.4146341
+101   567.4878049
+102    14.9512195
+103   721.8292683
+104   -46.8048780
+105   482.5609756
+106  -642.6585366
+107  -269.1951220
+108   487.0975610
+109   517.7317073
+110  -634.3658537
+111   266.5121951
+112   295.4390244
+113  -740.2682927
+114  -385.1951220
+115    80.5121951
+116  -669.7317073
+117   345.4878049
+118    75.6341463
+119    49.0487805
+120   343.7804878
+121    54.8048780
+122   435.5853659
+123  -653.9756098
+124  -683.7804878
+125   257.5365854
+126   645.5365854
+127  -444.2682927
+128  -749.9268293
+129   821.1951220
+130    56.5121951
+131   472.0243902
+132  -254.4634146
+133     8.2682927
+134  -761.2439024
+135  -602.1707317
+136  -174.0243902
+137  -229.3414634
+138  -593.9268293
+139   210.3658537
+140  -592.8048780
+141  -372.8048780
+142   751.7317073
+143   -34.5609756
+144   703.2926829
+145   722.7560976
+146  -378.0243902
+147  -122.3170732
+148    58.6097561
+149   -42.4146341
+150   716.2195122
+151    47.1463415
+152  -553.6341463
+153   596.4634146
+154   669.0000000
+155  -721.2926829
+156  -187.8292683
+157    39.9268293
+158   -55.7317073
+159  -341.1463415
+160   -85.0000000
+161   144.4146341
+162   395.2926829
+163   664.6097561
+164  -581.5853659
+165    27.2439024
+166   362.0731707
+167    21.1951220
+168  -314.6585366
+169    10.6097561
+170  -777.6341463
+171   217.1951220
+172   106.0731707
+173  -206.4634146
+174   288.8536585
+175  -213.0487805
+176   -24.6097561
+177   -40.0243902
+178  -263.5365854
+179   754.1219512
+180    34.3170732
+181   267.9756098
+182   124.0731707
+183   425.5853659
+184   580.4634146
+185   495.0000000
+186   518.5121951
+187   100.7073171
+188   461.4878049
+189   -15.6341463
+190   616.1219512
+191   767.3414634
+192   193.2926829
+193  -107.0000000
+194    74.9024390
+195   548.4146341
+196   344.3170732
+197   584.0731707
+198  -540.8536585
+199  -630.3170732
+200  -162.0731707
+201  -595.0487805
+202  -493.2439024
+203  -333.0487805
+204  -681.2926829
+205   456.2195122
+206  -145.7317073
+207   -88.1219512
+208   707.5853659
+209  -298.0243902
+210  -732.3658537
+211  -523.9756098
+212  -712.9024390
+213   -24.4634146
+214  -270.4146341
+215  -101.7804878
+216   368.7560976
+217  -190.5121951
+218  -177.7804878
+219    71.2439024
+220  -638.2195122
+221  -114.3170732
+222  -588.7073171
+223   716.6097561
+224   503.1951220
+225  -123.4390244
+226  -610.4634146
+227   190.5609756
+228   122.7560976
+229    27.5853659
+230   448.1219512
+231  -381.6341463
+232   114.1219512
+233  -634.7560976
+234   101.4878049
+235    82.0243902
+236   487.9756098
+237   191.1463415
+238  -709.0487805
+239  -100.9024390
+240   495.5853659
+241  -526.1219512
+242    15.0487805
+243   149.1463415
+244  -635.4878049
+245  -595.0000000
+246   170.7073171
+247  -720.5609756
+248  -110.1219512
+249   713.3414634
+250   251.5365854
+251   598.6097561
+252   -20.1707317
+253  -339.0487805
+254   -50.8048780
+255  -651.2439024
+256  -186.6585366
+257  -477.2439024
+258  -157.9756098
+259   486.7073171
+260   -93.2439024
+261    24.5609756
+262  -191.0487805
+263  -198.2195122
+264   276.2195122
+265  -254.2682927
+266   159.8780488
+267   309.2439024
+268   219.0000000
+269   294.8536585
+270   387.7317073
+271  -617.9756098
+272  -180.0731707
+273   496.4634146
+274  -182.7560976
+275   410.1707317
+276   179.8292683
+277   559.5853659
+278   606.7560976
+279   -26.1707317
+280  -485.8292683
+281     0.7073171
+282  -817.7317073
+283  -375.7804878
+284  -189.4878049
+285    77.6341463
+286    79.6341463
+287    83.8780488
+288   495.0487805
+289     9.1951220
+290   186.4634146
+291    32.1219512
+292   484.1707317
+293   165.2439024
+294  -563.2926829
+295  -301.1951220
+296   705.1951220
+297   -70.8536585
+298  -520.1219512
+299  -680.9512195
+300    97.7804878
+301  -466.6097561
+302  -194.9024390
+303   -62.1219512
+304   312.7073171
+305  -352.7560976
+306  -250.7560976
+307  -641.0975610
+308   176.0243902
+309  -101.0487805
+310  -166.4146341
+311   362.5121951
+312  -450.3170732
+313   172.6585366
+314  -465.8780488
+315  -464.0243902
+316   525.4878049
+317   666.5121951
+318   543.6829268
+319   588.5121951
+320  -107.3414634
+321    41.6341463
+322   277.6829268
+323    81.0487805
+324  -334.3658537
+325   -95.0000000
+326   -90.3658537
+327    52.4634146
+328   762.4146341
+329  -118.6097561
+330  -495.5853659
+331  -452.2195122
+332  -107.3414634
+333  -173.2439024
+334    83.4878049
+335   386.9512195
+336  -359.4390244
+337   297.4390244
+338   673.0000000
+339  -290.3170732
+340   631.1463415
+341  -137.5365854
+342   365.4390244
+343   184.0243902
+344  -194.7073171
+345  -155.3902439
+346   604.2682927
+347   526.5121951
+348   486.0243902
+349  -207.6341463
+350   713.6341463
+351  -489.9268293
+352  -177.9268293
+353   341.9756098
+354   -39.8780488
+355   153.5853659
+356   239.9756098
+357   649.6829268
+358   -73.7804878
+359  -104.4146341
+360    67.6341463
+361    39.0487805
+362    18.3170732
+363   -58.0243902
+364  -471.2439024
+365   297.0487805
+366    71.7804878
+367    -9.4390244
+368  -492.7073171
+369  -144.1707317
+370   726.9024390
+371   128.8048780
+372   509.7804878
+373  -250.6585366
+374   -78.0731707
+375  -176.4146341
+376  -301.4878049
+377  -526.8048780
+378   301.0487805
+379    20.5121951
+380   406.6097561
+381  -277.3414634
+382    99.3414634
+383  -251.4878049
+384    -7.8780488
+385   297.5365854
+386   -48.0731707
+387  -533.7317073
+388   555.2439024
+389  -106.0731707
+390   461.2439024
+391    55.4390244
+392   144.2195122
+393  -498.5609756
+394   828.7073171
+395  -117.9268293
+396    58.5121951
+397   -36.3658537
+398   755.1951220
+399  -134.5609756
+400   158.5609756
+401    -4.0731707
+402   117.7804878
+403  -114.5121951
+404  -589.4878049
+405    90.0731707
+406  -837.1951220
+407   444.7560976
+408   362.2682927
+409   152.1219512
+410  -591.1463415
+411   318.7073171
+412  -544.0731707
+413  -371.4390244
+414    26.2682927
+415   306.2682927
+416   -87.8292683
+417  -466.8536585
+418   769.0487805
+419   -84.7073171
+420    24.4634146
+421   688.5609756
+422  -174.0243902
+423    73.6829268
+424  -105.6829268
+425  -369.5365854
+426    72.1707317
+427   235.9268293
+428   622.9024390
+429   -41.6829268
+430   553.0975610
+431  -485.0000000
+432   -35.2926829
+433   -35.4878049
+434   -88.3170732
+435  -534.1707317
+436  -224.8048780
+437   509.8292683
+438  -698.3658537
+439  -716.4146341
+440   203.3902439
+441   287.6341463
+442  -630.1707317
+443   139.8780488
+444    76.4146341
+445  -358.5121951
+446   407.4390244
+447  -670.0243902
+448    81.2439024
+449  -147.8780488
+450  -168.5121951
+451  -608.7073171
+452    96.8536585
+453   659.0975610
+454  -595.3902439
+455   313.2439024
+456   144.4634146
+457  -677.2439024
+458   454.6097561
+459   502.0731707
+460  -342.0243902
+461   546.6585366
+462   -32.9024390
+463  -557.6341463
+464   -70.4146341
+465  -269.0000000
+466   761.0975610
+467  -723.8292683
+468   510.5121951
+469   231.0975610
+470   391.3902439
+471   226.1707317
+472   149.6341463
+473  -525.6341463
+474  -605.5853659
+475   679.8780488
+476   375.5365854
+477   699.5365854
+478   212.6585366
+479  -431.9756098
+480  -700.7073171
+481   -93.6341463
+482  -431.5365854
+483   -48.2195122
+484   111.3902439
+485  -681.4878049
+486  -134.4146341
+487   514.0243902
+488  -390.9024390
+489   661.7804878
+490   174.7560976
+491   -49.0975610
+492   -10.4146341
+493  -318.8048780
+494    -6.9024390
+495   112.3658537
+496   651.6341463
+497   635.7804878
+498  -186.0731707
+499   351.2439024
+500  -613.7804878
+501  -586.8536585
+502  -314.7560976
+503  -179.0975610
+504   610.3170732
+505    49.0487805
+506    94.8048780
+507   104.2195122
+508    89.4878049
+509   249.6829268
+510  -575.1951220
+511   280.4146341
+512   364.3170732
+513   118.5121951
+514  -596.1707317
+515  -681.0975610
+516  -167.1951220
+517  -788.7560976
+518   486.4146341
+519  -188.4146341
+520  -220.6585366
+521   348.4634146
+522    49.9756098
+523    -0.5121951
+524  -153.8780488
+525    76.7073171
+526  -169.4390244
+527  -234.6097561
+528   113.3902439
+529  -384.6097561
+530   236.9024390
+531   696.3170732
+532   137.0975610
+533    21.1463415
+534   445.6829268
+535   235.0487805
+536   632.2682927
+537   490.1707317
+538   541.2926829
+539   248.3658537
+540  -587.1951220
+541  -542.9512195
+542   338.8536585
+543  -161.8780488
+544  -125.8292683
+545  -487.7804878
+546   858.1707317
+547   413.5365854
+548    46.9512195
+549  -495.1463415
+550  -461.7804878
+551    93.0975610
+552   102.4634146
+553   751.1951220
+554    79.0975610
+555  -491.1463415
+556   -23.6829268
+557   122.7560976
+558   686.6585366
+559   -44.0731707
+560   201.2439024
+561    59.8780488
+562  -600.1707317
+563   128.6097561
+564   789.4390244
+565    34.9024390
+566   -20.4146341
+567   356.9024390
+568  -510.0243902
+569  -173.9268293
+570   463.5365854
+571  -738.6585366
+572   621.2926829
+573   -27.7317073
+574   199.1951220
+575    33.0487805
+576   611.0000000
+577  -138.0731707
+578  -157.0487805
+579   273.5853659
+580   267.2926829
+581  -414.4634146
+582   139.5365854
+583    58.3170732
+584   426.5121951
+585    95.4390244
+586   169.4390244
+587   367.5853659
+588   -11.2926829
+589   -45.1463415
+590  -400.8536585
+591  -559.3414634
+592   442.5609756
+593  -721.7317073
+594   672.5121951
+595    22.8048780
+596   168.4146341
+597   102.2682927
+598  -587.8292683
+599  -683.5365854
+600    39.8780488
+601   430.1707317
+602   712.5121951
+603   549.7317073
+604   454.1219512
+605   161.9756098
+606  -470.5609756
+607  -178.2195122
+608   691.1463415
+609  -524.9024390
+610   821.7317073
+611   -48.5609756
+612   -52.7560976
+613   596.9512195
+614    75.6829268
+615   714.8536585
+616  -119.7317073
+617   -70.0731707
+618   279.6341463
+619  -107.1463415
+620  -193.5853659
+621    98.1707317
+622   267.0000000
+623  -108.8048780
+624   -82.7073171
+625  -678.1707317
+626   729.0975610
+627   163.8292683
+628   334.6097561
+629   345.8780488
+630   230.8048780
+631   109.9268293
+632  -153.3414634
+633   109.8780488
+634   247.3414634
+635   516.2682927
+636   436.2195122
+637    24.9024390
+638  -649.8780488
+639   316.4634146
+640   -55.2439024
+641   138.9024390
+642  -149.9756098
+643    30.0731707
+644  -220.5121951
+645   762.9512195
+646   605.3414634
+647   156.3658537
+648  -720.4634146
+649   -10.9512195
+650   726.5121951
+651  -179.0487805
+652  -498.3658537
+653  -565.8780488
+654  -291.8292683
+655   728.5609756
+656   -61.4390244
+657  -226.3658537
+658  -487.3414634
+659   341.1951220
+660  -245.7804878
+661  -644.1219512
+662   230.7560976
+663   -90.5609756
+664   585.6829268
+665  -271.8780488
+666  -779.4390244
+667  -281.3902439
+668    73.1951220
+669   -35.4390244
+670   463.7317073
+671   468.6097561
+672  -161.9268293
+673  -559.4878049
+674  -183.3414634
+675  -248.2195122
+676   682.3170732
+677  -385.6829268
+678   -13.9756098
+679   737.2439024
+680   201.6341463
+681   437.3414634
+682  -683.3902439
+683  -313.7804878
+684  -232.7073171
+685    -3.3902439
+686   -25.9268293
+687   -42.6585366
+688   414.6585366
+689   107.5853659
+690  -444.4634146
+691   239.5365854
+692  -684.1707317
+693  -267.5365854
+694   505.6341463
+695   660.5121951
+696  -135.0000000
+697   656.2195122
+698    76.6097561
+699   558.0243902
+700  -809.1463415
+701   -64.7073171
+702   271.7804878
+703  -129.2926829
+704  -505.6829268
+705  -275.1463415
+706   -45.8292683
+707  -651.8780488
+708   186.5609756
+709   596.3170732
+710   -78.5609756
+711     1.0975610
+712   690.0243902
+713   647.6341463
+714    88.5121951
+715  -684.1219512
+716  -449.1463415
+717   -37.9756098
+718  -460.7073171
+719   423.9268293
+720   -98.9512195
+721   111.8780488
+722   453.5853659
+723   343.7317073
+724  -186.8536585
+725    71.2926829
+726   547.6829268
+727  -135.1463415
+728   397.4878049
+729   555.2926829
+730   554.7073171
+731   -80.6585366
+732   702.5609756
+733  -575.7317073
+734   -97.1951220
+735   -33.1951220
+736   561.1463415
+737  -569.4390244
+738   473.1951220
+739   -85.4878049
+740   338.2195122
+741   707.5365854
+742    81.1463415
+743   514.0243902
+744  -343.6341463
+745   616.8048780
+746   431.8780488
+747  -175.9756098
+748  -242.3658537
+749  -154.8048780
+750  -587.5853659
+751  -218.5609756
+752  -219.7804878
+753    16.3170732
+754   599.4878049
+755   250.8048780
+756  -172.4634146
+757   -69.8780488
+758   -94.3170732
+759  -348.9024390
+760   266.9024390
+761   100.8048780
+762   664.6097561
+763   121.6341463
+764  -593.9268293
+765  -168.1219512
+766   -22.8536585
+767  -158.4146341
+768  -527.0975610
+769   481.0487805
+770   556.2682927
+771   103.1951220
+772     2.5121951
+773    80.7073171
+774    61.1951220
+775   -52.5121951
+776  -287.5853659
+777    86.0243902
+778  -122.3170732
+779  -359.5853659
+780   846.1707317
+781   493.6341463
+782   304.0731707
+783   274.4634146
+784  -125.8780488
+785    55.9268293
+786   568.6097561
+787   -83.0487805
+788  -148.3658537
+789  -279.5365854
+790  -466.2682927
+791    49.4878049
+792   504.5609756
+793    30.0243902
+794   355.6341463
+795  -399.5853659
+796   230.1219512
+797  -105.3414634
+798   -77.2439024
+799   542.0243902
+800  -456.3658537
+801   449.8780488
+802   116.7073171
+803   -44.4634146
+804  -483.8292683
+805   608.9512195
+806  -430.0731707
+807  -744.5121951
+808   593.5365854
+809    35.9268293
+810   361.1951220
+811  -693.2926829
+812   151.9268293
+813  -586.5121951
+814  -582.7560976
+815   581.7317073
+816   214.4634146
+817   -70.4146341
+818   247.1463415
+819  -293.2439024
+820  -727.1463415
+821    80.8536585
+822  -239.3902439
+823   -47.5365854
+824   -78.1219512
+825  -163.5853659
+826   712.9512195
+827   451.2926829
+828   712.4634146
+829    91.0000000
+830  -267.8292683
+831   311.4878049
+832   -74.1219512
+833  -706.5121951
+834    92.7560976
+835  -719.0975610
+836   107.7317073
+837   595.3902439
+838   328.3658537
+839   129.3414634
+840    48.3658537
+841   485.1951220
+842     4.2682927
+843    14.9512195
+844  -502.5121951
+845  -310.0243902
+846   403.0000000
+847  -166.9024390
+848  -257.9268293
+849    47.4878049
+850  -674.0243902
+851   186.1219512
+852    51.4390244
+853   543.1951220
+854  -253.7804878
+855   299.8292683
+856  -325.6341463
+857   -69.8292683
+858   449.4878049
+859   816.4634146
+860   283.3902439
+861  -548.5121951
+862   133.3414634
+863  -727.6829268
+864   467.4390244
+865   388.7073171
+866   439.5853659
+867  -134.9024390
+868  -624.5609756
+869   569.3902439
+870   353.0487805
+871  -530.0731707
+872   483.7317073
+873  -441.4390244
+874  -289.0487805
+875   162.8048780
+876  -209.5853659
+877  -562.1707317
+878    79.1463415
+879   357.9756098
+880  -483.9268293
+881   154.8048780
+882  -214.4146341
+883   448.9024390
+884   104.0731707
+885   -93.4878049
+886   701.2926829
+887    -1.0487805
+888  -496.7073171
+889  -692.7560976
+890   128.9024390
+891   676.2682927
+892  -251.0975610
+893   707.3414634
+894   567.3414634
+895    35.5853659
+896   295.5365854
+897   638.0731707
+898   782.0731707
+899   -88.5121951
+900  -403.3414634
+901   463.0487805
+902  -366.3658537
+903  -681.7317073
+904  -558.3658537
+905   235.6341463
+906  -226.2195122
+907  -460.0243902
+908   418.8536585
+909   -30.6585366
+910  -508.7073171
+911    55.6341463
+912    38.8048780
+913   180.6097561
+914  -206.2682927
+915   167.4878049
+916   667.3902439
+917   149.6829268
+918  -567.6341463
+919   -73.8292683
+920  -625.8292683
+921    55.3414634
+922   484.9512195
+923  -452.4634146
+924  -271.4878049
+925  -469.1951220
+926   633.5853659
+927   -77.0000000
+928   -71.5853659
+929  -112.5121951
+930   377.5853659
+931  -272.9024390
+932  -338.6097561
+933   714.5609756
+934   394.4146341
+935   157.0487805
+936  -264.6585366
+937  -762.9512195
+938    95.1951220
+939   569.4878049
+940   563.5365854
+941   779.6341463
+942   524.4634146
+943  -581.1951220
+944   587.5853659
+945   152.9024390
+946  -757.8780488
+947    44.3658537
+948  -102.8536585
+949   -80.4146341
+950  -108.8048780
+951  -606.2195122
+952  -777.4878049
+953   674.4146341
+954   428.4634146
+955   578.9512195
+956   487.5365854
+957   132.3170732
+958  -203.3414634
+959    83.0000000
+960    84.4146341
+961  -529.6341463
+962   -71.1463415
+963   139.9756098
+964  -501.1951220
+965   551.0487805
+966   505.4390244
+967   144.6097561
+968  -124.6097561
+969  -643.4390244
+970  -683.2926829
+971   -46.5121951
+972  -265.6341463
+973  -592.1707317
+974   204.0731707
+975   -49.9756098
+976    68.3170732
+977  -135.6341463
+978  -249.6341463
+979    31.8292683
+980   449.5853659
+981   447.2439024
+982   103.9756098
+983   468.1219512
+984   664.6585366
+985   676.5121951
+986   710.3170732
+987   -78.1707317
+988  -430.8048780
+989   551.5365854
+990    79.1951220
+991    14.4634146
+992     9.4878049
+993   569.5853659
+994   151.7317073
+995     2.3658537
+996  -529.4878049
+997   397.8780488
+998   -80.9512195
+999   103.2926829
+1000  -53.4878049</code></pre>
+</div>
+</div>
+<p>The results of the permutation test display 1,000 shuffled differences in mean spending between males and females. These differences have both positive and negative values. The negative values indicate cases where, after shuffling, the group representing females had higher average spending, while the positive values indicate that the male group had higher average spending in the shuffled data.</p>
+</section>
+<section id="plotting-the-results-of-the-permutation-test" class="level3">
+<h3 class="anchored" data-anchor-id="plotting-the-results-of-the-permutation-test">Plotting the results of the Permutation Test</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gf_histogram</span>(<span class="sc">~</span> diffmean, <span class="at">data =</span> perm_test_result, <span class="at">fill =</span> <span class="st">"lightblue"</span>, <span class="at">binwidth =</span> <span class="dv">5</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Permutation Test for Difference in Spending"</span>,</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Permutation Distribution of Mean Spending Differences"</span>,</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Difference in Mean Spending (Rupees)"</span>,</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Frequency"</span></span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The plot of the permutation test results shows the distribution of 1,000 differences in mean spending between males and females after randomly shuffling group labels. The differences range from approximately <strong>-350</strong> to <strong>+800</strong> rupees, with the most frequent differences clustering around zero. This suggests that, under random shuffling, the difference in mean spending is often small and distributed symmetrically around zero, indicating no strong directional bias between the two groups.</p>
+</section>
+<section id="the-observed-difference-in-means" class="level3">
+<h3 class="anchored" data-anchor-id="the-observed-difference-in-means">The observed difference in means</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>observed_diff <span class="ot">&lt;-</span> <span class="fu">diffmean</span>(<span class="st">`</span><span class="at">Money Spent</span><span class="st">`</span> <span class="sc">~</span> Gender, <span class="at">data =</span> spending_modified)</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>observed_diff</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> diffmean 
+-55.29268 </code></pre>
+</div>
+</div>
+<p>The observed difference in mean spending between males and females is approximately <strong>-55.29 rupees</strong>, indicating that, on average, females spent slightly more than males. This negative value suggests a small difference in spending behaviour, but it is relatively modest.</p>
+</section>
+<section id="calculating-the-p-value" class="level3">
+<h3 class="anchored" data-anchor-id="calculating-the-p-value">Calculating the p-value</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>p_value <span class="ot">&lt;-</span> <span class="fu">prop</span>(<span class="sc">~</span> (<span class="fu">abs</span>(diffmean) <span class="sc">&gt;=</span> <span class="fu">abs</span>(observed_diff)), <span class="at">data =</span> perm_test_result)</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>p_value</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>prop_TRUE 
+    0.889 </code></pre>
+</div>
+</div>
+<p>The permutation test resulted in a <strong>p-value of 0.871</strong>, indicating that there is an 87.1% probability that the observed difference in mean spending between males and females (approximately -55.29 rupees) could occur by random chance. Given this high p-value, we fail to reject the null hypothesis, which suggests that there is no statistically significant difference in spending behaviour between males and females in this dataset. In other words, the observed difference is not extreme enough to conclude that the two groups spend differently at a statistically significant level.</p>
+</section>
+<section id="summary-of-results-for-the-spending-behaviour-research-experiment" class="level3">
+<h3 class="anchored" data-anchor-id="summary-of-results-for-the-spending-behaviour-research-experiment">Summary of Results for the Spending Behaviour Research Experiment</h3>
+<p>The research experiment aimed to determine if there was a significant difference in spending behavior between male and female students at MAHE Bengaluru. The following statistical tests were conducted:</p>
+<ol type="1">
+<li><p><strong>Two-Sample t-Test (Welch’s t-test)</strong>:</p>
+<ul>
+<li>The two-sample t-test comparing the mean spending between males and females resulted in a <strong>p-value of 0.8925</strong>. This indicates no statistically significant difference in the average spending between the two groups, as the p-value is much higher than the typical threshold of 0.05.</li>
+</ul></li>
+<li><p><strong>Wilcoxon Signed-Rank Test</strong>:</p>
+<ul>
+<li>The Wilcoxon test, a non-parametric alternative to the t-test, resulted in a <strong>p-value of 0.3806</strong>, which similarly suggests no significant difference between the two groups in terms of spending behavior. This result supports the findings of the t-test.</li>
+</ul></li>
+<li><p><strong>Permutation Test</strong>:</p>
+<ul>
+<li>The permutation test, designed to assess the likelihood of observing the difference in spending due to random chance, resulted in a <strong>p-value of 0.871</strong>. This further confirms that the observed difference in mean spending of approximately -55.29 rupees (females spending slightly more than males on average) is likely due to random variation and not a true underlying difference in spending behaviour.</li>
+</ul></li>
+</ol>
+</section>
+<section id="conclusion" class="level3">
+<h3 class="anchored" data-anchor-id="conclusion">Conclusion:</h3>
+<p>Based on the results of these tests, there is no evidence to suggest that males and females differ significantly in terms of spending behaviour in this dataset. The high p-values across all tests indicate that the observed differences in mean spending are likely due to chance, and we cannot conclude that gender has a significant impact on spending in this sample. Therefore, the initial hypothesis that males might spend more than females (or vice versa) is not supported by the data.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

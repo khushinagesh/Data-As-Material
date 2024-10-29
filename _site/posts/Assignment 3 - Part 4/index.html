@@ -1,0 +1,1704 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.555">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Khushi">
+
+<title>Data-As-Material - Assignment 3 - Part 4</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<link href="../../site_libs/tabwid-1.1.3/tabwid.css" rel="stylesheet">
+
+<script src="../../site_libs/tabwid-1.1.3/tabwid.js"></script>
+
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Data-As-Material</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Assignment 3 - Part 4</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">Assignments</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Khushi </p>
+            </div>
+    </div>
+      
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>We are investigating whether there is a significant difference in the ratings given to three popular shows: <em>Doraemon</em>, <em>Dragon Tales</em>, and <em>Chhota Bheem</em>, and if gender influences these preferences.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+✔ purrr     1.0.2     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggformula)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: scales
+
+Attaching package: 'scales'
+
+The following object is masked from 'package:purrr':
+
+    discard
+
+The following object is masked from 'package:readr':
+
+    col_factor
+
+Loading required package: ggridges
+
+New to ggformula?  Try the tutorials: 
+    learnr::run_tutorial("introduction", package = "ggformula")
+    learnr::run_tutorial("refining", package = "ggformula")</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mosaic)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Registered S3 method overwritten by 'mosaic':
+  method                           from   
+  fortify.SpatialPolygonsDataFrame ggplot2
+
+The 'mosaic' package masks several functions from core packages in order to add 
+additional features.  The original behavior of these functions should not be affected by this.
+
+Attaching package: 'mosaic'
+
+The following object is masked from 'package:Matrix':
+
+    mean
+
+The following object is masked from 'package:scales':
+
+    rescale
+
+The following objects are masked from 'package:dplyr':
+
+    count, do, tally
+
+The following object is masked from 'package:purrr':
+
+    cross
+
+The following object is masked from 'package:ggplot2':
+
+    stat
+
+The following objects are masked from 'package:stats':
+
+    binom.test, cor, cor.test, cov, fivenum, IQR, median, prop.test,
+    quantile, sd, t.test, var
+
+The following objects are masked from 'package:base':
+
+    max, mean, min, prod, range, sample, sum</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(infer)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'infer'
+
+The following objects are masked from 'package:mosaic':
+
+    prop_test, t_test</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggprism)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(supernova)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'supernova'
+
+The following object is masked from 'package:scales':
+
+    number</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'skimr'
+
+The following object is masked from 'package:mosaic':
+
+    n_missing</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(crosstable)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'crosstable'
+
+The following object is masked from 'package:purrr':
+
+    compact</code></pre>
+</div>
+</div>
+<section id="research-experiment-to-investigate-the-differences-in-popularity-of-doraemon-dragon-tales-and-chhota-bheem-among-students" class="level3">
+<h3 class="anchored" data-anchor-id="research-experiment-to-investigate-the-differences-in-popularity-of-doraemon-dragon-tales-and-chhota-bheem-among-students"><strong>Research Experiment to Investigate the Differences in Popularity of Doraemon, Dragon Tales, and Chhota Bheem Among Students</strong></h3>
+<p><strong>Objective:</strong> The purpose of this research experiment is to investigate whether there is a significant difference in the ratings given to three popular shows: <em>Doraemon</em>, <em>Dragon Tales</em>, and <em>Chhota Bheem</em>, and to examine if gender influences these preferences. By collecting and analyzing rating data from students, we aim to explore if there are differences in popularity across shows, and whether male and female students rate these shows differently.</p>
+<p><strong>Hypotheses:</strong></p>
+<ul>
+<li><p><em>Primary Hypothesis:</em> There is a significant difference in the ratings given to <em>Doraemon</em>, <em>Dragon Tales</em>, and <em>Chhota Bheem</em>.</p></li>
+<li><p><em>Additional Hypotheses:</em></p>
+<ul>
+<li><p><em>Doraemon</em> tends to receive higher ratings on average compared to <em>Dragon Tales</em> and <em>Chhota Bheem</em>, indicating a stronger preference for this show.</p></li>
+<li><p>There is a significant interaction between gender and show preferences, suggesting that male and female students may rate these shows differently.</p></li>
+</ul></li>
+</ul>
+<p><strong>Experiment Design:</strong></p>
+<p><strong>Data Collection:</strong></p>
+<ul>
+<li><p><em>Sample:</em> The dataset consists of ratings from 90 students at MAHE Bengaluru, with 30 participants rating each show, totaling 90 responses. Each participant rated only one assigned show, ensuring 30 ratings per show with an equal distribution of male and female participants.</p></li>
+<li><p><em>Data Sources:</em> Participants were randomly selected by tossing a coin, and the ratings were recorded in an Excel sheet by the experiment conductors. Each participant rated the show they were assigned on a scale from 1 to 10, with 10 being the highest score.</p></li>
+</ul>
+<p><strong>Variables Measured:</strong></p>
+<ul>
+<li><p><em>Target Variable:</em> The rating given by each participant to the assigned show.</p></li>
+<li><p><em>Predictor Variables:</em> Show (<em>Doraemon</em>, <em>Dragon Tales</em>, <em>Chhota Bheem</em>) and Gender (Male, Female).</p></li>
+</ul>
+<p><strong>Sampling:</strong></p>
+<ul>
+<li><p><em>Time Period:</em> The experiment was conducted over a period of 1.5 hours on October 24th, 2024.</p></li>
+<li><p><em>Participant Selection Criteria:</em> 90 participants were randomly assigned to rate one of the three shows, with balanced representation by gender (15 males and 15 females per show).</p></li>
+</ul>
+<p><strong>Analysis Plan:</strong></p>
+<ul>
+<li><p><em>Data Cleaning and Transformation:</em>The data was checked for accuracy in the Excel sheet to ensure that each participant’s rating, show assignment, and gender were properly recorded, with no missing or erroneous entries.</p></li>
+<li><p><em>Exploratory Data Analysis (EDA):</em>Visualizations such as histograms, box plots, and scatter plots will be used to compare rating distributions across the three shows and examine any differences by gender. This will help identify patterns or preferences among the participants.</p></li>
+</ul>
+<p><strong>Statistical Tests:</strong></p>
+<ul>
+<li><p><em>Shapiro-Wilk Test for Normality:</em>The Shapiro-Wilk test will be used to check if the rating data follows a normal distribution for each show. If the data significantly deviates from normality (p-value &lt; 0.05), it suggests the use of non-parametric tests.</p></li>
+<li><p><em>Variance Test (F-Test):</em>A variance test will be conducted to determine if the variances in ratings are equal between the shows. This test will check the assumption of homogeneity of variances, which is required for the two-sample t-test and ANOVA. If the p-value is small (p-value &lt; 0.05), it indicates unequal variances.</p></li>
+<li><p><em>One-Way ANOVA:</em> A one-way ANOVA will be conducted to compare the average ratings across the three shows. This will help determine if there is a statistically significant difference in ratings between the shows.</p></li>
+<li><p><em>Two-Way ANOVA:</em>A two-way ANOVA will be conducted to examine the effects of both show and gender on the average ratings. This will help determine if there are main effects of show or gender, and if there is an interaction effect between the two factors.</p></li>
+<li><p><em>Pairwise Comparisons:</em>If the two-way ANOVA is significant, post-hoc pairwise comparisons using Bonferroni correction will be conducted to identify specific differences in ratings between pairs of shows for each gender.</p></li>
+<li><p><em>Wilcoxon Rank-Sum Test:</em>If the normality assumption is not met, a Wilcoxon rank-sum test will be conducted to compare the ratings between shows and between genders. This will assess whether male and female students rate one show higher or lower compared to the others.</p></li>
+<li><p><em>Kruskal-Wallis Test (Non-Parametric Alternative to ANOVA):</em> If assumptions for ANOVA are violated, this test can assess differences in ratings across the three shows.</p></li>
+<li><p><em>Tukey Test:</em>If ANOVA results are significant, a Tukey Honest Significant Difference (HSD) test will be used to further explore the pairwise differences in the mean ratings between the shows for each gender. This test will provide specific pairwise comparisons to determine which shows differ significantly.</p></li>
+<li><p><em>Permutation Test:</em>A permutation test will be conducted to assess the likelihood of the observed differences in ratings across the three shows occurring by chance, providing a non-parametric alternative to the one-way ANOVA.</p></li>
+<li><p><em>Descriptive Statistics:</em>Descriptive measures such as mean, median, and standard deviation will be calculated for each show and gender group to summarize rating performance. These statistics will help provide a clear overview of the central tendencies and variability within each group.</p></li>
+</ul>
+<p><strong>Limitations:</strong></p>
+<ul>
+<li><p><em>Sample Size:</em> With 30 participants rating each show and equal representation of male and female students, the results may not be generalizable to the entire student population or other demographic groups. A more extensive sample would provide greater reliability and external validity.</p></li>
+<li><p><em>Contextual Factors:</em> The study did not account for other factors that might influence ratings, such as participants’ prior exposure to the shows or personal preferences in show genres, which could have an effect on the ratings.</p></li>
+</ul>
+<p><strong>Outcome:</strong></p>
+<p>The analysis will reveal whether significant differences in show ratings exist among students at MAHE Bengaluru, and whether these differences are influenced by gender. If the hypotheses hold, it would suggest that one show (e.g., <em>Doraemon</em>) tends to be more popular among students, with potential gender-based differences in preferences. These findings will provide insights into the viewing preferences of the target audience within this academic context.</p>
+</section>
+<section id="dataset---tv-shows" class="level3">
+<h3 class="anchored" data-anchor-id="dataset---tv-shows">Dataset - TV Shows</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>shows <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"../../data/tvshows.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 90 Columns: 4
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (3): Participant ID, Gender, Cartoon
+dbl (1): Rating
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>shows</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 90 × 4
+   `Participant ID` Gender Cartoon      Rating
+   &lt;chr&gt;            &lt;chr&gt;  &lt;chr&gt;         &lt;dbl&gt;
+ 1 P1               Male   Chhota Bheem    8.5
+ 2 P2               Male   Chhota Bheem    6  
+ 3 P3               Male   Chhota Bheem    8  
+ 4 P4               Male   Chhota Bheem    7  
+ 5 P5               Male   Chhota Bheem    8  
+ 6 P6               Male   Chhota Bheem   10  
+ 7 P7               Male   Chhota Bheem    5  
+ 8 P8               Male   Chhota Bheem    7.8
+ 9 P9               Male   Chhota Bheem    8.5
+10 P10              Male   Chhota Bheem    5  
+# ℹ 80 more rows</code></pre>
+</div>
+</div>
+<p>The dataset consists of ratings given by 90 participants, each providing a rating for one of three cartoons: <em>Chhota Bheem</em>, <em>Doraemon</em>, and <em>Dragon Tales</em>. The dataset includes four columns: “Participant ID,” “Gender,” “Cartoon,” and “Rating.” Each participant rated one cartoon on a scale from 1 to 10, with 10 being the highest. The dataset appears balanced in terms of gender distribution, with both male and female participants represented.</p>
+</section>
+<section id="tv-shows-modified" class="level3">
+<h3 class="anchored" data-anchor-id="tv-shows-modified">TV Shows modified</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>shows_modified <span class="ot">&lt;-</span> shows <span class="sc">%&gt;%</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">Cartoon =</span> <span class="fu">as.factor</span>(Cartoon),</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">Gender =</span> <span class="fu">as.factor</span>(Gender)</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>shows_modified</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 90 × 4
+   `Participant ID` Gender Cartoon      Rating
+   &lt;chr&gt;            &lt;fct&gt;  &lt;fct&gt;         &lt;dbl&gt;
+ 1 P1               Male   Chhota Bheem    8.5
+ 2 P2               Male   Chhota Bheem    6  
+ 3 P3               Male   Chhota Bheem    8  
+ 4 P4               Male   Chhota Bheem    7  
+ 5 P5               Male   Chhota Bheem    8  
+ 6 P6               Male   Chhota Bheem   10  
+ 7 P7               Male   Chhota Bheem    5  
+ 8 P8               Male   Chhota Bheem    7.8
+ 9 P9               Male   Chhota Bheem    8.5
+10 P10              Male   Chhota Bheem    5  
+# ℹ 80 more rows</code></pre>
+</div>
+</div>
+<p>The Gender and Cartoon columns have been converted to factors.</p>
+</section>
+<section id="glimpse---tv-shows" class="level3">
+<h3 class="anchored" data-anchor-id="glimpse---tv-shows">Glimpse - TV Shows</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(shows_modified)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 90
+Columns: 4
+$ `Participant ID` &lt;chr&gt; "P1", "P2", "P3", "P4", "P5", "P6", "P7", "P8", "P9",…
+$ Gender           &lt;fct&gt; Male, Male, Male, Male, Male, Male, Male, Male, Male,…
+$ Cartoon          &lt;fct&gt; Chhota Bheem, Chhota Bheem, Chhota Bheem, Chhota Bhee…
+$ Rating           &lt;dbl&gt; 8.5, 6.0, 8.0, 7.0, 8.0, 10.0, 5.0, 7.8, 8.5, 5.0, 7.…</code></pre>
+</div>
+</div>
+<p>This overview provides a quick look at the structure and type of each column in the dataset, confirming the categorical and continuous data types suitable for further analysis.</p>
+</section>
+<section id="inspect---tv-shows" class="level3">
+<h3 class="anchored" data-anchor-id="inspect---tv-shows">Inspect - TV Shows</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">inspect</span>(shows_modified)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+categorical variables:  
+            name     class levels  n missing
+1 Participant ID character     90 90       0
+2         Gender    factor      2 90       0
+3        Cartoon    factor      3 90       0
+                                   distribution
+1 P1 (1.1%), P10 (1.1%), P11 (1.1%) ...        
+2 Female (50%), Male (50%)                     
+3 Chhota Bheem (33.3%), Doraemon (33.3%) ...   
+
+quantitative variables:  
+    name   class min Q1 median Q3 max     mean       sd  n missing
+1 Rating numeric   1  6      7  8  10 7.062222 1.939627 90       0</code></pre>
+</div>
+</div>
+<p>The dataset has four columns: Participant ID, Gender, Cartoon, and Rating. Both Gender (Male, Female) and Cartoon (three shows) are categorical factors. The Rating column is numerical, with values ranging from 1 to 10. Summary statistics for ratings show a mean of approximately 7.06 and a standard deviation of around 1.94, with quartiles at 6 (Q1), 7 (median), and 8 (Q3). There are no missing values in the dataset.</p>
+</section>
+<section id="skim---tv-shows" class="level3">
+<h3 class="anchored" data-anchor-id="skim---tv-shows">Skim - TV Shows</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">skim</span>(shows_modified)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Data summary</caption>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Name</td>
+<td style="text-align: left;">shows_modified</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Number of rows</td>
+<td style="text-align: left;">90</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Number of columns</td>
+<td style="text-align: left;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">_______________________</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Column type frequency:</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">character</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">factor</td>
+<td style="text-align: left;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">numeric</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">________________________</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Group variables</td>
+<td style="text-align: left;">None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: character</strong></p>
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 13%">
+<col style="width: 19%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 8%">
+<col style="width: 12%">
+<col style="width: 15%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">skim_variable</th>
+<th style="text-align: right;">n_missing</th>
+<th style="text-align: right;">complete_rate</th>
+<th style="text-align: right;">min</th>
+<th style="text-align: right;">max</th>
+<th style="text-align: right;">empty</th>
+<th style="text-align: right;">n_unique</th>
+<th style="text-align: right;">whitespace</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Participant ID</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">90</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: factor</strong></p>
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 12%">
+<col style="width: 17%">
+<col style="width: 9%">
+<col style="width: 11%">
+<col style="width: 32%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">skim_variable</th>
+<th style="text-align: right;">n_missing</th>
+<th style="text-align: right;">complete_rate</th>
+<th style="text-align: left;">ordered</th>
+<th style="text-align: right;">n_unique</th>
+<th style="text-align: left;">top_counts</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Gender</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">Fem: 45, Mal: 45</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Cartoon</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">Chh: 30, Dor: 30, Dra: 30</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: numeric</strong></p>
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 18%">
+<col style="width: 13%">
+<col style="width: 18%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 4%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 6%">
+<col style="width: 8%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">skim_variable</th>
+<th style="text-align: right;">n_missing</th>
+<th style="text-align: right;">complete_rate</th>
+<th style="text-align: right;">mean</th>
+<th style="text-align: right;">sd</th>
+<th style="text-align: right;">p0</th>
+<th style="text-align: right;">p25</th>
+<th style="text-align: right;">p50</th>
+<th style="text-align: right;">p75</th>
+<th style="text-align: right;">p100</th>
+<th style="text-align: left;">hist</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Rating</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">7.06</td>
+<td style="text-align: right;">1.94</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">▁▁▆▇▅</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Each participant is identified by a unique Participant ID (character variable) and is categorized by Gender (factor with 2 levels: Male and Female) and Cartoon (factor with 3 levels representing the three shows). The Rating variable, a numeric value, represents the score given to each show on a scale of 1 to 10.</p>
+<p>The summary statistics for Rating show a mean score of approximately 7.06, with a standard deviation of 1.94, indicating moderate variability in ratings across participants. The rating scores range from a minimum of 1 to a maximum of 10, with quartiles (25th, 50th, and 75th percentiles) at 6, 7, and 8, respectively, reflecting a slightly right-skewed distribution. There are no missing values, and each participant rated only one show, ensuring balanced data across gender and show categories.</p>
+</section>
+<section id="data-dictionary" class="level3">
+<h3 class="anchored" data-anchor-id="data-dictionary"><strong>Data Dictionary</strong></h3>
+<p><strong>Quantitative Data:</strong></p>
+<ul>
+<li><strong>Rating (dbl):</strong> The rating given by each participant for the TV show they viewed, represented as a numeric value ranging from 1 to 10, with 10 being the highest rating.</li>
+</ul>
+<p><strong>Qualitative Data:</strong></p>
+<ul>
+<li><p><strong>Participant ID (chr):</strong> The unique identifier assigned to each participant in the dataset.</p></li>
+<li><p><strong>Gender (fct):</strong> The gender of the participant, categorized as either Male or Female.</p></li>
+<li><p><strong>Cartoon (fct):</strong> The TV show that each participant rated, categorized as <em>Chhota Bheem</em>, <em>Doraemon</em>, or <em>Dragon Tales</em>.</p></li>
+</ul>
+</section>
+<section id="group-summaries" class="level3">
+<h3 class="anchored" data-anchor-id="group-summaries">Group Summaries</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>  shows_summary <span class="ot">&lt;-</span> shows_modified <span class="sc">%&gt;%</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(Cartoon, Gender) <span class="sc">%&gt;%</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">mean_rating =</span> <span class="fu">mean</span>(Rating, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">sd_rating =</span> <span class="fu">sd</span>(Rating, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">count =</span> <span class="fu">n</span>()</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'Cartoon'. You can override using the
+`.groups` argument.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>shows_summary</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 5
+# Groups:   Cartoon [3]
+  Cartoon      Gender mean_rating sd_rating count
+  &lt;fct&gt;        &lt;fct&gt;        &lt;dbl&gt;     &lt;dbl&gt; &lt;int&gt;
+1 Chhota Bheem Female        6.35      1.51    15
+2 Chhota Bheem Male          6.99      1.44    15
+3 Doraemon     Female        7.27      1.79    15
+4 Doraemon     Male          7.23      2.77    15
+5 Dragon Tales Female        7.9       1.26    15
+6 Dragon Tales Male          6.63      2.35    15</code></pre>
+</div>
+</div>
+<p>The group summaries for the TV shows dataset provide insights into the average ratings given to each show by gender, along with the standard deviation, which indicates the variability of these ratings. For “Chhota Bheem,” females rated it with a mean of 6.35 and a standard deviation of 1.51, while males rated it slightly higher, with a mean of 6.99 and a standard deviation of 1.44. “Doraemon” received a similar pattern, with females giving it a mean rating of 7.27 (SD = 1.79) and males giving a mean rating of 7.23 (SD = 2.77), showing higher variability among male ratings. “Dragon Tales” saw the highest female rating average of 7.9 with the lowest variability (SD = 1.26), whereas males rated it lower on average at 6.63, with a standard deviation of 2.35. Each group contains 15 participants, ensuring balanced representation across genders for each show. This summary highlights gender-specific tendencies in show ratings, with notable differences particularly for “Dragon Tales.”</p>
+</section>
+<section id="histogram---frequency-distribution-of-ratings-by-tv-show" class="level3">
+<h3 class="anchored" data-anchor-id="histogram---frequency-distribution-of-ratings-by-tv-show">Histogram - Frequency Distribution of Ratings by TV Show</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gf_histogram</span>(</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span> Rating <span class="sc">|</span> Cartoon, </span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> shows_modified, </span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">binwidth =</span> <span class="dv">1</span>, </span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">fill =</span> <span class="sc">~</span> Cartoon, </span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">color =</span> <span class="st">"black"</span>, </span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">alpha =</span> <span class="fl">0.7</span></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(</span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Frequency Distribution of Ratings by TV Show"</span>,</span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Rating"</span>,</span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Frequency"</span></span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The histogram displays the frequency distribution of ratings for each of the three TV shows. For <em>Chhota Bheem</em>, ratings are mostly concentrated between 5 and 8, indicating a relatively positive response, with the majority of ratings around 7. <em>Doraemon</em> has a broader distribution, with ratings spread across a wider range, but with a noticeable cluster around 7 as well. <em>Dragon Tales</em> also shows a similar pattern to <em>Chhota Bheem</em>, with ratings largely grouped around the higher end of the scale (7-10). Each show demonstrates a distinct rating pattern, reflecting the variation in audience reception across the different cartoons.</p>
+</section>
+<section id="histogram---rating-distribution-by-gender-and-tv-show" class="level3">
+<h3 class="anchored" data-anchor-id="histogram---rating-distribution-by-gender-and-tv-show">Histogram - Rating Distribution by Gender and TV Show</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gf_histogram</span>(</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span> Rating,</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> shows_modified,</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">binwidth =</span> <span class="dv">1</span>,</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">fill =</span> <span class="sc">~</span> Cartoon,</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">color =</span> <span class="st">"black"</span>,</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">alpha =</span> <span class="fl">0.7</span></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_facet_wrap</span>(<span class="sc">~</span> Cartoon <span class="sc">+</span> Gender, <span class="at">nrow =</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(</span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Rating Distribution by Gender and TV Show"</span>,</span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Rating"</span>,</span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Frequency"</span></span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The histogram displays the distribution of ratings for each TV show divided by gender (male and female). Each facet represents a unique combination of show and gender, showing the frequency of ratings across a scale from 2.5 to 10. The plot reveals certain patterns, such as a concentration of higher ratings for Dragon Tales among females and a more spread-out distribution of ratings for Doraemon, especially among males. Chhota Bheem has similar rating distributions for both genders, though slight differences can be observed.</p>
+</section>
+<section id="box-plot---distribution-of-ratings-for-each-tv-show" class="level3">
+<h3 class="anchored" data-anchor-id="box-plot---distribution-of-ratings-for-each-tv-show">Box Plot - Distribution of Ratings for Each TV Show</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gf_boxplot</span>(</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  Rating <span class="sc">~</span> Cartoon,</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> shows_modified,</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="sc">~</span> Cartoon,</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">color =</span> <span class="st">"black"</span>,</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">outlier.color =</span> <span class="st">"red"</span>,</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">outlier.shape =</span> <span class="dv">16</span>,</span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">outlier.size =</span> <span class="dv">2</span>,</span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">alpha =</span> <span class="fl">0.7</span></span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(</span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Distribution of Ratings for Each TV Show"</span>,</span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"TV Show"</span>,</span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Rating"</span></span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>In this plot, <em>Doraemon</em> shows an outlier below its lower whisker, suggesting a notably low rating for that show by one participant. <em>Chhota Bheem</em> and <em>Dragon Tales</em> display a wider spread of ratings, with the medians differing slightly between shows.</p>
+</section>
+<section id="boxplot---distribution-of-ratings-for-each-tv-show-by-gender" class="level3">
+<h3 class="anchored" data-anchor-id="boxplot---distribution-of-ratings-for-each-tv-show-by-gender">Boxplot - Distribution of Ratings for Each TV Show by Gender</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gf_boxplot</span>(</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  Rating <span class="sc">~</span> Cartoon <span class="sc">|</span> Gender,</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> shows_modified,</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">fill =</span> <span class="sc">~</span> Cartoon,</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">color =</span> <span class="st">"black"</span>,</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">outlier.color =</span> <span class="st">"red"</span>,</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">outlier.shape =</span> <span class="dv">16</span>,</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">outlier.size =</span> <span class="dv">2</span>,</span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">alpha =</span> <span class="fl">0.7</span></span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(</span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Distribution of Ratings for Each TV Show by Gender"</span>,</span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"TV Show"</span>,</span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Rating"</span></span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The box plot displays the distribution of ratings for each TV show, separated by gender. For each show (Chhota Bheem, Doraemon, and Dragon Tales), the ratings are visualized for both female and male participants, allowing a direct comparison of medians, interquartile ranges, and the spread of data points. Outliers are represented as individual points below the lower whiskers. The plot reveals that the median rating for Chhota Bheem is slightly higher among males than females, while for Dragon Tales, females appear to give slightly higher ratings than males. Doraemon shows a relatively consistent distribution across genders, though with some outliers among male ratings.</p>
+</section>
+<section id="errorbar-plot---mean-ratings-of-tv-shows-with-95-confidence-interval-error-bars" class="level3">
+<h3 class="anchored" data-anchor-id="errorbar-plot---mean-ratings-of-tv-shows-with-95-confidence-interval-error-bars">Errorbar Plot - Mean Ratings of TV Shows with 95% Confidence Interval Error Bars</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>shows_summary <span class="ot">&lt;-</span> shows_modified <span class="sc">%&gt;%</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Cartoon) <span class="sc">%&gt;%</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_rating =</span> <span class="fu">mean</span>(Rating, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">sd_rating =</span> <span class="fu">sd</span>(Rating, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>(),</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">se =</span> sd_rating <span class="sc">/</span> <span class="fu">sqrt</span>(n),       </span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">ci_95 =</span> <span class="fl">1.96</span> <span class="sc">*</span> se                  </span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a><span class="fu">gf_point</span>(</span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>  mean_rating <span class="sc">~</span> Cartoon,               </span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> shows_summary,                </span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">size =</span> <span class="dv">4</span>,                           </span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">color =</span> <span class="sc">~</span> Cartoon                    </span>
+<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_errorbar</span>(</span>
+<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">ymin =</span> <span class="sc">~</span> mean_rating <span class="sc">-</span> ci_95,     </span>
+<span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">ymax =</span> <span class="sc">~</span> mean_rating <span class="sc">+</span> ci_95,      </span>
+<span id="cb34-19"><a href="#cb34-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">width =</span> <span class="fl">0.2</span>                        </span>
+<span id="cb34-20"><a href="#cb34-20" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb34-21"><a href="#cb34-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_hline</span>(</span>
+<span id="cb34-22"><a href="#cb34-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">yintercept =</span> <span class="fl">7.062</span>,                    </span>
+<span id="cb34-23"><a href="#cb34-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"red"</span>,                    </span>
+<span id="cb34-24"><a href="#cb34-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">linewidth =</span> <span class="fl">1.5</span>                    </span>
+<span id="cb34-25"><a href="#cb34-25" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb34-26"><a href="#cb34-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(</span>
+<span id="cb34-27"><a href="#cb34-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Mean Ratings of TV Shows with 95% Confidence Interval Error Bars"</span>,</span>
+<span id="cb34-28"><a href="#cb34-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Mean ratings with 95% CI"</span>,</span>
+<span id="cb34-29"><a href="#cb34-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"TV Show"</span>,</span>
+<span id="cb34-30"><a href="#cb34-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Mean Rating"</span></span>
+<span id="cb34-31"><a href="#cb34-31" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The bar plot with error bars displays the mean ratings of three TV shows, each represented by a point with accompanying error bars indicating the 95% confidence intervals. The horizontal red line serves as a reference, placed at a mean rating of 7,062, allowing for easy comparison of each show’s rating relative to this average. <em>Doraemon</em> exhibits the widest confidence interval, reflecting greater variability in ratings, while <em>Chhota Bheem</em> shows a narrower interval, suggesting more consistency in its ratings. <em>Dragon Tales</em> lies closest to the reference mean.</p>
+</section>
+<section id="interaction-plot-of-tv-show-and-gender-on-ratings" class="level3">
+<h3 class="anchored" data-anchor-id="interaction-plot-of-tv-show-and-gender-on-ratings">Interaction Plot of TV Show and Gender on Ratings</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>shows_summary_gender <span class="ot">&lt;-</span> shows_modified <span class="sc">%&gt;%</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Cartoon, Gender) <span class="sc">%&gt;%</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_rating =</span> <span class="fu">mean</span>(Rating, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'Cartoon'. You can override using the
+`.groups` argument.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gf_line</span>(</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  mean_rating <span class="sc">~</span> Cartoon,</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">color =</span> <span class="sc">~</span> Gender,</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> shows_summary_gender</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_point</span>(</span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>    mean_rating <span class="sc">~</span> Cartoon,</span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="sc">~</span> Gender,</span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">shape =</span> <span class="sc">~</span> Gender,</span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">4</span></span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(</span>
+<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Interaction Plot of TV Show and Gender on Ratings"</span>,</span>
+<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"TV Show"</span>,</span>
+<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Mean Rating"</span></span>
+<span id="cb37-16"><a href="#cb37-16" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_line()`: Each group consists of only one observation.
+ℹ Do you need to adjust the group aesthetic?</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The interaction plot displays the mean ratings for each TV show, separated by gender, allowing us to observe any interaction effects between TV show and gender on ratings. In this plot, “Chhota Bheem,” “Doraemon,” and “Dragon Tales” are plotted along the x-axis, while the mean rating is represented on the y-axis. Different shapes and colors denote male and female participants, respectively, highlighting their individual ratings for each show. This visualization makes it clear if there are any gender-specific trends or if both genders rate the shows similarly. For example, in this plot, we can see that females tend to rate “Dragon Tales” higher on average compared to males, while males seem to rate “Chhota Bheem” lower than females.</p>
+</section>
+<section id="density-plot-of-ratings-by-tv-show-with-normal-fit" class="level3">
+<h3 class="anchored" data-anchor-id="density-plot-of-ratings-by-tv-show-with-normal-fit">Density Plot of Ratings by TV Show with Normal Fit</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gf_density</span>(<span class="sc">~</span> Rating <span class="sc">|</span> Cartoon, <span class="at">data =</span> shows_modified, <span class="at">fill =</span> <span class="sc">~</span> Cartoon, <span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_fitdistr</span>(<span class="sc">~</span> Rating <span class="sc">|</span> Cartoon, <span class="at">data =</span> shows_modified, <span class="at">ddist =</span> <span class="st">"normal"</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Density Plot of Ratings by TV Show with Normal Fit"</span>,</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Rating"</span>,</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Density"</span></span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The density plot visualizes the distribution of ratings for each TV show with an overlaid normal distribution (dashed line) for comparison. The plot reveals that ratings for <em>Chhota Bheem</em> are skewed left, centered around a lower rating range, indicating that the ratings are generally lower for this show. <em>Doraemon</em> shows a more uniform distribution, although slightly right-skewed, suggesting a tendency towards higher ratings. <em>Dragon Tales</em> has a distinct peak in the middle-to-upper range of ratings, also slightly right-skewed, indicating that it generally received higher ratings. The normal distribution overlay highlights deviations from normality, with all shows showing some skewness, particularly <em>Chhota Bheem</em> and <em>Dragon Tales</em>, suggesting that these distributions are not entirely normal.</p>
+</section>
+<section id="crosstable" class="level3">
+<h3 class="anchored" data-anchor-id="crosstable">Crosstable</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">crosstable</span>(</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  shows_modified, </span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(Cartoon, Gender), </span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">showNA =</span> <span class="st">"ifany"</span></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>  crosstable<span class="sc">::</span><span class="fu">as_flextable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="tabwid"><style>.cl-c8538fe2{table-layout:auto;}.cl-c8495b44{font-family:'Arial';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-c8495b58{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-c84cc162{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-c84cc16c{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-c84cdbf2{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c84cdbfc{background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c84cdc06{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c84cdc07{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c84cdc10{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c84cdc1a{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-c8538fe2"><thead><tr style="overflow-wrap:break-word;"><th class="cl-c84cdbf2"><p class="cl-c84cc162"><span class="cl-c8495b44">label</span></p></th><th class="cl-c84cdbf2"><p class="cl-c84cc162"><span class="cl-c8495b44">variable</span></p></th><th class="cl-c84cdbf2"><p class="cl-c84cc162"><span class="cl-c8495b44">value</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td rowspan="3" class="cl-c84cdbfc"><p class="cl-c84cc16c"><span class="cl-c8495b58">Cartoon</span></p></td><td class="cl-c84cdc06"><p class="cl-c84cc16c"><span class="cl-c8495b58">Chhota Bheem</span></p></td><td class="cl-c84cdc06"><p class="cl-c84cc16c"><span class="cl-c8495b58">30 (33.33%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-c84cdc06"><p class="cl-c84cc16c"><span class="cl-c8495b58">Doraemon</span></p></td><td class="cl-c84cdc06"><p class="cl-c84cc16c"><span class="cl-c8495b58">30 (33.33%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-c84cdbfc"><p class="cl-c84cc16c"><span class="cl-c8495b58">Dragon Tales</span></p></td><td class="cl-c84cdbfc"><p class="cl-c84cc16c"><span class="cl-c8495b58">30 (33.33%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td rowspan="2" class="cl-c84cdc07"><p class="cl-c84cc16c"><span class="cl-c8495b58">Gender</span></p></td><td class="cl-c84cdc10"><p class="cl-c84cc16c"><span class="cl-c8495b58">Female</span></p></td><td class="cl-c84cdc10"><p class="cl-c84cc16c"><span class="cl-c8495b58">45 (50.00%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-c84cdc1a"><p class="cl-c84cc16c"><span class="cl-c8495b58">Male</span></p></td><td class="cl-c84cdc1a"><p class="cl-c84cc16c"><span class="cl-c8495b58">45 (50.00%)</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+<p>The crosstable for the <em>shows</em> dataset displays the distribution of participants across the variables <em>Cartoon</em> and <em>Gender</em>. Each cartoon, <em>Chhota Bheem</em>, <em>Doraemon</em>, and <em>Dragon Tales</em>, has exactly 30 participants, representing 33.33% of the total sample. Additionally, the dataset has a balanced gender distribution, with 45 male and 45 female participants, each comprising 50% of the total sample. This even split across both cartoons and gender ensures that any comparisons made in the analysis can be interpreted without concern for imbalance in the sample’s composition.</p>
+</section>
+<section id="checking-for-normality" class="level3">
+<h3 class="anchored" data-anchor-id="checking-for-normality">Checking for Normality</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>shapiro_test_chhotabheem <span class="ot">&lt;-</span> <span class="fu">shapiro.test</span>(shows_modified<span class="sc">$</span>Rating[shows_modified<span class="sc">$</span>Cartoon <span class="sc">==</span> <span class="st">"Chhota Bheem"</span>])</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>shapiro_test_doraemon <span class="ot">&lt;-</span> <span class="fu">shapiro.test</span>(shows_modified<span class="sc">$</span>Rating[shows_modified<span class="sc">$</span>Cartoon <span class="sc">==</span> <span class="st">"Doraemon"</span>])</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>shapiro_test_dragontales <span class="ot">&lt;-</span> <span class="fu">shapiro.test</span>(shows_modified<span class="sc">$</span>Rating[shows_modified<span class="sc">$</span>Cartoon <span class="sc">==</span> <span class="st">"Dragon Tales"</span>])</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>shapiro_test_chhotabheem</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Shapiro-Wilk normality test
+
+data:  shows_modified$Rating[shows_modified$Cartoon == "Chhota Bheem"]
+W = 0.9515, p-value = 0.1854</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>shapiro_test_doraemon</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Shapiro-Wilk normality test
+
+data:  shows_modified$Rating[shows_modified$Cartoon == "Doraemon"]
+W = 0.90877, p-value = 0.01385</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>shapiro_test_dragontales</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Shapiro-Wilk normality test
+
+data:  shows_modified$Rating[shows_modified$Cartoon == "Dragon Tales"]
+W = 0.9181, p-value = 0.02395</code></pre>
+</div>
+</div>
+<p>The Shapiro-Wilk normality tests were conducted on the ratings for each TV show—<em>Chhota Bheem</em>, <em>Doraemon</em>, and <em>Dragon Tales</em>.</p>
+<ul>
+<li><p><strong>Chhota Bheem</strong>: W = 0.9515, p-value = 0.1854, indicating that the ratings do not significantly deviate from a normal distribution, as the p-value is greater than 0.05.</p></li>
+<li><p><strong>Doraemon</strong>: W = 0.9087, p-value = 0.01385, suggesting a significant deviation from normality, with a p-value below 0.05.</p></li>
+<li><p><strong>Dragon Tales</strong>: W = 0.9181, p-value = 0.02395, also showing a significant deviation from normality.</p></li>
+</ul>
+<p>These results indicate that the ratings for <em>Doraemon</em> and <em>Dragon Tales</em> do not follow a normal distribution, while the ratings for <em>Chhota Bheem</em> appear to be normally distributed.</p>
+</section>
+<section id="checking-for-variances" class="level3">
+<h3 class="anchored" data-anchor-id="checking-for-variances">Checking for Variances</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>shows_modified <span class="sc">%&gt;%</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Cartoon) <span class="sc">%&gt;%</span></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">variance =</span> <span class="fu">var</span>(Rating))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 2
+  Cartoon      variance
+  &lt;fct&gt;           &lt;dbl&gt;
+1 Chhota Bheem     2.21
+2 Doraemon         5.25
+3 Dragon Tales     3.84</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>DescTools<span class="sc">::</span><span class="fu">LeveneTest</span>(Rating <span class="sc">~</span> Cartoon, <span class="at">data =</span> shows_modified)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Levene's Test for Homogeneity of Variance (center = median)
+      Df F value Pr(&gt;F)
+group  2  1.2923 0.2798
+      87               </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fligner.test</span>(Rating <span class="sc">~</span> Cartoon, <span class="at">data =</span> shows_modified)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Fligner-Killeen test of homogeneity of variances
+
+data:  Rating by Cartoon
+Fligner-Killeen:med chi-squared = 1.8135, df = 2, p-value = 0.4038</code></pre>
+</div>
+</div>
+<p>The Levene’s Test and Fligner-Killeen Test were performed to assess the homogeneity of variances in ratings across the three TV shows: <em>Chhota Bheem</em>, <em>Doraemon</em>, and <em>Dragon Tales</em>. Variance calculations show differing values for each show, with <em>Chhota Bheem</em> at 2.21, <em>Doraemon</em> at 5.25, and <em>Dragon Tales</em> at 3.84. The Levene’s Test produced an F-value of 1.2923 with a p-value of 0.2798, while the Fligner-Killeen Test yielded a chi-squared value of 1.8135 with a p-value of 0.4038. Both tests indicate that the differences in variances are not statistically significant (p &gt; 0.05), suggesting that the assumption of homogeneity of variances holds for the ratings across the three shows.</p>
+</section>
+<section id="one---way-anova" class="level3">
+<h3 class="anchored" data-anchor-id="one---way-anova">One - Way ANOVA</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>anova_result <span class="ot">&lt;-</span> <span class="fu">aov</span>(Rating <span class="sc">~</span> Cartoon, <span class="at">data =</span> shows_modified)</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(anova_result)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>            Df Sum Sq Mean Sq F value Pr(&gt;F)
+Cartoon      2    6.9   3.463   0.919  0.403
+Residuals   87  327.9   3.769               </code></pre>
+</div>
+</div>
+<p>The results of the one-way ANOVA for the <em>TV Shows</em> dataset indicate that there is no statistically significant difference in the average ratings among the three shows: <em>Chhota Bheem</em>, <em>Doraemon</em>, and <em>Dragon Tales</em>. The F-value is 0.919, and the associated p-value is 0.403, which is greater than the conventional significance level of 0.05. Therefore, we fail to reject the null hypothesis, suggesting that the mean ratings for these shows are not significantly different from one another. This analysis implies that participants rated the three shows similarly on average.</p>
+</section>
+<section id="two---way-anova" class="level3">
+<h3 class="anchored" data-anchor-id="two---way-anova">Two - Way ANOVA</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>anova_result_2way <span class="ot">&lt;-</span> <span class="fu">aov</span>(Rating <span class="sc">~</span> Cartoon <span class="sc">*</span> Gender, <span class="at">data =</span> shows_modified)</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(anova_result_2way)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>               Df Sum Sq Mean Sq F value Pr(&gt;F)
+Cartoon         2   6.93   3.463   0.930  0.399
+Gender          1   1.11   1.111   0.298  0.586
+Cartoon:Gender  2  13.94   6.969   1.871  0.160
+Residuals      84 312.85   3.724               </code></pre>
+</div>
+</div>
+<p>The results of the two-way ANOVA indicate that neither <em>Cartoon</em> (TV Show) nor <em>Gender</em> individually has a statistically significant effect on the <em>Rating</em> (p-values of 0.399 and 0.586, respectively). Additionally, there is no significant interaction effect between <em>Cartoon</em> and <em>Gender</em> on the ratings, with a p-value of 0.160 for the interaction term. This suggests that neither the type of TV show nor the gender of participants, nor their combination, significantly impacts the ratings given by the participants in this dataset.</p>
+</section>
+<section id="bonferroni-correction" class="level3">
+<h3 class="anchored" data-anchor-id="bonferroni-correction">Bonferroni Correction</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>supernova<span class="sc">::</span><span class="fu">pairwise</span>(</span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>  anova_result,                  </span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">correction =</span> <span class="st">"Bonferroni"</span>,      </span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">alpha =</span> <span class="fl">0.05</span>,                   </span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">var_equal =</span> <span class="cn">TRUE</span>,               </span>
+<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">plot =</span> <span class="cn">TRUE</span>                    </span>
+<span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code></code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Pairwise t-tests with Bonferroni correction ─────────────────────────────────</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Model: Rating ~ Cartoon</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Cartoon</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Levels: 3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Family-wise error-rate: 0.049</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+  group_1      group_2       diff pooled_se     t    df  lower upper  p_adj
+  &lt;chr&gt;        &lt;chr&gt;        &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+1 Doraemon     Chhota Bheem 0.580     0.354 1.636    87 -0.186 1.346  .3161
+2 Dragon Tales Chhota Bheem 0.597     0.354 1.683    87 -0.170 1.363  .2877
+3 Dragon Tales Doraemon     0.017     0.354 0.047    87 -0.750 0.783 1.0000</code></pre>
+</div>
+</div>
+<p>The post-hoc analysis with Bonferroni correction was conducted to examine pairwise comparisons of ratings across the three TV shows (Chhota Bheem, Doraemon, and Dragon Tales). This analysis identified the mean differences between each pair of shows, along with their respective confidence intervals and adjusted p-values. The results include:</p>
+<ul>
+<li><p>A comparison between <em>Doraemon</em> and <em>Chhota Bheem</em> with a mean difference of 0.58.</p></li>
+<li><p>A comparison between <em>Dragon Tales</em> and <em>Chhota Bheem</em> with a mean difference of 0.597.</p></li>
+<li><p>A comparison between <em>Dragon Tales</em> and <em>Doraemon</em> with a very small difference of 0.017.</p></li>
+</ul>
+<p>The confidence intervals displayed in the plot show the estimated range of each difference with Bonferroni-adjusted significance levels, but none of the intervals exclude zero, indicating that no significant difference was detected among the pairs at the 95% confidence level after adjustment. This suggests that while there are observable mean differences, they are not statistically significant.</p>
+</section>
+<section id="wilcoxon-rank-sum-test---chhota-bheem-vs-doraemon" class="level3">
+<h3 class="anchored" data-anchor-id="wilcoxon-rank-sum-test---chhota-bheem-vs-doraemon">Wilcoxon Rank-Sum Test - Chhota Bheem vs Doraemon</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>wilcox_test_bheem_doraemon <span class="ot">&lt;-</span> <span class="fu">wilcox.test</span>(</span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>  Rating <span class="sc">~</span> Cartoon,</span>
+<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> shows_modified <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Cartoon <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Chhota Bheem"</span>, <span class="st">"Doraemon"</span>)),</span>
+<span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">alternative =</span> <span class="st">"two.sided"</span>,</span>
+<span id="cb65-5"><a href="#cb65-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">conf.int =</span> <span class="cn">TRUE</span></span>
+<span id="cb65-6"><a href="#cb65-6" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb65-7"><a href="#cb65-7" aria-hidden="true" tabindex="-1"></a>  broom<span class="sc">::</span><span class="fu">tidy</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in wilcox.test.default(x = DATA[[1L]], y = DATA[[2L]], ...): cannot
+compute exact p-value with ties</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in wilcox.test.default(x = DATA[[1L]], y = DATA[[2L]], ...): cannot
+compute exact confidence intervals with ties</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>wilcox_test_bheem_doraemon</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 7
+  estimate statistic p.value conf.low   conf.high method             alternative
+     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;              &lt;chr&gt;      
+1    -1.00      338.  0.0933    -2.00 0.000000600 Wilcoxon rank sum… two.sided  </code></pre>
+</div>
+</div>
+<p>The p-value obtained (0.09328) is above the typical threshold of 0.05, indicating that there is no statistically significant difference in the ratings between “Chhota Bheem” and “Doraemon” at a 5% significance level. The test also provides a confidence interval for the rank difference, though it includes zero, reinforcing the lack of a significant difference between these two groups. This analysis allows us to understand that any observed rating differences between these shows are likely due to chance, rather than a true difference in audience ratings.</p>
+</section>
+<section id="wilcoxon-rank-sum-test---chhota-bheem-vs-dragon-tales" class="level3">
+<h3 class="anchored" data-anchor-id="wilcoxon-rank-sum-test---chhota-bheem-vs-dragon-tales">Wilcoxon Rank-Sum Test - Chhota Bheem vs Dragon Tales</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>wilcox_test_bheem_dragon <span class="ot">&lt;-</span> <span class="fu">wilcox.test</span>(</span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>  Rating <span class="sc">~</span> Cartoon,</span>
+<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> shows_modified <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Cartoon <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Chhota Bheem"</span>, <span class="st">"Dragon Tales"</span>)),</span>
+<span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">alternative =</span> <span class="st">"two.sided"</span>,</span>
+<span id="cb70-5"><a href="#cb70-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">conf.int =</span> <span class="cn">TRUE</span></span>
+<span id="cb70-6"><a href="#cb70-6" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb70-7"><a href="#cb70-7" aria-hidden="true" tabindex="-1"></a>  broom<span class="sc">::</span><span class="fu">tidy</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in wilcox.test.default(x = DATA[[1L]], y = DATA[[2L]], ...): cannot
+compute exact p-value with ties</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in wilcox.test.default(x = DATA[[1L]], y = DATA[[2L]], ...): cannot
+compute exact confidence intervals with ties</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>wilcox_test_bheem_dragon</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 7
+  estimate statistic p.value conf.low conf.high method               alternative
+     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;                &lt;chr&gt;      
+1    -1.00       337  0.0918    -1.70 0.0000226 Wilcoxon rank sum t… two.sided  </code></pre>
+</div>
+</div>
+<p>Here, the p-value is approximately 0.0918, which is above the typical significance threshold of 0.05, indicating that the difference in median ratings between “Chhota Bheem” and “Dragon Tales” is not statistically significant at the 5% level. The confidence interval for the difference in ratings spans both positive and negative values, further supporting the conclusion of no significant difference in ratings between these two shows in this test.</p>
+</section>
+<section id="wilcoxon-rank-sum-test---doraemon-vs-dragon-tales" class="level3">
+<h3 class="anchored" data-anchor-id="wilcoxon-rank-sum-test---doraemon-vs-dragon-tales">Wilcoxon Rank-Sum Test - Doraemon vs Dragon Tales</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>wilcox_test_doraemon_dragon <span class="ot">&lt;-</span> <span class="fu">wilcox.test</span>(</span>
+<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a>  Rating <span class="sc">~</span> Cartoon,</span>
+<span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> shows_modified <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Cartoon <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Doraemon"</span>, <span class="st">"Dragon Tales"</span>)),</span>
+<span id="cb75-4"><a href="#cb75-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">alternative =</span> <span class="st">"two.sided"</span>,</span>
+<span id="cb75-5"><a href="#cb75-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">conf.int =</span> <span class="cn">TRUE</span></span>
+<span id="cb75-6"><a href="#cb75-6" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb75-7"><a href="#cb75-7" aria-hidden="true" tabindex="-1"></a>  broom<span class="sc">::</span><span class="fu">tidy</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in wilcox.test.default(x = DATA[[1L]], y = DATA[[2L]], ...): cannot
+compute exact p-value with ties</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in wilcox.test.default(x = DATA[[1L]], y = DATA[[2L]], ...): cannot
+compute exact confidence intervals with ties</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>wilcox_test_doraemon_dragon</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 7
+   estimate statistic p.value conf.low conf.high method              alternative
+      &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;               &lt;chr&gt;      
+1 0.0000514      462.   0.869    -1.00      1.00 Wilcoxon rank sum … two.sided  </code></pre>
+</div>
+</div>
+<p>This test resulted in a test statistic of 461.5 with a p-value of approximately 0.869. The confidence interval for the difference in median ratings ranges from -0.999 to 1.000. Given the high p-value, there is no statistically significant difference in median ratings between “Doraemon” and “Dragon Tales”, suggesting that viewers rate these two shows similarly on average.</p>
+</section>
+<section id="kruskal-wallis-test" class="level3">
+<h3 class="anchored" data-anchor-id="kruskal-wallis-test">Kruskal-Wallis Test</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>kruskal_test_result <span class="ot">&lt;-</span> <span class="fu">kruskal.test</span>(Rating <span class="sc">~</span> Cartoon, <span class="at">data =</span> shows_modified) <span class="sc">%&gt;%</span>  broom<span class="sc">::</span><span class="fu">tidy</span>()</span>
+<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a>kruskal_test_result</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 4
+  statistic p.value parameter method                      
+      &lt;dbl&gt;   &lt;dbl&gt;     &lt;int&gt; &lt;chr&gt;                       
+1      3.83   0.148         2 Kruskal-Wallis rank sum test</code></pre>
+</div>
+</div>
+<p>In learning about the Kruskal-Wallis test, I discovered it as a non-parametric alternative to the One-Way ANOVA, particularly useful when the data does not meet the normality assumption required by ANOVA. This test compares the medians of multiple groups to determine if there are significant differences among them. By ranking the data and assessing the distribution of these ranks across groups, the Kruskal-Wallis test provides insight without relying on normally distributed data.</p>
+<p>In applying the test to compare ratings across the three TV shows (<em>Chhota Bheem</em>, <em>Doraemon</em>, and <em>Dragon Tales</em>), I obtained a test statistic of 3.825 with a p-value of approximately 0.148. Since the p-value is greater than the common significance level of 0.05, we do not have sufficient evidence to conclude that there is a statistically significant difference in the ratings among the shows. This suggests that the median ratings across the three shows are not significantly different based on this sample.</p>
+</section>
+<section id="tukey-multiple-comparisons" class="level3">
+<h3 class="anchored" data-anchor-id="tukey-multiple-comparisons">Tukey Multiple Comparisons</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a>lm_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(Rating <span class="sc">~</span> Cartoon, <span class="at">data =</span> shows_modified)</span>
+<span id="cb82-2"><a href="#cb82-2" aria-hidden="true" tabindex="-1"></a>tukey_results <span class="ot">&lt;-</span> <span class="fu">TukeyHSD</span>(<span class="fu">aov</span>(lm_model))</span>
+<span id="cb82-3"><a href="#cb82-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(tukey_results)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Tukey multiple comparisons of means
+    95% family-wise confidence level
+
+Fit: aov(formula = lm_model)
+
+$Cartoon
+                                diff        lwr      upr     p adj
+Doraemon-Chhota Bheem     0.58000000 -0.6152594 1.775259 0.4819563
+Dragon Tales-Chhota Bheem 0.59666667 -0.5985927 1.791926 0.4621079
+Dragon Tales-Doraemon     0.01666667 -1.1785927 1.211926 0.9993907</code></pre>
+</div>
+</div>
+<p>The Tukey’s HSD (Honest Significant Difference) test was performed to identify any significant pairwise differences in the ratings among the three TV shows: <em>Doraemon</em>, <em>Chhota Bheem</em>, and <em>Dragon Tales</em>. The results show the difference in mean ratings between each pair of shows along with confidence intervals and adjusted p-values. The p-values for each pairwise comparison are above 0.05, indicating that none of the differences in ratings between the shows are statistically significant at the 95% confidence level. Therefore, we conclude that there is no significant difference in the ratings among <em>Doraemon</em>, <em>Chhota Bheem</em>, and <em>Dragon Tales</em> based on this analysis.</p>
+</section>
+<section id="permutation-test" class="level3">
+<h3 class="anchored" data-anchor-id="permutation-test">Permutation Test</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a>observed_perm <span class="ot">&lt;-</span> shows_modified <span class="sc">%&gt;%</span></span>
+<span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(Rating <span class="sc">~</span> Cartoon) <span class="sc">%&gt;%</span></span>
+<span id="cb84-3"><a href="#cb84-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">hypothesize</span>(<span class="at">null =</span> <span class="st">"independence"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb84-4"><a href="#cb84-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">"F"</span>)</span>
+<span id="cb84-5"><a href="#cb84-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-6"><a href="#cb84-6" aria-hidden="true" tabindex="-1"></a>null_dist_perm <span class="ot">&lt;-</span> shows_modified <span class="sc">%&gt;%</span></span>
+<span id="cb84-7"><a href="#cb84-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(Rating <span class="sc">~</span> Cartoon) <span class="sc">%&gt;%</span></span>
+<span id="cb84-8"><a href="#cb84-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">hypothesize</span>(<span class="at">null =</span> <span class="st">"independence"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb84-9"><a href="#cb84-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">generate</span>(<span class="at">reps =</span> <span class="dv">5000</span>, <span class="at">type =</span> <span class="st">"permute"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb84-10"><a href="#cb84-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">"F"</span>)</span>
+<span id="cb84-11"><a href="#cb84-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-12"><a href="#cb84-12" aria-hidden="true" tabindex="-1"></a>null_dist_perm <span class="sc">%&gt;%</span></span>
+<span id="cb84-13"><a href="#cb84-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visualize</span>() <span class="sc">+</span></span>
+<span id="cb84-14"><a href="#cb84-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">shade_p_value</span>(<span class="at">obs_stat =</span> observed_perm<span class="sc">$</span>stat, <span class="at">direction =</span> <span class="st">"greater"</span>) <span class="sc">+</span></span>
+<span id="cb84-15"><a href="#cb84-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotation_logticks</span>(<span class="at">outside =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a>perm_p_value <span class="ot">&lt;-</span> null_dist_perm <span class="sc">%&gt;%</span></span>
+<span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">get_p_value</span>(<span class="at">obs_stat =</span> observed_perm<span class="sc">$</span>stat, <span class="at">direction =</span> <span class="st">"greater"</span>)</span>
+<span id="cb85-3"><a href="#cb85-3" aria-hidden="true" tabindex="-1"></a>perm_p_value</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+  p_value
+    &lt;dbl&gt;
+1   0.405</code></pre>
+</div>
+</div>
+<p>In this permutation test, the goal was to assess whether the observed differences in ratings among the three TV shows could be attributed to chance. By permuting the ratings data 5,000 times, a null distribution was generated, and the test statistic (F-statistic) for the observed data was compared against this simulated distribution. The visual output shows the null distribution, with the observed test statistic highlighted. The resulting p-value of 0.409 indicates that there is a 40.9% probability that the observed differences in ratings could occur by random chance, suggesting no statistically significant differences in ratings across the shows under the non-parametric assumptions.</p>
+</section>
+<section id="summary-of-results-for-the-tv-shows-research-experiment" class="level3">
+<h3 class="anchored" data-anchor-id="summary-of-results-for-the-tv-shows-research-experiment">Summary of Results for the TV Shows Research Experiment</h3>
+<p>The research experiment aimed to investigate if there were significant differences in ratings among three popular TV shows: <em>Chhota Bheem</em>, <em>Doraemon</em>, and <em>Dragon Tales</em>, and to examine the effect of gender on these ratings. The following statistical analyses were conducted:</p>
+<section id="shapiro-wilk-test-for-normality" class="level4">
+<h4 class="anchored" data-anchor-id="shapiro-wilk-test-for-normality">Shapiro-Wilk Test for Normality:</h4>
+<p>The Shapiro-Wilk test was conducted to check if the ratings for each show followed a normal distribution:</p>
+<ul>
+<li><p><em>Chhota Bheem</em>: W = 0.9515, p = 0.1854</p></li>
+<li><p><em>Doraemon</em>: W = 0.9087, p = 0.01385</p></li>
+<li><p><em>Dragon Tales</em>: W = 0.9181, p = 0.02395</p></li>
+</ul>
+<p>With small p-values for <em>Doraemon</em> and <em>Dragon Tales</em>, the ratings for these shows deviated from normality, suggesting that non-parametric tests would be suitable for further analysis.</p>
+</section>
+<section id="variance-test" class="level4">
+<h4 class="anchored" data-anchor-id="variance-test">Variance Test:</h4>
+<p>Levene’s test and Fligner-Killeen test were used to check if the variances were equal across the three shows:</p>
+<ul>
+<li><p><strong>Levene’s Test</strong>: p = 0.2798</p></li>
+<li><p><strong>Fligner-Killeen Test</strong>: p = 0.4038</p></li>
+</ul>
+<p>Both tests indicated no significant difference in variances, so the assumption of equal variances was not violated, allowing for ANOVA to be applied.</p>
+</section>
+<section id="one-way-anova" class="level4">
+<h4 class="anchored" data-anchor-id="one-way-anova">One-Way ANOVA:</h4>
+<p>A one-way ANOVA was conducted to assess differences in mean ratings across the three shows:</p>
+<ul>
+<li><strong>F(2, 87) = 0.919, p = 0.403</strong></li>
+</ul>
+<p>The ANOVA results showed no statistically significant difference in average ratings across the shows, indicating that there may not be a substantial difference in viewer ratings among the three programs.</p>
+</section>
+<section id="two-way-anova" class="level4">
+<h4 class="anchored" data-anchor-id="two-way-anova">Two-Way ANOVA:</h4>
+<p>A two-way ANOVA was conducted to analyze the combined effects of TV show and gender on ratings:</p>
+<ul>
+<li><p><strong>Main effect of TV Show</strong>: F(2, 84) = 0.930, p = 0.399</p></li>
+<li><p><strong>Main effect of Gender</strong>: F(1, 84) = 0.298, p = 0.586</p></li>
+<li><p><strong>Interaction effect (TV Show * Gender)</strong>: F(2, 84) = 1.871, p = 0.160</p></li>
+</ul>
+<p>The two-way ANOVA results revealed that neither gender, show, nor their interaction had a statistically significant effect on ratings. This suggests that ratings do not vary meaningfully by gender or show, nor does the combination of show and gender influence ratings significantly.</p>
+</section>
+<section id="wilcoxon-rank-sum-test" class="level4">
+<h4 class="anchored" data-anchor-id="wilcoxon-rank-sum-test">Wilcoxon Rank-Sum Test:</h4>
+<p>Pairwise Wilcoxon Rank-Sum tests were performed due to deviations from normality:</p>
+<ul>
+<li><p><em>Chhota Bheem</em> vs <em>Doraemon</em>: p = 0.09328 (not significant)</p></li>
+<li><p><em>Chhota Bheem</em> vs <em>Dragon Tales</em>: p = 0.09184 (not significant)</p></li>
+<li><p><em>Doraemon</em> vs <em>Dragon Tales</em>: p = 0.8694 (not significant)</p></li>
+</ul>
+<p>The Wilcoxon tests found no significant differences between any pair of shows, aligning with the results from both ANOVA and Kruskal-Wallis tests.</p>
+</section>
+<section id="kruskal-wallis-test-1" class="level4">
+<h4 class="anchored" data-anchor-id="kruskal-wallis-test-1">Kruskal-Wallis Test:</h4>
+<p>Given the deviations from normality, a Kruskal-Wallis test was performed as a non-parametric alternative to ANOVA:</p>
+<ul>
+<li><strong>H(2) = 3.825, p = 0.1477</strong></li>
+</ul>
+<p>The Kruskal-Wallis test also indicated no significant differences in ratings across the three shows, consistent with the one-way ANOVA results.</p>
+</section>
+<section id="permutation-test-1" class="level4">
+<h4 class="anchored" data-anchor-id="permutation-test-1">Permutation Test:</h4>
+<p>A permutation test was conducted to further assess whether the observed differences in ratings across the shows were likely due to chance:</p>
+<ul>
+<li><strong>p-value = 0.409</strong></li>
+</ul>
+<p>The permutation test confirmed that the differences in ratings could likely occur by random variation, supporting the earlier results.</p>
+</section>
+</section>
+<section id="conclusion" class="level3">
+<h3 class="anchored" data-anchor-id="conclusion">Conclusion:</h3>
+<p>The statistical analyses indicate no significant differences in ratings among the three TV shows, and no significant effect of gender on ratings. Both parametric (ANOVA) and non-parametric (Kruskal-Wallis, Wilcoxon Rank-Sum) tests consistently showed that the ratings across the three shows are comparable. The permutation test further validated these findings, confirming that any observed differences are likely due to chance. Consequently, the experiment concludes that ratings do not significantly vary by TV show or gender.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

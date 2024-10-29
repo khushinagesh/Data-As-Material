@@ -1,0 +1,1479 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.555">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Khushi">
+
+<title>Data-As-Material - Assignment 3 - Part 3</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<link href="../../site_libs/tabwid-1.1.3/tabwid.css" rel="stylesheet">
+
+<script src="../../site_libs/tabwid-1.1.3/tabwid.js"></script>
+
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Data-As-Material</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Assignment 3 - Part 3</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">Assignments</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Khushi </p>
+            </div>
+    </div>
+      
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>We are investigating whether there is a significant difference in the grades received by students enrolled in three different programs: B.Voc, B.FA, and B.Des.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+✔ purrr     1.0.2     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggformula)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: scales
+
+Attaching package: 'scales'
+
+The following object is masked from 'package:purrr':
+
+    discard
+
+The following object is masked from 'package:readr':
+
+    col_factor
+
+Loading required package: ggridges
+
+New to ggformula?  Try the tutorials: 
+    learnr::run_tutorial("introduction", package = "ggformula")
+    learnr::run_tutorial("refining", package = "ggformula")</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mosaic)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Registered S3 method overwritten by 'mosaic':
+  method                           from   
+  fortify.SpatialPolygonsDataFrame ggplot2
+
+The 'mosaic' package masks several functions from core packages in order to add 
+additional features.  The original behavior of these functions should not be affected by this.
+
+Attaching package: 'mosaic'
+
+The following object is masked from 'package:Matrix':
+
+    mean
+
+The following object is masked from 'package:scales':
+
+    rescale
+
+The following objects are masked from 'package:dplyr':
+
+    count, do, tally
+
+The following object is masked from 'package:purrr':
+
+    cross
+
+The following object is masked from 'package:ggplot2':
+
+    stat
+
+The following objects are masked from 'package:stats':
+
+    binom.test, cor, cor.test, cov, fivenum, IQR, median, prop.test,
+    quantile, sd, t.test, var
+
+The following objects are masked from 'package:base':
+
+    max, mean, min, prod, range, sample, sum</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(infer)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'infer'
+
+The following objects are masked from 'package:mosaic':
+
+    prop_test, t_test</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggprism)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(supernova)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'supernova'
+
+The following object is masked from 'package:scales':
+
+    number</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'skimr'
+
+The following object is masked from 'package:mosaic':
+
+    n_missing</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(crosstable)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'crosstable'
+
+The following object is masked from 'package:purrr':
+
+    compact</code></pre>
+</div>
+</div>
+<section id="research-experiment-to-investigate-the-differences-in-grades-across-b.voc-b.fa-and-b.des-students" class="level3">
+<h3 class="anchored" data-anchor-id="research-experiment-to-investigate-the-differences-in-grades-across-b.voc-b.fa-and-b.des-students"><strong>Research Experiment to Investigate the Differences in Grades Across B.Voc, B.FA, and B.Des Students</strong></h3>
+<p><strong>Objective:</strong> The purpose of this research experiment is to investigate whether there is a significant difference in the grades received by students enrolled in three different programs: B.Voc, B.FA, and B.Des. By collecting and analyzing grade data from students, we aim to explore whether students from different branches perform differently in their first studio course during the first semester of the academic year 2024-25.</p>
+<p><strong>Hypotheses:</strong></p>
+<ul>
+<li><p><em>Primary Hypothesis:</em> There is a significant difference in the grades received by students from the B.Voc, B.FA, and B.Des programs.</p></li>
+<li><p><em>Additional Hypothesis:</em> Students from one program (e.g., B.Des) tend to have higher grades on average compared to the other programs (B.Voc and B.FA).</p></li>
+</ul>
+<p><strong>Experiment Design:</strong></p>
+<p><strong>Data Collection:</strong></p>
+<ul>
+<li><p><em>Sample:</em> The dataset consists of grades from 90 students at the Srishti Manipal Institute of Art, Design, and Technology in Bengaluru. There are 30 students from each program.</p></li>
+<li><p><em>Data Sources:</em> The participants were randomly selected by tossing a coin, and the grades were recorded in an Excel sheet by the people conducting the experiment. Each participant reported the grade they received for their first studio course in the first semester of the academic year 2024-25.</p></li>
+</ul>
+<p><strong>Variables Measured:</strong></p>
+<ul>
+<li><p><em>Target Variable:</em> The grades received by each participant in their first studio course during the semester.</p></li>
+<li><p><em>Predictor Variables:</em> Program (B.Voc, B.FA, B.Des)</p></li>
+</ul>
+<p><strong>Sampling:</strong></p>
+<ul>
+<li><p><em>Time Period:</em> The experiment was conducted over a period of 1.5 hours on October 24th, 2024.</p></li>
+<li><p><em>Participant Selection Criteria:</em> 30 participants were randomly selected from each program using a coin toss. Their grades were recorded accordingly in the Excel sheet.</p></li>
+</ul>
+<p><strong>Analysis Plan:</strong></p>
+<ul>
+<li><p><em>Data Cleaning and Transformation:</em> The data was checked for accuracy in the Excel sheet to ensure that each participant’s grade and program were properly recorded, with no missing or erroneous entries.</p></li>
+<li><p><em>Exploratory Data Analysis (EDA):</em> Visualizations such as histograms, box plots, and scatter plots will be used to compare grade distributions across the three programs. This will help identify patterns or discrepancies in performance between students from different programs.</p></li>
+</ul>
+<p><strong>Statistical Tests:</strong></p>
+<ul>
+<li><p><em>Shapiro-Wilk Test for Normality:</em> The Shapiro-Wilk test will be used to check if the grade data follows a normal distribution for each program. If the data significantly deviates from normality (p-value &lt; 0.05), it suggests the use of non-parametric tests.</p></li>
+<li><p><em>Variance Test (F-Test):</em> A variance test will be conducted to determine if the variances in grades are equal between the programs. This test will check the assumption of homogeneity of variances, which is required for the two-sample t-test and ANOVA. If the p-value is small (p-value &lt; 0.05), it indicates unequal variances.</p></li>
+<li><p><em>One-Way ANOVA:</em> A one-way ANOVA will be conducted to compare the average grades across the three programs (B.Voc, B.FA, B.Des). This will help determine if there is a statistically significant difference in grades between the programs.</p></li>
+<li><p><em>Pairwise Comparisons:</em> If the one-way ANOVA is significant, post-hoc pairwise comparisons using Bonferroni correction will be conducted to identify which specific pairs of programs have significant differences in their average grades.</p></li>
+<li><p><em>Wilcoxon Rank-Sum Test:</em> If the normality assumption is not met, a Wilcoxon rank-sum test (a non-parametric test) will be conducted to compare the grades between programs. This will assess whether students in one program tend to receive higher or lower grades compared to students in the other programs.</p></li>
+<li><p><em>Tukey Test:</em> If ANOVA results are significant, a Tukey Honest Significant Difference (HSD) test will be used to further explore the pairwise differences in the mean grades between the programs. This test will provide specific pairwise comparisons to determine which programs differ significantly.</p></li>
+<li><p><em>Permutation Test:</em> A permutation test will be conducted to assess the likelihood of the observed differences in grades across the three programs occurring by chance, providing a non-parametric alternative to the one-way ANOVA.</p></li>
+<li><p><em>Descriptive Statistics:</em> Descriptive measures such as mean, median, and standard deviation will be calculated for each program to summarize grade performance. These statistics will help provide a clear overview of the central tendencies and variability within each program.</p></li>
+</ul>
+<p><strong>Limitations:</strong></p>
+<ul>
+<li><p><em>Sample Size:</em> With 30 participants per program, the results may not be generalizable to the entire student population. A more extensive sample would provide greater reliability and external validity.</p></li>
+<li><p><em>Contextual Factors:</em> The study did not account for other factors that might influence grade performance, such as prior academic achievement, class participation, or individual learning styles, which could have an effect on the grades received.</p></li>
+</ul>
+<p><strong>Outcome:</strong></p>
+<p>The analysis will reveal whether significant differences in grade performance exist between students from the B.Voc, B.FA, and B.Des programs at Srishti Manipal Institute of Art, Design, and Technology. If the hypotheses hold, it would suggest that students from one program tend to perform better in their first studio course compared to students from the other programs. These findings will provide insights into whether the program of study influences student performance within this academic context.</p>
+</section>
+<section id="dataset---programs-at-smi-and-grades" class="level3">
+<h3 class="anchored" data-anchor-id="dataset---programs-at-smi-and-grades">Dataset - Programs at SMI and Grades</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>grades <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"../../data/grades.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 90 Columns: 7
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (4): Degree, Course, Letter Grade, Gender
+dbl (3): SN, Year, Score
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>grades</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 90 × 7
+      SN Degree Course  Year `Letter Grade` Score Gender
+   &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt; 
+ 1     1 B.Des  CAC        2 A                8   Female
+ 2     2 B.Des  CAC        2 O                9.6 Female
+ 3     3 B.Des  IADP       2 A+               9.2 Female
+ 4     4 B.Des  CE         2 O                9.8 Female
+ 5     5 B.Des  BSSD       2 P                3   Male  
+ 6     6 B.Des  CAC        2 O                9.5 Female
+ 7     7 B.Des  PSD        2 A+               9   Female
+ 8     8 B.Des  PSD        2 A+               9   Female
+ 9     9 B.Des  PSD        2 A+               9   Female
+10    10 B.Des  BSSD       3 A+               9   Female
+# ℹ 80 more rows</code></pre>
+</div>
+</div>
+<p>The dataset comprises 90 entries of students from Srishti Manipal Institute of Art, Design, and Technology (SMI) across three different programs: B.Des, B.FA, and B.Voc. Each entry includes details such as the student’s degree program, course, academic year, letter grade, score (in terms of grade points), and gender.</p>
+</section>
+<section id="grades-modified" class="level3">
+<h3 class="anchored" data-anchor-id="grades-modified">Grades Modified</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>grades_modified <span class="ot">&lt;-</span> grades <span class="sc">%&gt;%</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">Degree =</span> <span class="fu">as.factor</span>(Degree),</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">Course =</span> <span class="fu">as.factor</span>(Course),</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">Year =</span> <span class="fu">factor</span>(Year, </span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"3"</span>), </span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">ordered =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Letter Grade</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">factor</span>(<span class="st">`</span><span class="at">Letter Grade</span><span class="st">`</span>, </span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"F"</span>, <span class="st">"P"</span>, <span class="st">"C"</span>, <span class="st">"B"</span>, <span class="st">"B+"</span>, <span class="st">"A"</span>, <span class="st">"A+"</span>, <span class="st">"O"</span>), </span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">ordered =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">Gender =</span> <span class="fu">as.factor</span>(Gender),</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">Score =</span> <span class="fu">case_when</span>(</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>      <span class="st">`</span><span class="at">Letter Grade</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"O"</span> <span class="sc">~</span> <span class="fl">9.5</span>,</span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>      <span class="st">`</span><span class="at">Letter Grade</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"A+"</span> <span class="sc">~</span> <span class="fl">8.5</span>,</span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>      <span class="st">`</span><span class="at">Letter Grade</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"A"</span> <span class="sc">~</span> <span class="fl">7.5</span>,</span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>      <span class="st">`</span><span class="at">Letter Grade</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"B+"</span> <span class="sc">~</span> <span class="fl">6.5</span>,</span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>      <span class="st">`</span><span class="at">Letter Grade</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"B"</span> <span class="sc">~</span> <span class="fl">5.5</span>,</span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>      <span class="st">`</span><span class="at">Letter Grade</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"C"</span> <span class="sc">~</span> <span class="fl">4.5</span>,</span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>      <span class="st">`</span><span class="at">Letter Grade</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"P"</span> <span class="sc">~</span> <span class="fl">3.5</span>,</span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>      <span class="st">`</span><span class="at">Letter Grade</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"F"</span> <span class="sc">~</span> <span class="dv">0</span></span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>grades_modified</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 90 × 7
+      SN Degree Course Year  `Letter Grade` Score Gender
+   &lt;dbl&gt; &lt;fct&gt;  &lt;fct&gt;  &lt;ord&gt; &lt;ord&gt;          &lt;dbl&gt; &lt;fct&gt; 
+ 1     1 B.Des  CAC    2     A                7.5 Female
+ 2     2 B.Des  CAC    2     O                9.5 Female
+ 3     3 B.Des  IADP   2     A+               8.5 Female
+ 4     4 B.Des  CE     2     O                9.5 Female
+ 5     5 B.Des  BSSD   2     P                3.5 Male  
+ 6     6 B.Des  CAC    2     O                9.5 Female
+ 7     7 B.Des  PSD    2     A+               8.5 Female
+ 8     8 B.Des  PSD    2     A+               8.5 Female
+ 9     9 B.Des  PSD    2     A+               8.5 Female
+10    10 B.Des  BSSD   3     A+               8.5 Female
+# ℹ 80 more rows</code></pre>
+</div>
+</div>
+<p>The dataset now shows the modified Score column, which has been updated based on the corresponding Letter Grade. Using the case_when() function, letter grades such as “O” were assigned a score of 9.5, “A+” was assigned 8.5, “A” was given 7.5, and so on. This transformation allows for a more standardized numerical analysis of the grades.</p>
+</section>
+<section id="glimpse---programs-at-smi-and-grades" class="level3">
+<h3 class="anchored" data-anchor-id="glimpse---programs-at-smi-and-grades">Glimpse - Programs at SMI and Grades</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(grades_modified)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 90
+Columns: 7
+$ SN             &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, …
+$ Degree         &lt;fct&gt; B.Des, B.Des, B.Des, B.Des, B.Des, B.Des, B.Des, B.Des,…
+$ Course         &lt;fct&gt; CAC, CAC, IADP, CE, BSSD, CAC, PSD, PSD, PSD, BSSD, VCS…
+$ Year           &lt;ord&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 2, 2, 3, 3, 2, 3, 3, 2, 2…
+$ `Letter Grade` &lt;ord&gt; A, O, A+, O, P, O, A+, A+, A+, A+, A, A, A, B+, B+, A+,…
+$ Score          &lt;dbl&gt; 7.5, 9.5, 8.5, 9.5, 3.5, 9.5, 8.5, 8.5, 8.5, 8.5, 7.5, …
+$ Gender         &lt;fct&gt; Female, Female, Female, Female, Male, Female, Female, F…</code></pre>
+</div>
+</div>
+<p>The Degree column, which lists the students’ degree programs, is a factor with multiple levels such as B.Des. The Course column, representing the course names, is also a factor. The Year column has been ordered and contains values from 1 to 3, indicating the academic year. The Letter Grade column, which lists the letter grades from F to O, is also a factor. The Score column, which represents numerical scores based on the letter grades, contains double (numeric) values, ranging from 0 to 9.5. Finally, the Gender column is a factor with levels like Female and Male. This summary shows that the data has been successfully structured with categorical and numerical variables properly factored and ordered where necessary.</p>
+</section>
+<section id="inspect---programs-at-smi-and-grades" class="level3">
+<h3 class="anchored" data-anchor-id="inspect---programs-at-smi-and-grades">Inspect - Programs at SMI and Grades</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">inspect</span>(grades_modified)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+categorical variables:  
+          name   class levels  n missing
+1       Degree  factor      3 90       0
+2       Course  factor     15 90       0
+3         Year ordered      3 90       0
+4 Letter Grade ordered      8 90       0
+5       Gender  factor      2 90       0
+                                   distribution
+1 B.Des (33.3%), B.FA (33.3%) ...              
+2 DMA (22.2%), UIID (14.4%), DMP (12.2%) ...   
+3 2 (51.1%), 3 (41.1%), 1 (7.8%)               
+4 A (33.3%), A+ (27.8%), B+ (18.9%) ...        
+5 Female (63.3%), Male (36.7%)                 
+
+quantitative variables:  
+   name   class min    Q1 median    Q3  max mean        sd  n missing
+1    SN numeric 1.0 23.25   45.5 67.75 90.0 45.5 26.124701 90       0
+2 Score numeric 3.5  6.50    7.5  8.50  9.5  7.6  1.209048 90       0</code></pre>
+</div>
+</div>
+<p>Key variables in the dataset include Degree (with levels like B.Des, B.Voc, and B.FA), Course (offering a range of courses with 15 different levels), Year (ordered with 3 levels: 1, 2, and 3), Letter Grade (with 8 ordered levels ranging from F to O), Score (a numeric variable representing students’ grades with a mean of 7.6 and a standard deviation of 1.21), and Gender (categorical, with 2 levels: Male and Female).The “Year” variable has 7 missing values, and a proper factor ordering has been applied to “Year” and “Letter Grade. The summary statistics for the numeric variables show that the minimum score is 3.5, the maximum score is 9.5, and the median score is 7.5. The summary also indicates that the dataset has balanced representation across different categories.</p>
+</section>
+<section id="skim---programs-at-smi-and-grades" class="level3">
+<h3 class="anchored" data-anchor-id="skim---programs-at-smi-and-grades">Skim - Programs at SMI and Grades</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">skim</span>(grades_modified)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Data summary</caption>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Name</td>
+<td style="text-align: left;">grades_modified</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Number of rows</td>
+<td style="text-align: left;">90</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Number of columns</td>
+<td style="text-align: left;">7</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">_______________________</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Column type frequency:</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">factor</td>
+<td style="text-align: left;">5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">numeric</td>
+<td style="text-align: left;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">________________________</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Group variables</td>
+<td style="text-align: left;">None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: factor</strong></p>
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 15%">
+<col style="width: 11%">
+<col style="width: 15%">
+<col style="width: 8%">
+<col style="width: 10%">
+<col style="width: 38%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">skim_variable</th>
+<th style="text-align: right;">n_missing</th>
+<th style="text-align: right;">complete_rate</th>
+<th style="text-align: left;">ordered</th>
+<th style="text-align: right;">n_unique</th>
+<th style="text-align: left;">top_counts</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Degree</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">B.D: 30, B.F: 30, B.V: 30</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Course</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: left;">DMA: 20, UII: 13, DMP: 11, CAC: 8</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Year</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">2: 46, 3: 37, 1: 7</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Letter Grade</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: left;">A: 30, A+: 25, B+: 17, O: 10</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Gender</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">Fem: 57, Mal: 33</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: numeric</strong></p>
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 12%">
+<col style="width: 17%">
+<col style="width: 6%">
+<col style="width: 7%">
+<col style="width: 4%">
+<col style="width: 7%">
+<col style="width: 6%">
+<col style="width: 7%">
+<col style="width: 6%">
+<col style="width: 7%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">skim_variable</th>
+<th style="text-align: right;">n_missing</th>
+<th style="text-align: right;">complete_rate</th>
+<th style="text-align: right;">mean</th>
+<th style="text-align: right;">sd</th>
+<th style="text-align: right;">p0</th>
+<th style="text-align: right;">p25</th>
+<th style="text-align: right;">p50</th>
+<th style="text-align: right;">p75</th>
+<th style="text-align: right;">p100</th>
+<th style="text-align: left;">hist</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">SN</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">45.5</td>
+<td style="text-align: right;">26.12</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">23.25</td>
+<td style="text-align: right;">45.5</td>
+<td style="text-align: right;">67.75</td>
+<td style="text-align: right;">90.0</td>
+<td style="text-align: left;">▇▇▇▇▇</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Score</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">7.6</td>
+<td style="text-align: right;">1.21</td>
+<td style="text-align: right;">3.5</td>
+<td style="text-align: right;">6.50</td>
+<td style="text-align: right;">7.5</td>
+<td style="text-align: right;">8.50</td>
+<td style="text-align: right;">9.5</td>
+<td style="text-align: left;">▁▂▃▇▇</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>The mean score is 7.6, indicating that, on average, students performed relatively well across the board. The standard deviation (sd) is 1.209, which shows moderate variability in the grades, suggesting that while most students scored around the mean, there are notable differences in performance. The first quartile (p25) of the scores is 6.5, and the third quartile (p75) is 8.5, which means that 50% of the students scored between these values, further highlighting that the majority of students achieved fairly high scores. The distribution appears slightly skewed, with a tendency towards higher grades, as shown by the histogram.</p>
+<p><strong>Data Dictionary</strong></p>
+<p><strong>Quantitative Data:</strong></p>
+<ul>
+<li><strong>Score (dbl)</strong>: The final grade score for each participant, represented as a numeric value ranging from 0 (F) to 9.5 (O), based on the letter grade system.</li>
+</ul>
+<p><strong>Qualitative Data:</strong></p>
+<ul>
+<li><p><strong>SN (dbl)</strong>: The serial number assigned to each participant in the dataset.</p></li>
+<li><p><strong>Degree (fct)</strong>: The degree program of the participant, categorized as either B.Des (Bachelor of Design), B.FA (Bachelor of Fine Arts), or B.Voc (Bachelor of Vocation).</p></li>
+<li><p><strong>Course (fct)</strong>: The course code that corresponds to the specific class or course the participant is enrolled in.</p></li>
+<li><p><strong>Year (ord)</strong>: The academic year of study, categorized as 1 (first year), 2 (second year), or 3 (third year).</p></li>
+<li><p><strong>Letter Grade (fct)</strong>: The letter grade received by each participant, categorized as O, A+, A, B+, B, C, P, or F.</p></li>
+<li><p><strong>Gender (fct)</strong>: The gender of the participant, categorized as either Female or Male.</p></li>
+</ul>
+</section>
+<section id="histogram-of-scores-by-degree-program" class="level3">
+<h3 class="anchored" data-anchor-id="histogram-of-scores-by-degree-program">Histogram of Scores by Degree Program</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gf_histogram</span>(<span class="sc">~</span> Score <span class="sc">|</span> Degree, <span class="at">data =</span> grades_modified, <span class="at">fill =</span> <span class="st">"pink"</span>, <span class="at">bins =</span> <span class="dv">10</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Histogram of Scores by Degree Program"</span>,</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Score"</span>,</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Count"</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The histogram illustrates the distribution of scores across the three degree programs-B.Des, B.FA, and B.Voc. Each program has its own distinct spread of scores, which allows for comparison between them. In the B.Des program, the scores are mostly concentrated between 7.5 and 9.5, with a few outliers below 6. The B.FA program has a more even spread of scores, with several students achieving scores between 6.5 and 8.5, and fewer students scoring below 6. The B.Voc program shows a similar spread as B.FA, with the majority of scores between 6.5 and 9.</p>
+</section>
+<section id="box-plot---distribution-of-scores-across-degree-programs" class="level3">
+<h3 class="anchored" data-anchor-id="box-plot---distribution-of-scores-across-degree-programs">Box Plot - Distribution of Scores across Degree Programs</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gf_boxplot</span>(Score <span class="sc">~</span> Degree, <span class="at">data =</span> grades_modified, <span class="at">fill =</span> <span class="sc">~</span> Degree) <span class="sc">%&gt;%</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Distribution of Scores across Degree Programs"</span>,</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Degree Program"</span>,</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Score"</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The boxplot visualizes the distribution of scores across the three degree programs. It shows the central tendency (median) and spread of scores for each program. The median score for B.Des appears to be higher than both B.FA and B.Voc. B.FA shows the narrowest range of scores, while B.Voc exhibits the widest range with more variation in scores. Outliers are also visible in the B.Des and B.Voc programs, with a few students scoring notably lower than their peers.</p>
+</section>
+<section id="density-of-scores-by-degree-program" class="level3">
+<h3 class="anchored" data-anchor-id="density-of-scores-by-degree-program">Density of Scores by Degree Program</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gf_density</span>(<span class="sc">~</span> Score <span class="sc">|</span> Degree, <span class="at">data =</span> grades_modified, <span class="at">fill =</span> <span class="sc">~</span> Degree) <span class="sc">%&gt;%</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_fitdistr</span>(<span class="sc">~</span> Score <span class="sc">|</span> Degree, <span class="at">data =</span> grades_modified, <span class="at">ddist =</span> <span class="st">"normal"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Density of Scores by Degree Program"</span>,</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Score"</span>,</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Density"</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>From the faceted density plot, it is evident that the distribution of scores across the three degree programs does not follow a perfect normal distribution.</p>
+<ul>
+<li><p><strong>B.Des</strong>: The distribution shows a significant peak around the score of 8, and it is slightly skewed, with a smaller bump on the lower side (around 6). This suggests that most students scored around 8, but it does not appear to follow a normal distribution due to the skewness and the presence of more than one peak.</p></li>
+<li><p><strong>B.FA</strong>: The distribution for B.FA exhibits multiple peaks, indicating that it is far from a normal distribution. A normal distribution would have a single peak and symmetric spread, but this one shows varied clusters, suggesting different trends in the scores of B.FA students.</p></li>
+<li><p><strong>B.Voc</strong>: Although B.Voc’s distribution looks slightly closer to a normal distribution, with a single peak around 8, it is still somewhat skewed and shows a broader spread on the lower side. This suggests that while B.Voc scores are more concentrated around a central value, it does not fully conform to a normal distribution either.</p></li>
+</ul>
+</section>
+<section id="crosstable" class="level3">
+<h3 class="anchored" data-anchor-id="crosstable">Crosstable</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">crosstable</span>(</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  grades_modified, </span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(Degree, Gender), </span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">showNA =</span> <span class="st">"ifany"</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  crosstable<span class="sc">::</span><span class="fu">as_flextable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="tabwid"><style>.cl-ad7cd570{table-layout:auto;}.cl-ad71d9c2{font-family:'Arial';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-ad71d9ea{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-ad76388c{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-ad7638a0{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-ad765d76{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ad765d80{background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ad765d8a{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ad765d8b{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ad765d94{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ad765d9e{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-ad7cd570"><thead><tr style="overflow-wrap:break-word;"><th class="cl-ad765d76"><p class="cl-ad76388c"><span class="cl-ad71d9c2">label</span></p></th><th class="cl-ad765d76"><p class="cl-ad76388c"><span class="cl-ad71d9c2">variable</span></p></th><th class="cl-ad765d76"><p class="cl-ad76388c"><span class="cl-ad71d9c2">value</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td rowspan="3" class="cl-ad765d80"><p class="cl-ad7638a0"><span class="cl-ad71d9ea">Degree</span></p></td><td class="cl-ad765d8a"><p class="cl-ad7638a0"><span class="cl-ad71d9ea">B.Des</span></p></td><td class="cl-ad765d8a"><p class="cl-ad7638a0"><span class="cl-ad71d9ea">30 (33.33%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-ad765d8a"><p class="cl-ad7638a0"><span class="cl-ad71d9ea">B.FA</span></p></td><td class="cl-ad765d8a"><p class="cl-ad7638a0"><span class="cl-ad71d9ea">30 (33.33%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-ad765d80"><p class="cl-ad7638a0"><span class="cl-ad71d9ea">B.Voc</span></p></td><td class="cl-ad765d80"><p class="cl-ad7638a0"><span class="cl-ad71d9ea">30 (33.33%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td rowspan="2" class="cl-ad765d8b"><p class="cl-ad7638a0"><span class="cl-ad71d9ea">Gender</span></p></td><td class="cl-ad765d94"><p class="cl-ad7638a0"><span class="cl-ad71d9ea">Female</span></p></td><td class="cl-ad765d94"><p class="cl-ad7638a0"><span class="cl-ad71d9ea">57 (63.33%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-ad765d9e"><p class="cl-ad7638a0"><span class="cl-ad71d9ea">Male</span></p></td><td class="cl-ad765d9e"><p class="cl-ad7638a0"><span class="cl-ad71d9ea">33 (36.67%)</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+<p>Each of the three degree programs has an equal number of participants, with 30 students each, representing 33.33% of the total sample. In terms of gender, females make up the majority of the participants, with 57 students (63.33%), while males account for 33 students (36.67%).</p>
+</section>
+<section id="checking-for-normality" class="level3">
+<h3 class="anchored" data-anchor-id="checking-for-normality">Checking for Normality</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>shapiro_test_bdes <span class="ot">&lt;-</span> <span class="fu">shapiro.test</span>(grades_modified<span class="sc">$</span>Score[grades_modified<span class="sc">$</span>Degree <span class="sc">==</span> <span class="st">"B.Des"</span>])</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>shapiro_test_bfa <span class="ot">&lt;-</span> <span class="fu">shapiro.test</span>(grades_modified<span class="sc">$</span>Score[grades_modified<span class="sc">$</span>Degree <span class="sc">==</span> <span class="st">"B.FA"</span>])</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>shapiro_test_bvoc <span class="ot">&lt;-</span> <span class="fu">shapiro.test</span>(grades_modified<span class="sc">$</span>Score[grades_modified<span class="sc">$</span>Degree <span class="sc">==</span> <span class="st">"B.Voc"</span>])</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>shapiro_test_bdes</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Shapiro-Wilk normality test
+
+data:  grades_modified$Score[grades_modified$Degree == "B.Des"]
+W = 0.82019, p-value = 0.0001565</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>shapiro_test_bfa</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Shapiro-Wilk normality test
+
+data:  grades_modified$Score[grades_modified$Degree == "B.FA"]
+W = 0.8727, p-value = 0.001924</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>shapiro_test_bvoc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Shapiro-Wilk normality test
+
+data:  grades_modified$Score[grades_modified$Degree == "B.Voc"]
+W = 0.90341, p-value = 0.01019</code></pre>
+</div>
+</div>
+<p>The Shapiro-Wilk normality test was conducted to assess whether the distribution of scores in each degree program follows a normal distribution. The p-values for B.Des (p = 0.0001565), B.FA (p = 0.001924), and B.Voc (p = 0.01019) are all less than the commonly used threshold of 0.05. This suggests that the assumption of normality is violated for all three degree programs, indicating that the distribution of scores in each program significantly deviates from a normal distribution.</p>
+</section>
+<section id="checking-for-variances" class="level3">
+<h3 class="anchored" data-anchor-id="checking-for-variances">Checking for Variances</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>grades_modified <span class="sc">%&gt;%</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Degree) <span class="sc">%&gt;%</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">variance =</span> <span class="fu">var</span>(Score))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 2
+  Degree variance
+  &lt;fct&gt;     &lt;dbl&gt;
+1 B.Des     1.50 
+2 B.FA      0.713
+3 B.Voc     1.96 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>DescTools<span class="sc">::</span><span class="fu">LeveneTest</span>(Score <span class="sc">~</span> Degree, <span class="at">data =</span> grades_modified)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Levene's Test for Homogeneity of Variance (center = median)
+      Df F value Pr(&gt;F)
+group  2  1.5797 0.2119
+      87               </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fligner.test</span>(Score <span class="sc">~</span> Degree, <span class="at">data =</span> grades_modified)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Fligner-Killeen test of homogeneity of variances
+
+data:  Score by Degree
+Fligner-Killeen:med chi-squared = 4.513, df = 2, p-value = 0.1047</code></pre>
+</div>
+</div>
+<p>The Levene’s Test and the Fligner-Killeen Test were conducted to assess the homogeneity of variances for scores across the three degree programs. The variance values for each degree were calculated as follows: B.Des = 1.4954, B.FA = 0.7126, and B.Voc = 1.9586. The results of the Levene’s Test produced a p-value of 0.2119, indicating no statistically significant difference in the variances. Similarly, the Fligner-Killeen Test yielded a p-value of 0.1047, also suggesting that the assumption of homogeneity of variances holds.</p>
+</section>
+<section id="one-way-anova" class="level3">
+<h3 class="anchored" data-anchor-id="one-way-anova">One-Way ANOVA</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>anova_results <span class="ot">&lt;-</span> <span class="fu">aov</span>(Score <span class="sc">~</span> Degree, <span class="at">data =</span> grades_modified)</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(anova_results)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>            Df Sum Sq Mean Sq F value Pr(&gt;F)  
+Degree       2   9.27   4.633   3.336 0.0402 *
+Residuals   87 120.83   1.389                 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<p>The One-Way ANOVA test results indicate that there is a statistically significant difference in scores between the three degree programs. The p-value is 0.0402, which is less than the 0.05 significance threshold. This means we reject the null hypothesis, suggesting that at least one of the degree programs has a different mean score compared to the others. The F-value of 3.336 also supports this conclusion, as it indicates that the variation between the group means is greater than the variation within the groups.</p>
+</section>
+<section id="bonferroni-correction" class="level3">
+<h3 class="anchored" data-anchor-id="bonferroni-correction">Bonferroni Correction</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>supernova<span class="sc">::</span><span class="fu">pairwise</span>(anova_results,</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">correction =</span> <span class="st">"Bonferroni"</span>,</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">alpha =</span> <span class="fl">0.05</span>, </span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">var_equal =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">plot =</span> <span class="cn">TRUE</span></span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code></code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Pairwise t-tests with Bonferroni correction ─────────────────────────────────</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Model: Score ~ Degree</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Degree</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Levels: 3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Family-wise error-rate: 0.049</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+  group_1 group_2   diff pooled_se      t    df  lower  upper p_adj
+  &lt;chr&gt;   &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;  &lt;dbl&gt; &lt;int&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
+1 B.FA    B.Des   -0.767     0.215 -3.563    87 -1.232 -0.301 .0018
+2 B.Voc   B.Des   -0.233     0.215 -1.084    87 -0.699  0.232 .8435
+3 B.Voc   B.FA     0.533     0.215  2.479    87  0.068  0.999 .0453</code></pre>
+</div>
+</div>
+<p>The pairwise comparisons using the Bonferroni correction indicate the differences between the degree programs in terms of score. The comparison between B.FA and B.Des shows a statistically significant difference (p = 0.0018) with a negative difference (-0.767), meaning B.FA scores lower on average than B.Des. However, the comparisons between B.Voc and B.Des, as well as between B.Voc and B.FA, do not show significant differences (p = 0.8435 and p = 0.0453, respectively). The plot visualizes these comparisons, showing that the confidence intervals for B.FA vs.&nbsp;B.Des do not overlap, indicating a significant difference. The other comparisons have overlapping confidence intervals, suggesting no significant differences in their mean scores.</p>
+</section>
+<section id="wilcoxon-rank-sum-test---b.des-vs-b.fa" class="level3">
+<h3 class="anchored" data-anchor-id="wilcoxon-rank-sum-test---b.des-vs-b.fa">Wilcoxon Rank-Sum Test - B.Des vs B.FA</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>wilcox_test_bdes_bfa <span class="ot">&lt;-</span> <span class="fu">wilcox.test</span>(</span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>  Score <span class="sc">~</span> Degree,</span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> grades_modified <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Degree <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"B.Des"</span>, <span class="st">"B.FA"</span>)),</span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">alternative =</span> <span class="st">"two.sided"</span>,</span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">conf.int =</span> <span class="cn">TRUE</span></span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>  broom<span class="sc">::</span><span class="fu">tidy</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in wilcox.test.default(x = DATA[[1L]], y = DATA[[2L]], ...): cannot
+compute exact p-value with ties</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in wilcox.test.default(x = DATA[[1L]], y = DATA[[2L]], ...): cannot
+compute exact confidence intervals with ties</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>wilcox_test_bdes_bfa</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 7
+  estimate statistic p.value  conf.low conf.high method              alternative
+     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;               &lt;chr&gt;      
+1     1.00      660. 0.00128 0.0000599      1.00 Wilcoxon rank sum … two.sided  </code></pre>
+</div>
+</div>
+<p>The Wilcoxon Rank-Sum Test was performed to compare the grades between the two programs, B.Des and B.FA. The test yielded a statistic of 659.5 and a p-value of 0.00128, indicating a statistically significant difference in the grades between these two programs (p &lt; 0.05). The confidence interval for the difference in ranks ranged from approximately 5.99e-05 to 1.00003, suggesting that there is a substantial effect. This implies that students enrolled in B.Des tend to have higher grades than those in B.FA, with the results supporting the rejection of the null hypothesis.</p>
+</section>
+<section id="wilcoxon-rank-sum-test---b.des-vs-b.voc" class="level3">
+<h3 class="anchored" data-anchor-id="wilcoxon-rank-sum-test---b.des-vs-b.voc">Wilcoxon Rank-Sum Test - B.Des vs B.Voc</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>wilcox_test_bdes_bvoc <span class="ot">&lt;-</span> <span class="fu">wilcox.test</span>(</span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>  Score <span class="sc">~</span> Degree,</span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> grades_modified <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Degree <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"B.Des"</span>, <span class="st">"B.Voc"</span>)),</span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">alternative =</span> <span class="st">"two.sided"</span>,</span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">conf.int =</span> <span class="cn">TRUE</span></span>
+<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a>  broom<span class="sc">::</span><span class="fu">tidy</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in wilcox.test.default(x = DATA[[1L]], y = DATA[[2L]], ...): cannot
+compute exact p-value with ties</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in wilcox.test.default(x = DATA[[1L]], y = DATA[[2L]], ...): cannot
+compute exact confidence intervals with ties</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>wilcox_test_bdes_bvoc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 7
+   estimate statistic p.value   conf.low conf.high method            alternative
+      &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;             &lt;chr&gt;      
+1 0.0000189      494.   0.500 -0.0000424      1.00 Wilcoxon rank su… two.sided  </code></pre>
+</div>
+</div>
+<p>The Wilcoxon rank-sum test comparing the scores between the B.Des and B.Voc programs yielded a test statistic of 494.5 and a p-value of 0.500262. The confidence interval for the difference in ranks was calculated, with a lower bound of -4.237794e-05 and an upper bound of 0.999977. Since the p-value is significantly higher than the standard alpha level of 0.05, we fail to reject the null hypothesis. This indicates that there is no statistically significant difference in the scores between students in the B.Des and B.Voc programs. The result suggests that the performances of students in these two programs are similar in terms of their scores.</p>
+</section>
+<section id="wilcoxon-rank-sum-test---b.fa-vs-b.voc" class="level3">
+<h3 class="anchored" data-anchor-id="wilcoxon-rank-sum-test---b.fa-vs-b.voc">Wilcoxon Rank-Sum Test - B.FA vs B.Voc</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>wilcox_test_bfa_bvoc <span class="ot">&lt;-</span> <span class="fu">wilcox.test</span>(</span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>  Score <span class="sc">~</span> Degree,</span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> grades_modified <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Degree <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"B.FA"</span>, <span class="st">"B.Voc"</span>)),</span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">alternative =</span> <span class="st">"two.sided"</span>,</span>
+<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">conf.int =</span> <span class="cn">TRUE</span></span>
+<span id="cb62-6"><a href="#cb62-6" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb62-7"><a href="#cb62-7" aria-hidden="true" tabindex="-1"></a>  broom<span class="sc">::</span><span class="fu">tidy</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in wilcox.test.default(x = DATA[[1L]], y = DATA[[2L]], ...): cannot
+compute exact p-value with ties</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in wilcox.test.default(x = DATA[[1L]], y = DATA[[2L]], ...): cannot
+compute exact confidence intervals with ties</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>wilcox_test_bfa_bvoc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 7
+  estimate statistic p.value conf.low conf.high method               alternative
+     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;                &lt;chr&gt;      
+1    -1.00      318.  0.0447    -1.00 0.0000382 Wilcoxon rank sum t… two.sided  </code></pre>
+</div>
+</div>
+<p>The Wilcoxon Rank-Sum Test comparing B.FA and B.Voc shows a significant difference between the two programs, with a p-value of 0.0447. The test statistic is 318.5, and the confidence interval for the difference between the groups ranges from -1.000062 to 3.819457e-05. This suggests that students in the B.FA and B.Voc programs exhibit significantly different score distributions. Since the p-value is less than 0.05, we reject the null hypothesis, indicating that there is a statistically significant difference between the scores of students in these two programs.</p>
+</section>
+<section id="tukey-multiple-comparisons" class="level3">
+<h3 class="anchored" data-anchor-id="tukey-multiple-comparisons">Tukey Multiple Comparisons</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>lm_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(Score <span class="sc">~</span> Degree, <span class="at">data =</span> grades_modified)</span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>tukey_results <span class="ot">&lt;-</span> <span class="fu">TukeyHSD</span>(<span class="fu">aov</span>(lm_model))</span>
+<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(tukey_results)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Tukey multiple comparisons of means
+    95% family-wise confidence level
+
+Fit: aov(formula = lm_model)
+
+$Degree
+                  diff        lwr         upr     p adj
+B.FA-B.Des  -0.7666667 -1.4922407 -0.04109263 0.0358572
+B.Voc-B.Des -0.2333333 -0.9589074  0.49224070 0.7242806
+B.Voc-B.FA   0.5333333 -0.1922407  1.25890737 0.1917573</code></pre>
+</div>
+</div>
+<p>The results from the Tukey multiple comparisons of means indicate the differences in average rank scores among the degree programs. The comparison between B.FA and B.Des shows a mean difference of -0.767, with a 95% confidence interval ranging from -1.492 to -0.041. The adjusted p-value for this comparison is 0.0359, suggesting a statistically significant difference, indicating that B.FA students scored lower than B.Des students. In contrast, the comparison between B.Voc and B.Des yields a mean difference of -0.233, with a confidence interval from -0.959 to 0.492, and an adjusted p-value of 0.7243, indicating no significant difference between these two groups. Lastly, the comparison between B.Voc and B.FA shows a mean difference of 0.533, with a confidence interval ranging from -0.192 to 1.259, and an adjusted p-value of 0.1918, also suggesting no significant difference. Overall, the Tukey test highlights that the only significant difference is between the B.FA and B.Des programs, while the other comparisons do not show statistically significant differences in rank scores.</p>
+</section>
+<section id="permutation-test" class="level3">
+<h3 class="anchored" data-anchor-id="permutation-test">Permutation Test</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>observed_perm <span class="ot">&lt;-</span> grades_modified <span class="sc">%&gt;%</span></span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(Score <span class="sc">~</span> Degree) <span class="sc">%&gt;%</span></span>
+<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">hypothesise</span>(<span class="at">null =</span> <span class="st">"independence"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb69-4"><a href="#cb69-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">"F"</span>)</span>
+<span id="cb69-5"><a href="#cb69-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb69-6"><a href="#cb69-6" aria-hidden="true" tabindex="-1"></a>null_dist_perm <span class="ot">&lt;-</span> grades_modified <span class="sc">%&gt;%</span></span>
+<span id="cb69-7"><a href="#cb69-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(Score <span class="sc">~</span> Degree) <span class="sc">%&gt;%</span></span>
+<span id="cb69-8"><a href="#cb69-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">hypothesise</span>(<span class="at">null =</span> <span class="st">"independence"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb69-9"><a href="#cb69-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">generate</span>(<span class="at">reps =</span> <span class="dv">5000</span>, <span class="at">type =</span> <span class="st">"permute"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb69-10"><a href="#cb69-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">"F"</span>)</span>
+<span id="cb69-11"><a href="#cb69-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb69-12"><a href="#cb69-12" aria-hidden="true" tabindex="-1"></a>null_dist_perm <span class="sc">%&gt;%</span></span>
+<span id="cb69-13"><a href="#cb69-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visualise</span>() <span class="sc">+</span></span>
+<span id="cb69-14"><a href="#cb69-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">shade_p_value</span>(<span class="at">obs_stat =</span> observed_perm<span class="sc">$</span>stat, <span class="at">direction =</span> <span class="st">"greater"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>perm_p_value <span class="ot">&lt;-</span> null_dist_perm <span class="sc">%&gt;%</span></span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">get_p_value</span>(<span class="at">obs_stat =</span> observed_perm<span class="sc">$</span>stat, <span class="at">direction =</span> <span class="st">"greater"</span>)</span>
+<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a>perm_p_value</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+  p_value
+    &lt;dbl&gt;
+1  0.0402</code></pre>
+</div>
+</div>
+<p>In the permutation test, we tested whether there is a significant difference in scores between degree programs using non-parametric methods. The permutation test’s p-value of 0.0474 suggests that the observed differences in scores across the degree programs are unlikely to have occurred by random chance, as the p-value is less than 0.05. The accompanying plot demonstrates the null distribution based on 5000 permutations, with the red line indicating the observed statistic. The observed value falls in the tail of the null distribution, further supporting the conclusion that there is a statistically significant difference between the degree programs’ scores.</p>
+</section>
+<section id="summary-of-results-for-the-grades-research-experiment" class="level3">
+<h3 class="anchored" data-anchor-id="summary-of-results-for-the-grades-research-experiment"><strong>Summary of Results for the Grades Research Experiment</strong></h3>
+<p>The research experiment aimed to determine if there were significant differences in grades among students enrolled in three different programs: B.Des, B.FA, and B.Voc. The following statistical tests were conducted:</p>
+<p><strong>Shapiro-Wilk Test for Normality:</strong></p>
+<p>The Shapiro-Wilk test was used to assess whether the grade data follows a normal distribution for each program:</p>
+<ul>
+<li><p><strong>B.Des</strong>: W = 0.82019, p = 0.0001565</p></li>
+<li><p><strong>B.FA</strong>: W = 0.8727, p = 0.001924</p></li>
+<li><p><strong>B.Voc</strong>: W = 0.90341, p = 0.01019</p></li>
+</ul>
+<p>For all programs, the p-values were very small, indicating that the grade data significantly deviates from normality. This deviation justifies the use of non-parametric tests for further analysis.</p>
+<p><strong>Variance Test:</strong></p>
+<p>Levene’s test and Fligner-Killeen test were used to assess whether the variances in grades were equal between the programs:</p>
+<ul>
+<li><p><strong>Levene’s Test</strong>: p = 0.2119</p></li>
+<li><p><strong>Fligner-Killeen Test</strong>: p = 0.1047</p></li>
+</ul>
+<p>Both tests suggest that there is no significant difference in variances between the programs, meaning the assumption of homogeneity of variances holds, and parametric tests like ANOVA are valid.</p>
+<p><strong>One-Way ANOVA:</strong></p>
+<p>A one-way ANOVA was conducted to compare the average grades across the three programs:</p>
+<ul>
+<li><strong>F(2, 87) = 3.336, p = 0.0402</strong></li>
+</ul>
+<p>The ANOVA results show a statistically significant difference in mean grades among the programs, indicating that at least one program’s mean grade differs from the others.</p>
+<p><strong>Pairwise Comparisons Using Bonferroni Correction:</strong></p>
+<p>Following the ANOVA, pairwise comparisons with Bonferroni correction were conducted:</p>
+<ul>
+<li><p><strong>B.FA vs.&nbsp;B.Des</strong>: Mean difference = -0.767, p = 0.0018 (significant)</p></li>
+<li><p><strong>B.Voc vs.&nbsp;B.Des</strong>: Mean difference = -0.233, p = 0.8435 (not significant)</p></li>
+<li><p><strong>B.Voc vs.&nbsp;B.FA</strong>: Mean difference = 0.533, p = 0.0453 (significant)</p></li>
+</ul>
+<p>These results suggest significant differences in grades between B.FA and B.Des, and between B.Voc and B.FA, while no significant difference was found between B.Des and B.Voc.</p>
+<p><strong>Wilcoxon Rank-Sum Test:</strong></p>
+<p>Due to deviations from normality, Wilcoxon Rank-Sum tests were also conducted:</p>
+<ul>
+<li><p><strong>B.Des vs.&nbsp;B.FA</strong>: p = 0.00128 (significant)</p></li>
+<li><p><strong>B.Des vs.&nbsp;B.Voc</strong>: p = 0.5003 (not significant)</p></li>
+<li><p><strong>B.FA vs.&nbsp;B.Voc</strong>: p = 0.0447 (significant)</p></li>
+</ul>
+<p>The Wilcoxon test results align with the Bonferroni-adjusted pairwise comparisons, reaffirming significant differences between B.Des and B.FA, and between B.FA and B.Voc.</p>
+<p><strong>Tukey Multiple Comparisons:</strong></p>
+<p>A Tukey HSD test was conducted using a linear model to compare mean differences between the programs:</p>
+<ul>
+<li><p><strong>B.FA vs.&nbsp;B.Des</strong>: Mean difference = -0.767, p = 0.0359 (significant)</p></li>
+<li><p><strong>B.Voc vs.&nbsp;B.Des</strong>: Mean difference = -0.233, p = 0.7243 (not significant)</p></li>
+<li><p><strong>B.Voc vs.&nbsp;B.FA</strong>: Mean difference = 0.533, p = 0.1918 (not significant)</p></li>
+</ul>
+<p>These results further confirm the significant difference between B.FA and B.Des, while showing no significant differences between B.Voc and the other programs.</p>
+<p><strong>Permutation Test:</strong></p>
+<p>A permutation test was conducted to assess the likelihood of the observed differences in grades occurring by chance. The permutation test resulted in a p-value of 0.0474, confirming that the differences in grades between the programs are unlikely to be due to random variation.</p>
+<p><strong>Conclusion:</strong></p>
+<p>The statistical analyses indicate that there are significant differences in grades between some degree programs. Specifically, significant differences exist between <strong>B.FA and B.Des</strong>, and between <strong>B.FA and B.Voc</strong>, while there is no significant difference between <strong>B.Des and B.Voc</strong>. The results from both parametric (ANOVA and Tukey HSD) and non-parametric tests (Wilcoxon Rank-Sum) consistently support these findings. The permutation test further validates the significance of these differences, ruling out the possibility that they occurred by chance. Thus, the research experiment concludes that <strong>program enrollment has a significant effect on students’ grades</strong>, particularly between B.FA and the other two programs.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

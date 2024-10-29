@@ -1,0 +1,3418 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.555">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Khushi">
+
+<title>Data-As-Material - Assignment 3 - Part 2</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<link href="../../site_libs/tabwid-1.1.3/tabwid.css" rel="stylesheet">
+
+<script src="../../site_libs/tabwid-1.1.3/tabwid.js"></script>
+
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Data-As-Material</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Assignment 3 - Part 2</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">Assignments</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Khushi </p>
+            </div>
+    </div>
+      
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<section id="introduction" class="level3">
+<h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
+<p>We are investigating the influence of Dietary Preference and Gender on Tipping Behaviour.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+✔ purrr     1.0.2     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mosaic)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Registered S3 method overwritten by 'mosaic':
+  method                           from   
+  fortify.SpatialPolygonsDataFrame ggplot2
+
+The 'mosaic' package masks several functions from core packages in order to add 
+additional features.  The original behavior of these functions should not be affected by this.
+
+Attaching package: 'mosaic'
+
+The following object is masked from 'package:Matrix':
+
+    mean
+
+The following objects are masked from 'package:dplyr':
+
+    count, do, tally
+
+The following object is masked from 'package:purrr':
+
+    cross
+
+The following object is masked from 'package:ggplot2':
+
+    stat
+
+The following objects are masked from 'package:stats':
+
+    binom.test, cor, cor.test, cov, fivenum, IQR, median, prop.test,
+    quantile, sd, t.test, var
+
+The following objects are masked from 'package:base':
+
+    max, mean, min, prod, range, sample, sum</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggformula)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(crosstable)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'crosstable'
+
+The following object is masked from 'package:purrr':
+
+    compact</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'skimr'
+
+The following object is masked from 'package:mosaic':
+
+    n_missing</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="research-experiment-to-investigate-the-influence-of-dietary-preference-and-gender-on-tipping-behaviour" class="level3">
+<h3 class="anchored" data-anchor-id="research-experiment-to-investigate-the-influence-of-dietary-preference-and-gender-on-tipping-behaviour">Research Experiment to Investigate the Influence of Dietary Preference and Gender on Tipping Behaviour</h3>
+<p><strong>Objective</strong>:<br>
+The purpose of this research experiment is to investigate whether there is a significant difference in the amount of tips given by vegetarians and non-vegetarians. Additionally, the study aims to test whether one gender tends to tip more than the other. By collecting and analyzing tipping data, we aim to explore both dietary and gender-based differences in tipping behaviour.</p>
+<p><strong>Hypotheses</strong>:</p>
+<ul>
+<li><p><em>Primary Hypothesis:</em><br>
+Non-vegetarians tend to give higher tips on average compared to vegetarians.</p></li>
+<li><p><em>Additional Hypothesis:<br>
+</em>One gender (e.g., males) tends to give higher tips on average compared to the other gender (e.g., females).</p></li>
+</ul>
+<section id="experiment-design-data-collection" class="level4">
+<h4 class="anchored" data-anchor-id="experiment-design-data-collection"><strong>Experiment Design:</strong> <strong>Data Collection:</strong></h4>
+<ul>
+<li><p><em>Sample:</em> The dataset consists of tipping data from 60 students at MAHE Bengaluru. There are 30 males and 30 females, with each gender group containing 15 vegetarians and 15 non-vegetarians. The participants were randomly selected through coin tosses and asked to record the amount they tipped during a meal on October 24th, 2024.</p></li>
+<li><p><em>Data Sources:</em> The data was recorded in an Excel sheet by the people conducting the experiment. Each participant reported the tip amount they gave, along with their dietary preference (vegetarian or non-vegetarian) and gender.</p></li>
+</ul>
+<p><strong>Variables Measured</strong>:</p>
+<ul>
+<li><p><em>Target Variable:</em> The amount of tip given by each participant during the experiment period.</p></li>
+<li><p><em>Predictor Variables:</em></p>
+<ul>
+<li><p>Dietary Preference (Vegetarian vs.&nbsp;Non-Vegetarian)</p></li>
+<li><p>Gender (Male vs.&nbsp;Female)</p></li>
+</ul></li>
+</ul>
+<p><strong>Sampling</strong>:</p>
+<ul>
+<li><p><em>Time Period:</em> The experiment was conducted on October 24th, 2024, over a period of 1.5 hours.</p></li>
+<li><p><em>Participant Selection Criteria:</em> 30 males and 30 females were randomly selected by tossing a coin. Within each gender group, 15 participants were vegetarians and 15 were non-vegetarians. Their dietary preferences and tipping behaviour were recorded accordingly.</p></li>
+</ul>
+<p><strong>Analysis Plan:</strong></p>
+<ul>
+<li><p><em>Data Cleaning and Transformation:</em> The data was checked for accuracy in the Excel sheet, ensuring that each participant’s tipping amount, dietary preference, and gender were properly recorded, with no missing or erroneous entries.</p></li>
+<li><p><em>Exploratory Data Analysis (EDA):</em> Visualizations such as histograms, box plots, and scatter plots will be used to compare tipping distributions between vegetarians and non-vegetarians, as well as between males and females. This will help identify patterns or discrepancies in tipping behaviour.</p></li>
+</ul>
+</section>
+<section id="statistical-tests" class="level4">
+<h4 class="anchored" data-anchor-id="statistical-tests">Statistical Tests:</h4>
+<ul>
+<li><p><em>Two-Sample t-Test (Dietary Preference):</em> A two-independent sample test for means will be conducted to compare the average tip amount given by vegetarians and non-vegetarians. This will help determine if there is a statistically significant difference in tipping behaviour between the two dietary groups.</p></li>
+<li><p><em>Two-Sample t-Test (Gender):</em> A separate two-sample t-test will be conducted to compare the average tip amount given by males and females. This will help determine if there is a statistically significant difference in tipping behaviour between the two genders.</p></li>
+<li><p><em>Permutation Test (Dietary Preference &amp; Gender):</em> A permutation test will be conducted to assess the likelihood of the observed differences in tipping amounts (for both dietary preference and gender) occurring by chance, providing a non-parametric alternative to the two-sample t-tests.</p></li>
+<li><p><em>Descriptive Statistics:</em> Measures like mean, median, and standard deviation will be calculated for both groups (vegetarians vs.&nbsp;non-vegetarians and males vs.&nbsp;females) to summarize tipping behaviour.</p></li>
+<li><p><em>Wilcoxon Rank-Sum Test:</em> If the normality assumption is not met, a Wilcoxon rank-sum test (a non-parametric test) will be conducted to compare the tipping behaviour between vegetarians and non-vegetarians, as well as between males and females.</p></li>
+</ul>
+<p><strong>Limitations</strong>:</p>
+<ul>
+<li><p><em>Sample Size:</em> With 30 participants per group (15 vegetarians and 15 non-vegetarians for each gender), the results may not be generalizable to a larger population. A more extensive sample would provide greater reliability.</p></li>
+<li><p><em>Contextual Factors:</em> The study did not account for external factors that might influence tipping behaviour, such as the quality of service, the total bill amount, or personal tipping habits, which could have an effect on the tip amount.</p></li>
+</ul>
+</section>
+</section>
+<section id="outcome" class="level3">
+<h3 class="anchored" data-anchor-id="outcome">Outcome:</h3>
+<p>The analysis will reveal whether significant differences in tipping behaviour exist between vegetarians and non-vegetarians and between males and females at MAHE Bengaluru. If the hypotheses hold, it would suggest that non-vegetarians, on average, tend to give higher tips than vegetarians, and one gender may tend to tip more than the other. These findings will provide insights into whether dietary preferences and gender influence tipping behaviour within this student population.</p>
+</section>
+<section id="dataset---tipping" class="level3">
+<h3 class="anchored" data-anchor-id="dataset---tipping">Dataset - Tipping</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>tip <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"../../data/tip.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 60 Columns: 4
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (3): Name, Gender, Preference
+dbl (1): Tip
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>tip</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 60 × 4
+   Name     Gender Preference   Tip
+   &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt;      &lt;dbl&gt;
+ 1 Aanya    Female Veg            0
+ 2 Adit     Male   Veg            0
+ 3 Aditi    Female Veg           20
+ 4 Akash    Male   Non-veg        0
+ 5 Akshita  Female Non-veg        0
+ 6 Anandita Female Non-veg        0
+ 7 Ananya   Female Non-veg       20
+ 8 Anaya    Female Veg           35
+ 9 Anhuya   Female Veg           40
+10 Ankit    Male   Non-veg        0
+# ℹ 50 more rows</code></pre>
+</div>
+</div>
+<p>The dataset shown contains tipping data for 60 students at MAHE Bengaluru. The data includes four variables: Name, Gender, Dietary Preference (Vegetarian or Non-Vegetarian), and Tip Amount. Each row represents one participant’s recorded tip amount. The participants are evenly split between males and females, as well as between vegetarians and non-vegetarians. There are variations in tipping amounts, with some participants tipping as high as 40 units, while others tipped nothing.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>tip_modified <span class="ot">&lt;-</span> tip <span class="sc">%&gt;%</span> </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>( <span class="at">Gender =</span> <span class="fu">as_factor</span>(Gender))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="glimpse---tipping" class="level3">
+<h3 class="anchored" data-anchor-id="glimpse---tipping">Glimpse - Tipping</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(tip_modified)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 60
+Columns: 4
+$ Name       &lt;chr&gt; "Aanya", "Adit", "Aditi", "Akash", "Akshita", "Anandita", "…
+$ Gender     &lt;fct&gt; Female, Male, Female, Male, Female, Female, Female, Female,…
+$ Preference &lt;chr&gt; "Veg", "Veg", "Veg", "Non-veg", "Non-veg", "Non-veg", "Non-…
+$ Tip        &lt;dbl&gt; 0, 0, 20, 0, 0, 0, 20, 35, 40, 0, 0, 0, 0, 0, 0, 0, 20, 0, …</code></pre>
+</div>
+</div>
+<p>The Gender variable is stored as a factor, with participants divided evenly between males and females. The Tip amounts vary, with a range from 0 to 100 units. Some participants did not tip, while others left substantial tips, suggesting variability in tipping behaviour.</p>
+</section>
+<section id="inspect---tipping" class="level3">
+<h3 class="anchored" data-anchor-id="inspect---tipping">Inspect - Tipping</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">inspect</span>(tip_modified)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+categorical variables:  
+        name     class levels  n missing
+1       Name character     60 60       0
+2     Gender    factor      2 60       0
+3 Preference character      2 60       0
+                                   distribution
+1 Aanya (1.7%), Adit (1.7%) ...                
+2 Female (50%), Male (50%)                     
+3 Non-veg (50%), Veg (50%)                     
+
+quantitative variables:  
+  name   class min Q1 median Q3 max     mean       sd  n missing
+1  Tip numeric   0  0      0 20 100 11.16667 17.83556 60       0</code></pre>
+</div>
+</div>
+<p>The tip amounts range from 0 to 100, with the median tip amount being 0, and the first and third quartiles (Q1 and Q3) being 0 and 20, respectively. The mean tip amount is approximately 11.1, with a standard deviation of 17.8.</p>
+</section>
+<section id="skim---tipping" class="level3">
+<h3 class="anchored" data-anchor-id="skim---tipping">Skim - Tipping</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">skim</span>(tip_modified)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Data summary</caption>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Name</td>
+<td style="text-align: left;">tip_modified</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Number of rows</td>
+<td style="text-align: left;">60</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Number of columns</td>
+<td style="text-align: left;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">_______________________</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Column type frequency:</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">character</td>
+<td style="text-align: left;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">factor</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">numeric</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">________________________</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Group variables</td>
+<td style="text-align: left;">None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: character</strong></p>
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 19%">
+<col style="width: 13%">
+<col style="width: 19%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 8%">
+<col style="width: 12%">
+<col style="width: 15%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">skim_variable</th>
+<th style="text-align: right;">n_missing</th>
+<th style="text-align: right;">complete_rate</th>
+<th style="text-align: right;">min</th>
+<th style="text-align: right;">max</th>
+<th style="text-align: right;">empty</th>
+<th style="text-align: right;">n_unique</th>
+<th style="text-align: right;">whitespace</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Name</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">60</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Preference</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: factor</strong></p>
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 19%">
+<col style="width: 13%">
+<col style="width: 19%">
+<col style="width: 11%">
+<col style="width: 12%">
+<col style="width: 23%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">skim_variable</th>
+<th style="text-align: right;">n_missing</th>
+<th style="text-align: right;">complete_rate</th>
+<th style="text-align: left;">ordered</th>
+<th style="text-align: right;">n_unique</th>
+<th style="text-align: left;">top_counts</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Gender</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">Fem: 30, Mal: 30</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: numeric</strong></p>
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 18%">
+<col style="width: 13%">
+<col style="width: 18%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 3%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 6%">
+<col style="width: 7%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">skim_variable</th>
+<th style="text-align: right;">n_missing</th>
+<th style="text-align: right;">complete_rate</th>
+<th style="text-align: right;">mean</th>
+<th style="text-align: right;">sd</th>
+<th style="text-align: right;">p0</th>
+<th style="text-align: right;">p25</th>
+<th style="text-align: right;">p50</th>
+<th style="text-align: right;">p75</th>
+<th style="text-align: right;">p100</th>
+<th style="text-align: left;">hist</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Tip</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">11.17</td>
+<td style="text-align: right;">17.84</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">100</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>The tips range from 0 to 100, with an average (mean) tip of approximately 11.17 rupees and a standard deviation of 17.84 rupees. Most participants did not give any tips, as indicated by the median and lower quartile values being 0. The data shows variability in tipping behaviour across individuals, with some participants giving significantly higher tips (as shown by the maximum value of 100).</p>
+</section>
+<section id="data-dictionary" class="level3">
+<h3 class="anchored" data-anchor-id="data-dictionary"><strong>Data Dictionary</strong></h3>
+<p><strong>Quantitative Data:</strong></p>
+<ul>
+<li><strong>Tip (dbl):</strong> The total tip amount given by each participant, recorded in Indian rupees.</li>
+</ul>
+<p><strong>Qualitative Data:</strong></p>
+<ul>
+<li><p><strong>Name (chr):</strong> The name of the participant.</p></li>
+<li><p><strong>Gender (fct):</strong> The gender of the participant, categorized as either Male or Female.</p></li>
+<li><p><strong>Preference (chr):</strong> The dietary preference of the participant, categorized as either Vegetarian (Veg) or Non-Vegetarian (Non-veg).</p></li>
+</ul>
+</section>
+<section id="histogram---distribution-of-tips-by-dietary-preference" class="level3">
+<h3 class="anchored" data-anchor-id="histogram---distribution-of-tips-by-dietary-preference">Histogram - Distribution of Tips by Dietary Preference</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gf_histogram</span>( <span class="sc">~</span> Tip <span class="sc">|</span> Preference, </span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> tip_modified, </span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">binwidth =</span> <span class="dv">10</span>, </span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">fill =</span> <span class="st">"skyblue"</span>, </span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">color =</span> <span class="st">"black"</span> </span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="fu">gf_labs</span>(</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Distribution of Tips by Dietary Preference"</span>,</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Tip Amount (in Rupees)"</span>,</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Count"</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The histogram visualizes the distribution of tips given by vegetarians and non-vegetarians. Both groups show a significant number of participants who gave no tips at all, with vegetarians showing a higher concentration of zero tips compared to non-vegetarians. Among those who did tip, non-vegetarians gave a larger number of tips in the range of ₹0 to ₹25, with fewer participants tipping above ₹50. In contrast, a few vegetarians tipped more substantial amounts, with one participant tipping ₹100, while most tips were clustered between ₹0 and ₹25. Overall, non-vegetarians tend to provide more tips within the lower ranges, while vegetarians exhibit a broader spread, with some giving higher tips. However, the majority of both groups tend to tip small amounts or none at all.</p>
+</section>
+<section id="histogram---distribution-of-tips-by-gender" class="level3">
+<h3 class="anchored" data-anchor-id="histogram---distribution-of-tips-by-gender">Histogram - Distribution of Tips by Gender</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gf_histogram</span>( <span class="sc">~</span> Tip <span class="sc">|</span> Gender, </span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> tip_modified, </span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">binwidth =</span> <span class="dv">10</span>, </span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">fill =</span> <span class="st">"lightgreen"</span>, </span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">color =</span> <span class="st">"black"</span> </span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="fu">gf_labs</span>(</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Distribution of Tips by Gender"</span>,</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Tip Amount (in Rupees)"</span>,</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Count"</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The histogram displays the distribution of tips given by gender. Both males and females show a significant number of participants who did not give any tips at all, with males having a slightly higher concentration of zero tips. Among those who did tip, most females provided tips in the ₹0 to ₹25 range, with a few tipping up to ₹50. In contrast, males also predominantly tipped in the ₹0 to ₹25 range, but there is a notable outlier where one male tipped ₹100, which is higher than any tip given by females. Overall, both genders tend to give small tips, though males show a broader range of tipping amounts, with the maximum tip coming from a male participant.</p>
+</section>
+<section id="box-plot---distribution-of-tips-by-dietary-preference" class="level3">
+<h3 class="anchored" data-anchor-id="box-plot---distribution-of-tips-by-dietary-preference">Box plot - Distribution of Tips by Dietary Preference</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gf_boxplot</span>(Tip <span class="sc">~</span> Preference,</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> tip_modified,</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">fill =</span> <span class="sc">~</span>Preference) <span class="sc">%&gt;%</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Distribution of Tips by Dietary Preference"</span>,</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Dietary Preference"</span>,</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Tip Amount (in Rupees)"</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The box plot comparing the distribution of tips between vegetarians and non-vegetarians reveals that both groups have similar ranges of tip amounts, but there is an outlier in the vegetarian group with a higher tip of 100 rupees. The median tip for both vegetarians and non-vegetarians is around the same value. However, the spread (interquartile range) of tips is slightly broader for non-vegetarians. The presence of an outlier in the vegetarian group suggests that one individual tipped significantly more than the majority of participants in both groups, while most participants tipped relatively low amounts. Overall, the box plot indicates that tipping behaviour is fairly similar between the two dietary preference groups, with no major differences in the central tendency.</p>
+</section>
+<section id="box-plot---distribution-of-tips-by-gender" class="level3">
+<h3 class="anchored" data-anchor-id="box-plot---distribution-of-tips-by-gender">Box Plot - Distribution of Tips by Gender</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gf_boxplot</span>(Tip <span class="sc">~</span> Gender,</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> tip_modified,</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">fill =</span> <span class="sc">~</span>Gender) <span class="sc">%&gt;%</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Distribution of Tips by Gender"</span>,</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Gender"</span>,</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Tip Amount (in Rupees)"</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The box plot comparing the distribution of tips between males and females shows that both genders have similar tipping patterns in terms of median and spread. The median tip amount is nearly the same for both groups, with the interquartile range (IQR) for females slightly broader than for males. However, there is an outlier in the male group, where one individual tipped a significantly higher amount (100 rupees) compared to the rest. Despite this outlier, the central tendency and overall distribution appear quite similar between males and females, suggesting no major gender-based differences in tipping behaviour.</p>
+</section>
+<section id="scatter-plot---individual-tipping-behaviour-by-gender-and-dietary-preference" class="level3">
+<h3 class="anchored" data-anchor-id="scatter-plot---individual-tipping-behaviour-by-gender-and-dietary-preference">Scatter Plot - Individual Tipping Behaviour by Gender and Dietary Preference</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gf_point</span>(Tip <span class="sc">~</span> Gender <span class="sc">|</span> Preference, </span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">data =</span> tip_modified,</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">color =</span> <span class="sc">~</span> Gender,</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">shape =</span> <span class="sc">~</span> Preference) <span class="sc">%&gt;%</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Individual Tipping Behaviour by Gender and Dietary Preference"</span>,</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Gender and Dietary Preference"</span>,</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Tip Amount (in Rupees)"</span></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The scatter plot visually represents individual tipping behaviour, comparing tips based on both gender and dietary preference. In the plot, female and male participants are shown with different colours, while vegetarian and non-vegetarian participants are distinguished by different shapes. The data reveals that the majority of participants across all categories (female/male, veg/non-veg) tend to give lower tips (below 50 rupees), but there are a few outliers, especially in the vegetarian category, where some participants gave tips as high as 100 rupees. Non-vegetarians, on the other hand, generally tip in smaller amounts.</p>
+</section>
+<section id="density-plot" class="level3">
+<h3 class="anchored" data-anchor-id="density-plot">Density Plot</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>tip_modified <span class="sc">%&gt;%</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_density</span>(<span class="sc">~</span> Tip, <span class="at">fill =</span> <span class="sc">~</span> Preference, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_fitdistr</span>(<span class="sc">~</span> Tip, <span class="at">dist =</span> <span class="st">"dnorm"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Density Plot of Tip Amount by Dietary Preference"</span>,</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Compared with Normal Distribution"</span>,</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Tip Amount (in Rupees)"</span>,</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Density"</span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>tip_modified <span class="sc">%&gt;%</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_density</span>(<span class="sc">~</span> Tip, <span class="at">fill =</span> <span class="sc">~</span> Gender, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_fitdistr</span>(<span class="sc">~</span> Tip, <span class="at">dist =</span> <span class="st">"dnorm"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Density Plot of Tip Amount by Gender"</span>,</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Compared with Normal Distribution"</span>,</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Tip Amount (in Rupees)"</span>,</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Density"</span></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-12-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The density plots provide a visual comparison of the tipping behaviour across dietary preferences (vegetarians vs.&nbsp;non-vegetarians) and gender (males vs.&nbsp;females). In both cases, the tipping behaviour is skewed towards lower tip amounts, with the highest density of tips being in the range of 0 to 25 rupees. The comparison against the normal distribution suggests that the tip data does not follow a normal distribution, especially for the lower tip amounts.</p>
+<p>For dietary preferences, non-vegetarians tend to tip slightly higher than vegetarians, as indicated by the density curve extending further towards higher tip amounts. However, the difference is not substantial, and both groups show a similar overall distribution of low tips.</p>
+<p>In terms of gender, the male participants appear to give slightly higher tips compared to female participants, as seen by the male density curve being more spread towards the higher tip amounts. Nonetheless, both genders also demonstrate a strong tendency towards giving lower tips, with a majority of tips clustered in the lower ranges. Overall, while there are slight differences, tipping behaviour across both dietary preference and gender is heavily skewed towards lower amounts.</p>
+</section>
+<section id="crosstable" class="level3">
+<h3 class="anchored" data-anchor-id="crosstable">Crosstable</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">crosstable</span>(</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  tip_modified, </span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(Gender, Preference), </span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">showNA =</span> <span class="st">"ifany"</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  crosstable<span class="sc">::</span><span class="fu">as_flextable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="tabwid"><style>.cl-c66a3e48{table-layout:auto;}.cl-c65b86be{font-family:'Arial';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-c65b86d2{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-c65f0a64{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-c65f0a6e{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-c65f320a{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c65f3214{background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c65f321e{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c65f321f{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c65f3228{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c65f3229{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-c66a3e48"><thead><tr style="overflow-wrap:break-word;"><th class="cl-c65f320a"><p class="cl-c65f0a64"><span class="cl-c65b86be">label</span></p></th><th class="cl-c65f320a"><p class="cl-c65f0a64"><span class="cl-c65b86be">variable</span></p></th><th class="cl-c65f320a"><p class="cl-c65f0a64"><span class="cl-c65b86be">value</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td rowspan="2" class="cl-c65f3214"><p class="cl-c65f0a6e"><span class="cl-c65b86d2">Gender</span></p></td><td class="cl-c65f321e"><p class="cl-c65f0a6e"><span class="cl-c65b86d2">Female</span></p></td><td class="cl-c65f321e"><p class="cl-c65f0a6e"><span class="cl-c65b86d2">30 (50.00%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-c65f3214"><p class="cl-c65f0a6e"><span class="cl-c65b86d2">Male</span></p></td><td class="cl-c65f3214"><p class="cl-c65f0a6e"><span class="cl-c65b86d2">30 (50.00%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td rowspan="2" class="cl-c65f321f"><p class="cl-c65f0a6e"><span class="cl-c65b86d2">Preference</span></p></td><td class="cl-c65f3228"><p class="cl-c65f0a6e"><span class="cl-c65b86d2">Non-veg</span></p></td><td class="cl-c65f3228"><p class="cl-c65f0a6e"><span class="cl-c65b86d2">30 (50.00%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-c65f3229"><p class="cl-c65f0a6e"><span class="cl-c65b86d2">Veg</span></p></td><td class="cl-c65f3229"><p class="cl-c65f0a6e"><span class="cl-c65b86d2">30 (50.00%)</span></p></td></tr></tbody></table></div>
+</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>tip_modified <span class="sc">%&gt;%</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Gender, Preference) <span class="sc">%&gt;%</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">Mean_Tip =</span> <span class="fu">mean</span>(Tip, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">Median_Tip =</span> <span class="fu">median</span>(Tip, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">Count =</span> <span class="fu">n</span>()</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'Gender'. You can override using the
+`.groups` argument.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 5
+# Groups:   Gender [2]
+  Gender Preference Mean_Tip Median_Tip Count
+  &lt;fct&gt;  &lt;chr&gt;         &lt;dbl&gt;      &lt;dbl&gt; &lt;int&gt;
+1 Female Non-veg       11.3           0    15
+2 Female Veg           13             0    15
+3 Male   Non-veg        8.67          0    15
+4 Male   Veg           11.7           0    15</code></pre>
+</div>
+</div>
+<p>The cross table shows that the tipping dataset contains an equal number of males and females, with 30 participants in each group. Similarly, there are equal numbers of participants with dietary preferences, 30 for vegetarians and 30 for non-vegetarians. When breaking down by gender and dietary preference, the average tip given by females who are non-vegetarians is ₹11.33, while females who are vegetarians tip an average of ₹13. For males, non-vegetarians give an average of ₹8.67, while vegetarians tip an average of ₹11.67. The median tip for all groups remains ₹0, indicating that many participants may not have tipped, skewing the distribution. These results suggest some differences in tipping behaviour based on dietary preferences and gender, though the prevalence of non-tipping behaviour is noticeable across all groups.</p>
+</section>
+<section id="t-test-for-vegetarians-vs.-non-vegetarians" class="level3">
+<h3 class="anchored" data-anchor-id="t-test-for-vegetarians-vs.-non-vegetarians">T-test for Vegetarians vs.&nbsp;Non-Vegetarians</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>t_test_veg_nonveg <span class="ot">&lt;-</span> <span class="fu">t.test</span>(</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  Tip <span class="sc">~</span> Preference,</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> tip_modified,</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">var.equal =</span> <span class="cn">FALSE</span> </span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span> </span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>broom<span class="sc">::</span><span class="fu">tidy</span>()</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>t_test_veg_nonveg</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 10
+  estimate estimate1 estimate2 statistic p.value parameter conf.low conf.high
+     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+1    -2.33        10      12.3    -0.503   0.617      46.9    -11.7      6.99
+# ℹ 2 more variables: method &lt;chr&gt;, alternative &lt;chr&gt;</code></pre>
+</div>
+</div>
+<p>The t-test conducted to compare the average tip amounts between vegetarians and non-vegetarians shows a p-value of 0.617. This high p-value indicates that there is no statistically significant difference between the two groups. The estimated mean tip for vegetarians is ₹12.33, while for non-vegetarians, it is ₹10, resulting in a mean difference of approximately ₹2.33. The 95% confidence interval for this difference is from -11.66 to 6.99, which includes zero, further suggesting that there is no significant difference in tipping behaviour based on dietary preference. Therefore, the data does not support the hypothesis that non-vegetarians tip more than vegetarians.</p>
+</section>
+<section id="t-test-for-males-vs.-females" class="level3">
+<h3 class="anchored" data-anchor-id="t-test-for-males-vs.-females">T-test for Males vs.&nbsp;Females</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>t_test_gender <span class="ot">&lt;-</span> <span class="fu">t.test</span>(</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  Tip <span class="sc">~</span> Gender,</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> tip_modified,</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">var.equal =</span> <span class="cn">FALSE</span> </span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span> </span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>broom<span class="sc">::</span><span class="fu">tidy</span>()</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>t_test_gender</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 10
+  estimate estimate1 estimate2 statistic p.value parameter conf.low conf.high
+     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+1        2      12.2      10.2     0.431   0.668      55.8    -7.29      11.3
+# ℹ 2 more variables: method &lt;chr&gt;, alternative &lt;chr&gt;</code></pre>
+</div>
+</div>
+<p>The t-test comparing the average tip amounts between males and females reveals no significant difference in tipping behaviour. The mean tip for males was ₹10.17, and for females, it was ₹12.17. The test produced a t-statistic of 0.431 and a p-value of 0.668, which is much higher than the standard significance level of 0.05. Additionally, the 95% confidence interval ranges from -7.29 to 11.29, suggesting that the true difference in means could be anywhere within this range, including zero.</p>
+</section>
+<section id="wilcoxon-rank-sum-test-for-vegetarians-vs.-non-vegetarians" class="level3">
+<h3 class="anchored" data-anchor-id="wilcoxon-rank-sum-test-for-vegetarians-vs.-non-vegetarians">Wilcoxon Rank-Sum Test for Vegetarians vs.&nbsp;Non-Vegetarians</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>wilcox_test_veg_nonveg <span class="ot">&lt;-</span> <span class="fu">wilcox.test</span>(</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  Tip <span class="sc">~</span> Preference,</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> tip_modified,</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">alternative =</span> <span class="st">"two.sided"</span>,</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">conf.int =</span> <span class="cn">TRUE</span></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>  broom<span class="sc">::</span><span class="fu">tidy</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in wilcox.test.default(x = DATA[[1L]], y = DATA[[2L]], ...): cannot
+compute exact p-value with ties</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in wilcox.test.default(x = DATA[[1L]], y = DATA[[2L]], ...): cannot
+compute exact confidence intervals with ties</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>wilcox_test_veg_nonveg</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 7
+   estimate statistic p.value   conf.low   conf.high method          alternative
+      &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;           &lt;chr&gt;      
+1 0.0000372       463   0.833 -0.0000335 0.000000989 Wilcoxon rank … two.sided  </code></pre>
+</div>
+</div>
+<p>The Wilcoxon Rank-Sum Test conducted to compare the tipping behaviour between vegetarians and non-vegetarians resulted in a p-value of 0.83. This high p-value suggests that there is no statistically significant difference in the tipping amounts between the two groups. The confidence interval also crosses zero, reinforcing the conclusion that the median tip amounts for vegetarians and non-vegetarians are not significantly different. This non-parametric test confirms that dietary preference does not appear to influence tipping behaviour within this dataset.</p>
+</section>
+<section id="wilcoxon-rank-sum-test-for-males-vs.-females" class="level3">
+<h3 class="anchored" data-anchor-id="wilcoxon-rank-sum-test-for-males-vs.-females">Wilcoxon Rank-Sum Test for Males vs.&nbsp;Females</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>wilcox_test_gender <span class="ot">&lt;-</span> <span class="fu">wilcox.test</span>(</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  Tip <span class="sc">~</span> Gender,</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> tip_modified,</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">alternative =</span> <span class="st">"two.sided"</span>,</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">conf.int =</span> <span class="cn">TRUE</span></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>  broom<span class="sc">::</span><span class="fu">tidy</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in wilcox.test.default(x = DATA[[1L]], y = DATA[[2L]], ...): cannot
+compute exact p-value with ties</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in wilcox.test.default(x = DATA[[1L]], y = DATA[[2L]], ...): cannot
+compute exact confidence intervals with ties</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>wilcox_test_gender</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 7
+   estimate statistic p.value   conf.low  conf.high method           alternative
+      &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;            &lt;chr&gt;      
+1 0.0000445       498   0.422 -0.0000134 0.00000497 Wilcoxon rank s… two.sided  </code></pre>
+</div>
+</div>
+<p>The results of the Wilcoxon Rank-Sum Test comparing tipping behaviour between males and females show no significant difference in tipping amounts between the two genders. The p-value is 0.42, which is much higher than the conventional threshold of 0.05, indicating that any observed differences in tipping amounts between males and females are not statistically significant. Both the confidence interval values are very close to zero, further supporting the conclusion that there is no significant difference between male and female tipping behaviour. Thus, tipping behaviour seems similar across both genders in this dataset.</p>
+</section>
+<section id="permutation-test-for-vegetarians-vs-non-vegetarians" class="level3">
+<h3 class="anchored" data-anchor-id="permutation-test-for-vegetarians-vs-non-vegetarians">Permutation Test for Vegetarians vs Non-Vegetarians</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>perm_test_veg_nonveg <span class="ot">&lt;-</span> <span class="fu">do</span>(<span class="dv">1000</span>) <span class="sc">*</span> <span class="fu">diffmean</span>(Tip <span class="sc">~</span> <span class="fu">shuffle</span>(Preference), <span class="at">data =</span> tip_modified)</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>perm_test_veg_nonveg</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        diffmean
+1     -3.6666667
+2      4.6666667
+3      3.0000000
+4      1.6666667
+5      1.3333333
+6      3.6666667
+7      1.6666667
+8     -3.0000000
+9      2.0000000
+10     0.6666667
+11     4.0000000
+12    -4.6666667
+13    -3.3333333
+14     3.6666667
+15     0.6666667
+16     5.3333333
+17   -10.0000000
+18    -1.3333333
+19    -0.6666667
+20    -2.0000000
+21    -0.3333333
+22     2.0000000
+23     3.6666667
+24    -3.0000000
+25     1.6666667
+26    -9.0000000
+27     0.6666667
+28     0.3333333
+29    -2.6666667
+30     5.3333333
+31    -5.6666667
+32     6.0000000
+33    -7.6666667
+34     1.3333333
+35     0.3333333
+36    -5.0000000
+37    -1.3333333
+38    -3.0000000
+39     0.3333333
+40     6.3333333
+41    -5.0000000
+42     2.6666667
+43     7.3333333
+44    -3.0000000
+45     6.0000000
+46     3.6666667
+47     1.6666667
+48     3.0000000
+49    -2.3333333
+50    -1.0000000
+51    -8.3333333
+52    -0.3333333
+53     7.6666667
+54     1.6666667
+55    -4.3333333
+56    -7.6666667
+57     5.6666667
+58     1.0000000
+59     2.0000000
+60    -4.3333333
+61    -3.3333333
+62    -5.6666667
+63    -1.6666667
+64    -1.3333333
+65    -2.0000000
+66     2.6666667
+67     7.0000000
+68    -0.6666667
+69    -3.6666667
+70    -3.0000000
+71    -6.3333333
+72    -5.3333333
+73    -1.6666667
+74     4.0000000
+75    -1.6666667
+76     4.0000000
+77    -1.3333333
+78     4.0000000
+79    -4.3333333
+80     2.0000000
+81    -4.6666667
+82    -2.6666667
+83     8.6666667
+84    10.0000000
+85     3.6666667
+86     5.6666667
+87     1.0000000
+88     9.6666667
+89     7.3333333
+90    -5.6666667
+91     3.3333333
+92     2.0000000
+93     4.0000000
+94     1.3333333
+95    -7.3333333
+96   -11.0000000
+97     2.6666667
+98     0.0000000
+99     0.3333333
+100   -9.6666667
+101   -2.3333333
+102   -5.0000000
+103   -1.3333333
+104   -6.0000000
+105   -2.3333333
+106    5.6666667
+107    8.6666667
+108   -1.6666667
+109    3.0000000
+110   -1.6666667
+111    0.6666667
+112   -2.0000000
+113    3.6666667
+114   -8.6666667
+115    0.6666667
+116   -1.0000000
+117    3.0000000
+118    8.3333333
+119    3.3333333
+120    3.6666667
+121   -4.0000000
+122   -7.0000000
+123    3.0000000
+124    3.0000000
+125    1.6666667
+126    2.0000000
+127   -4.0000000
+128   -2.6666667
+129    4.6666667
+130    3.6666667
+131    4.3333333
+132   -6.6666667
+133   -3.0000000
+134   -1.3333333
+135   -6.6666667
+136   -6.6666667
+137   -5.3333333
+138    5.6666667
+139   -1.0000000
+140    2.3333333
+141  -12.3333333
+142   -8.0000000
+143    2.3333333
+144    0.3333333
+145    3.0000000
+146    2.6666667
+147    6.3333333
+148   -3.3333333
+149   -0.3333333
+150   -2.0000000
+151    7.6666667
+152    3.0000000
+153    0.6666667
+154    2.0000000
+155   -1.3333333
+156    3.0000000
+157    2.3333333
+158   -5.3333333
+159    5.0000000
+160    1.6666667
+161    4.3333333
+162   -4.0000000
+163    0.3333333
+164   -5.3333333
+165    0.3333333
+166    0.3333333
+167   -1.3333333
+168    5.6666667
+169    0.3333333
+170   -5.0000000
+171   -4.3333333
+172    0.6666667
+173    5.6666667
+174   -1.6666667
+175    1.0000000
+176    7.3333333
+177   -6.6666667
+178    1.3333333
+179    5.3333333
+180    1.6666667
+181    6.3333333
+182    5.3333333
+183    2.0000000
+184   -5.0000000
+185   -8.0000000
+186    3.0000000
+187   -6.6666667
+188    0.6666667
+189   -1.6666667
+190   -6.6666667
+191   -7.3333333
+192    5.6666667
+193   -5.3333333
+194   -4.6666667
+195   -4.0000000
+196    5.3333333
+197   -4.0000000
+198   -3.6666667
+199    3.0000000
+200    0.3333333
+201   -6.0000000
+202    2.0000000
+203    8.6666667
+204    0.0000000
+205    0.3333333
+206   -1.6666667
+207    1.6666667
+208   -3.0000000
+209   -3.6666667
+210   -3.6666667
+211    5.3333333
+212    4.0000000
+213   -0.3333333
+214    2.3333333
+215   -4.3333333
+216   -0.3333333
+217    3.0000000
+218   -7.6666667
+219    4.0000000
+220   -2.3333333
+221   -4.3333333
+222   -4.3333333
+223   -9.6666667
+224   -3.3333333
+225    0.3333333
+226    8.0000000
+227    2.3333333
+228   -2.0000000
+229    3.3333333
+230    2.6666667
+231   -1.6666667
+232   -3.6666667
+233    7.0000000
+234   -2.3333333
+235    1.3333333
+236   -2.3333333
+237    3.6666667
+238    5.3333333
+239   -2.6666667
+240    0.3333333
+241    0.0000000
+242    5.0000000
+243    4.6666667
+244    3.3333333
+245    1.6666667
+246    0.3333333
+247    3.3333333
+248   -1.3333333
+249  -10.3333333
+250    4.3333333
+251    0.0000000
+252   -6.0000000
+253    5.6666667
+254   -5.6666667
+255   -0.3333333
+256    6.3333333
+257   -0.6666667
+258    0.6666667
+259   -0.3333333
+260    4.0000000
+261    5.6666667
+262    3.3333333
+263   -0.6666667
+264    4.6666667
+265   -2.6666667
+266   -2.0000000
+267   -3.6666667
+268   -3.0000000
+269   -2.0000000
+270    1.0000000
+271    0.3333333
+272    2.0000000
+273   -2.0000000
+274   -0.6666667
+275    5.6666667
+276    1.3333333
+277    2.0000000
+278    6.6666667
+279   -5.0000000
+280   -0.6666667
+281   -4.6666667
+282   -4.6666667
+283   -0.6666667
+284    5.6666667
+285   -5.0000000
+286   -6.0000000
+287    0.6666667
+288    5.6666667
+289    5.3333333
+290    2.3333333
+291   -2.6666667
+292    9.3333333
+293   -1.3333333
+294    1.0000000
+295    2.0000000
+296   -3.0000000
+297   -1.6666667
+298    3.6666667
+299   -9.0000000
+300   10.3333333
+301   -5.3333333
+302   -0.6666667
+303   -0.3333333
+304   -5.0000000
+305   -8.6666667
+306    6.0000000
+307    6.0000000
+308    6.6666667
+309    3.6666667
+310    0.0000000
+311    2.6666667
+312    6.6666667
+313    0.3333333
+314    7.3333333
+315    2.3333333
+316    2.6666667
+317   -3.0000000
+318    4.0000000
+319   -2.6666667
+320   -5.3333333
+321   -3.0000000
+322    4.0000000
+323    2.0000000
+324    3.6666667
+325   -3.3333333
+326    3.3333333
+327   10.0000000
+328   -5.3333333
+329    1.0000000
+330    2.0000000
+331    6.6666667
+332    6.0000000
+333   -7.0000000
+334    5.3333333
+335    1.0000000
+336  -10.6666667
+337   -1.0000000
+338    7.3333333
+339    0.3333333
+340   -1.3333333
+341    2.0000000
+342    9.3333333
+343   -6.6666667
+344   -1.6666667
+345    3.3333333
+346    3.0000000
+347    1.0000000
+348    5.3333333
+349    8.6666667
+350   -1.3333333
+351   -5.3333333
+352    1.3333333
+353    7.3333333
+354   -1.0000000
+355   -4.0000000
+356    0.3333333
+357   -3.3333333
+358    0.6666667
+359   -3.6666667
+360   -1.0000000
+361    1.3333333
+362    0.0000000
+363    2.0000000
+364   -3.6666667
+365    0.0000000
+366   -2.0000000
+367    5.0000000
+368   -5.0000000
+369   -5.3333333
+370  -10.0000000
+371    3.0000000
+372    1.3333333
+373   -9.3333333
+374   -2.3333333
+375   -7.6666667
+376    4.6666667
+377    2.0000000
+378   10.0000000
+379    0.3333333
+380    4.3333333
+381   -1.3333333
+382    4.3333333
+383    1.0000000
+384   -6.3333333
+385   -4.0000000
+386    8.3333333
+387    5.6666667
+388    8.6666667
+389    8.0000000
+390    5.6666667
+391    2.0000000
+392   -4.0000000
+393    1.6666667
+394    2.3333333
+395    5.0000000
+396    5.3333333
+397   -6.6666667
+398    3.0000000
+399    4.3333333
+400    0.6666667
+401  -13.3333333
+402    5.6666667
+403   -1.6666667
+404   -2.3333333
+405    7.3333333
+406    2.0000000
+407    6.3333333
+408   -0.6666667
+409    3.3333333
+410   -0.6666667
+411   -4.3333333
+412    0.3333333
+413   -6.6666667
+414   -3.6666667
+415   -5.0000000
+416   -9.6666667
+417    3.0000000
+418    0.6666667
+419   -1.3333333
+420   -5.6666667
+421    1.6666667
+422   -0.3333333
+423  -11.3333333
+424   -1.0000000
+425    1.0000000
+426    3.0000000
+427    0.6666667
+428    4.6666667
+429    1.0000000
+430   -2.0000000
+431  -11.0000000
+432    1.3333333
+433    2.0000000
+434    1.0000000
+435   -4.0000000
+436   -6.0000000
+437    0.6666667
+438   -2.3333333
+439   -7.3333333
+440   -1.6666667
+441    3.3333333
+442   -3.6666667
+443   -5.6666667
+444    7.3333333
+445    2.6666667
+446    6.3333333
+447    2.3333333
+448   -4.6666667
+449   -2.0000000
+450   -0.3333333
+451    0.3333333
+452    0.0000000
+453   -5.0000000
+454   -1.6666667
+455   -5.0000000
+456   -1.0000000
+457   -0.6666667
+458   -2.0000000
+459   -4.6666667
+460   -2.6666667
+461   -2.0000000
+462   -8.0000000
+463    1.6666667
+464   -1.6666667
+465    1.6666667
+466   -8.0000000
+467    0.6666667
+468   -8.0000000
+469    1.6666667
+470    1.6666667
+471   -4.3333333
+472   -5.6666667
+473   -3.3333333
+474   -7.0000000
+475   -0.6666667
+476    4.3333333
+477    3.6666667
+478   -4.0000000
+479    6.6666667
+480    3.0000000
+481    5.3333333
+482   -4.0000000
+483   -0.6666667
+484    8.0000000
+485    1.0000000
+486   -5.3333333
+487   -1.6666667
+488   -2.3333333
+489   -1.6666667
+490   -3.0000000
+491   -2.0000000
+492   -7.6666667
+493   -5.3333333
+494    3.3333333
+495    2.0000000
+496    6.0000000
+497   -1.3333333
+498   -0.6666667
+499   -8.0000000
+500    7.0000000
+501   -0.6666667
+502    2.3333333
+503    8.0000000
+504    2.0000000
+505   10.0000000
+506   -3.0000000
+507    1.0000000
+508    6.6666667
+509    0.3333333
+510   -6.0000000
+511   -3.0000000
+512   -1.0000000
+513    5.3333333
+514   -3.0000000
+515    2.0000000
+516   -2.6666667
+517    5.0000000
+518   11.3333333
+519    5.0000000
+520    1.0000000
+521   -3.0000000
+522    4.6666667
+523    0.0000000
+524   -3.0000000
+525    0.0000000
+526    1.3333333
+527   -4.0000000
+528    0.3333333
+529   -1.3333333
+530   -4.6666667
+531   -1.0000000
+532    5.3333333
+533    8.0000000
+534    7.0000000
+535   -3.6666667
+536   -6.0000000
+537   -1.6666667
+538    8.0000000
+539    5.3333333
+540   -4.0000000
+541    0.0000000
+542   -1.3333333
+543   -5.3333333
+544   -1.6666667
+545    0.3333333
+546   -4.0000000
+547   -4.6666667
+548    4.3333333
+549   -0.3333333
+550    0.6666667
+551   -2.6666667
+552    2.0000000
+553    4.0000000
+554   -1.0000000
+555    6.3333333
+556   -1.0000000
+557   -0.6666667
+558   -4.0000000
+559   -6.6666667
+560   -4.0000000
+561    5.3333333
+562   -3.3333333
+563    3.6666667
+564    3.3333333
+565    0.6666667
+566   -6.0000000
+567   -4.0000000
+568   -4.0000000
+569    1.0000000
+570   -4.6666667
+571   -2.3333333
+572    1.6666667
+573   -1.6666667
+574    1.6666667
+575   -6.6666667
+576    0.3333333
+577    5.3333333
+578   -5.3333333
+579   -1.6666667
+580    6.6666667
+581    5.3333333
+582   -8.0000000
+583    1.6666667
+584   -5.3333333
+585   -4.6666667
+586   -2.0000000
+587    7.0000000
+588    4.0000000
+589   -1.3333333
+590   -5.0000000
+591   -1.6666667
+592    0.3333333
+593   -4.6666667
+594   -2.6666667
+595   -1.3333333
+596   -6.3333333
+597   -8.0000000
+598   -5.0000000
+599   -3.0000000
+600   -5.3333333
+601    8.6666667
+602   -3.6666667
+603    6.6666667
+604    1.3333333
+605    4.3333333
+606   -1.3333333
+607   -0.3333333
+608   -0.6666667
+609    3.6666667
+610    9.3333333
+611    1.6666667
+612   -2.6666667
+613    9.3333333
+614    3.6666667
+615    0.6666667
+616   -1.0000000
+617   -7.0000000
+618    1.3333333
+619   -5.6666667
+620   -6.0000000
+621    7.6666667
+622   -1.3333333
+623   -5.3333333
+624    5.3333333
+625    2.6666667
+626    1.3333333
+627    1.6666667
+628    2.6666667
+629   -6.6666667
+630   -0.6666667
+631   -0.6666667
+632   -6.6666667
+633    6.3333333
+634   -0.3333333
+635    0.0000000
+636    2.0000000
+637    2.0000000
+638   -7.6666667
+639    7.6666667
+640    4.0000000
+641    6.6666667
+642    6.3333333
+643   -4.0000000
+644    4.0000000
+645    2.6666667
+646   -2.0000000
+647   -0.3333333
+648    0.0000000
+649   -1.6666667
+650   -2.6666667
+651    0.6666667
+652    4.6666667
+653    5.6666667
+654   -5.3333333
+655   -2.6666667
+656   -1.0000000
+657    1.6666667
+658   -1.6666667
+659    3.0000000
+660    0.3333333
+661   -2.3333333
+662    6.0000000
+663    2.3333333
+664    5.3333333
+665   -8.3333333
+666    0.0000000
+667   -6.3333333
+668   -7.6666667
+669   -6.3333333
+670    2.6666667
+671   -5.6666667
+672   -4.3333333
+673   -3.3333333
+674   -7.0000000
+675   -1.0000000
+676   -8.0000000
+677    1.3333333
+678    2.0000000
+679    0.0000000
+680    1.6666667
+681    1.3333333
+682   -4.6666667
+683    5.3333333
+684   -5.3333333
+685   -5.0000000
+686    0.0000000
+687   -8.6666667
+688    1.0000000
+689    3.0000000
+690    6.6666667
+691    6.6666667
+692    3.6666667
+693    4.6666667
+694   -2.6666667
+695   -0.3333333
+696    1.0000000
+697    2.3333333
+698    5.3333333
+699    0.0000000
+700   -0.3333333
+701    8.6666667
+702    1.6666667
+703    9.3333333
+704    1.6666667
+705   -5.3333333
+706   -7.6666667
+707   -2.3333333
+708    1.0000000
+709    2.6666667
+710    6.6666667
+711    1.0000000
+712   -1.3333333
+713    8.6666667
+714   -3.6666667
+715   -1.0000000
+716   -2.6666667
+717    0.0000000
+718    0.0000000
+719    3.6666667
+720    0.0000000
+721   -4.6666667
+722   -1.0000000
+723   -1.3333333
+724    4.3333333
+725   -4.6666667
+726    6.6666667
+727   -1.0000000
+728    3.3333333
+729    0.6666667
+730   -3.0000000
+731    0.3333333
+732    6.0000000
+733    4.6666667
+734   -2.6666667
+735    1.3333333
+736   -7.3333333
+737    0.0000000
+738    3.0000000
+739   -6.0000000
+740    0.0000000
+741   -3.0000000
+742   -1.6666667
+743    0.0000000
+744   -1.0000000
+745   -0.3333333
+746   -5.6666667
+747    0.6666667
+748   -4.6666667
+749   -5.6666667
+750    4.0000000
+751    3.0000000
+752    2.6666667
+753    1.3333333
+754   -7.0000000
+755   -3.3333333
+756    2.3333333
+757    8.3333333
+758   -2.3333333
+759    7.3333333
+760   -2.6666667
+761    8.0000000
+762    4.6666667
+763    5.3333333
+764   -3.0000000
+765    6.6666667
+766   -0.6666667
+767    0.0000000
+768    4.3333333
+769    1.0000000
+770   -2.6666667
+771   -1.3333333
+772   -1.0000000
+773   -2.0000000
+774   -7.0000000
+775    5.0000000
+776    2.6666667
+777   -1.6666667
+778   -5.3333333
+779   -2.3333333
+780    3.0000000
+781   -1.6666667
+782    1.6666667
+783    1.6666667
+784    4.3333333
+785    6.0000000
+786    7.0000000
+787    8.0000000
+788   -3.6666667
+789    8.0000000
+790   -3.0000000
+791    6.0000000
+792   -1.6666667
+793   -3.3333333
+794   -2.3333333
+795    9.6666667
+796   -8.6666667
+797   -4.0000000
+798  -11.6666667
+799    3.6666667
+800   -2.6666667
+801    3.0000000
+802   -3.3333333
+803    5.0000000
+804    7.0000000
+805    0.6666667
+806   -8.6666667
+807   10.6666667
+808   -1.6666667
+809    4.0000000
+810   -1.3333333
+811   -6.0000000
+812    5.0000000
+813    2.6666667
+814    1.3333333
+815    0.0000000
+816   -5.0000000
+817    8.0000000
+818    1.6666667
+819    3.6666667
+820    5.6666667
+821   -1.6666667
+822   -1.6666667
+823    7.0000000
+824   -3.3333333
+825   -5.6666667
+826    4.0000000
+827    2.3333333
+828   -0.6666667
+829   -3.0000000
+830    2.3333333
+831   -3.0000000
+832    2.6666667
+833    2.3333333
+834   -9.6666667
+835   -3.3333333
+836    1.3333333
+837    7.0000000
+838   -3.0000000
+839    5.6666667
+840   -3.0000000
+841   -5.6666667
+842    1.3333333
+843    5.3333333
+844   -2.6666667
+845   -2.0000000
+846    0.6666667
+847    3.3333333
+848   -0.3333333
+849    5.0000000
+850   -3.3333333
+851   -1.3333333
+852    6.0000000
+853   -5.3333333
+854   -6.0000000
+855   -7.3333333
+856   -4.6666667
+857    2.0000000
+858   -5.0000000
+859    5.6666667
+860    6.6666667
+861    0.0000000
+862    1.6666667
+863    8.3333333
+864   -5.0000000
+865    6.3333333
+866   -1.0000000
+867    7.0000000
+868   -6.3333333
+869    3.0000000
+870   -5.3333333
+871    5.6666667
+872   -0.6666667
+873    7.3333333
+874    0.3333333
+875   -7.6666667
+876    3.6666667
+877    2.0000000
+878   -4.0000000
+879    9.0000000
+880   -1.3333333
+881    2.6666667
+882   -5.6666667
+883   -3.6666667
+884    5.6666667
+885    4.0000000
+886   -4.3333333
+887    6.0000000
+888    6.3333333
+889   -5.3333333
+890   -2.0000000
+891    0.6666667
+892    3.3333333
+893   -3.0000000
+894    1.3333333
+895    1.0000000
+896   -4.3333333
+897   11.3333333
+898   -4.3333333
+899   -1.0000000
+900    0.0000000
+901    2.0000000
+902    1.0000000
+903  -10.3333333
+904    1.6666667
+905    1.6666667
+906    4.6666667
+907  -13.0000000
+908   -1.6666667
+909    1.3333333
+910   -2.0000000
+911    2.0000000
+912   -5.6666667
+913    2.0000000
+914   -3.0000000
+915   -6.0000000
+916   -8.6666667
+917    1.6666667
+918   -4.6666667
+919   -2.3333333
+920   -0.6666667
+921  -10.0000000
+922    2.0000000
+923    4.6666667
+924    2.0000000
+925   -2.0000000
+926   -6.0000000
+927    1.3333333
+928   -6.3333333
+929  -10.0000000
+930   -3.6666667
+931   -0.3333333
+932   -7.3333333
+933    4.6666667
+934    0.6666667
+935   -5.0000000
+936   -4.0000000
+937    0.3333333
+938    4.0000000
+939   -5.0000000
+940    2.6666667
+941   -3.0000000
+942    9.0000000
+943   -3.6666667
+944   -5.3333333
+945    3.0000000
+946   -1.3333333
+947    8.3333333
+948    3.0000000
+949    5.3333333
+950   -2.6666667
+951   -5.6666667
+952   -5.3333333
+953   -0.3333333
+954    2.0000000
+955    1.3333333
+956   -2.3333333
+957    3.6666667
+958    6.6666667
+959   -2.6666667
+960    0.3333333
+961   -4.6666667
+962    0.0000000
+963   -8.6666667
+964   -5.0000000
+965   -2.6666667
+966   -1.6666667
+967   -1.6666667
+968   -7.6666667
+969   -3.3333333
+970   -1.3333333
+971   -3.0000000
+972    1.0000000
+973   -2.0000000
+974   -2.3333333
+975    2.3333333
+976   -8.0000000
+977   -0.6666667
+978    9.0000000
+979    0.6666667
+980    2.0000000
+981    2.6666667
+982    0.6666667
+983    0.3333333
+984    0.3333333
+985    1.6666667
+986    1.0000000
+987    1.0000000
+988    0.0000000
+989   -3.6666667
+990   -0.6666667
+991    5.3333333
+992   -1.3333333
+993   -6.6666667
+994    2.6666667
+995    0.0000000
+996   -5.3333333
+997   -6.0000000
+998   -2.0000000
+999    6.6666667
+1000   1.6666667</code></pre>
+</div>
+</div>
+<p>The permutation test for comparing tipping behaviour between vegetarians and non-vegetarians was conducted with 1000 iterations. The distribution of the difference in mean tips (diffmean) under the null hypothesis, where dietary preferences are randomly shuffled, suggests that the observed differences are small. The diffmean values range from negative to positive, indicating that differences in mean tip amounts vary slightly between vegetarians and non-vegetarians in the randomized samples. These differences appear to center around 0, with most of the values being close to it, implying that the observed differences between the two groups might not be statistically significant, and any difference in tipping behaviour could largely be due to chance.</p>
+</section>
+<section id="plotting-the-results-of-the-permutation-test" class="level3">
+<h3 class="anchored" data-anchor-id="plotting-the-results-of-the-permutation-test">Plotting the results of the Permutation Test</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gf_histogram</span>(<span class="sc">~</span> diffmean, <span class="at">data =</span> perm_test_veg_nonveg, <span class="at">bins =</span> <span class="dv">30</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Permutation Test for Tipping Differences: Vegetarians vs. Non-Vegetarians"</span>,</span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Difference in Mean Tip Amount"</span>,</span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Count"</span></span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The histogram from the permutation test comparing tipping differences between vegetarians and non-vegetarians shows that the distribution of differences in mean tip amounts is approximately centered around zero. This suggests that, under random shuffling of dietary preferences, the observed differences in mean tips could occur by chance.</p>
+</section>
+<section id="observed-difference-for-vegetarians-vs-non-vegetarians" class="level3">
+<h3 class="anchored" data-anchor-id="observed-difference-for-vegetarians-vs-non-vegetarians">Observed difference for Vegetarians vs Non-Vegetarians</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>observed_diff_veg_nonveg <span class="ot">&lt;-</span> <span class="fu">diffmean</span>(Tip <span class="sc">~</span> Preference, <span class="at">data =</span> tip_modified)</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>observed_diff_veg_nonveg</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>diffmean 
+2.333333 </code></pre>
+</div>
+</div>
+<p>The observed difference in the mean tip amount between vegetarians and non-vegetarians is approximately 2.33 rupees, with non-vegetarians giving a slightly higher average tip compared to vegetarians.</p>
+</section>
+<section id="calculating-the-p-value" class="level3">
+<h3 class="anchored" data-anchor-id="calculating-the-p-value">Calculating the p-value</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>p_value_veg_nonveg <span class="ot">&lt;-</span> <span class="fu">prop</span>(<span class="sc">~</span> (<span class="fu">abs</span>(diffmean) <span class="sc">&gt;=</span> <span class="fu">abs</span>(observed_diff_veg_nonveg)), <span class="at">data =</span> perm_test_veg_nonveg)</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>p_value_veg_nonveg</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>prop_TRUE 
+    0.634 </code></pre>
+</div>
+</div>
+<p>The p-value calculated for the permutation test comparing the tipping behavior between vegetarians and non-vegetarians is 0.675. This high p-value suggests that there is no statistically significant difference in the mean tip amounts between the two dietary preference groups. The observed difference of 2.33 rupees could have likely occurred by random chance, indicating that the dietary preference (vegetarian vs.&nbsp;non-vegetarian) does not have a strong influence on tipping behaviour in this sample. Therefore, we fail to reject the null hypothesis.</p>
+</section>
+<section id="permutation-test-for-males-vs-females" class="level3">
+<h3 class="anchored" data-anchor-id="permutation-test-for-males-vs-females">Permutation test for Males vs Females</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>perm_test_gender <span class="ot">&lt;-</span> <span class="fu">do</span>(<span class="dv">1000</span>) <span class="sc">*</span> <span class="fu">diffmean</span>(Tip <span class="sc">~</span> <span class="fu">shuffle</span>(Gender), <span class="at">data =</span> tip_modified)</span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>perm_test_gender</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        diffmean
+1      0.0000000
+2      4.0000000
+3     -2.6666667
+4      5.3333333
+5      6.6666667
+6     -4.6666667
+7      4.3333333
+8      4.3333333
+9     -5.3333333
+10     0.0000000
+11     0.6666667
+12    -1.3333333
+13     2.3333333
+14    -5.3333333
+15     3.3333333
+16    -2.3333333
+17   -10.3333333
+18    -4.0000000
+19    -3.3333333
+20    -0.6666667
+21     0.0000000
+22     0.3333333
+23     1.6666667
+24    -2.0000000
+25    -8.0000000
+26    -5.0000000
+27    -3.0000000
+28    -2.6666667
+29    -2.3333333
+30     0.6666667
+31    -6.0000000
+32    -1.0000000
+33    -1.6666667
+34    -2.3333333
+35    -6.0000000
+36    -1.6666667
+37     8.0000000
+38     0.6666667
+39     6.3333333
+40    -9.3333333
+41    -4.6666667
+42    -1.6666667
+43     1.3333333
+44     8.3333333
+45     0.3333333
+46     5.6666667
+47     1.6666667
+48     7.6666667
+49    -0.6666667
+50    -1.6666667
+51     4.6666667
+52    -6.3333333
+53    -0.3333333
+54   -11.6666667
+55     2.0000000
+56     2.6666667
+57     8.3333333
+58     2.3333333
+59    -4.0000000
+60    -5.0000000
+61     0.6666667
+62    -9.6666667
+63     3.3333333
+64    -1.0000000
+65     3.3333333
+66    -1.6666667
+67     0.3333333
+68     1.0000000
+69    -0.6666667
+70     6.0000000
+71    -1.6666667
+72    -2.6666667
+73     2.0000000
+74    -6.3333333
+75   -11.3333333
+76    -3.3333333
+77    -2.3333333
+78    -3.0000000
+79    -0.3333333
+80    -3.3333333
+81     2.6666667
+82    -5.3333333
+83    -4.6666667
+84    -1.3333333
+85     2.0000000
+86    -2.6666667
+87     1.3333333
+88    -2.3333333
+89    -3.3333333
+90     2.6666667
+91    -1.3333333
+92    -7.0000000
+93     4.6666667
+94    -3.0000000
+95    -7.3333333
+96    -8.0000000
+97    -6.0000000
+98    -8.3333333
+99     0.3333333
+100    1.3333333
+101    1.3333333
+102    1.0000000
+103   -2.6666667
+104   -4.6666667
+105   -1.6666667
+106    1.0000000
+107    1.6666667
+108    1.3333333
+109    5.3333333
+110   -6.3333333
+111    3.0000000
+112    0.3333333
+113   -3.6666667
+114    1.0000000
+115   -0.6666667
+116   -1.3333333
+117    5.3333333
+118    0.3333333
+119   -4.0000000
+120   -3.0000000
+121    0.0000000
+122    4.6666667
+123    1.6666667
+124   -8.0000000
+125    9.0000000
+126   -4.3333333
+127   -4.3333333
+128    1.0000000
+129    6.3333333
+130    1.6666667
+131    0.3333333
+132   -1.3333333
+133    0.3333333
+134   -6.0000000
+135   -1.3333333
+136   -0.6666667
+137    3.0000000
+138   -2.0000000
+139   -1.0000000
+140    4.6666667
+141    6.6666667
+142  -10.0000000
+143    4.3333333
+144    2.3333333
+145    2.0000000
+146  -11.0000000
+147   -4.3333333
+148    0.3333333
+149   -2.3333333
+150   -2.3333333
+151   -4.6666667
+152    2.6666667
+153    3.3333333
+154   -3.0000000
+155    1.3333333
+156    4.3333333
+157    1.0000000
+158   -3.3333333
+159   -2.0000000
+160    4.3333333
+161    5.6666667
+162    4.3333333
+163   -6.3333333
+164    2.0000000
+165   -2.6666667
+166    0.0000000
+167   -3.3333333
+168   -2.3333333
+169    0.3333333
+170    8.0000000
+171   -2.3333333
+172    2.6666667
+173   -3.6666667
+174   -2.0000000
+175    1.6666667
+176   -0.3333333
+177   -2.0000000
+178    4.6666667
+179   -7.6666667
+180   -3.3333333
+181   -2.3333333
+182    9.0000000
+183    0.6666667
+184    0.3333333
+185   -2.6666667
+186    1.0000000
+187   -1.6666667
+188    4.0000000
+189    1.0000000
+190   -0.6666667
+191   -3.6666667
+192    7.3333333
+193    6.0000000
+194    6.6666667
+195   -6.6666667
+196   -0.3333333
+197  -10.0000000
+198   -5.0000000
+199   -5.3333333
+200    4.3333333
+201   -7.3333333
+202    2.0000000
+203    1.6666667
+204    5.3333333
+205    6.0000000
+206    3.0000000
+207    4.0000000
+208   -1.3333333
+209   -2.0000000
+210    2.6666667
+211   -2.6666667
+212  -14.3333333
+213   -0.6666667
+214    6.6666667
+215   -2.0000000
+216   -3.3333333
+217   -6.0000000
+218    8.6666667
+219   -4.0000000
+220   -1.6666667
+221    2.0000000
+222   -1.6666667
+223    0.6666667
+224   -8.3333333
+225    7.6666667
+226    2.0000000
+227   -0.6666667
+228    4.3333333
+229   11.6666667
+230    1.6666667
+231    0.3333333
+232    0.0000000
+233    4.6666667
+234   -3.3333333
+235   -3.6666667
+236   -3.6666667
+237    2.0000000
+238   11.3333333
+239   -3.6666667
+240    1.3333333
+241   -6.3333333
+242   -2.0000000
+243    0.6666667
+244    0.6666667
+245    0.0000000
+246   -6.6666667
+247   -3.0000000
+248    7.3333333
+249   -1.6666667
+250   -1.3333333
+251    1.3333333
+252   -1.0000000
+253    0.6666667
+254   -2.3333333
+255    5.6666667
+256    5.3333333
+257   -2.3333333
+258   -7.0000000
+259    5.3333333
+260    1.6666667
+261    3.0000000
+262   -5.3333333
+263    8.0000000
+264   -2.0000000
+265   -1.0000000
+266   -3.6666667
+267   12.6666667
+268   -1.3333333
+269    2.3333333
+270   -1.0000000
+271    2.6666667
+272   -2.6666667
+273   -3.3333333
+274   -1.6666667
+275    0.6666667
+276    0.0000000
+277   -1.6666667
+278    3.6666667
+279    1.6666667
+280    4.0000000
+281   -2.6666667
+282   -1.3333333
+283    7.6666667
+284    1.3333333
+285    7.3333333
+286    1.6666667
+287    1.6666667
+288    2.0000000
+289    1.6666667
+290    9.0000000
+291    2.6666667
+292   -1.3333333
+293    6.0000000
+294    1.6666667
+295   -5.0000000
+296    6.6666667
+297   -7.3333333
+298    2.0000000
+299   -0.3333333
+300   -7.3333333
+301    1.3333333
+302    4.6666667
+303    0.0000000
+304   -7.6666667
+305   -5.3333333
+306    1.6666667
+307    0.3333333
+308   -0.6666667
+309    0.3333333
+310   -1.0000000
+311    0.3333333
+312    5.0000000
+313    0.6666667
+314    1.0000000
+315    1.3333333
+316    1.3333333
+317   -2.0000000
+318    0.6666667
+319    2.0000000
+320    7.6666667
+321    3.0000000
+322    1.0000000
+323    2.3333333
+324    3.6666667
+325    4.0000000
+326    4.0000000
+327    5.0000000
+328   -3.0000000
+329    4.0000000
+330   -2.6666667
+331    0.6666667
+332    3.0000000
+333    0.3333333
+334   -0.6666667
+335   -7.3333333
+336   -1.6666667
+337    7.6666667
+338   -3.3333333
+339    0.3333333
+340    4.0000000
+341    6.0000000
+342   -6.6666667
+343   -6.3333333
+344   -4.0000000
+345   -9.3333333
+346   -3.3333333
+347    2.6666667
+348    3.0000000
+349   -8.0000000
+350    0.6666667
+351   -4.0000000
+352    3.3333333
+353    2.6666667
+354   -2.0000000
+355    7.6666667
+356    0.0000000
+357   -3.0000000
+358    2.3333333
+359    1.3333333
+360    1.6666667
+361    3.0000000
+362   -3.6666667
+363   -0.3333333
+364   -2.3333333
+365   -2.3333333
+366    1.0000000
+367   -5.3333333
+368    6.6666667
+369    6.6666667
+370    4.6666667
+371    2.6666667
+372   -5.3333333
+373   -3.6666667
+374    5.6666667
+375    1.3333333
+376   -0.3333333
+377   10.3333333
+378   -5.3333333
+379    5.0000000
+380   -3.3333333
+381    0.0000000
+382   -6.3333333
+383   -2.3333333
+384   -5.6666667
+385    0.0000000
+386   -1.0000000
+387    6.6666667
+388    4.3333333
+389    2.6666667
+390    0.0000000
+391    9.3333333
+392   -4.6666667
+393   10.0000000
+394   -7.6666667
+395    4.3333333
+396  -10.3333333
+397   -2.6666667
+398    7.6666667
+399   -4.0000000
+400   -4.6666667
+401    2.6666667
+402   -3.0000000
+403    0.3333333
+404    0.6666667
+405    1.3333333
+406   -4.6666667
+407    3.0000000
+408   -0.6666667
+409    3.3333333
+410    3.3333333
+411    9.3333333
+412   -1.6666667
+413    3.6666667
+414   -7.0000000
+415   -3.0000000
+416    4.0000000
+417   -0.3333333
+418   -1.6666667
+419    3.3333333
+420   -1.6666667
+421    1.3333333
+422   -3.3333333
+423   10.3333333
+424   -8.0000000
+425   -3.0000000
+426    1.6666667
+427    9.6666667
+428   -4.0000000
+429    1.3333333
+430    5.3333333
+431    1.0000000
+432    7.0000000
+433   -9.0000000
+434   -0.3333333
+435    3.3333333
+436    6.6666667
+437   -2.6666667
+438    2.3333333
+439   -3.6666667
+440   -4.3333333
+441   -6.3333333
+442    2.6666667
+443    0.3333333
+444    6.0000000
+445    1.0000000
+446   -6.0000000
+447    4.0000000
+448    9.6666667
+449    4.0000000
+450    2.0000000
+451   -0.3333333
+452   -5.6666667
+453    4.3333333
+454    1.3333333
+455   -1.3333333
+456    5.0000000
+457   -4.3333333
+458    1.6666667
+459   -4.6666667
+460   -2.6666667
+461    0.6666667
+462   -1.0000000
+463    5.6666667
+464   -0.3333333
+465  -10.3333333
+466   -8.6666667
+467   -5.0000000
+468   -0.6666667
+469   -5.3333333
+470   -5.6666667
+471   -5.0000000
+472   -5.0000000
+473    1.0000000
+474   -4.6666667
+475    2.6666667
+476   -6.0000000
+477    0.0000000
+478    7.6666667
+479    7.3333333
+480    9.3333333
+481    0.3333333
+482   -2.0000000
+483   -6.0000000
+484    4.0000000
+485    3.6666667
+486   -4.0000000
+487    1.0000000
+488    4.6666667
+489   -8.3333333
+490    1.6666667
+491   -2.6666667
+492   -1.6666667
+493   -2.0000000
+494  -10.0000000
+495   -0.6666667
+496    2.3333333
+497    3.0000000
+498    2.0000000
+499   -5.6666667
+500   -2.3333333
+501    4.0000000
+502    4.6666667
+503    3.6666667
+504   -4.3333333
+505    4.6666667
+506   -7.6666667
+507    9.0000000
+508   -1.0000000
+509    1.0000000
+510    1.3333333
+511    5.6666667
+512    0.3333333
+513   -3.0000000
+514   -0.6666667
+515    6.0000000
+516    4.3333333
+517    0.3333333
+518   -2.0000000
+519   -1.6666667
+520    1.6666667
+521   -1.3333333
+522    0.3333333
+523    1.3333333
+524   -3.0000000
+525    6.6666667
+526    6.6666667
+527   -3.6666667
+528    1.6666667
+529    7.6666667
+530    3.0000000
+531    9.0000000
+532   -2.6666667
+533    5.0000000
+534   -5.0000000
+535   -8.3333333
+536    8.6666667
+537    7.0000000
+538    4.6666667
+539   10.6666667
+540    0.3333333
+541   -3.6666667
+542    3.3333333
+543    3.6666667
+544   -0.6666667
+545   -6.0000000
+546    5.0000000
+547   -4.0000000
+548    6.3333333
+549   -0.3333333
+550    0.3333333
+551   -2.0000000
+552   -3.3333333
+553   -1.0000000
+554    2.6666667
+555    7.3333333
+556    5.3333333
+557   -5.3333333
+558    0.6666667
+559    4.3333333
+560   -8.6666667
+561   -2.0000000
+562   -7.6666667
+563   -1.6666667
+564    2.6666667
+565   -3.6666667
+566   -0.6666667
+567    2.6666667
+568   -8.6666667
+569   -2.6666667
+570    2.3333333
+571   -5.6666667
+572   -8.0000000
+573    5.6666667
+574   -1.6666667
+575   -4.6666667
+576    0.3333333
+577   -6.6666667
+578    5.3333333
+579    6.3333333
+580    4.6666667
+581   -3.3333333
+582   -0.6666667
+583    0.6666667
+584    3.3333333
+585    5.6666667
+586    8.3333333
+587   -7.6666667
+588   -2.0000000
+589   -4.0000000
+590    1.6666667
+591    0.6666667
+592   -7.6666667
+593    8.0000000
+594    9.6666667
+595    2.3333333
+596   -8.0000000
+597   -1.3333333
+598   -0.3333333
+599    2.0000000
+600   -3.0000000
+601    2.6666667
+602    8.0000000
+603    4.6666667
+604   -4.6666667
+605    1.0000000
+606   -2.6666667
+607    1.0000000
+608    4.3333333
+609   -8.0000000
+610    1.3333333
+611   -5.0000000
+612   -0.6666667
+613    6.0000000
+614    0.3333333
+615   -7.6666667
+616   -3.6666667
+617   -7.0000000
+618   -3.6666667
+619  -11.3333333
+620    7.6666667
+621   -9.3333333
+622   -6.6666667
+623   -4.3333333
+624   -2.3333333
+625    0.3333333
+626    7.3333333
+627   -2.0000000
+628   -1.3333333
+629    1.0000000
+630    2.3333333
+631   -2.0000000
+632    4.0000000
+633    0.3333333
+634   -3.6666667
+635    3.6666667
+636   -0.6666667
+637   -3.6666667
+638    6.0000000
+639    2.0000000
+640   -3.6666667
+641    3.6666667
+642   -5.6666667
+643    1.0000000
+644   -4.3333333
+645  -12.0000000
+646    1.3333333
+647    2.0000000
+648   -3.0000000
+649   -4.0000000
+650    4.6666667
+651   -1.0000000
+652   -1.0000000
+653    1.6666667
+654   -0.3333333
+655    8.6666667
+656   -5.6666667
+657   -8.3333333
+658   -3.3333333
+659   -1.0000000
+660   -4.0000000
+661   -2.3333333
+662    2.0000000
+663    5.6666667
+664   -5.3333333
+665   -5.6666667
+666    0.3333333
+667    8.3333333
+668   -5.6666667
+669   -5.0000000
+670   -1.3333333
+671    6.0000000
+672   -2.0000000
+673    5.0000000
+674    1.3333333
+675    8.6666667
+676   -3.0000000
+677    8.3333333
+678   -3.3333333
+679    2.0000000
+680    4.0000000
+681    6.3333333
+682    1.0000000
+683    8.6666667
+684   -1.0000000
+685    4.3333333
+686   -5.6666667
+687   -1.0000000
+688    5.0000000
+689    7.3333333
+690    3.3333333
+691   -2.0000000
+692   -4.6666667
+693    2.0000000
+694    6.0000000
+695   -1.0000000
+696    2.0000000
+697    5.3333333
+698   -9.6666667
+699   -6.0000000
+700   -2.0000000
+701    4.6666667
+702   -4.0000000
+703    3.0000000
+704    1.6666667
+705   -7.6666667
+706   -1.0000000
+707   -4.3333333
+708   10.6666667
+709   -0.3333333
+710    0.6666667
+711    8.3333333
+712   -4.0000000
+713    6.3333333
+714    5.6666667
+715   -8.3333333
+716    3.6666667
+717    2.0000000
+718    2.6666667
+719  -10.3333333
+720    2.0000000
+721   -4.3333333
+722    2.6666667
+723    9.0000000
+724   -8.0000000
+725    6.0000000
+726   -7.6666667
+727    3.0000000
+728   -3.6666667
+729    2.0000000
+730    5.3333333
+731    1.3333333
+732   -2.3333333
+733   -6.6666667
+734    7.6666667
+735   -5.3333333
+736   -3.6666667
+737   -8.3333333
+738    0.0000000
+739   -6.0000000
+740    9.3333333
+741    1.3333333
+742   -5.6666667
+743   -3.6666667
+744   -6.6666667
+745   -6.0000000
+746   -4.6666667
+747   -4.3333333
+748   -3.3333333
+749    2.3333333
+750   -1.0000000
+751   -1.3333333
+752   -3.3333333
+753   -0.6666667
+754    1.3333333
+755    2.0000000
+756   -6.6666667
+757    1.3333333
+758   -0.3333333
+759    6.0000000
+760   -6.0000000
+761    2.0000000
+762    0.3333333
+763   -4.0000000
+764   -2.6666667
+765    0.6666667
+766    5.6666667
+767   -7.0000000
+768    2.0000000
+769   -0.3333333
+770    5.0000000
+771    1.0000000
+772   -1.0000000
+773    2.3333333
+774    2.0000000
+775    7.0000000
+776    4.0000000
+777   -3.0000000
+778   -0.6666667
+779   -8.6666667
+780    2.6666667
+781    2.6666667
+782    3.3333333
+783    5.6666667
+784   -6.0000000
+785    7.6666667
+786    1.3333333
+787  -12.3333333
+788   -1.3333333
+789    2.0000000
+790   -2.3333333
+791    5.0000000
+792    2.3333333
+793   -2.6666667
+794    0.6666667
+795    6.3333333
+796    5.6666667
+797    2.6666667
+798   -5.6666667
+799   -6.0000000
+800   -1.6666667
+801   -7.0000000
+802   -4.0000000
+803   -8.0000000
+804   -2.0000000
+805   -4.0000000
+806    2.0000000
+807    2.0000000
+808   -3.6666667
+809    3.6666667
+810    1.0000000
+811   -5.3333333
+812   -2.6666667
+813    2.3333333
+814    4.0000000
+815    6.6666667
+816   -2.6666667
+817   -1.6666667
+818   -3.6666667
+819    0.6666667
+820    0.0000000
+821   -7.3333333
+822    3.0000000
+823    2.6666667
+824    2.3333333
+825   -4.6666667
+826    5.3333333
+827    5.3333333
+828   -6.0000000
+829   10.3333333
+830   -8.3333333
+831   -2.3333333
+832   -2.3333333
+833   -2.3333333
+834   15.3333333
+835   -9.3333333
+836   -7.0000000
+837    0.3333333
+838    1.0000000
+839   -7.3333333
+840   -7.3333333
+841    1.3333333
+842    0.6666667
+843   -5.3333333
+844   -0.6666667
+845   -1.6666667
+846    3.6666667
+847   -4.0000000
+848    0.6666667
+849   -0.3333333
+850    0.6666667
+851   -0.6666667
+852    5.0000000
+853    3.6666667
+854    1.6666667
+855    4.3333333
+856   -1.0000000
+857   -2.0000000
+858    0.6666667
+859    1.3333333
+860    0.6666667
+861    6.6666667
+862    3.6666667
+863    2.3333333
+864    3.3333333
+865    8.6666667
+866    8.3333333
+867   -1.6666667
+868   -2.6666667
+869    3.3333333
+870   -4.0000000
+871    1.3333333
+872    0.0000000
+873   -2.0000000
+874    3.0000000
+875    6.6666667
+876   -1.0000000
+877   -0.6666667
+878    4.0000000
+879    0.0000000
+880    4.6666667
+881   -1.0000000
+882    1.6666667
+883   -4.6666667
+884    0.3333333
+885   -2.0000000
+886    1.3333333
+887    1.0000000
+888   -1.6666667
+889    0.6666667
+890    0.0000000
+891   -2.3333333
+892    3.0000000
+893   -3.6666667
+894   -5.6666667
+895   -9.0000000
+896    3.0000000
+897   -2.3333333
+898    4.3333333
+899    3.6666667
+900    3.3333333
+901    5.3333333
+902    0.0000000
+903    5.6666667
+904   -4.3333333
+905   -1.0000000
+906    4.3333333
+907   -4.6666667
+908   -1.3333333
+909    3.0000000
+910   10.0000000
+911  -11.0000000
+912    5.0000000
+913    3.0000000
+914    4.6666667
+915   -7.3333333
+916    3.3333333
+917   -1.6666667
+918    2.6666667
+919    2.3333333
+920   -2.3333333
+921    8.6666667
+922   -0.3333333
+923   -0.6666667
+924    2.6666667
+925   -0.6666667
+926   10.6666667
+927    4.6666667
+928    2.0000000
+929    8.6666667
+930    5.0000000
+931    2.0000000
+932    1.3333333
+933    4.0000000
+934   -0.3333333
+935   -6.0000000
+936   -1.3333333
+937   -3.6666667
+938   -5.6666667
+939    2.3333333
+940    0.3333333
+941   -2.3333333
+942   -0.3333333
+943   -7.6666667
+944   -2.0000000
+945   -6.3333333
+946   -4.3333333
+947   -6.0000000
+948    8.0000000
+949   -2.0000000
+950   -5.3333333
+951   -6.3333333
+952    0.0000000
+953    5.0000000
+954   -4.3333333
+955    0.0000000
+956   -0.3333333
+957    3.0000000
+958    2.3333333
+959    3.0000000
+960   -8.0000000
+961    3.0000000
+962   -4.0000000
+963    1.6666667
+964    0.6666667
+965    1.3333333
+966   -4.0000000
+967    1.6666667
+968   -4.0000000
+969    7.0000000
+970   -7.3333333
+971   -6.6666667
+972   -2.6666667
+973   -4.0000000
+974   -2.6666667
+975    7.0000000
+976    6.3333333
+977   -3.0000000
+978    6.6666667
+979   -4.0000000
+980   -3.0000000
+981    1.3333333
+982   -4.6666667
+983   -1.0000000
+984    0.6666667
+985    4.3333333
+986   -6.6666667
+987   -1.3333333
+988   -9.0000000
+989   -6.3333333
+990    4.6666667
+991    8.3333333
+992   -1.6666667
+993    0.0000000
+994   -1.6666667
+995    0.0000000
+996    7.3333333
+997   -1.0000000
+998  -13.6666667
+999    4.0000000
+1000  -2.6666667</code></pre>
+</div>
+</div>
+<p>The permutation test comparing the tipping behaviour between males and females was conducted by randomly shuffling the gender labels 1,000 times and calculating the difference in mean tip amounts for each shuffle. The resulting distribution of differences varied around zero, with values like -7.33, 1.00, -2.00, and 3.66 observed. This distribution suggests that any observed difference in tipping behaviour between males and females could largely be attributed to random variation, rather than a true underlying difference in tipping habits based on gender.</p>
+</section>
+<section id="plotting-the-results-of-the-permutation-test-1" class="level3">
+<h3 class="anchored" data-anchor-id="plotting-the-results-of-the-permutation-test-1">Plotting the results of the Permutation Test</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gf_histogram</span>(<span class="sc">~</span> diffmean, <span class="at">data =</span> perm_test_gender, <span class="at">bins =</span> <span class="dv">30</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(</span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Permutation Test for Tipping Differences: Males vs. Females"</span>,</span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Difference in Mean Tip Amount"</span>,</span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Count"</span></span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The permutation test for tipping differences between males and females shows a symmetric distribution centered around zero. The differences in mean tipping amounts vary from approximately -10 to 10 rupees. This indicates that, based on the resampled data, the observed differences in tipping between males and females are likely due to random chance. The distribution does not suggest a strong or consistent difference in tipping behaviour between the two genders.</p>
+</section>
+<section id="observed-difference-for-males-vs-females" class="level3">
+<h3 class="anchored" data-anchor-id="observed-difference-for-males-vs-females">Observed difference for Males vs Females</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>observed_diff_gender <span class="ot">&lt;-</span> <span class="fu">diffmean</span>(Tip <span class="sc">~</span> Gender, <span class="at">data =</span> tip_modified)</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>observed_diff_gender</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>diffmean 
+      -2 </code></pre>
+</div>
+</div>
+<p>The observed difference in mean tips between males and females is -2 rupees. This indicates that, on average, males tend to tip 2 rupees less than females in the dataset.</p>
+</section>
+<section id="calculating-the-p-value-1" class="level3">
+<h3 class="anchored" data-anchor-id="calculating-the-p-value-1">Calculating the p-value</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>p_value_gender <span class="ot">&lt;-</span> <span class="fu">prop</span>(<span class="sc">~</span> (<span class="fu">abs</span>(diffmean) <span class="sc">&gt;=</span> <span class="fu">abs</span>(observed_diff_gender)), <span class="at">data =</span> perm_test_gender)</span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>p_value_gender</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>prop_TRUE 
+    0.699 </code></pre>
+</div>
+</div>
+<p>The permutation test conducted to assess the difference in tipping behaviour between males and females resulted in a p-value of 0.697. This p-value is quite high, indicating that the observed difference in mean tips between males and females (-2 rupees) is not statistically significant. In other words, there is a 69.7% probability that the observed difference could have occurred by random chance. Therefore, we do not have enough evidence to conclude that there is a significant difference in tipping behaviour between males and females based on this dataset.</p>
+</section>
+<section id="summary-of-results-for-the-tipping-behaviour-research-experiment" class="level3">
+<h3 class="anchored" data-anchor-id="summary-of-results-for-the-tipping-behaviour-research-experiment">Summary of Results for the Tipping Behaviour Research Experiment</h3>
+<p>The research experiment aimed to determine if there was a significant difference in tipping behaviour between vegetarians and non-vegetarians, and between male and female students at MAHE Bengaluru. The following statistical tests were conducted:</p>
+<p><strong>Two-Sample t-Test (Welch’s t-test):</strong></p>
+<ol type="1">
+<li><p><strong>Vegetarians vs.&nbsp;Non-Vegetarians</strong>: The two-sample t-test comparing the mean tip amounts between vegetarians and non-vegetarians resulted in a p-value of 0.6169. This indicates no statistically significant difference in the average tip amount between the two dietary groups, as the p-value is much higher than the typical threshold of 0.05.</p></li>
+<li><p><strong>Males vs.&nbsp;Females</strong>: The t-test comparing the mean tip amounts between males and females resulted in a p-value of 0.6679. This also suggests no significant difference in tipping behaviour based on gender.</p></li>
+</ol>
+<p><strong>Wilcoxon Rank-Sum Test:</strong></p>
+<ol type="1">
+<li><p><strong>Vegetarians vs.&nbsp;Non-Vegetarians</strong>: The Wilcoxon test, a non-parametric alternative to the t-test, resulted in a p-value of 0.8327. This further supports the t-test results, indicating no significant difference between vegetarians and non-vegetarians in terms of tipping behaviour.</p></li>
+<li><p><strong>Males vs.&nbsp;Females</strong>: The Wilcoxon test comparing males and females resulted in a p-value of 0.4221, which also suggests no statistically significant difference between the two genders.</p></li>
+</ol>
+<p><strong>Permutation Test:</strong></p>
+<ol type="1">
+<li><p><strong>Vegetarians vs.&nbsp;Non-Vegetarians</strong>: The permutation test comparing tipping behaviour between vegetarians and non-vegetarians resulted in a p-value of 0.675, confirming that the observed difference in mean tip amounts of approximately 2.33 rupees is likely due to random variation and not a significant underlying difference.</p></li>
+<li><p><strong>Males vs.&nbsp;Females</strong>: The permutation test for tipping differences between males and females resulted in a p-value of 0.697. The observed difference in mean tip amounts (-2 rupees, with females tipping slightly more on average) is also likely due to random variation.</p></li>
+</ol>
+</section>
+<section id="conclusion" class="level3">
+<h3 class="anchored" data-anchor-id="conclusion">Conclusion:</h3>
+<p>Based on the results of these tests, there is no evidence to suggest that either dietary preference (vegetarian vs.&nbsp;non-vegetarian) or gender (male vs.&nbsp;female) significantly impacts tipping behaviour in this dataset. The high p-values across all tests indicate that the observed differences in tipping amounts are likely due to chance. Therefore, the initial hypotheses that non-vegetarians might tip more than vegetarians, or that one gender tips more than the other, are not supported by the data.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
